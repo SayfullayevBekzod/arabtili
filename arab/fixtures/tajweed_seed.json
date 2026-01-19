@@ -1,0 +1,159 @@
+[
+  {
+    "model": "arab.tajweedrule",
+    "pk": 1,
+    "fields": {
+      "slug": "tajvid-ilmi",
+      "title": "1-dars: Tajvid ilmi",
+      "short_desc": "Tajvid nima va hukmi",
+      "explanation": "Tajvid — Qur’on harflarini o‘z makhraj va sifatlariga rioya qilib o‘qish qoidalari. Tajvidni o‘rganish umumiy jihatdan zarur (farzi kifoya), Qur’onni tajvid qoidalariga amal qilib o‘qish esa har bir o‘quvchi uchun mas’uliyatli amal (farzi ayn) sifatida tushuntiriladi.",
+      "level": "A0",
+      "is_published": true
+
+    }
+  },
+  {
+    "model": "arab.tajweedrule",
+    "pk": 2,
+    "fields": {
+      "slug": "lahn",
+      "title": "2-dars: Lahn (xato tilovat)",
+      "short_desc": "Tilovatdagi xatolar turlari",
+      "explanation": "Lahn — Qur’on o‘qishda xato qilish. Odatda ochiq (ma’noni buzadigan) va yashirin (qiroat tartibini buzadigan) ko‘rinishlarda ta’riflanadi. Ochiq xatoga bilib turib yo‘l qo‘yish og‘ir holat sanaladi.",
+      "level": "A0",
+      "is_published": true
+    }
+  },
+  {
+    "model": "arab.tajweedrule",
+    "pk": 3,
+    "fields": {
+      "slug": "qiroat-tezliklari",
+      "title": "3-dars: Qiroat tezliklari",
+      "short_desc": "Tahqiq, hadr, tadvir",
+      "explanation": "Qiroat turli tezlikda bo‘lishi mumkin: sekin va aniq o‘qish (tahqiq), tez o‘qish (hadr), o‘rtacha tezlik (tadvir). Qaysi tezlik bo‘lmasin, harflar talaffuzi va qoidalar buzilmasligi kerak.",
+      "level": "A0",
+      "is_published": true
+    }
+  },
+  {
+    "model": "arab.tajweedrule",
+    "pk": 4,
+    "fields": {
+      "slug": "makhrajlar",
+      "title": "4-dars: Harflarning makhrajlari",
+      "short_desc": "17 makhraj va 5 a’zo",
+      "explanation": "Makhraj — harf tovushi chiqadigan joy. Amaliy tajvidda makhrajlar jami 17 ta deb o‘rgatiladi va ular 5 asosiy a’zoga taqsimlanadi: og‘iz bo‘shlig‘i (javf), halqum, til, lab, dimog‘ (g‘unna yo‘li).",
+      "level": "A1",
+      "is_published": true
+    }
+  },
+  {
+    "model": "arab.tajweedrule",
+    "pk": 5,
+    "fields": {
+      "slug": "sifatlar",
+      "title": "5-dars: Harflarning sifatlari",
+      "short_desc": "Zidli va zidsiz sifatlar",
+      "explanation": "Sifat — harf talaffuz paytidagi xususiyat. Ba’zi sifatlar zidli juft bo‘ladi (masalan: ovozli/ovozsizga yaqin tushunchalar), ba’zilari esa mustaqil (qalqala kabi). Sifatlarni bilish talaffuzni to‘g‘rilaydi.",
+      "level": "A1",
+      "is_published": true
+    }
+  },
+  {
+    "model": "arab.tajweedrule",
+    "pk": 6,
+    "fields": {
+      "slug": "ro-qoidalari",
+      "title": "6-dars: Ro (ر) harfi qoidalari",
+      "short_desc": "Tafxim va tarqiq",
+      "explanation": "Ro harfi ayrim holatlarda qalin (tafxim), ayrim holatlarda ingichka (tarqiq) o‘qiladi. Odatda harakat turi (fatha/damma/kasra) va atrofidagi harflar holati hisobga olinadi.",
+      "level": "A1",
+      "is_published": true
+    }
+  },
+  {
+    "model": "arab.tajweedrule",
+    "pk": 7,
+    "fields": {
+      "slug": "lafzi-jalola",
+      "title": "7-dars: Lafzi Jalola",
+      "short_desc": "Alloh lafzining o‘qilishi",
+      "explanation": "“Alloh” lafzi ko‘pincha undan oldingi harakatga qarab qalin yoki ingichka o‘qiladi: fatha/damma oldidan qalinroq, kasra oldidan ingichkaroq talaffuz qilish qoidasi keltiriladi.",
+      "level": "A0",
+      "is_published": true
+    }
+  },
+  {
+    "model": "arab.tajweedrule",
+    "pk": 8,
+    "fields": {
+      "slug": "nun-tanvin",
+      "title": "8-dars: Sukunli nun va tanvin qoidalari",
+      "short_desc": "Izhor, idg‘om, iqlob, ixfo",
+      "explanation": "Nun sokin va tanvin uchraganda keyingi harfga qarab bir necha hukm bo‘ladi: ochiq aytish (izhor), qo‘shib yuborish (idg‘om), aylantirish (iqlob), yashirib o‘qish (ixfo).",
+      "level": "A2",
+      "is_published": true
+    }
+  },
+  {
+    "model": "arab.tajweedrule",
+    "pk": 9,
+    "fields": {
+      "slug": "mim-sukun",
+      "title": "9-dars: Sukunli mim qoidalari",
+      "short_desc": "Shafaviy hukmlar",
+      "explanation": "Mim sokin kelganda ham keyingi harfga qarab hukmlar bo‘ladi: aniq aytish (izhor shafaviy), yashirib o‘qish (ixfo shafaviy), qo‘shib yuborish (idg‘om shafaviy).",
+      "level": "A2",
+      "is_published": true
+    }
+  },
+  {
+    "model": "arab.tajweedrule",
+    "pk": 10,
+    "fields": {
+      "slug": "mad-qoidalari",
+      "title": "10-dars: Mad qoidalari",
+      "short_desc": "Cho‘zish turlari",
+      "explanation": "Mad — cho‘zib o‘qish. Eng ko‘p uchraydiganlar: tabiiy mad, hamza sabab bo‘ladigan turlar, sukun sabab bo‘ladigan turlar va to‘xtash bilan bog‘liq holatlar. Cho‘zish miqdori qoida turiga qarab farq qiladi.",
+      "level": "A2",
+      "is_published": true
+    }
+  },
+  {
+    "model": "arab.tajweedrule",
+    "pk": 11,
+    "fields": {
+      "slug": "idgom-turlari",
+      "title": "11-dars: Idg‘om turlari",
+      "short_desc": "Mislayn, mutajonisayn, mutaqoribayn",
+      "explanation": "Idg‘om — ikki harfni talaffuzda qo‘shib yuborish. Harflar o‘xshashligiga qarab mislayn, bir-biriga yaqin shakldagi mutajonisayn va talaffuzi yaqin mutaqoribayn kabi bo‘limlarga ajratib o‘rgatiladi.",
+      "level": "A2",
+      "is_published": true
+    }
+  },
+  {
+    "model": "arab.tajweedrule",
+    "pk": 12,
+    "fields": {
+      "slug": "waqf-ibtido-sakta",
+      "title": "12-dars: Waqf, ibtido, sakta",
+      "short_desc": "To‘xtash va boshlash qoidalari",
+      "explanation": "Waqf — to‘xtash, ibtido — qayta boshlash. Ma’no buzilib ketmasligi uchun to‘xtash joyi muhim. Sakta esa juda qisqa pauza bo‘lib, ayrim o‘rinlarda qo‘llanadi.",
+      "level": "B1",
+      "is_published": true
+    }
+  },
+  {
+    "model": "arab.tajweedrule",
+    "pk": 13,
+    "fields": {
+      "slug": "nabr",
+      "title": "13-dars: Nabr",
+      "short_desc": "Urg‘u va talaffuz ohangi",
+      "explanation": "Nabr — o‘qishda urg‘u/ohangni to‘g‘ri qo‘llashga oid mavzu. Odatda talaffuz ravonligi va tinglovchiga tushunarli o‘qish bilan bog‘lab tushuntiriladi.",
+      "level": "B1",
+      "is_published": true
+    }
+  }
+]

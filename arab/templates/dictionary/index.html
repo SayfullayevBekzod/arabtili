@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+{% block title %}Lug‘at{% endblock %}
+{% block content %}
+
+<!-- HERO / SEARCH -->
+<section class="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-6 md:p-10">
+  <div class="pointer-events-none absolute -top-32 -left-32 h-80 w-80 rounded-full bg-emerald-400/15 blur-3xl"></div>
+  <div class="pointer-events-none absolute -bottom-32 -right-32 h-80 w-80 rounded-full bg-sky-400/15 blur-3xl"></div>
+
+  <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-5">
+    <div>
+      <div class="text-xs text-slate-400">Dictionary • Qur’on lug‘ati</div>
+      <h1 class="mt-1 text-3xl md:text-5xl font-black">📚 Lug‘at</h1>
+      <p class="mt-2 text-slate-300 text-sm max-w-2xl leading-relaxed">
+        So‘z, translit, UZ/RU ma’no bo‘yicha qidirish. Masalan: <span class="text-slate-200">بيت</span>, <span class="text-slate-200">bayt</span>, <span class="text-slate-200">uy</span>.
+      </p>
+
+      <div class="mt-5 flex flex-wrap gap-2 text-xs">
+        <span class="rounded-2xl border border-white/10 bg-slate-950/40 px-3 py-2 text-slate-300">✅ Arabic</span>
+        <span class="rounded-2xl border border-white/10 bg-slate-950/40 px-3 py-2 text-slate-300">✅ Transliteration</span>
+        <span class="rounded-2xl border border-white/10 bg-slate-950/40 px-3 py-2 text-slate-300">✅ UZ/RU</span>
+      </div>
+    </div>
+
+    <div class="rounded-3xl border border-white/10 bg-slate-950/40 px-4 py-3 text-sm text-slate-300 self-start">
+      <div class="text-xs text-slate-400">Qidiruv</div>
+      <div class="mt-1">
+        {% if q %}<span class="text-white font-semibold">“{{ q }}”</span>{% else %}—{% endif %}
+        {% if cat %}<span class="text-slate-400"> • </span><span class="text-slate-200">cat: {{ cat }}</span>{% endif %}
+      </div>
+    </div>
+  </div>
+
+  <!-- Search form -->
+  <form method="get" class="mt-6 grid grid-cols-1 md:grid-cols-12 gap-3">
+    <div class="md:col-span-6">
+      <label class="text-xs text-slate-400">So‘z / translit / ma’no</label>
+      <div class="mt-2 relative">
+        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </span>
+        <input name="q" value="{{ q }}" placeholder="Qidiruv: بيت, bayt, uy..."
+               class="w-full rounded-2xl border border-white/10 bg-black/30 pl-11 pr-4 py-3 text-sm outline-none
+                      focus:ring-2 focus:ring-white/20 focus:border-white/20 transition"/>
+      </div>
+    </div>
+
+    <div class="md:col-span-4">
+      <label class="text-xs text-slate-400">Kategoriya (ixtiyoriy)</label>
+      <div class="mt-2 relative">
+        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">
+          <i class="fa-solid fa-tags"></i>
+        </span>
+        <input name="cat" value="{{ cat }}" placeholder="Masalan: Uy va oila"
+               class="w-full rounded-2xl border border-white/10 bg-black/30 pl-11 pr-4 py-3 text-sm outline-none
+                      focus:ring-2 focus:ring-white/20 focus:border-white/20 transition"/>
+      </div>
+    </div>
+
+    <div class="md:col-span-2 flex items-end gap-2">
+      <button class="w-full rounded-2xl bg-white text-slate-950 px-6 py-3 text-sm font-semibold hover:bg-slate-200 transition">
+        Qidirish
+      </button>
+
+      <a href="/dictionary/"
+         class="hidden md:inline-flex rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm hover:bg-white/10 transition">
+        Clear
+      </a>
+    </div>
+  </form>
+
+  <!-- Quick chips (UI only) -->
+  <div class="mt-5 flex flex-wrap gap-2 text-xs text-slate-300">
+    <span class="rounded-2xl border border-white/10 bg-white/5 px-3 py-2">Tip: arabcha yozsang tez topadi</span>
+    <span class="rounded-2xl border border-white/10 bg-white/5 px-3 py-2">Tip: cat orqali filter qil</span>
+    <span class="rounded-2xl border border-white/10 bg-white/5 px-3 py-2">Tip: translit: bayt, kitab…</span>
+  </div>
+</section>
+
+<!-- RESULTS -->
+<div class="mt-6">
+  <div class="flex items-center justify-between mb-3">
+    <div class="text-sm text-slate-400">
+      Natijalar:
+      <span class="text-slate-200 font-semibold">{{ words|length }}</span>
+    </div>
+  </div>
+
+  <div class="grid md:grid-cols-2 gap-4">
+    {% for w in words %}
+      <div class="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-6 transition-all duration-300
+                  hover:bg-white/10 hover:-translate-y-1 hover:border-white/20" dir="rtl">
+
+        <span class="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition
+                     bg-gradient-to-tr from-transparent via-white/10 to-transparent"></span>
+
+        <div class="flex items-start justify-between gap-4">
+          <div class="arabic-font text-4xl md:text-5xl font-black text-white">
+            {{ w.arabic }}
+          </div>
+
+          <div class="flex items-center gap-2 [direction:ltr]">
+            {% if w.category %}
+              <div class="text-[11px] rounded-full border border-white/10 bg-slate-950/40 px-3 py-1 text-slate-200">
+                {{ w.category.name }}
+              </div>
+            {% endif %}
+
+            <button type="button"
+                    class="copyBtn rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-xs text-slate-300 hover:bg-white/10 transition"
+                    data-copy="{{ w.arabic }}">
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <div class="mt-3 text-sm text-slate-300 [direction:ltr]">
+          {{ w.transliteration|default:"—" }}
+        </div>
+
+        <div class="mt-3 rounded-2xl border border-white/10 bg-slate-950/40 p-4 [direction:ltr]">
+          <div class="text-xs text-slate-400">Ma’nolar</div>
+          <div class="mt-2 text-sm text-slate-200">
+            UZ: <span class="text-white font-semibold">{{ w.translation_uz|default:"—" }}</span>
+          </div>
+          <div class="mt-1 text-sm text-slate-300">
+            RU: <span class="text-slate-100 font-semibold">{{ w.translation_ru|default:"—" }}</span>
+          </div>
+        </div>
+
+        <div class="mt-4 flex items-center justify-between text-xs text-slate-400 [direction:ltr]">
+          <span>So‘z kartasi</span>
+          <span class="transition group-hover:translate-x-1">→</span>
+        </div>
+
+      </div>
+    {% empty %}
+      <div class="rounded-3xl border border-white/10 bg-white/5 p-6 text-slate-300">
+        Hech narsa topilmadi. Boshqa so‘z yoki translit bilan urinib ko‘ring.
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+<script>
+  // Copy arabic word
+  document.querySelectorAll(".copyBtn").forEach(btn => {
+    btn.addEventListener("click", async () => {
+      const text = btn.dataset.copy || "";
+      try {
+        await navigator.clipboard.writeText(text);
+        const old = btn.textContent;
+        btn.textContent = "Copied!";
+        setTimeout(() => btn.textContent = old, 900);
+      } catch (e) {
+        console.error(e);
+      }
+    });
+  });
+</script>
+
+{% endblock %}

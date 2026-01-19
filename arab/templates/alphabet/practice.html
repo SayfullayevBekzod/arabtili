@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+{% block title %}Writing{% endblock %}
+{% block content %}
+
+<!-- Header -->
+<section class="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-6 md:p-10">
+  <div class="pointer-events-none absolute -top-32 -left-32 h-80 w-80 rounded-full bg-emerald-400/15 blur-3xl"></div>
+  <div class="pointer-events-none absolute -bottom-32 -right-32 h-80 w-80 rounded-full bg-sky-400/15 blur-3xl"></div>
+
+  <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
+    <div>
+      <div class="text-xs text-slate-400">Practice • Writing</div>
+      <h1 class="mt-1 text-3xl md:text-5xl font-black">
+        ✍️ {{ letter.name }} yozish
+      </h1>
+      <p class="mt-2 text-slate-300 text-sm max-w-2xl leading-relaxed">
+        Harfni yozishni mustahkamlash uchun mashq sahifasi. Hozircha canvas JS keyin qo‘shiladi.
+        Hozir esa shakllarini ko‘rib, yozishni ketma-ket bajarib boring.
+      </p>
+
+      <div class="mt-5 flex flex-wrap gap-2">
+        <span class="rounded-2xl border border-white/10 bg-slate-950/40 px-3 py-2 text-xs text-slate-300">✅ Shakllar</span>
+        <span class="rounded-2xl border border-white/10 bg-slate-950/40 px-3 py-2 text-xs text-slate-300">✅ Qadamlar</span>
+        <span class="rounded-2xl border border-white/10 bg-slate-950/40 px-3 py-2 text-xs text-slate-300">✅ Mustahkamlash</span>
+      </div>
+    </div>
+
+    <div class="flex gap-2">
+      <a href="/alphabet/"
+         class="rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-sm hover:bg-white/10 transition">
+        ← Alifboga
+      </a>
+      <a href="/letters/{{ letter.id }}/"
+         class="rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-sm hover:bg-white/10 transition">
+        Harf detail
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="mt-6 grid lg:grid-cols-3 gap-4">
+
+  <!-- MAIN PRACTICE PANEL -->
+  <section class="lg:col-span-2 rounded-3xl border border-white/10 bg-white/5 p-6">
+    <div class="flex items-center justify-between">
+      <div>
+        <div class="text-sm font-semibold text-white">Canvas mashq</div>
+        <div class="text-xs text-slate-400 mt-1">JS keyin qo‘shiladi (hozir preview + yo‘l-yo‘riq)</div>
+      </div>
+
+      <div class="rounded-2xl border border-white/10 bg-slate-950/40 px-3 py-2 text-xs text-slate-300">
+        Practice Mode
+      </div>
+    </div>
+
+    <div class="mt-5 rounded-3xl border border-white/10 bg-slate-950/40 p-8 text-center" dir="rtl">
+      <div class="arabic-font text-[110px] md:text-[140px] font-black leading-none text-white">
+        {{ letter.arabic }}
+      </div>
+      <div class="mt-3 text-xs text-slate-400 [direction:ltr]">
+        Harfni katta qilib ko‘ring va daftar/planchetda qayta-qayta yozing.
+      </div>
+
+      <!-- Placeholder for canvas -->
+      <div class="mt-6 rounded-3xl border border-dashed border-white/15 bg-white/5 p-10">
+        <div class="text-slate-300 text-sm">🖊️ Canvas yozish joyi (JS keyin)</div>
+        <div class="mt-2 text-xs text-slate-500">Bu joyga keyin draw/canvas qo‘shamiz</div>
+      </div>
+    </div>
+
+    <!-- Quick tips -->
+    <div class="mt-5 grid sm:grid-cols-3 gap-3">
+      <div class="rounded-2xl border border-white/10 bg-white/5 p-4 hover:bg-white/10 transition">
+        <div class="text-xs text-slate-400">Qadam 1</div>
+        <div class="mt-1 text-sm text-white font-semibold">Shaklni ko‘r</div>
+        <div class="mt-1 text-xs text-slate-400 leading-relaxed">Isolated/Initial/Medial/Final ko‘rinishlarini eslab qol.</div>
+      </div>
+      <div class="rounded-2xl border border-white/10 bg-white/5 p-4 hover:bg-white/10 transition">
+        <div class="text-xs text-slate-400">Qadam 2</div>
+        <div class="mt-1 text-sm text-white font-semibold">Sekin yoz</div>
+        <div class="mt-1 text-xs text-slate-400 leading-relaxed">Avval sekin, keyin tezlikni oshir.</div>
+      </div>
+      <div class="rounded-2xl border border-white/10 bg-white/5 p-4 hover:bg-white/10 transition">
+        <div class="text-xs text-slate-400">Qadam 3</div>
+        <div class="mt-1 text-sm text-white font-semibold">Takrorla</div>
+        <div class="mt-1 text-xs text-slate-400 leading-relaxed">10–20 marta yozib, keyin misolda ishlat.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RIGHT SIDEBAR -->
+  <aside class="rounded-3xl border border-white/10 bg-white/5 p-6" dir="rtl">
+    <div class="[direction:ltr]">
+      <div class="text-sm font-semibold text-white">Harf shakllari</div>
+      <div class="text-xs text-slate-400 mt-1">Yozishda ketma-ket: Isolated → Initial → Medial → Final</div>
+    </div>
+
+    <div class="mt-5 grid grid-cols-2 gap-3">
+      <div class="group rounded-2xl border border-white/10 bg-slate-950/40 p-4 text-center hover:bg-white/5 transition">
+        <div class="text-xs text-slate-400 [direction:ltr]">Isolated</div>
+        <div class="arabic-font text-4xl font-black mt-1 text-white group-hover:scale-110 transition">
+          {{ letter.isolated|default:letter.arabic }}
+        </div>
+      </div>
+      <div class="group rounded-2xl border border-white/10 bg-slate-950/40 p-4 text-center hover:bg-white/5 transition">
+        <div class="text-xs text-slate-400 [direction:ltr]">Final</div>
+        <div class="arabic-font text-4xl font-black mt-1 text-white group-hover:scale-110 transition">
+          {{ letter.final|default:letter.arabic }}
+        </div>
+      </div>
+      <div class="group rounded-2xl border border-white/10 bg-slate-950/40 p-4 text-center hover:bg-white/5 transition">
+        <div class="text-xs text-slate-400 [direction:ltr]">Initial</div>
+        <div class="arabic-font text-4xl font-black mt-1 text-white group-hover:scale-110 transition">
+          {{ letter.initial|default:letter.arabic }}
+        </div>
+      </div>
+      <div class="group rounded-2xl border border-white/10 bg-slate-950/40 p-4 text-center hover:bg-white/5 transition">
+        <div class="text-xs text-slate-400 [direction:ltr]">Medial</div>
+        <div class="arabic-font text-4xl font-black mt-1 text-white group-hover:scale-110 transition">
+          {{ letter.medial|default:letter.arabic }}
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-5 rounded-2xl border border-white/10 bg-white/5 p-4 [direction:ltr]">
+      <div class="text-xs text-slate-400">Maslahat</div>
+      <div class="mt-2 text-sm text-slate-200 leading-relaxed">
+        Harfni yozganda <span class="text-white font-semibold">qalam bosimini</span> bir xil ushlang.
+        Har bir shaklni alohida 5 marta yozib chiqing.
+      </div>
+    </div>
+  </aside>
+
+</div>
+
+{% endblock %}

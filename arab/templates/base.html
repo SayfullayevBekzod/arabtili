@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}Arab Academy{% endblock %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;700;900&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/a2e0e6adf3.js" crossorigin="anonymous"></script>
+
+  <style>
+    .arabic-font { font-family: "Noto Naskh Arabic", serif; }
+
+    .logo-glow{
+      box-shadow: 0 0 0 0 rgba(52,211,153,0);
+      transition: box-shadow .3s ease, transform .3s ease;
+    }
+    .group:hover .logo-glow{
+      box-shadow:
+        0 0 0 4px rgba(52,211,153,.14),
+        0 10px 40px rgba(56,189,248,.20);
+      transform: scale(1.05);
+    }
+
+    .mobile-link{
+      padding: 14px 16px;
+      border-radius: 1rem;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.04);
+      transition: all .25s;
+    }
+    .mobile-link:hover{
+      background: rgba(255,255,255,.12);
+      transform: translateX(4px);
+    }
+  </style>
+</head>
+
+<body class="bg-slate-950 text-white font-['Inter'] selection:bg-emerald-400/30">
+
+<!-- HEADER -->
+<header class="sticky top-3 z-50">
+  <div class="mx-auto w-[min(1150px,92%)]">
+    <div
+      class="
+        flex items-center justify-between gap-3
+        rounded-3xl
+        border border-white/10
+        bg-slate-950/30
+        backdrop-blur-xl
+        px-4 sm:px-6 py-3
+        transition-all duration-300
+        hover:bg-white/5
+      "
+    >
+
+      <!-- Brand -->
+      <a href="/" class="flex items-center gap-3 group select-none">
+        <!-- Ideal text logo -->
+        <div class="relative h-11 w-11 rounded-2xl overflow-hidden border border-white/10 logo-glow">
+          <div class="absolute inset-0 bg-gradient-to-br from-emerald-400/40 via-sky-400/30 to-fuchsia-400/20"></div>
+          <div class="absolute inset-0 opacity-70 bg-[radial-gradient(circle_at_20%_20%,rgba(255,255,255,.35),transparent_60%)]"></div>
+          <div class="relative h-full w-full grid place-items-center">
+            <div class="text-[13px] font-black tracking-wider">AP</div>
+            <div class="absolute -bottom-1 right-1 arabic-font text-[13px] opacity-90" dir="rtl">ع</div>
+          </div>
+        </div>
+
+        <div class="leading-tight">
+          <div class="font-black leading-none text-white">AlifPro Academy</div>
+          <div class="text-[11px] text-slate-300 leading-none">0 → PRO learning</div>
+        </div>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden lg:flex items-center gap-1 text-sm">
+        {% with p=request.path %}
+        <a href="/alphabet/" class="px-4 py-2 rounded-2xl transition hover:bg-white/10 hover:text-white {% if '/alphabet/' in p %}bg-white/10{% endif %}">Alifbo</a>
+        <a href="/courses/" class="px-4 py-2 rounded-2xl transition hover:bg-white/10 hover:text-white {% if '/courses/' in p or '/lessons/' in p %}bg-white/10{% endif %}">Kurslar</a>
+        <a href="/practice/" class="px-4 py-2 rounded-2xl transition hover:bg-white/10 hover:text-white {% if '/practice/' in p %}bg-white/10{% endif %}">Practice</a>
+        <a href="/review/" class="px-4 py-2 rounded-2xl transition hover:bg-white/10 hover:text-white {% if '/review/' in p %}bg-white/10{% endif %}">Review</a>
+        <a href="/dictionary/" class="px-4 py-2 rounded-2xl transition hover:bg-white/10 hover:text-white {% if '/dictionary/' in p %}bg-white/10{% endif %}">Lug‘at</a>
+        <a href="/tajweed/"
+          class="px-4 py-2 rounded-2xl transition hover:bg-white/10 hover:text-white
+          {% if '/tajweed/' in p %}bg-white/10{% endif %}">
+          Tajweed
+        </a>
+        {% endwith %}
+      </nav>
+
+      <!-- Right (desktop buttons) -->
+      <div class="hidden sm:flex items-center gap-2">
+        {% if user.is_authenticated %}
+          <a href="/progress/" class="px-4 py-2 rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 transition">
+            <span class="text-sm font-semibold">Account</span>
+          </a>
+          <a href="/accounts/logout/" class="inline-flex px-4 py-2 rounded-2xl bg-white text-slate-950 font-semibold hover:bg-slate-200 transition">
+            Logout
+          </a>
+        {% else %}
+          <a href="/accounts/login/" class="inline-flex px-4 py-2 rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 transition">
+            Login
+          </a>
+          <a href="/accounts/register/" class="inline-flex px-4 py-2 rounded-2xl bg-white text-slate-950 font-semibold hover:bg-slate-200 transition">
+            Register
+          </a>
+        {% endif %}
+      </div>
+
+      <!-- Mobile menu button -->
+      <button id="mobileMenuBtn"
+        class="sm:hidden inline-flex h-10 w-10 items-center justify-center rounded-2xl
+               border border-white/10 bg-white/5 hover:bg-white/10 transition">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+             viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+
+    </div>
+  </div>
+</header>
+
+<!-- MOBILE MENU (drawer) -->
+<div id="mobileMenu" class="fixed inset-0 z-[60] hidden sm:hidden">
+  <div id="mobileOverlay" class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
+
+  <div id="mobilePanel"
+       class="absolute right-0 top-0 h-full w-[88%] max-w-sm
+              bg-slate-950 border-l border-white/10
+              p-6 flex flex-col
+              translate-x-full transition-transform duration-300">
+
+    <div class="flex items-center justify-between mb-6">
+      <div class="flex items-center gap-3">
+        <div class="h-11 w-11 rounded-2xl overflow-hidden border border-white/10 logo-glow">
+          <div class="h-full w-full bg-gradient-to-br from-emerald-400/35 via-sky-400/25 to-fuchsia-400/20 grid place-items-center">
+            <div class="text-[13px] font-black tracking-wider">AP</div>
+            <div class="absolute -bottom-1 right-1 arabic-font text-[13px] opacity-90" dir="rtl">ع</div>
+          </div>
+        </div>
+        <div>
+          <div class="font-black">AlifPro</div>
+          <div class="text-xs text-slate-400">Menu</div>
+        </div>
+      </div>
+
+      <button id="mobileClose" class="h-9 w-9 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10">
+        ✕
+      </button>
+    </div>
+
+    <nav class="flex flex-col gap-2 text-sm">
+      <a href="/alphabet/" class="mobile-link">🔤 Alifbo</a>
+      <a href="/courses/" class="mobile-link">🎓 Kurslar</a>
+      <a href="/practice/" class="mobile-link">⚡ Practice</a>
+      <a href="/review/" class="mobile-link">🧠 Review</a>
+      <a href="/dictionary/" class="mobile-link">📚 Lug‘at</a>
+      <a href="/roadmap/" class="mobile-link">🗺 Roadmap</a>
+      <a href="/tajweed/" class="mobile-link">📖 Tajweed</a>
+    </nav>
+
+    <div class="mt-auto pt-6 border-t border-white/10">
+      {% if user.is_authenticated %}
+        <a href="/accounts/logout/" class="block text-center rounded-2xl bg-white text-slate-950 py-3 font-semibold hover:bg-slate-200 transition">
+          Logout
+        </a>
+      {% else %}
+        <a href="/accounts/login/" class="block text-center rounded-2xl border border-white/10 bg-white/5 py-3 mb-2 hover:bg-white/10 transition">
+          Login
+        </a>
+        <a href="/accounts/register/" class="block text-center rounded-2xl bg-white text-slate-950 py-3 font-semibold hover:bg-slate-200 transition">
+          Register
+        </a>
+      {% endif %}
+    </div>
+
+  </div>
+</div>
+
+<main class="mx-auto w-[min(1150px,92%)] py-8">
+  {% block content %}{% endblock %}
+</main>
+
+<script>
+  const btn = document.getElementById("mobileMenuBtn");
+  const menu = document.getElementById("mobileMenu");
+  const panel = document.getElementById("mobilePanel");
+  const close = document.getElementById("mobileClose");
+  const overlay = document.getElementById("mobileOverlay");
+
+  function openMenu(){
+    menu.classList.remove("hidden");
+    requestAnimationFrame(() => panel.classList.remove("translate-x-full"));
+    document.body.style.overflow = "hidden";
+  }
+  function closeMenu(){
+    panel.classList.add("translate-x-full");
+    setTimeout(() => menu.classList.add("hidden"), 250);
+    document.body.style.overflow = "";
+  }
+
+  btn?.addEventListener("click", openMenu);
+  close?.addEventListener("click", closeMenu);
+  overlay?.addEventListener("click", closeMenu);
+
+  menu?.querySelectorAll("a").forEach(a => a.addEventListener("click", closeMenu));
+</script>
+
+</body>
+</html>

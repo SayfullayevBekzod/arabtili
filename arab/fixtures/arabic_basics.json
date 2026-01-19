@@ -1,0 +1,33 @@
+[
+  {"model":"arab.letter","pk":1,"fields":{"name":"Alif","arabic":"ا","order":1,"joins_to_next":true,"isolated":"ا","initial":"ا","medial":"ـا","final":"ـا","created_at":"2026-01-14T00:00:00Z","updated_at":"2026-01-14T00:00:00Z"}},
+  {"model":"arab.letter","pk":2,"fields":{"name":"Ba","arabic":"ب","order":2,"joins_to_next":true,"isolated":"ب","initial":"بـ","medial":"ـبـ","final":"ـب","created_at":"2026-01-14T00:00:00Z","updated_at":"2026-01-14T00:00:00Z"}},
+  {"model":"arab.letter","pk":3,"fields":{"name":"Ta","arabic":"ت","order":3,"joins_to_next":true,"isolated":"ت","initial":"تـ","medial":"ـتـ","final":"ـت","created_at":"2026-01-14T00:00:00Z","updated_at":"2026-01-14T00:00:00Z"}},
+  {"model":"arab.letter","pk":4,"fields":{"name":"Tha","arabic":"ث","order":4,"joins_to_next":true,"isolated":"ث","initial":"ثـ","medial":"ـثـ","final":"ـث","created_at":"2026-01-14T00:00:00Z","updated_at":"2026-01-14T00:00:00Z"}},
+  {"model":"arab.letter","pk":5,"fields":{"name":"Jim","arabic":"ج","order":5,"joins_to_next":true,"isolated":"ج","initial":"جـ","medial":"ـجـ","final":"ـج","created_at":"2026-01-14T00:00:00Z","updated_at":"2026-01-14T00:00:00Z"}},
+  {"model":"arab.letter","pk":6,"fields":{"name":"Ha (ح)","arabic":"ح","order":6,"joins_to_next":true,"isolated":"ح","initial":"حـ","medial":"ـحـ","final":"ـح","created_at":"2026-01-14T00:00:00Z","updated_at":"2026-01-14T00:00:00Z"}},
+  {"model":"arab.letter","pk":7,"fields":{"name":"Kha","arabic":"خ","order":7,"joins_to_next":true,"isolated":"خ","initial":"خـ","medial":"ـخـ","final":"ـخ","created_at":"2026-01-14T00:00:00Z","updated_at":"2026-01-14T00:00:00Z"}},
+
+  {"model":"arab.letter","pk":8,"fields":{"name":"Dal","arabic":"د","order":8,"joins_to_next":false,"isolated":"د","initial":"د","medial":"د","final":"ـد","created_at":"2026-01-14T00:00:00Z","updated_at":"2026-01-14T00:00:00Z"}},
+  {"model":"arab.letter","pk":9,"fields":{"name":"Dhal","arabic":"ذ","order":9,"joins_to_next":false,"isolated":"ذ","initial":"ذ","medial":"ذ","final":"ـذ","created_at":"2026-01-14T00:00:00Z","updated_at":"2026-01-14T00:00:00Z"}},
+  {"model":"arab.letter","pk":10,"fields":{"name":"Ra","arabic":"ر","order":10,"joins_to_next":false,"isolated":"ر","initial":"ر","medial":"ر","final":"ـر","created_at":"2026-01-14T00:00:00Z","updated_at":"2026-01-14T00:00:00Z"}},
+  {"model":"arab.letter","pk":11,"fields":{"name":"Za","arabic":"ز","order":11,"joins_to_next":false,"isolated":"ز","initial":"ز","medial":"ز","final":"ـز","created_at":"2026-01-14T00:00:00Z","updated_at":"2026-01-14T00:00:00Z"}},
+
+  {"model":"arab.letter","pk":12,"fields":{"name":"Sin","arabic":"س","order":12,"joins_to_next":true,"isolated":"س","initial":"سـ","medial":"ـسـ","final":"ـس","created_at":"2026-01-14T00:00:00Z","updated_at":"2026-01-14T00:00:00Z"}},
+  {"model":"arab.letter","pk":13,"fields":{"name":"Shin","arabic":"ش","order":13,"joins_to_next":true,"isolated":"ش","initial":"شـ","medial":"ـشـ","final":"ـش","created_at":"2026-01-14T00:00:00Z","updated_at":"2026-01-14T00:00:00Z"}},
+  {"model":"arab.letter","pk":14,"fields":{"name":"Sad","arabic":"ص","order":14,"joins_to_next":true,"isolated":"ص","initial":"صـ","medial":"ـصـ","final":"ـص","created_at":"2026-01-14T00:00:00Z","updated_at":"2026-01-14T00:00:00Z"}},
+  {"model":"arab.letter","pk":15,"fields":{"name":"Dad","arabic":"ض","order":15,"joins_to_next":true,"isolated":"ض","initial":"ضـ","medial":"ـضـ","final":"ـض","created_at":"2026-01-14T00:00:00Z","updated_at":"2026-01-14T00:00:00Z"}},
+  {"model":"arab.letter","pk":16,"fields":{"name":"Ta (ط)","arabic":"ط","order":16,"joins_to_next":true,"isolated":"ط","initial":"طـ","medial":"ـطـ","final":"ـط","created_at":"2026-01-14T00:00:00Z","updated_at":"2026-01-14T00:00:00Z"}},
+  {"model":"arab.letter","pk":17,"fields":{"name":"Za (ظ)","arabic":"ظ","order":17,"joins_to_next":true,"isolated":"ظ","initial":"ظـ","medial":"ـظـ","final":"ـظ","created_at":"2026-01-14T00:00:00Z","updated_at":"2026-01-14T00:00:00Z"}},
+  {"model":"arab.letter","pk":18,"fields":{"name":"Ayn","arabic":"ع","order":18,"joins_to_next":true,"isolated":"ع","initial":"عـ","medial":"ـعـ","final":"ـع","created_at":"2026-01-14T00:00:00Z","updated_at":"2026-01-14T00:00:00Z"}},
+  {"model":"arab.letter","pk":19,"fields":{"name":"Ghayn","arabic":"غ","order":19,"joins_to_next":true,"isolated":"غ","initial":"غـ","medial":"ـغـ","final":"ـغ","created_at":"2026-01-14T00:00:00Z","updated_at":"2026-01-14T00:00:00Z"}},
+  {"model":"arab.letter","pk":20,"fields":{"name":"Fa","arabic":"ف","order":20,"joins_to_next":true,"isolated":"ف","initial":"فـ","medial":"ـفـ","final":"ـف","created_at":"2026-01-14T00:00:00Z","updated_at":"2026-01-14T00:00:00Z"}},
+  {"model":"arab.letter","pk":21,"fields":{"name":"Qaf","arabic":"ق","order":21,"joins_to_next":true,"isolated":"ق","initial":"قـ","medial":"ـقـ","final":"ـق","created_at":"2026-01-14T00:00:00Z","updated_at":"2026-01-14T00:00:00Z"}},
+  {"model":"arab.letter","pk":22,"fields":{"name":"Kaf","arabic":"ك","order":22,"joins_to_next":true,"isolated":"ك","initial":"كـ","medial":"ـكـ","final":"ـك","created_at":"2026-01-14T00:00:00Z","updated_at":"2026-01-14T00:00:00Z"}},
+  {"model":"arab.letter","pk":23,"fields":{"name":"Lam","arabic":"ل","order":23,"joins_to_next":true,"isolated":"ل","initial":"لـ","medial":"ـلـ","final":"ـل","created_at":"2026-01-14T00:00:00Z","updated_at":"2026-01-14T00:00:00Z"}},
+  {"model":"arab.letter","pk":24,"fields":{"name":"Mim","arabic":"م","order":24,"joins_to_next":true,"isolated":"م","initial":"مـ","medial":"ـمـ","final":"ـم","created_at":"2026-01-14T00:00:00Z","updated_at":"2026-01-14T00:00:00Z"}},
+  {"model":"arab.letter","pk":25,"fields":{"name":"Nun","arabic":"ن","order":25,"joins_to_next":true,"isolated":"ن","initial":"نـ","medial":"ـنـ","final":"ـن","created_at":"2026-01-14T00:00:00Z","updated_at":"2026-01-14T00:00:00Z"}},
+  {"model":"arab.letter","pk":26,"fields":{"name":"Ha (ه)","arabic":"ه","order":26,"joins_to_next":true,"isolated":"ه","initial":"هـ","medial":"ـهـ","final":"ـه","created_at":"2026-01-14T00:00:00Z","updated_at":"2026-01-14T00:00:00Z"}},
+
+  {"model":"arab.letter","pk":27,"fields":{"name":"Waw","arabic":"و","order":27,"joins_to_next":false,"isolated":"و","initial":"و","medial":"و","final":"ـو","created_at":"2026-01-14T00:00:00Z","updated_at":"2026-01-14T00:00:00Z"}},
+  {"model":"arab.letter","pk":28,"fields":{"name":"Ya","arabic":"ي","order":28,"joins_to_next":true,"isolated":"ي","initial":"يـ","medial":"ـيـ","final":"ـي","created_at":"2026-01-14T00:00:00Z","updated_at":"2026-01-14T00:00:00Z"}}
+]

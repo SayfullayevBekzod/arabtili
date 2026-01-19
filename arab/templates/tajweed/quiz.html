@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<div style="max-width:720px;margin:24px auto;">
+  <h2>{{ quiz.prompt }}</h2>
+
+  <form method="post">
+    {% csrf_token %}
+
+    <div style="margin-top:16px;">
+      {% for opt in options %}
+        <label style="display:block;padding:10px;border:1px solid #ddd;border-radius:10px;margin-bottom:10px;cursor:pointer;">
+          <input type="radio" name="option" value="{{ opt.id }}" required>
+          {{ opt.text }}
+        </label>
+      {% endfor %}
+    </div>
+
+    <button type="submit" style="padding:10px 16px;border-radius:10px;border:0;background:#111;color:#fff;">
+      Tekshirish
+    </button>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,570 @@
+from django.conf import settings
+from django.core.exceptions import ValidationError
+from django.db import models
+from django.db.models import Q
+from django.utils import timezone
+
+
+# ----------------------------
+# BASE
+# ----------------------------
+class TimeStamped(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        abstract = True
+
+
+# ----------------------------
+# COURSES
+# ----------------------------
+class Course(TimeStamped):
+    LEVEL_CHOICES = [("A0", "A0"), ("A1", "A1"), ("A2", "A2"), ("B1", "B1")]
+
+    title = models.CharField(max_length=200)
+    description = models.TextField(blank=True)
+    level = models.CharField(max_length=30, choices=LEVEL_CHOICES, default="A0")
+    is_published = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ["level", "id"]
+
+    def __str__(self):
+        return f"{self.title} ({self.level})"
+
+
+class Unit(TimeStamped):
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="units")
+    title = models.CharField(max_length=200)
+    order = models.PositiveIntegerField(default=1)
+
+    class Meta:
+        ordering = ["order"]
+        constraints = [
+            models.UniqueConstraint(fields=["course", "order"], name="uniq_unit_order_in_course"),
+        ]
+
+    def __str__(self):
+        return f"{self.course.title} / {self.title}"
+
+
+class Lesson(TimeStamped):
+    unit = models.ForeignKey(Unit, on_delete=models.CASCADE, related_name="lessons")
+    title = models.CharField(max_length=200)
+    theory = models.TextField(blank=True)
+    order = models.PositiveIntegerField(default=1)
+    estimated_minutes = models.PositiveIntegerField(default=10)
+
+    class Meta:
+        ordering = ["order"]
+        constraints = [
+            models.UniqueConstraint(fields=["unit", "order"], name="uniq_lesson_order_in_unit"),
+        ]
+
+    def __str__(self):
+        return f"{self.unit.title} / {self.title}"
+
+
+class LessonSection(TimeStamped):
+    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, related_name="sections")
+    title = models.CharField(max_length=200)
+    content = models.TextField()
+    order = models.PositiveIntegerField(default=1)
+
+    class Meta:
+        ordering = ["order"]
+        constraints = [
+            models.UniqueConstraint(fields=["lesson", "order"], name="uniq_section_order_in_lesson"),
+        ]
+
+    def __str__(self):
+        return f"{self.lesson.title} / {self.title}"
+
+
+# ----------------------------
+# ALPHABET
+# ----------------------------
+class Letter(TimeStamped):
+    name = models.CharField(max_length=50)                  # Alif
+    arabic = models.CharField(max_length=5, unique=True)    # ا
+    order = models.PositiveIntegerField(unique=True)        # 1..28
+    abjad_value = models.PositiveIntegerField(null=True, blank=True)
+
+    isolated = models.CharField(max_length=5, blank=True)
+    initial = models.CharField(max_length=5, blank=True)
+    medial = models.CharField(max_length=5, blank=True)
+    final = models.CharField(max_length=5, blank=True)
+
+    joins_to_next = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ["order"]
+
+    def __str__(self):
+        return f"{self.name} ({self.arabic})"
+
+
+class Pronunciation(TimeStamped):
+    letter = models.ForeignKey(Letter, on_delete=models.CASCADE, related_name="pronunciations")
+    description = models.TextField(blank=True)
+    audio = models.FileField(upload_to="audio/letters/", blank=True, null=True)
+
+    def __str__(self):
+        return f"Pronunciation: {self.letter.arabic}"
+
+
+class LetterExample(TimeStamped):
+    letter = models.ForeignKey(Letter, on_delete=models.CASCADE, related_name="examples")
+    arabic_text = models.CharField(max_length=120)
+    transliteration = models.CharField(max_length=120, blank=True)
+    translation_uz = models.CharField(max_length=200, blank=True)
+    audio = models.FileField(upload_to="audio/letter_examples/", blank=True, null=True)
+
+    class Meta:
+        ordering = ["id"]
+
+    def __str__(self):
+        return f"{self.letter.arabic}: {self.arabic_text}"
+
+
+# ----------------------------
+# DIACRITICS / GRAMMAR
+# ----------------------------
+class Diacritic(TimeStamped):
+    KEY_CHOICES = [
+        ("FATHA", "Fatha"),
+        ("KASRA", "Kasra"),
+        ("DAMMA", "Damma"),
+        ("SUKUN", "Sukun"),
+        ("SHADDA", "Shadda"),
+        ("TANWIN_DAMMA", "Tanwin Damma (-un)"),
+        ("TANWIN_KASRA", "Tanwin Kasra (-in)"),
+        ("TANWIN_FATHA", "Tanwin Fatha (-an)"),
+    ]
+    key = models.CharField(max_length=20, choices=KEY_CHOICES, unique=True)
+    symbol = models.CharField(max_length=5)
+    description = models.CharField(max_length=255, blank=True)
+
+    class Meta:
+        ordering = ["key"]
+
+    def __str__(self):
+        return f"{self.get_key_display()} {self.symbol}"
+
+
+class GrammarRule(TimeStamped):
+    title = models.CharField(max_length=200)
+    explanation = models.TextField()
+    examples = models.JSONField(default=list, blank=True)
+    related_diacritics = models.ManyToManyField(Diacritic, blank=True, related_name="grammar_rules")
+
+    def __str__(self):
+        return self.title
+
+
+# ----------------------------
+# VOCABULARY
+# ----------------------------
+class VocabularyCategory(TimeStamped):
+    name = models.CharField(max_length=100, unique=True)
+    description = models.TextField(blank=True)
+
+    def __str__(self):
+        return self.name
+
+
+class Word(TimeStamped):
+    lesson = models.ForeignKey(Lesson, on_delete=models.SET_NULL, null=True, blank=True, related_name="words")
+    arabic = models.CharField(max_length=100)
+    transliteration = models.CharField(max_length=150, blank=True)
+    translation_uz = models.CharField(max_length=200, blank=True)
+    translation_ru = models.CharField(max_length=200, blank=True)
+
+    category = models.ForeignKey(
+        VocabularyCategory,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="words",
+    )
+
+    diacritics = models.ManyToManyField(Diacritic, blank=True, related_name="words")
+    audio = models.FileField(upload_to="audio/words/", blank=True, null=True)
+
+    class Meta:
+        ordering = ["arabic"]
+        indexes = [models.Index(fields=["arabic"])]
+
+    def __str__(self):
+        return self.arabic
+
+
+class WordExample(TimeStamped):
+    word = models.ForeignKey(Word, on_delete=models.CASCADE, related_name="examples")
+    arabic_text = models.CharField(max_length=255)
+    translation_uz = models.CharField(max_length=255, blank=True)
+    audio = models.FileField(upload_to="audio/word_examples/", blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.word.arabic} → {self.arabic_text}"
+
+
+# ----------------------------
+# EXERCISES
+# ----------------------------
+class Exercise(TimeStamped):
+    TYPE_CHOICES = [
+        ("READ", "O‘qish"),
+        ("WRITE", "Yozish"),
+        ("LISTEN", "Tinglab tanlash"),
+        ("QUIZ", "Test"),
+        ("COMBO", "Harf + harakat"),
+    ]
+    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, related_name="exercises")
+    title = models.CharField(max_length=200)
+    type = models.CharField(max_length=10, choices=TYPE_CHOICES)
+    instruction = models.TextField(blank=True)
+    content = models.JSONField(default=dict, blank=True)
+
+    def __str__(self):
+        return f"{self.lesson.title} — {self.title}"
+
+
+class Question(TimeStamped):
+    exercise = models.ForeignKey(Exercise, on_delete=models.CASCADE, related_name="questions")
+    text = models.TextField()
+    explanation = models.TextField(blank=True)
+
+    def __str__(self):
+        return self.text[:60]
+
+
+class Choice(TimeStamped):
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name="choices")
+    text = models.CharField(max_length=200)
+    is_correct = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.text
+
+
+# ----------------------------
+# USER PROGRESS
+# ----------------------------
+class UserLessonProgress(TimeStamped):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="lesson_progress")
+    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, related_name="user_progress")
+    is_completed = models.BooleanField(default=False)
+    percent = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=["user", "lesson"], name="uniq_user_lesson_progress"),
+        ]
+
+
+class UserWordProgress(TimeStamped):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="word_progress")
+    word = models.ForeignKey(Word, on_delete=models.CASCADE, related_name="user_progress")
+    strength = models.PositiveIntegerField(default=0)  # 0..100
+    last_seen = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=["user", "word"], name="uniq_user_word_progress"),
+        ]
+
+
+class UserQuizAttempt(TimeStamped):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="quiz_attempts")
+    exercise = models.ForeignKey(Exercise, on_delete=models.CASCADE, related_name="attempts")
+    score = models.PositiveIntegerField(default=0)
+    total = models.PositiveIntegerField(default=0)
+    details = models.JSONField(default=dict, blank=True)
+
+
+# ----------------------------
+# SPACED REPETITION (REVIEW)
+# ----------------------------
+class UserCard(TimeStamped):
+    """
+    SM-2 uchun karta.
+    Karta Word yoki Letter’dan faqat bittasiga bog‘lanadi.
+    """
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="cards")
+
+    word = models.ForeignKey(Word, on_delete=models.CASCADE, null=True, blank=True, related_name="cards")
+    letter = models.ForeignKey(Letter, on_delete=models.CASCADE, null=True, blank=True, related_name="cards")
+
+    repetitions = models.PositiveIntegerField(default=0)
+    interval_days = models.PositiveIntegerField(default=0)
+    ease_factor = models.FloatField(default=2.5)
+    due_at = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        indexes = [models.Index(fields=["user", "due_at"])]
+        constraints = [
+            models.CheckConstraint(
+                condition=(
+                    (Q(word__isnull=False) & Q(letter__isnull=True)) |
+                    (Q(word__isnull=True) & Q(letter__isnull=False))
+                ),
+                name="usercard_exactly_one_target"
+            ),
+            models.UniqueConstraint(fields=["user", "word"], name="uniq_user_word_card"),
+            models.UniqueConstraint(fields=["user", "letter"], name="uniq_user_letter_card"),
+        ]
+
+    def clean(self):
+        super().clean()
+        if (self.word_id and self.letter_id) or (not self.word_id and not self.letter_id):
+            raise ValidationError("UserCard: faqat word yoki letter dan bittasi tanlanishi kerak.")
+
+    def __str__(self):
+        target = self.word.arabic if self.word_id else self.letter.arabic
+        return f"{self.user} -> {target}"
+
+
+# ----------------------------
+# STREAK / ACHIEVEMENTS
+# ----------------------------
+class UserStreak(TimeStamped):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="streak")
+    current_streak = models.PositiveIntegerField(default=0)
+    best_streak = models.PositiveIntegerField(default=0)
+
+
+class Achievement(TimeStamped):
+    title = models.CharField(max_length=100)
+    description = models.TextField()
+    icon = models.CharField(max_length=50, blank=True)
+
+    def __str__(self):
+        return self.title
+
+
+class UserAchievement(TimeStamped):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="achievements")
+    achievement = models.ForeignKey(Achievement, on_delete=models.CASCADE, related_name="users")
+    earned_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=["user", "achievement"], name="uniq_user_achievement"),
+        ]
+
+
+# ----------------------------
+# TAJWEED
+# ----------------------------
+class TajweedRule(TimeStamped):
+    slug = models.SlugField(unique=True)
+    title = models.CharField(max_length=200)
+    short_desc = models.CharField(max_length=255, blank=True)
+    explanation = models.TextField()
+    level = models.CharField(
+        max_length=10,
+        choices=[("A0", "A0"), ("A1", "A1"), ("A2", "A2"), ("B1", "B1")],
+        default="A0",
+    )
+    is_published = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ["level", "title"]
+
+    def __str__(self):
+        return self.title
+
+
+class TajweedExample(TimeStamped):
+    rule = models.ForeignKey(TajweedRule, on_delete=models.CASCADE, related_name="examples")
+    arabic_text = models.TextField()
+    translation_uz = models.TextField(blank=True)
+    audio = models.FileField(upload_to="audio/tajweed/", blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.rule.title} example #{self.pk}"
+
+
+class TajweedTag(TimeStamped):
+    name = models.CharField(max_length=100, unique=True)
+    color = models.CharField(max_length=30, default="emerald")
+
+    def __str__(self):
+        return self.name
+
+
+class TajweedMark(TimeStamped):
+    """
+    Misol ichidagi segment(lar)ni highlight qilish va taglash.
+    start/end - arabic_text ichida indekslar: [start:end]
+    """
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="tajweed_marks"
+    )
+    example = models.ForeignKey(TajweedExample, on_delete=models.CASCADE, related_name="marks")
+    rule = models.ForeignKey(TajweedRule, on_delete=models.CASCADE, related_name="marks")
+    tag = models.ForeignKey(TajweedTag, on_delete=models.SET_NULL, null=True, blank=True, related_name="marks")
+
+    start = models.PositiveIntegerField()
+    end = models.PositiveIntegerField()
+    note = models.CharField(max_length=255, blank=True)
+
+    class Meta:
+        ordering = ["start", "end"]
+        indexes = [
+            models.Index(fields=["example", "start", "end"]),
+            models.Index(fields=["rule"]),
+            models.Index(fields=["tag"]),
+        ]
+
+    def clean(self):
+        if self.end <= self.start:
+            raise ValidationError("end start dan katta bo‘lishi kerak.")
+        if self.example_id and self.example.arabic_text:
+            n = len(self.example.arabic_text)
+            if self.start >= n or self.end > n:
+                raise ValidationError(f"Mark indexlar matn uzunligidan chiqib ketgan. (0..{n})")
+
+    def __str__(self):
+        return f"{self.rule.title} [{self.start}:{self.end}]"
+
+
+class TajweedProgress(TimeStamped):
+    """
+    User qaysi qoidani tugatganini belgilash.
+    """
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    rule = models.ForeignKey(TajweedRule, on_delete=models.CASCADE)
+    completed = models.BooleanField(default=False)
+    score = models.PositiveIntegerField(default=0)  # quiz natija (0-100)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=["user", "rule"], name="uniq_user_rule_progress"),
+        ]
+
+    def __str__(self):
+        return f"{self.user} - {self.rule} ({'done' if self.completed else 'todo'})"
+
+
+class TajweedQuiz(TimeStamped):
+    """
+    Bitta savol: qaysi qoida?
+    """
+    rule = models.ForeignKey(TajweedRule, on_delete=models.CASCADE, related_name="quizzes")
+    prompt = models.CharField(max_length=255)  # Savol matni (UZ)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return f"Quiz: {self.rule.title}"
+
+
+class TajweedQuizOption(TimeStamped):
+    quiz = models.ForeignKey(TajweedQuiz, on_delete=models.CASCADE, related_name="options")
+    text = models.CharField(max_length=120)
+    is_correct = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ["id"]
+
+    def __str__(self):
+        return f"{self.text} ({'ok' if self.is_correct else 'no'})"
+
+
+class TajweedQuizAttempt(TimeStamped):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="tajweed_attempts")
+    example = models.ForeignKey("TajweedExample", on_delete=models.CASCADE, related_name="attempts")
+
+    correct_rule = models.ForeignKey(
+        "TajweedRule",
+        null=True, blank=True,
+        on_delete=models.SET_NULL,
+        related_name="attempts_correct_rule"
+    )
+    selected_rule = models.ForeignKey(
+        "TajweedRule",
+        null=True, blank=True,
+        on_delete=models.SET_NULL,
+        related_name="attempts_selected_rule"
+    )
+
+    is_correct = models.BooleanField(default=False)
+
+
+class UserFavoriteWord(TimeStamped):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="favorite_words")
+    word = models.ForeignKey(Word, on_delete=models.CASCADE, related_name="favorited_by")
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=["user", "word"], name="uniq_user_favorite_word"),
+        ]
+
+    def __str__(self):
+        return f"{self.user} ⭐ {self.word.arabic}"
+
+
+
+class UserDailyStat(models.Model):
+    """
+    Har kunlik statistika: heatmap, streak, weekly chart, daily goals, study time, XP.
+    """
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="daily_stats")
+    day = models.DateField(db_index=True)
+
+    # Activity
+    study_minutes = models.PositiveIntegerField(default=0)
+    reviews_done = models.PositiveIntegerField(default=0)
+    new_words = models.PositiveIntegerField(default=0)
+    lessons_done = models.PositiveIntegerField(default=0)
+
+    # Gamification
+    xp_earned = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        unique_together = ("user", "day")
+        ordering = ("-day",)
+
+    def __str__(self):
+        return f"{self.user_id} {self.day}"
+
+
+class UserGamification(models.Model):
+    """
+    User umumiy XP/Level.
+    """
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="gamification")
+    xp_total = models.PositiveIntegerField(default=0)
+    level = models.PositiveIntegerField(default=1)
+
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.user_id} L{self.level} XP{self.xp_total}"
+
+
+class UserWeakArea(models.Model):
+    """
+    Qiyin joylar (weak areas) — siz xohlagan skill/bo'lim bo'yicha foiz.
+    pct: 0..100 (qancha past bo'lsa qiyinroq)
+    """
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="weak_areas")
+    key = models.CharField(max_length=64, db_index=True)  # masalan: "tajweed_idgham"
+    title = models.CharField(max_length=128)
+    pct = models.PositiveIntegerField(default=0)  # 0..100
+    url = models.CharField(max_length=200, blank=True, default="")
+
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        unique_together = ("user", "key")
+        ordering = ("pct", "-updated_at")
+
+    def __str__(self):
+        return f"{self.user_id} {self.key} {self.pct}%"

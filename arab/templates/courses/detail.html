@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+{% block title %}{{ course.title }}{% endblock %}
+{% block content %}
+
+<!-- HERO -->
+<section class="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-6 md:p-10">
+  <div class="pointer-events-none absolute -top-32 -left-32 h-80 w-80 rounded-full bg-emerald-400/15 blur-3xl"></div>
+  <div class="pointer-events-none absolute -bottom-32 -right-32 h-80 w-80 rounded-full bg-sky-400/15 blur-3xl"></div>
+
+  <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-5">
+    <div class="max-w-3xl">
+      <div class="text-xs text-slate-400">Courses • 0 → PRO</div>
+      <h1 class="mt-1 text-3xl md:text-5xl font-black leading-tight">{{ course.title }}</h1>
+      <p class="mt-3 text-slate-300 text-sm leading-relaxed">
+        {{ course.description }}
+      </p>
+
+      <!-- Chips -->
+      <div class="mt-5 flex flex-wrap items-center gap-2 text-xs">
+        <span class="rounded-full border border-white/10 bg-slate-950/40 px-3 py-1">
+          Level: <span class="text-slate-200 font-semibold">{{ course.level }}</span>
+        </span>
+
+        <span class="rounded-full border border-white/10 bg-slate-950/40 px-3 py-1">
+          Units: <span class="text-slate-200 font-semibold">{{ units|length }}</span>
+        </span>
+
+        <span class="rounded-full border border-white/10 bg-slate-950/40 px-3 py-1">
+          Total lessons:
+          <span class="text-slate-200 font-semibold">
+            {% with total=0 %}
+              {% for u in units %}{% with total=total|add:u.lessons.count %}{% endwith %}{% endfor %}
+              {{ total }}
+            {% endwith %}
+          </span>
+        </span>
+
+        {% if course.is_published %}
+          <span class="rounded-full border border-emerald-400/30 bg-emerald-500/15 px-3 py-1 text-emerald-200">
+            Published
+          </span>
+        {% else %}
+          <span class="rounded-full border border-yellow-400/30 bg-yellow-500/15 px-3 py-1 text-yellow-200">
+            Draft
+          </span>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="flex items-center gap-2">
+      <a href="/courses/"
+         class="rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-sm hover:bg-white/10 transition">
+        ← Kurslar
+      </a>
+      <a href="/practice/"
+         class="rounded-2xl bg-white text-slate-950 px-4 py-2 text-sm font-semibold hover:bg-slate-200 transition">
+        🚀 Practice
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- UNITS -->
+<div class="mt-6 space-y-4">
+  {% for u in units %}
+    <section class="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-6
+                    transition-all duration-300 hover:bg-white/10 hover:border-white/20">
+
+      <span class="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition
+                   bg-gradient-to-tr from-transparent via-white/10 to-transparent"></span>
+
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <div>
+          <div class="text-xs text-slate-400">Unit {{ u.order }}</div>
+          <h2 class="text-xl md:text-2xl font-black text-white">{{ u.title }}</h2>
+        </div>
+
+        <div class="flex items-center gap-2 text-xs">
+          <span class="rounded-full border border-white/10 bg-slate-950/40 px-3 py-1 text-slate-300">
+            {{ u.lessons.count }} ta dars
+          </span>
+          <span class="rounded-full border border-white/10 bg-slate-950/40 px-3 py-1 text-slate-300">
+            Unit
+          </span>
+        </div>
+      </div>
+
+      <!-- Lessons -->
+      <div class="mt-5 grid md:grid-cols-2 gap-3">
+        {% for l in u.lessons.all %}
+          <a href="{% url 'arab:lesson_detail' l.id %}"
+             class="group/lesson relative overflow-hidden rounded-2xl border border-white/10 bg-slate-950/35 p-4
+                    transition-all duration-300 hover:bg-white/5 hover:-translate-y-1 hover:border-white/20">
+
+            <span class="pointer-events-none absolute inset-0 opacity-0 group-hover/lesson:opacity-100 transition
+                         bg-gradient-to-tr from-transparent via-white/10 to-transparent"></span>
+
+            <div class="flex items-start justify-between gap-3">
+              <div>
+                <div class="font-semibold text-white">
+                  {{ l.order }}. {{ l.title }}
+                </div>
+                <div class="mt-1 text-xs text-slate-400">
+                  ⏱ {{ l.estimated_minutes }} min
+                </div>
+              </div>
+
+              <div class="shrink-0 text-[11px] rounded-full border border-white/10 bg-white/5 px-3 py-1 text-slate-300">
+                Lesson
+              </div>
+            </div>
+
+            <div class="mt-3 flex items-center justify-between text-xs text-slate-400">
+              <span>Darsni ochish</span>
+              <span class="transition group-hover/lesson:translate-x-1">→</span>
+            </div>
+          </a>
+        {% empty %}
+          <div class="rounded-2xl border border-white/10 bg-slate-950/35 p-4 text-slate-300 text-sm">
+            Hali darslar yo‘q.
+          </div>
+        {% endfor %}
+      </div>
+
+    </section>
+  {% empty %}
+    <div class="rounded-3xl border border-white/10 bg-white/5 p-6 text-slate-300">
+      Bu kursda unit yo‘q.
+    </div>
+  {% endfor %}
+</div>
+
+<!-- Bottom hint -->
+<div class="mt-8 rounded-3xl border border-white/10 bg-white/5 p-6">
+  <div class="text-sm font-semibold text-white">Maslahat</div>
+  <p class="mt-2 text-sm text-slate-400 leading-relaxed">
+    Har bir unit bo‘yicha: <span class="text-slate-200">lesson → practice → review</span>.
+    Kichik qadam bilan har kuni davom eting.
+  </p>
+</div>
+
+{% endblock %}

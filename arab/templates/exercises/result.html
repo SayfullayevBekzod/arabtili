@@ -1,0 +1,17 @@
+<div class="mt-4 grid md:grid-cols-2 gap-3">
+  <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
+    <div class="text-xs text-slate-400">Lesson progress</div>
+    <div class="mt-1 text-2xl font-black">{{ progress.percent }}%</div>
+    {% if progress.is_completed %}
+      <div class="mt-1 text-xs text-emerald-200">✅ Lesson completed</div>
+    {% else %}
+      <div class="mt-1 text-xs text-slate-300">Davom eting…</div>
+    {% endif %}
+  </div>
+
+  <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
+    <div class="text-xs text-slate-400">Review</div>
+    <div class="mt-1 text-2xl font-black">+{{ created_cards }}</div>
+    <div class="mt-1 text-xs text-slate-300">So‘zlar review’ga qo‘shildi</div>
+  </div>
+</div>

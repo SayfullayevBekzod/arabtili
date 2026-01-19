@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<div style="max-width:720px;margin:24px auto;">
+  <h2>{{ quiz.prompt }}</h2>
+
+  {% if is_correct %}
+    <p style="color:green;font-weight:bold;">✅ To‘g‘ri!</p>
+  {% else %}
+    <p style="color:red;font-weight:bold;">❌ Noto‘g‘ri.</p>
+    {% if correct_opt %}
+      <p>To‘g‘ri javob: <b>{{ correct_opt.text }}</b></p>
+    {% endif %}
+  {% endif %}
+
+  <hr style="margin:18px 0;">
+
+  <a href="{% url 'arab:tajweed_quiz' %}">Yana test</a>
+</div>
+{% endblock %}

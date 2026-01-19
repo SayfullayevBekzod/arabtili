@@ -1,0 +1,152 @@
+{% extends "base.html" %}
+{% block title %}Review{% endblock %}
+{% block content %}
+
+<!-- HERO -->
+<section class="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-6 md:p-10">
+  <div class="pointer-events-none absolute -top-32 -left-32 h-80 w-80 rounded-full bg-emerald-400/15 blur-3xl"></div>
+  <div class="pointer-events-none absolute -bottom-32 -right-32 h-80 w-80 rounded-full bg-sky-400/15 blur-3xl"></div>
+
+  <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-5">
+    <div>
+      <div class="text-xs text-slate-400">Review • Spaced repetition</div>
+      <h1 class="mt-1 text-3xl md:text-5xl font-black">🧠 Review</h1>
+      <p class="mt-2 text-slate-300 text-sm max-w-2xl leading-relaxed">
+        Bugun takrorlanadigan kartalar. Avval o‘zingiz eslang, keyin ma’nosini oching.
+      </p>
+
+      <div class="mt-5 flex flex-wrap gap-2 text-xs">
+        <span class="rounded-2xl border border-white/10 bg-slate-950/40 px-3 py-2 text-slate-300">✅ Recall first</span>
+        <span class="rounded-2xl border border-white/10 bg-slate-950/40 px-3 py-2 text-slate-300">✅ Grade</span>
+        <span class="rounded-2xl border border-white/10 bg-slate-950/40 px-3 py-2 text-slate-300">✅ Repeat daily</span>
+      </div>
+    </div>
+
+    <div class="rounded-3xl border border-white/10 bg-slate-950/40 px-5 py-4 text-sm text-slate-300 self-start">
+      <div class="text-xs text-slate-400">Bugungi kartalar</div>
+      <div class="mt-1 text-2xl font-black text-white">{{ cards|length }}</div>
+      <div class="mt-1 text-xs text-slate-500">ta</div>
+    </div>
+  </div>
+</section>
+
+<!-- CARDS -->
+<div class="mt-6 grid md:grid-cols-2 gap-4">
+
+  {% for c in cards %}
+    <div class="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-6
+                transition-all duration-300 hover:bg-white/10 hover:-translate-y-1 hover:border-white/20">
+
+      <span class="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition
+                   bg-gradient-to-tr from-transparent via-white/10 to-transparent"></span>
+
+      <!-- Header -->
+      <div class="flex items-start justify-between gap-4">
+        <div class="text-xs">
+          {% if c.word %}
+            <span class="rounded-full border border-emerald-400/30 bg-emerald-500/15 px-3 py-1 text-emerald-200">WORD</span>
+          {% else %}
+            <span class="rounded-full border border-sky-400/30 bg-sky-500/15 px-3 py-1 text-sky-200">LETTER</span>
+          {% endif %}
+        </div>
+
+        <div class="text-xs text-slate-400">
+          <span class="rounded-full border border-white/10 bg-slate-950/40 px-3 py-1">
+            Due: {{ c.due_at }}
+          </span>
+        </div>
+      </div>
+
+      <!-- Prompt -->
+      {% if c.word %}
+        <div class="mt-4" dir="rtl">
+          <div class="arabic-font text-4xl md:text-5xl font-black text-white">{{ c.word.arabic }}</div>
+        </div>
+
+        <!-- reveal area -->
+        <div class="mt-4 rounded-2xl border border-white/10 bg-slate-950/40 p-4 [direction:ltr]">
+          <div class="flex items-center justify-between gap-3">
+            <div class="text-xs text-slate-400">Ma’no</div>
+            <button type="button"
+                    class="revealBtn rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-xs text-slate-300 hover:bg-white/10 transition">
+              Show
+            </button>
+          </div>
+
+          <div class="revealBody hidden mt-3 text-sm text-slate-200">
+            <div>
+              UZ:
+              <span class="text-white font-semibold">{{ c.word.translation_uz|default:"—" }}</span>
+            </div>
+            <div class="mt-1 text-slate-300">
+              RU:
+              <span class="text-slate-100 font-semibold">{{ c.word.translation_ru|default:"—" }}</span>
+            </div>
+            <div class="mt-2 text-xs text-slate-400">
+              Transliteration: <span class="text-slate-200">{{ c.word.transliteration|default:"—" }}</span>
+            </div>
+          </div>
+        </div>
+
+      {% else %}
+        <div class="mt-4 text-center" dir="rtl">
+          <div class="arabic-font text-6xl md:text-7xl font-black text-white">{{ c.letter.arabic }}</div>
+          <div class="mt-2 text-sm text-slate-300 [direction:ltr]">{{ c.letter.name }}</div>
+        </div>
+
+        <div class="mt-4 rounded-2xl border border-white/10 bg-slate-950/40 p-4 text-xs text-slate-300 [direction:ltr]">
+          Tip: Harfni eslab, shakllarini ko‘z oldingizga keltiring.
+        </div>
+      {% endif %}
+
+      <!-- Grades -->
+      <div class="mt-5 grid grid-cols-3 gap-2 text-sm">
+        <a href="/review/grade/{{ c.id }}/0/"
+           class="rounded-2xl border border-white/10 bg-slate-950/35 p-3 text-center hover:bg-white/10 transition">
+          0
+          <div class="text-[10px] text-slate-400 mt-1">Qiyin</div>
+        </a>
+
+        <a href="/review/grade/{{ c.id }}/3/"
+           class="rounded-2xl border border-white/10 bg-slate-950/35 p-3 text-center hover:bg-white/10 transition">
+          3
+          <div class="text-[10px] text-slate-400 mt-1">O‘rtacha</div>
+        </a>
+
+        <a href="/review/grade/{{ c.id }}/5/"
+           class="rounded-2xl bg-white text-slate-950 p-3 text-center font-semibold hover:bg-slate-200 transition">
+          5
+          <div class="text-[10px] text-slate-700 mt-1">Oson</div>
+        </a>
+      </div>
+
+    </div>
+  {% empty %}
+    <div class="rounded-3xl border border-white/10 bg-white/5 p-8 text-slate-300">
+      <div class="text-2xl font-black">Bugun review yo‘q 🎉</div>
+      <div class="mt-2 text-sm text-slate-400">
+        Ertaga qaytib ko‘ring yoki lug‘atdan yangi so‘zlarni qo‘shing.
+      </div>
+      <div class="mt-5 flex gap-2">
+        <a href="/dictionary/" class="rounded-2xl bg-white text-slate-950 px-5 py-3 text-sm font-semibold hover:bg-slate-200 transition">📚 Lug‘at</a>
+        <a href="/practice/" class="rounded-2xl border border-white/10 bg-white/5 px-5 py-3 text-sm hover:bg-white/10 transition">Practice</a>
+      </div>
+    </div>
+  {% endfor %}
+
+</div>
+
+<script>
+  // reveal meaning (word cards)
+  document.querySelectorAll(".revealBtn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const wrap = btn.closest(".rounded-2xl");
+      const body = wrap.querySelector(".revealBody");
+      const isHidden = body.classList.contains("hidden");
+      body.classList.toggle("hidden");
+      btn.textContent = isHidden ? "Hide" : "Show";
+    });
+  });
+</script>
+
+{% endblock %}

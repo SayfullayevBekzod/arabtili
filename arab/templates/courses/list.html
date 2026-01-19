@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block title %}Kurslar{% endblock %}
+{% block content %}
+
+<!-- Header -->
+<section class="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-6 md:p-10">
+  <div class="pointer-events-none absolute -top-32 -left-32 h-80 w-80 rounded-full bg-emerald-400/15 blur-3xl"></div>
+  <div class="pointer-events-none absolute -bottom-32 -right-32 h-80 w-80 rounded-full bg-sky-400/15 blur-3xl"></div>
+
+  <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
+    <div>
+      <div class="text-xs text-slate-400">Courses • 0 → PRO</div>
+      <h1 class="mt-1 text-3xl md:text-5xl font-black">Kurslar</h1>
+      <p class="mt-2 text-slate-300 text-sm max-w-2xl leading-relaxed">
+        Bosqichma-bosqich kurslar: alifbo, so‘z boyligi, grammatika va amaliy mashqlar.
+      </p>
+
+      <div class="mt-5 flex flex-wrap gap-2">
+        <span class="rounded-2xl border border-white/10 bg-slate-950/40 px-3 py-2 text-xs text-slate-300">✅ Structured</span>
+        <span class="rounded-2xl border border-white/10 bg-slate-950/40 px-3 py-2 text-xs text-slate-300">✅ Practice</span>
+        <span class="rounded-2xl border border-white/10 bg-slate-950/40 px-3 py-2 text-xs text-slate-300">✅ Review</span>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-2">
+      <a href="/roadmap/"
+         class="rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-sm hover:bg-white/10 transition">
+        🧭 Roadmap
+      </a>
+      <a href="/dictionary/"
+         class="rounded-2xl bg-white text-slate-950 px-4 py-2 text-sm font-semibold hover:bg-slate-200 transition">
+        📚 Qur’on lug‘ati
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Courses grid -->
+<section class="mt-6">
+  <div class="grid md:grid-cols-3 gap-4">
+    {% for c in courses %}
+    <a href="{% url 'arab:course_detail' c.id %}"
+       class="group relative overflow-hidden rounded-3xl bg-white/5 border border-white/10 p-6
+              transition-all duration-300 hover:bg-white/10 hover:-translate-y-1 hover:border-white/20">
+
+      <!-- shimmer -->
+      <span class="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition
+                   bg-gradient-to-tr from-transparent via-white/10 to-transparent"></span>
+
+      <div class="flex items-start justify-between gap-3">
+        <h2 class="font-black text-xl text-white leading-tight">
+          {{ c.title }}
+        </h2>
+
+        <span class="shrink-0 rounded-2xl border border-white/10 bg-slate-950/40 px-3 py-2 text-[11px] text-slate-300">
+          Kurs
+        </span>
+      </div>
+
+      <p class="text-slate-300 mt-3 text-sm leading-relaxed line-clamp-3">
+        {{ c.description }}
+      </p>
+
+      <div class="mt-5 flex items-center justify-between">
+        <div class="text-xs text-slate-400">
+          Boshlash → Darslar
+        </div>
+        <div class="inline-flex items-center gap-2 text-sm text-white/90">
+          <span class="text-slate-300 group-hover:text-white transition">Ko‘rish</span>
+          <span class="transition group-hover:translate-x-1">→</span>
+        </div>
+      </div>
+    </a>
+    {% empty %}
+      <div class="rounded-3xl border border-white/10 bg-white/5 p-6 text-slate-400">
+        Hozircha kurslar qo‘shilmagan.
+      </div>
+    {% endfor %}
+  </div>
+
+  <!-- Bottom info -->
+  <div class="mt-8 rounded-3xl border border-white/10 bg-white/5 p-6">
+    <div class="text-sm font-semibold text-white">Maslahat</div>
+    <p class="mt-2 text-sm text-slate-400 leading-relaxed">
+      Har kuni 20–30 daqiqa: <span class="text-slate-200">kurs</span> → <span class="text-slate-200">practice</span> → <span class="text-slate-200">review</span>.
+      Shu tartib bilan progress tez bo‘ladi.
+    </p>
+  </div>
+</section>
+
+{% endblock %}

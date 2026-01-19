@@ -1,0 +1,398 @@
+{% extends "base.html" %}
+{% block title %}Progress{% endblock %}
+{% block content %}
+
+<!-- HERO -->
+<section class="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-6 md:p-10">
+  <div class="pointer-events-none absolute -top-32 -left-32 h-80 w-80 rounded-full bg-emerald-400/15 blur-3xl"></div>
+  <div class="pointer-events-none absolute -bottom-32 -right-32 h-80 w-80 rounded-full bg-sky-400/15 blur-3xl"></div>
+
+  <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-5">
+    <div>
+      <div class="text-xs text-slate-400">Account • Dashboard</div>
+      <h1 class="mt-1 text-3xl md:text-5xl font-black">📊 Progress</h1>
+      <p class="mt-2 text-slate-300 text-sm max-w-2xl leading-relaxed">
+        Sening natijang: streak, review, so‘z boyligi, darslar va odatlar.
+      </p>
+
+      <div class="mt-5 flex flex-wrap gap-2 text-xs">
+        <span class="rounded-2xl border border-white/10 bg-slate-950/40 px-3 py-2 text-slate-300">✅ Daily</span>
+        <span class="rounded-2xl border border-white/10 bg-slate-950/40 px-3 py-2 text-slate-300">✅ Review</span>
+        <span class="rounded-2xl border border-white/10 bg-slate-950/40 px-3 py-2 text-slate-300">✅ Lessons</span>
+        <span class="rounded-2xl border border-white/10 bg-slate-950/40 px-3 py-2 text-slate-300">✅ Goals</span>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-2">
+      <a href="/review/"
+         class="rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-sm hover:bg-white/10 transition">
+        🧠 Review
+      </a>
+      <a href="/accounts/logout/"
+         class="rounded-2xl bg-white text-slate-950 px-4 py-2 text-sm font-semibold hover:bg-slate-200 transition">
+        Logout
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- TOP: DAILY PLAN + LEVEL/XP + STUDY TIME -->
+<div class="mt-6 grid lg:grid-cols-3 gap-4">
+
+  <!-- Daily Plan -->
+  <div class="rounded-3xl border border-white/10 bg-white/5 p-6">
+    <div class="flex items-start justify-between gap-3">
+      <div>
+        <div class="text-sm text-slate-400">🎯 Bugungi reja</div>
+        <div class="mt-1 text-2xl font-black">Daily plan</div>
+        <div class="text-xs text-slate-400 mt-1">Kichik qadamlar — katta natija.</div>
+      </div>
+      <div class="h-12 w-12 rounded-2xl border border-white/10 bg-slate-950/40 grid place-items-center">🎯</div>
+    </div>
+
+    <div class="mt-5 space-y-2 text-sm">
+      <div class="flex items-center justify-between rounded-2xl border border-white/10 bg-slate-950/30 px-4 py-3">
+        <div class="text-slate-300">🧠 Review</div>
+        <div class="text-slate-400 text-xs">
+          {{ today_review_done|default:0 }} / {{ daily_review_target|default:10 }}
+        </div>
+      </div>
+      <div class="flex items-center justify-between rounded-2xl border border-white/10 bg-slate-950/30 px-4 py-3">
+        <div class="text-slate-300">📚 Yangi so‘z</div>
+        <div class="text-slate-400 text-xs">
+          {{ today_new_words|default:0 }} / {{ daily_new_words_target|default:5 }}
+        </div>
+      </div>
+      <div class="flex items-center justify-between rounded-2xl border border-white/10 bg-slate-950/30 px-4 py-3">
+        <div class="text-slate-300">🎓 Dars</div>
+        <div class="text-slate-400 text-xs">
+          {{ today_lessons_done|default:0 }} / {{ daily_lessons_target|default:1 }}
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-5 flex flex-wrap gap-2 text-xs">
+      <a href="/review/" class="rounded-2xl border border-white/10 bg-white/5 px-4 py-2 hover:bg-white/10 transition">Review</a>
+      <a href="/dictionary/" class="rounded-2xl border border-white/10 bg-white/5 px-4 py-2 hover:bg-white/10 transition">So‘zlar</a>
+      <a href="/courses/" class="rounded-2xl border border-white/10 bg-white/5 px-4 py-2 hover:bg-white/10 transition">Dars</a>
+    </div>
+  </div>
+
+  <!-- Level / XP -->
+  <div class="rounded-3xl border border-white/10 bg-white/5 p-6">
+    <div class="flex items-start justify-between gap-3">
+      <div>
+        <div class="text-sm text-slate-400">🧩 Level / XP</div>
+        <div class="mt-1 text-2xl font-black">Level {{ level|default:1 }}</div>
+        <div class="text-xs text-slate-400 mt-1">
+          XP: <span class="text-slate-200 font-semibold">{{ xp|default:0 }}</span> / {{ xp_next|default:100 }}
+        </div>
+      </div>
+      <div class="h-12 w-12 rounded-2xl border border-white/10 bg-slate-950/40 grid place-items-center">🧩</div>
+    </div>
+
+    <div class="mt-5 h-2 rounded-full bg-white/10 overflow-hidden">
+      <div class="h-2 bg-gradient-to-r from-emerald-400 to-sky-400" style="width:  xp_pct default 0 "></div>
+    </div>
+
+    <div class="mt-4 text-xs text-slate-400">
+      Next level uchun: <span class="text-slate-200 font-semibold">{{ xp_remaining|default:0 }}</span> XP kerak.
+    </div>
+
+    <div class="mt-5 rounded-2xl border border-white/10 bg-slate-950/30 p-4">
+      <div class="text-sm text-slate-300 font-semibold">⚡ Tez XP olish</div>
+      <div class="mt-2 text-xs text-slate-400 space-y-1">
+        <div>• Review: +1 XP/card</div>
+        <div>• Lesson: +10 XP</div>
+        <div>• New word: +2 XP</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Study Time -->
+  <div class="rounded-3xl border border-white/10 bg-white/5 p-6">
+    <div class="flex items-start justify-between gap-3">
+      <div>
+        <div class="text-sm text-slate-400">⏱ Study time</div>
+        <div class="mt-1 text-2xl font-black">{{ study_today_min|default:0 }} min</div>
+        <div class="text-xs text-slate-400 mt-1">Bugun o‘qigan vaqt</div>
+      </div>
+      <div class="h-12 w-12 rounded-2xl border border-white/10 bg-slate-950/40 grid place-items-center">⏱</div>
+    </div>
+
+    <div class="mt-5 grid grid-cols-2 gap-3 text-sm">
+      <div class="rounded-2xl border border-white/10 bg-slate-950/30 p-4">
+        <div class="text-xs text-slate-400">Haftada</div>
+        <div class="mt-1 text-xl font-black">{{ study_week_min|default:0 }} min</div>
+      </div>
+      <div class="rounded-2xl border border-white/10 bg-slate-950/30 p-4">
+        <div class="text-xs text-slate-400">O‘rtacha</div>
+        <div class="mt-1 text-xl font-black">{{ study_avg_min|default:0 }} min/kun</div>
+      </div>
+    </div>
+
+    <div class="mt-4 text-xs text-slate-400">
+      Tip: “2×5” qoida — kuniga 2 marta 5 daqiqa ham kuchli odat.
+    </div>
+  </div>
+
+</div>
+
+<!-- STATS (sizniki) -->
+<div class="mt-6 grid md:grid-cols-3 gap-4">
+
+  <!-- Streak -->
+  <div class="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-6
+              transition-all duration-300 hover:bg-white/10 hover:-translate-y-1 hover:border-white/20">
+    <span class="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition
+                 bg-gradient-to-tr from-transparent via-white/10 to-transparent"></span>
+
+    <div class="flex items-start justify-between">
+      <div>
+        <div class="text-sm text-slate-400">🔥 Streak</div>
+        <div class="mt-2 text-4xl font-black text-white">{{ streak.current_streak }}</div>
+        <div class="text-xs text-slate-400 mt-1">Best: <span class="text-slate-200 font-semibold">{{ streak.best_streak }}</span></div>
+      </div>
+      <div class="h-12 w-12 rounded-2xl border border-white/10 bg-slate-950/40 grid place-items-center">
+        <span class="text-xl">🔥</span>
+      </div>
+    </div>
+
+    <div class="mt-5 text-xs text-slate-400">
+      Tip: har kuni 10 daqiqa ham bo‘lsa — streak uzilmaydi.
+    </div>
+  </div>
+
+  <!-- Review -->
+  <div class="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-6
+              transition-all duration-300 hover:bg-white/10 hover:-translate-y-1 hover:border-white/20">
+    <span class="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition
+                 bg-gradient-to-tr from-transparent via-white/10 to-transparent"></span>
+
+    <div class="flex items-start justify-between">
+      <div>
+        <div class="text-sm text-slate-400">🧠 Review</div>
+        <div class="mt-2 text-4xl font-black text-white">{{ due_count }}</div>
+        <div class="text-xs text-slate-400 mt-1">Due cards</div>
+      </div>
+      <div class="h-12 w-12 rounded-2xl border border-white/10 bg-slate-950/40 grid place-items-center">
+        <span class="text-xl">🧠</span>
+      </div>
+    </div>
+
+    <a href="/review/"
+       class="mt-5 inline-flex items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-sm
+              hover:bg-white/10 transition">
+      Review qilish <span class="transition group-hover:translate-x-1">→</span>
+    </a>
+  </div>
+
+  <!-- Words -->
+  <div class="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-6
+              transition-all duration-300 hover:bg-white/10 hover:-translate-y-1 hover:border-white/20">
+    <span class="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition
+                 bg-gradient-to-tr from-transparent via-white/10 to-transparent"></span>
+
+    <div class="flex items-start justify-between">
+      <div>
+        <div class="text-sm text-slate-400">📚 So‘zlar</div>
+        <div class="mt-2 text-3xl font-black text-white">{{ learned_words }} <span class="text-slate-400">/ {{ total_words }}</span></div>
+        <div class="text-xs text-slate-400 mt-1">{{ words_pct }}%</div>
+      </div>
+      <div class="h-12 w-12 rounded-2xl border border-white/10 bg-slate-950/40 grid place-items-center">
+        <span class="text-xl">📚</span>
+      </div>
+    </div>
+
+    <div class="mt-5 h-2 rounded-full bg-white/10 overflow-hidden">
+      <!-- ✅ BUG FIX -->
+      <div class="h-2 bg-gradient-to-r from-emerald-400 to-sky-400" style="width: words_pct "></div>
+    </div>
+
+    <div class="mt-4 text-xs text-slate-400">
+      Tip: har kuni 5 ta yangi so‘z + 10 ta review.
+    </div>
+  </div>
+
+</div>
+
+<!-- WEEKLY CHART + NEXT ACTIONS -->
+<div class="mt-4 grid lg:grid-cols-2 gap-4">
+
+  <!-- Weekly chart -->
+  <div class="rounded-3xl border border-white/10 bg-white/5 p-6 md:p-7">
+    <div class="flex items-center justify-between">
+      <div>
+        <div class="text-sm text-slate-400">📈 Oxirgi 7 kun</div>
+        <div class="mt-1 text-2xl font-black">Haftalik aktivlik</div>
+      </div>
+      <div class="rounded-2xl border border-white/10 bg-slate-950/40 px-4 py-2 text-xs text-slate-300">
+        Total: {{ week_total_actions|default:0 }}
+      </div>
+    </div>
+
+    <div class="mt-6 grid grid-cols-7 gap-2 items-end">
+      {% for d in week_bars %}
+      <div class="flex flex-col items-center gap-2">
+        <div class="w-full rounded-2xl bg-white/10 overflow-hidden h-28 flex items-end">
+          <div class="w-full bg-gradient-to-t from-emerald-400/90 to-sky-400/70" style="height: pct default 0 "></div>
+        </div>
+        <div class="text-[10px] text-slate-400">{{ d.label|default:"-" }}</div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="mt-4 text-xs text-slate-400">
+      Tip: har kuni ozgina harakat — grafikni “barqaror” qiladi.
+    </div>
+  </div>
+
+  <!-- Next actions -->
+  <div class="rounded-3xl border border-white/10 bg-white/5 p-6 md:p-7">
+    <div class="flex items-center justify-between">
+      <div>
+        <div class="text-sm text-slate-400">👉 Keyingi qadam</div>
+        <div class="mt-1 text-2xl font-black">Tavsiya</div>
+      </div>
+      <div class="h-10 w-10 rounded-2xl border border-white/10 bg-slate-950/40 grid place-items-center">👉</div>
+    </div>
+
+    <div class="mt-5 space-y-2">
+      {% for r in recommendations %}
+      <a href="{{ r.url }}"
+         class="block rounded-2xl border border-white/10 bg-slate-950/30 px-4 py-3 hover:bg-white/10 transition">
+        <div class="flex items-center justify-between gap-3">
+          <div class="text-sm text-slate-200 font-semibold">{{ r.title }}</div>
+          <div class="text-xs text-slate-400">→</div>
+        </div>
+        <div class="text-xs text-slate-400 mt-1">{{ r.desc }}</div>
+      </a>
+      {% empty %}
+      <div class="rounded-2xl border border-white/10 bg-slate-950/30 p-4 text-sm text-slate-300">
+        Hozircha tavsiya yo‘q. Review yoki kursdan davom eting 🙂
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+</div>
+
+<!-- LESSONS (sizniki) -->
+<div class="mt-4 rounded-3xl border border-white/10 bg-white/5 p-6 md:p-7">
+  <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+    <div>
+      <div class="text-sm text-slate-400">🎓 Darslar</div>
+      <div class="mt-1 text-2xl md:text-3xl font-black text-white">
+        {{ lessons_completed }} <span class="text-slate-400">/ {{ lessons_total }}</span>
+      </div>
+    </div>
+
+    <div class="rounded-2xl border border-white/10 bg-slate-950/40 px-4 py-2 text-xs text-slate-300">
+      {{ lessons_pct }}%
+    </div>
+  </div>
+
+  <div class="mt-4 h-2 rounded-full bg-white/10 overflow-hidden">
+    <!-- ✅ BUG FIX -->
+    <div class="h-2 bg-white" style="width: lessons_pct "></div>
+  </div>
+
+  <div class="mt-5 flex flex-wrap gap-2 text-xs">
+    <a href="/courses/" class="rounded-2xl border border-white/10 bg-white/5 px-4 py-2 hover:bg-white/10 transition">
+      Kurslarga o‘tish
+    </a>
+    <a href="/practice/" class="rounded-2xl border border-white/10 bg-white/5 px-4 py-2 hover:bg-white/10 transition">
+      Practice
+    </a>
+    <a href="/dictionary/" class="rounded-2xl border border-white/10 bg-white/5 px-4 py-2 hover:bg-white/10 transition">
+      Lug‘at
+    </a>
+  </div>
+</div>
+
+<!-- ACHIEVEMENTS + WEAK AREAS + HEATMAP -->
+<div class="mt-4 grid lg:grid-cols-3 gap-4">
+
+  <!-- Achievements -->
+  <div class="rounded-3xl border border-white/10 bg-white/5 p-6">
+    <div class="flex items-center justify-between">
+      <div>
+        <div class="text-sm text-slate-400">🏅 Achievements</div>
+        <div class="mt-1 text-2xl font-black">Badge’lar</div>
+      </div>
+      <div class="h-10 w-10 rounded-2xl border border-white/10 bg-slate-950/40 grid place-items-center">🏅</div>
+    </div>
+
+    <div class="mt-5 flex flex-wrap gap-2">
+      {% for a in achievements %}
+        <span class="rounded-2xl border border-white/10 bg-slate-950/30 px-3 py-2 text-xs text-slate-200">
+          {{ a.icon|default:"✅" }} {{ a.title }}
+        </span>
+      {% empty %}
+        <div class="text-sm text-slate-400">Hozircha badge yo‘q. Birinchi streakni boshlang 🔥</div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Weak Areas -->
+  <div class="rounded-3xl border border-white/10 bg-white/5 p-6">
+    <div class="flex items-center justify-between">
+      <div>
+        <div class="text-sm text-slate-400">🧠 Qiyin joylar</div>
+        <div class="mt-1 text-2xl font-black">Weak areas</div>
+      </div>
+      <div class="h-10 w-10 rounded-2xl border border-white/10 bg-slate-950/40 grid place-items-center">🧠</div>
+    </div>
+
+    <div class="mt-5 space-y-3">
+      {% for w in weak_areas %}
+      <div class="rounded-2xl border border-white/10 bg-slate-950/30 p-4">
+        <div class="flex items-center justify-between">
+          <div class="text-sm text-slate-200 font-semibold">{{ w.title }}</div>
+          <div class="text-xs text-slate-400">{{ w.pct }}%</div>
+        </div>
+        <div class="mt-2 h-2 rounded-full bg-white/10 overflow-hidden">
+          <div class="h-2 bg-gradient-to-r from-fuchsia-400/80 to-sky-400/70" style="width: w pct "></div>
+        </div>
+        {% if w.url %}
+        <a href="{{ w.url }}" class="mt-3 inline-flex text-xs text-slate-300 hover:text-white transition">Mashq qilish →</a>
+        {% endif %}
+      </div>
+      {% empty %}
+      <div class="text-sm text-slate-400">Qiyin joylar aniqlanmadi. Zo‘r ketayapsiz 😄</div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Heatmap -->
+  <div class="rounded-3xl border border-white/10 bg-white/5 p-6">
+    <div class="flex items-center justify-between">
+      <div>
+        <div class="text-sm text-slate-400">🗓 Activity</div>
+        <div class="mt-1 text-2xl font-black">Heatmap</div>
+      </div>
+      <div class="h-10 w-10 rounded-2xl border border-white/10 bg-slate-950/40 grid place-items-center">🗓</div>
+    </div>
+
+    <div class="mt-5 space-y-2">
+      {% for week in heatmap %}
+      <div class="flex gap-1">
+        {% for c in week %}
+          <span
+            class="h-3 w-3 rounded-[4px] border border-white/10"
+            style="background: rgba(255,255,255, c default 0)"
+            title="activity"
+          ></span>
+        {% endfor %}
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="mt-4 text-xs text-slate-400">
+      Tip: ketma-ket kunlar ko‘paygani sari odat mustahkamlanadi.
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}
