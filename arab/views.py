@@ -680,7 +680,7 @@ def exercise_submit(request, pk):
 def home(request):
     total_words = Word.objects.count()
     total_letters = Letter.objects.count()
-    active_users = UserGamification.objects.filter(xp_total__gt=0).count() + 120 # simulated + real
+    active_users = UserGamification.objects.filter(xp_total__gt=0).count() # Real active users
     
     context = {
         "total_words": total_words,
