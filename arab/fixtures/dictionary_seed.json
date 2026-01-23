@@ -4,7 +4,7 @@
     "pk": 11,
     "fields": {
       "name": "Dars 11: Tajvid va Qur'on",
-      "description": "Lesson 11 – Tajweed & Qur’an Vocabulary",
+      "description": "Lesson 11 – Tajweed & Qur’an Vocabulary (Corrected)",
       "created_at": "2024-01-01T00:00:00Z",
       "updated_at": "2024-01-01T00:00:00Z"
     }
@@ -13,9 +13,9 @@
     "model": "arab.word",
     "pk": 1,
     "fields": {
-      "arabic": "كِتَاب",
-      "transliteration": "Kitaab",
-      "translation_uz": "kitob",
+      "arabic": "مَدّ",
+      "transliteration": "Mad",
+      "translation_uz": "choʻzish (mad)",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -26,9 +26,9 @@
     "model": "arab.word",
     "pk": 2,
     "fields": {
-      "arabic": "كِتَابة",
-      "transliteration": "Kitaabh",
-      "translation_uz": "kitob (tushuncha)",
+      "arabic": "إِظْهَار",
+      "transliteration": "Iizhaar",
+      "translation_uz": "izhor (aniq talaffuz)",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -39,9 +39,9 @@
     "model": "arab.word",
     "pk": 3,
     "fields": {
-      "arabic": "كِتَابات",
-      "transliteration": "Kitaabat",
-      "translation_uz": "kitoblar",
+      "arabic": "إِدْغَام",
+      "transliteration": "Iidghaam",
+      "translation_uz": "idgʻom (qoʻshib o‘qish)",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -52,9 +52,9 @@
     "model": "arab.word",
     "pk": 4,
     "fields": {
-      "arabic": "كِتَابي",
-      "transliteration": "Kitaaby",
-      "translation_uz": "kitobga oid",
+      "arabic": "إِخْفَاء",
+      "transliteration": "Iikhfaa'",
+      "translation_uz": "ixfo (yashirin talaffuz)",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -65,9 +65,9 @@
     "model": "arab.word",
     "pk": 5,
     "fields": {
-      "arabic": "كِتَابيّة",
-      "transliteration": "Kitaabyh",
-      "translation_uz": "kitoblik",
+      "arabic": "إِقْلَاب",
+      "transliteration": "Iiqlaab",
+      "translation_uz": "iqlob (almashtirish)",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -78,9 +78,9 @@
     "model": "arab.word",
     "pk": 6,
     "fields": {
-      "arabic": "كِتَابكم",
-      "transliteration": "Kitaabkm",
-      "translation_uz": "kitobingiz",
+      "arabic": "قَلْقَلَة",
+      "transliteration": "Qalqalah",
+      "translation_uz": "qalqala (sakrashli tovush)",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -91,9 +91,9 @@
     "model": "arab.word",
     "pk": 7,
     "fields": {
-      "arabic": "كِتَابنا",
-      "transliteration": "Kitaabna",
-      "translation_uz": "kitobbizning",
+      "arabic": "غُنَّة",
+      "transliteration": "Ghunah",
+      "translation_uz": "g‘unna (burun tovushi)",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -104,9 +104,9 @@
     "model": "arab.word",
     "pk": 8,
     "fields": {
-      "arabic": "كِتَابهم",
-      "transliteration": "Kitaabhm",
-      "translation_uz": "kitobularning",
+      "arabic": "سُكُون",
+      "transliteration": "Sukuwn",
+      "translation_uz": "sukun (tovushsiz harf)",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -117,9 +117,9 @@
     "model": "arab.word",
     "pk": 9,
     "fields": {
-      "arabic": "قُرْآن",
-      "transliteration": "Quran",
-      "translation_uz": "Qur’on",
+      "arabic": "تَشْدِيد",
+      "transliteration": "Tashdiyd",
+      "translation_uz": "tashdid (ikki marta talaffuz)",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -130,9 +130,9 @@
     "model": "arab.word",
     "pk": 10,
     "fields": {
-      "arabic": "قُرْآنة",
-      "transliteration": "Quranh",
-      "translation_uz": "Qur’on (tushuncha)",
+      "arabic": "تَنْوِين",
+      "transliteration": "Tanwiyn",
+      "translation_uz": "tanvin",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -143,9 +143,9 @@
     "model": "arab.word",
     "pk": 11,
     "fields": {
-      "arabic": "قُرْآنات",
-      "transliteration": "Quranat",
-      "translation_uz": "Qur’onlar",
+      "arabic": "فَتْحَة",
+      "transliteration": "Fathah",
+      "translation_uz": "fatha",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -156,9 +156,9 @@
     "model": "arab.word",
     "pk": 12,
     "fields": {
-      "arabic": "قُرْآني",
-      "transliteration": "Qurany",
-      "translation_uz": "Qur’onga oid",
+      "arabic": "كَسْرَة",
+      "transliteration": "Kasrah",
+      "translation_uz": "kasra",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -169,9 +169,9 @@
     "model": "arab.word",
     "pk": 13,
     "fields": {
-      "arabic": "قُرْآنيّة",
-      "transliteration": "Quranyh",
-      "translation_uz": "Qur’onlik",
+      "arabic": "ضَمَّة",
+      "transliteration": "Damah",
+      "translation_uz": "damma",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -182,9 +182,9 @@
     "model": "arab.word",
     "pk": 14,
     "fields": {
-      "arabic": "قُرْآنكم",
-      "transliteration": "Qurankm",
-      "translation_uz": "Qur’oningiz",
+      "arabic": "ٱللّٰهُ",
+      "transliteration": "Llhu",
+      "translation_uz": "Alloh",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -195,9 +195,9 @@
     "model": "arab.word",
     "pk": 15,
     "fields": {
-      "arabic": "قُرْآننا",
-      "transliteration": "Quranna",
-      "translation_uz": "Qur’onbizning",
+      "arabic": "ٱلرَّحْمَٰنُ",
+      "transliteration": "Lrahmanu",
+      "translation_uz": "Mehribon",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -208,9 +208,9 @@
     "model": "arab.word",
     "pk": 16,
     "fields": {
-      "arabic": "قُرْآنهم",
-      "transliteration": "Quranhm",
-      "translation_uz": "Qur’onularning",
+      "arabic": "ٱلرَّحِيمُ",
+      "transliteration": "Lrahiymu",
+      "translation_uz": "Rahmli",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -221,9 +221,9 @@
     "model": "arab.word",
     "pk": 17,
     "fields": {
-      "arabic": "آيَة",
-      "transliteration": "Ayah",
-      "translation_uz": "oyat",
+      "arabic": "ٱلْقُرْآنُ",
+      "transliteration": "Lquranu",
+      "translation_uz": "Qur’on",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -234,9 +234,9 @@
     "model": "arab.word",
     "pk": 18,
     "fields": {
-      "arabic": "آيَةة",
-      "transliteration": "Ayahh",
-      "translation_uz": "oyat (tushuncha)",
+      "arabic": "آيَةٌ",
+      "transliteration": "Ayahun",
+      "translation_uz": "oyat",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -247,9 +247,9 @@
     "model": "arab.word",
     "pk": 19,
     "fields": {
-      "arabic": "آيَةات",
-      "transliteration": "Ayahat",
-      "translation_uz": "oyatlar",
+      "arabic": "سُورَةٌ",
+      "transliteration": "Suwrahun",
+      "translation_uz": "sura",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -260,9 +260,9 @@
     "model": "arab.word",
     "pk": 20,
     "fields": {
-      "arabic": "آيَةي",
-      "transliteration": "Ayahy",
-      "translation_uz": "oyatga oid",
+      "arabic": "صَلَاةٌ",
+      "transliteration": "Salaahun",
+      "translation_uz": "namoz",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -273,9 +273,9 @@
     "model": "arab.word",
     "pk": 21,
     "fields": {
-      "arabic": "آيَةيّة",
-      "transliteration": "Ayahyh",
-      "translation_uz": "oyatlik",
+      "arabic": "زَكَاةٌ",
+      "transliteration": "Zakaahun",
+      "translation_uz": "zakot",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -286,9 +286,9 @@
     "model": "arab.word",
     "pk": 22,
     "fields": {
-      "arabic": "آيَةكم",
-      "transliteration": "Ayahkm",
-      "translation_uz": "oyatingiz",
+      "arabic": "صَوْمٌ",
+      "transliteration": "Sawmun",
+      "translation_uz": "ro‘za",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -299,9 +299,9 @@
     "model": "arab.word",
     "pk": 23,
     "fields": {
-      "arabic": "آيَةنا",
-      "transliteration": "Ayahna",
-      "translation_uz": "oyatbizning",
+      "arabic": "حَجٌّ",
+      "transliteration": "Hajun",
+      "translation_uz": "haj",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -312,9 +312,9 @@
     "model": "arab.word",
     "pk": 24,
     "fields": {
-      "arabic": "آيَةهم",
-      "transliteration": "Ayahhm",
-      "translation_uz": "oyatularning",
+      "arabic": "إِيمَانٌ",
+      "transliteration": "Iiymaanun",
+      "translation_uz": "iymon",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -325,9 +325,9 @@
     "model": "arab.word",
     "pk": 25,
     "fields": {
-      "arabic": "سُورَة",
-      "transliteration": "Suwrah",
-      "translation_uz": "sura",
+      "arabic": "كُفْرٌ",
+      "transliteration": "Kufrun",
+      "translation_uz": "kufr",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -338,9 +338,9 @@
     "model": "arab.word",
     "pk": 26,
     "fields": {
-      "arabic": "سُورَةة",
-      "transliteration": "Suwrahh",
-      "translation_uz": "sura (tushuncha)",
+      "arabic": "تَقْوَىٰ",
+      "transliteration": "Taqwaa",
+      "translation_uz": "taqvo",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -351,9 +351,9 @@
     "model": "arab.word",
     "pk": 27,
     "fields": {
-      "arabic": "سُورَةات",
-      "transliteration": "Suwrahat",
-      "translation_uz": "suralar",
+      "arabic": "رَحْمَةٌ",
+      "transliteration": "Rahmahun",
+      "translation_uz": "rahmat",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -364,9 +364,9 @@
     "model": "arab.word",
     "pk": 28,
     "fields": {
-      "arabic": "سُورَةي",
-      "transliteration": "Suwrahy",
-      "translation_uz": "suraga oid",
+      "arabic": "مَغْفِرَةٌ",
+      "transliteration": "Maghfirahun",
+      "translation_uz": "mag‘firat",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -377,9 +377,9 @@
     "model": "arab.word",
     "pk": 29,
     "fields": {
-      "arabic": "سُورَةيّة",
-      "transliteration": "Suwrahyh",
-      "translation_uz": "suralik",
+      "arabic": "عَذَابٌ",
+      "transliteration": "'Adhaabun",
+      "translation_uz": "azob",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -390,9 +390,9 @@
     "model": "arab.word",
     "pk": 30,
     "fields": {
-      "arabic": "سُورَةكم",
-      "transliteration": "Suwrahkm",
-      "translation_uz": "suraingiz",
+      "arabic": "جَنَّةٌ",
+      "transliteration": "Janahun",
+      "translation_uz": "jannat",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -403,9 +403,9 @@
     "model": "arab.word",
     "pk": 31,
     "fields": {
-      "arabic": "سُورَةنا",
-      "transliteration": "Suwrahna",
-      "translation_uz": "surabizning",
+      "arabic": "نَارٌ",
+      "transliteration": "Naarun",
+      "translation_uz": "do‘zax",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -416,9 +416,9 @@
     "model": "arab.word",
     "pk": 32,
     "fields": {
-      "arabic": "سُورَةهم",
-      "transliteration": "Suwrahhm",
-      "translation_uz": "suraularning",
+      "arabic": "نُورٌ",
+      "transliteration": "Nuwrun",
+      "translation_uz": "nur",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -429,9 +429,9 @@
     "model": "arab.word",
     "pk": 33,
     "fields": {
-      "arabic": "رَحْمَة",
-      "transliteration": "Rahmah",
-      "translation_uz": "rahmat",
+      "arabic": "ظُلْمَةٌ",
+      "transliteration": "Zulmahun",
+      "translation_uz": "zulmat",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -442,9 +442,9 @@
     "model": "arab.word",
     "pk": 34,
     "fields": {
-      "arabic": "رَحْمَةة",
-      "transliteration": "Rahmahh",
-      "translation_uz": "rahmat (tushuncha)",
+      "arabic": "فِي ٱللّٰهُ",
+      "transliteration": "Fiy Llhu",
+      "translation_uz": "ichida Alloh",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -455,9 +455,9 @@
     "model": "arab.word",
     "pk": 35,
     "fields": {
-      "arabic": "رَحْمَةات",
-      "transliteration": "Rahmahat",
-      "translation_uz": "rahmatlar",
+      "arabic": "مِنْ ٱللّٰهُ",
+      "transliteration": "Min Llhu",
+      "translation_uz": "Allohdan",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -468,9 +468,9 @@
     "model": "arab.word",
     "pk": 36,
     "fields": {
-      "arabic": "رَحْمَةي",
-      "transliteration": "Rahmahy",
-      "translation_uz": "rahmatga oid",
+      "arabic": "إِلَى ٱللّٰهُ",
+      "transliteration": "Iilaa Llhu",
+      "translation_uz": "Allohga",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -481,9 +481,9 @@
     "model": "arab.word",
     "pk": 37,
     "fields": {
-      "arabic": "رَحْمَةيّة",
-      "transliteration": "Rahmahyh",
-      "translation_uz": "rahmatlik",
+      "arabic": "عَلَى ٱللّٰهُ",
+      "transliteration": "'Alaa Llhu",
+      "translation_uz": "Alloh ustida",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -494,9 +494,9 @@
     "model": "arab.word",
     "pk": 38,
     "fields": {
-      "arabic": "رَحْمَةكم",
-      "transliteration": "Rahmahkm",
-      "translation_uz": "rahmatingiz",
+      "arabic": "بِٱللّٰهُ",
+      "transliteration": "Billhu",
+      "translation_uz": "Alloh bilan",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -507,9 +507,9 @@
     "model": "arab.word",
     "pk": 39,
     "fields": {
-      "arabic": "رَحْمَةنا",
-      "transliteration": "Rahmahna",
-      "translation_uz": "rahmatbizning",
+      "arabic": "لِٱللّٰهُ",
+      "transliteration": "Lillhu",
+      "translation_uz": "Alloh uchun",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -520,9 +520,9 @@
     "model": "arab.word",
     "pk": 40,
     "fields": {
-      "arabic": "رَحْمَةهم",
-      "transliteration": "Rahmahhm",
-      "translation_uz": "rahmatularning",
+      "arabic": "فِي ٱلرَّحْمَٰنُ",
+      "transliteration": "Fiy Lrahmanu",
+      "translation_uz": "ichida Mehribon",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -533,9 +533,9 @@
     "model": "arab.word",
     "pk": 41,
     "fields": {
-      "arabic": "مَغْفِرَة",
-      "transliteration": "Maghfirah",
-      "translation_uz": "mag‘firat",
+      "arabic": "مِنْ ٱلرَّحْمَٰنُ",
+      "transliteration": "Min Lrahmanu",
+      "translation_uz": "Mehribondan",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -546,9 +546,9 @@
     "model": "arab.word",
     "pk": 42,
     "fields": {
-      "arabic": "مَغْفِرَةة",
-      "transliteration": "Maghfirahh",
-      "translation_uz": "mag‘firat (tushuncha)",
+      "arabic": "إِلَى ٱلرَّحْمَٰنُ",
+      "transliteration": "Iilaa Lrahmanu",
+      "translation_uz": "Mehribonga",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -559,9 +559,9 @@
     "model": "arab.word",
     "pk": 43,
     "fields": {
-      "arabic": "مَغْفِرَةات",
-      "transliteration": "Maghfirahat",
-      "translation_uz": "mag‘firatlar",
+      "arabic": "عَلَى ٱلرَّحْمَٰنُ",
+      "transliteration": "'Alaa Lrahmanu",
+      "translation_uz": "Mehribon ustida",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -572,9 +572,9 @@
     "model": "arab.word",
     "pk": 44,
     "fields": {
-      "arabic": "مَغْفِرَةي",
-      "transliteration": "Maghfirahy",
-      "translation_uz": "mag‘firatga oid",
+      "arabic": "بِٱلرَّحْمَٰنُ",
+      "transliteration": "Bilrahmanu",
+      "translation_uz": "Mehribon bilan",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -585,9 +585,9 @@
     "model": "arab.word",
     "pk": 45,
     "fields": {
-      "arabic": "مَغْفِرَةيّة",
-      "transliteration": "Maghfirahyh",
-      "translation_uz": "mag‘firatlik",
+      "arabic": "لِٱلرَّحْمَٰنُ",
+      "transliteration": "Lilrahmanu",
+      "translation_uz": "Mehribon uchun",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -598,9 +598,9 @@
     "model": "arab.word",
     "pk": 46,
     "fields": {
-      "arabic": "مَغْفِرَةكم",
-      "transliteration": "Maghfirahkm",
-      "translation_uz": "mag‘firatingiz",
+      "arabic": "فِي ٱلرَّحِيمُ",
+      "transliteration": "Fiy Lrahiymu",
+      "translation_uz": "ichida Rahmli",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -611,9 +611,9 @@
     "model": "arab.word",
     "pk": 47,
     "fields": {
-      "arabic": "مَغْفِرَةنا",
-      "transliteration": "Maghfirahna",
-      "translation_uz": "mag‘firatbizning",
+      "arabic": "مِنْ ٱلرَّحِيمُ",
+      "transliteration": "Min Lrahiymu",
+      "translation_uz": "Rahmlidan",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -624,9 +624,9 @@
     "model": "arab.word",
     "pk": 48,
     "fields": {
-      "arabic": "مَغْفِرَةهم",
-      "transliteration": "Maghfirahhm",
-      "translation_uz": "mag‘firatularning",
+      "arabic": "إِلَى ٱلرَّحِيمُ",
+      "transliteration": "Iilaa Lrahiymu",
+      "translation_uz": "Rahmliga",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -637,9 +637,9 @@
     "model": "arab.word",
     "pk": 49,
     "fields": {
-      "arabic": "صَلَاة",
-      "transliteration": "Salaah",
-      "translation_uz": "namoz",
+      "arabic": "عَلَى ٱلرَّحِيمُ",
+      "transliteration": "'Alaa Lrahiymu",
+      "translation_uz": "Rahmli ustida",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -650,9 +650,9 @@
     "model": "arab.word",
     "pk": 50,
     "fields": {
-      "arabic": "صَلَاةة",
-      "transliteration": "Salaahh",
-      "translation_uz": "namoz (tushuncha)",
+      "arabic": "بِٱلرَّحِيمُ",
+      "transliteration": "Bilrahiymu",
+      "translation_uz": "Rahmli bilan",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -663,9 +663,9 @@
     "model": "arab.word",
     "pk": 51,
     "fields": {
-      "arabic": "صَلَاةات",
-      "transliteration": "Salaahat",
-      "translation_uz": "namozlar",
+      "arabic": "لِٱلرَّحِيمُ",
+      "transliteration": "Lilrahiymu",
+      "translation_uz": "Rahmli uchun",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -676,9 +676,9 @@
     "model": "arab.word",
     "pk": 52,
     "fields": {
-      "arabic": "صَلَاةي",
-      "transliteration": "Salaahy",
-      "translation_uz": "namozga oid",
+      "arabic": "فِي ٱلْقُرْآنُ",
+      "transliteration": "Fiy Lquranu",
+      "translation_uz": "ichida Qur’on",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -689,9 +689,9 @@
     "model": "arab.word",
     "pk": 53,
     "fields": {
-      "arabic": "صَلَاةيّة",
-      "transliteration": "Salaahyh",
-      "translation_uz": "namozlik",
+      "arabic": "مِنْ ٱلْقُرْآنُ",
+      "transliteration": "Min Lquranu",
+      "translation_uz": "Qur’ondan",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -702,9 +702,9 @@
     "model": "arab.word",
     "pk": 54,
     "fields": {
-      "arabic": "صَلَاةكم",
-      "transliteration": "Salaahkm",
-      "translation_uz": "namozingiz",
+      "arabic": "إِلَى ٱلْقُرْآنُ",
+      "transliteration": "Iilaa Lquranu",
+      "translation_uz": "Qur’onga",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -715,9 +715,9 @@
     "model": "arab.word",
     "pk": 55,
     "fields": {
-      "arabic": "صَلَاةنا",
-      "transliteration": "Salaahna",
-      "translation_uz": "namozbizning",
+      "arabic": "عَلَى ٱلْقُرْآنُ",
+      "transliteration": "'Alaa Lquranu",
+      "translation_uz": "Qur’on ustida",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -728,9 +728,9 @@
     "model": "arab.word",
     "pk": 56,
     "fields": {
-      "arabic": "صَلَاةهم",
-      "transliteration": "Salaahhm",
-      "translation_uz": "namozularning",
+      "arabic": "بِٱلْقُرْآنُ",
+      "transliteration": "Bilquranu",
+      "translation_uz": "Qur’on bilan",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -741,9 +741,9 @@
     "model": "arab.word",
     "pk": 57,
     "fields": {
-      "arabic": "زَكَاة",
-      "transliteration": "Zakaah",
-      "translation_uz": "zakot",
+      "arabic": "لِٱلْقُرْآنُ",
+      "transliteration": "Lilquranu",
+      "translation_uz": "Qur’on uchun",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -754,9 +754,9 @@
     "model": "arab.word",
     "pk": 58,
     "fields": {
-      "arabic": "زَكَاةة",
-      "transliteration": "Zakaahh",
-      "translation_uz": "zakot (tushuncha)",
+      "arabic": "فِي آيَةٌ",
+      "transliteration": "Fiy Ayahun",
+      "translation_uz": "ichida oyat",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -767,9 +767,9 @@
     "model": "arab.word",
     "pk": 59,
     "fields": {
-      "arabic": "زَكَاةات",
-      "transliteration": "Zakaahat",
-      "translation_uz": "zakotlar",
+      "arabic": "مِنْ آيَةٌ",
+      "transliteration": "Min Ayahun",
+      "translation_uz": "oyatdan",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -780,9 +780,9 @@
     "model": "arab.word",
     "pk": 60,
     "fields": {
-      "arabic": "زَكَاةي",
-      "transliteration": "Zakaahy",
-      "translation_uz": "zakotga oid",
+      "arabic": "إِلَى آيَةٌ",
+      "transliteration": "Iilaa Ayahun",
+      "translation_uz": "oyatga",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -793,9 +793,9 @@
     "model": "arab.word",
     "pk": 61,
     "fields": {
-      "arabic": "زَكَاةيّة",
-      "transliteration": "Zakaahyh",
-      "translation_uz": "zakotlik",
+      "arabic": "عَلَى آيَةٌ",
+      "transliteration": "'Alaa Ayahun",
+      "translation_uz": "oyat ustida",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -806,9 +806,9 @@
     "model": "arab.word",
     "pk": 62,
     "fields": {
-      "arabic": "زَكَاةكم",
-      "transliteration": "Zakaahkm",
-      "translation_uz": "zakotingiz",
+      "arabic": "بِآيَةٌ",
+      "transliteration": "Biayahun",
+      "translation_uz": "oyat bilan",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -819,9 +819,9 @@
     "model": "arab.word",
     "pk": 63,
     "fields": {
-      "arabic": "زَكَاةنا",
-      "transliteration": "Zakaahna",
-      "translation_uz": "zakotbizning",
+      "arabic": "لِآيَةٌ",
+      "transliteration": "Liayahun",
+      "translation_uz": "oyat uchun",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -832,9 +832,9 @@
     "model": "arab.word",
     "pk": 64,
     "fields": {
-      "arabic": "زَكَاةهم",
-      "transliteration": "Zakaahhm",
-      "translation_uz": "zakotularning",
+      "arabic": "فِي سُورَةٌ",
+      "transliteration": "Fiy Suwrahun",
+      "translation_uz": "ichida sura",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -845,9 +845,9 @@
     "model": "arab.word",
     "pk": 65,
     "fields": {
-      "arabic": "صَوْم",
-      "transliteration": "Sawm",
-      "translation_uz": "ro‘za",
+      "arabic": "مِنْ سُورَةٌ",
+      "transliteration": "Min Suwrahun",
+      "translation_uz": "suradan",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -858,9 +858,9 @@
     "model": "arab.word",
     "pk": 66,
     "fields": {
-      "arabic": "صَوْمة",
-      "transliteration": "Sawmh",
-      "translation_uz": "ro‘za (tushuncha)",
+      "arabic": "إِلَى سُورَةٌ",
+      "transliteration": "Iilaa Suwrahun",
+      "translation_uz": "suraga",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -871,9 +871,9 @@
     "model": "arab.word",
     "pk": 67,
     "fields": {
-      "arabic": "صَوْمات",
-      "transliteration": "Sawmat",
-      "translation_uz": "ro‘zalar",
+      "arabic": "عَلَى سُورَةٌ",
+      "transliteration": "'Alaa Suwrahun",
+      "translation_uz": "sura ustida",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -884,9 +884,9 @@
     "model": "arab.word",
     "pk": 68,
     "fields": {
-      "arabic": "صَوْمي",
-      "transliteration": "Sawmy",
-      "translation_uz": "ro‘zaga oid",
+      "arabic": "بِسُورَةٌ",
+      "transliteration": "Bisuwrahun",
+      "translation_uz": "sura bilan",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -897,9 +897,9 @@
     "model": "arab.word",
     "pk": 69,
     "fields": {
-      "arabic": "صَوْميّة",
-      "transliteration": "Sawmyh",
-      "translation_uz": "ro‘zalik",
+      "arabic": "لِسُورَةٌ",
+      "transliteration": "Lisuwrahun",
+      "translation_uz": "sura uchun",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -910,9 +910,9 @@
     "model": "arab.word",
     "pk": 70,
     "fields": {
-      "arabic": "صَوْمكم",
-      "transliteration": "Sawmkm",
-      "translation_uz": "ro‘zaingiz",
+      "arabic": "فِي صَلَاةٌ",
+      "transliteration": "Fiy Salaahun",
+      "translation_uz": "ichida namoz",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -923,9 +923,9 @@
     "model": "arab.word",
     "pk": 71,
     "fields": {
-      "arabic": "صَوْمنا",
-      "transliteration": "Sawmna",
-      "translation_uz": "ro‘zabizning",
+      "arabic": "مِنْ صَلَاةٌ",
+      "transliteration": "Min Salaahun",
+      "translation_uz": "namozdan",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -936,9 +936,9 @@
     "model": "arab.word",
     "pk": 72,
     "fields": {
-      "arabic": "صَوْمهم",
-      "transliteration": "Sawmhm",
-      "translation_uz": "ro‘zaularning",
+      "arabic": "إِلَى صَلَاةٌ",
+      "transliteration": "Iilaa Salaahun",
+      "translation_uz": "namozga",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -949,9 +949,9 @@
     "model": "arab.word",
     "pk": 73,
     "fields": {
-      "arabic": "حَجّ",
-      "transliteration": "Haj",
-      "translation_uz": "haj",
+      "arabic": "عَلَى صَلَاةٌ",
+      "transliteration": "'Alaa Salaahun",
+      "translation_uz": "namoz ustida",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -962,9 +962,9 @@
     "model": "arab.word",
     "pk": 74,
     "fields": {
-      "arabic": "حَجّة",
-      "transliteration": "Hajh",
-      "translation_uz": "haj (tushuncha)",
+      "arabic": "بِصَلَاةٌ",
+      "transliteration": "Bisalaahun",
+      "translation_uz": "namoz bilan",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -975,9 +975,9 @@
     "model": "arab.word",
     "pk": 75,
     "fields": {
-      "arabic": "حَجّات",
-      "transliteration": "Hajat",
-      "translation_uz": "hajlar",
+      "arabic": "لِصَلَاةٌ",
+      "transliteration": "Lisalaahun",
+      "translation_uz": "namoz uchun",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -988,9 +988,9 @@
     "model": "arab.word",
     "pk": 76,
     "fields": {
-      "arabic": "حَجّي",
-      "transliteration": "Hajy",
-      "translation_uz": "hajga oid",
+      "arabic": "فِي زَكَاةٌ",
+      "transliteration": "Fiy Zakaahun",
+      "translation_uz": "ichida zakot",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1001,9 +1001,9 @@
     "model": "arab.word",
     "pk": 77,
     "fields": {
-      "arabic": "حَجّيّة",
-      "transliteration": "Hajyh",
-      "translation_uz": "hajlik",
+      "arabic": "مِنْ زَكَاةٌ",
+      "transliteration": "Min Zakaahun",
+      "translation_uz": "zakotdan",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1014,9 +1014,9 @@
     "model": "arab.word",
     "pk": 78,
     "fields": {
-      "arabic": "حَجّكم",
-      "transliteration": "Hajkm",
-      "translation_uz": "hajingiz",
+      "arabic": "إِلَى زَكَاةٌ",
+      "transliteration": "Iilaa Zakaahun",
+      "translation_uz": "zakotga",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1027,9 +1027,9 @@
     "model": "arab.word",
     "pk": 79,
     "fields": {
-      "arabic": "حَجّنا",
-      "transliteration": "Hajna",
-      "translation_uz": "hajbizning",
+      "arabic": "عَلَى زَكَاةٌ",
+      "transliteration": "'Alaa Zakaahun",
+      "translation_uz": "zakot ustida",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1040,9 +1040,9 @@
     "model": "arab.word",
     "pk": 80,
     "fields": {
-      "arabic": "حَجّهم",
-      "transliteration": "Hajhm",
-      "translation_uz": "hajularning",
+      "arabic": "بِزَكَاةٌ",
+      "transliteration": "Bizakaahun",
+      "translation_uz": "zakot bilan",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1053,9 +1053,9 @@
     "model": "arab.word",
     "pk": 81,
     "fields": {
-      "arabic": "إِيمَان",
-      "transliteration": "Iiymaan",
-      "translation_uz": "iymon",
+      "arabic": "لِزَكَاةٌ",
+      "transliteration": "Lizakaahun",
+      "translation_uz": "zakot uchun",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1066,9 +1066,9 @@
     "model": "arab.word",
     "pk": 82,
     "fields": {
-      "arabic": "إِيمَانة",
-      "transliteration": "Iiymaanh",
-      "translation_uz": "iymon (tushuncha)",
+      "arabic": "فِي صَوْمٌ",
+      "transliteration": "Fiy Sawmun",
+      "translation_uz": "ichida ro‘za",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1079,9 +1079,9 @@
     "model": "arab.word",
     "pk": 83,
     "fields": {
-      "arabic": "إِيمَانات",
-      "transliteration": "Iiymaanat",
-      "translation_uz": "iymonlar",
+      "arabic": "مِنْ صَوْمٌ",
+      "transliteration": "Min Sawmun",
+      "translation_uz": "ro‘zadan",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1092,9 +1092,9 @@
     "model": "arab.word",
     "pk": 84,
     "fields": {
-      "arabic": "إِيمَاني",
-      "transliteration": "Iiymaany",
-      "translation_uz": "iymonga oid",
+      "arabic": "إِلَى صَوْمٌ",
+      "transliteration": "Iilaa Sawmun",
+      "translation_uz": "ro‘zaga",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1105,9 +1105,9 @@
     "model": "arab.word",
     "pk": 85,
     "fields": {
-      "arabic": "إِيمَانيّة",
-      "transliteration": "Iiymaanyh",
-      "translation_uz": "iymonlik",
+      "arabic": "عَلَى صَوْمٌ",
+      "transliteration": "'Alaa Sawmun",
+      "translation_uz": "ro‘za ustida",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1118,9 +1118,9 @@
     "model": "arab.word",
     "pk": 86,
     "fields": {
-      "arabic": "إِيمَانكم",
-      "transliteration": "Iiymaankm",
-      "translation_uz": "iymoningiz",
+      "arabic": "بِصَوْمٌ",
+      "transliteration": "Bisawmun",
+      "translation_uz": "ro‘za bilan",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1131,9 +1131,9 @@
     "model": "arab.word",
     "pk": 87,
     "fields": {
-      "arabic": "إِيمَاننا",
-      "transliteration": "Iiymaanna",
-      "translation_uz": "iymonbizning",
+      "arabic": "لِصَوْمٌ",
+      "transliteration": "Lisawmun",
+      "translation_uz": "ro‘za uchun",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1144,9 +1144,9 @@
     "model": "arab.word",
     "pk": 88,
     "fields": {
-      "arabic": "إِيمَانهم",
-      "transliteration": "Iiymaanhm",
-      "translation_uz": "iymonularning",
+      "arabic": "فِي حَجٌّ",
+      "transliteration": "Fiy Hajun",
+      "translation_uz": "ichida haj",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1157,9 +1157,9 @@
     "model": "arab.word",
     "pk": 89,
     "fields": {
-      "arabic": "عِلْم",
-      "transliteration": "'Ilm",
-      "translation_uz": "ilm",
+      "arabic": "مِنْ حَجٌّ",
+      "transliteration": "Min Hajun",
+      "translation_uz": "hajdan",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1170,9 +1170,9 @@
     "model": "arab.word",
     "pk": 90,
     "fields": {
-      "arabic": "عِلْمة",
-      "transliteration": "'Ilmh",
-      "translation_uz": "ilm (tushuncha)",
+      "arabic": "إِلَى حَجٌّ",
+      "transliteration": "Iilaa Hajun",
+      "translation_uz": "hajga",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1183,9 +1183,9 @@
     "model": "arab.word",
     "pk": 91,
     "fields": {
-      "arabic": "عِلْمات",
-      "transliteration": "'Ilmat",
-      "translation_uz": "ilmlar",
+      "arabic": "عَلَى حَجٌّ",
+      "transliteration": "'Alaa Hajun",
+      "translation_uz": "haj ustida",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1196,9 +1196,9 @@
     "model": "arab.word",
     "pk": 92,
     "fields": {
-      "arabic": "عِلْمي",
-      "transliteration": "'Ilmy",
-      "translation_uz": "ilmga oid",
+      "arabic": "بِحَجٌّ",
+      "transliteration": "Bihajun",
+      "translation_uz": "haj bilan",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1209,9 +1209,9 @@
     "model": "arab.word",
     "pk": 93,
     "fields": {
-      "arabic": "عِلْميّة",
-      "transliteration": "'Ilmyh",
-      "translation_uz": "ilmlik",
+      "arabic": "لِحَجٌّ",
+      "transliteration": "Lihajun",
+      "translation_uz": "haj uchun",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1222,9 +1222,9 @@
     "model": "arab.word",
     "pk": 94,
     "fields": {
-      "arabic": "عِلْمكم",
-      "transliteration": "'Ilmkm",
-      "translation_uz": "ilmingiz",
+      "arabic": "فِي إِيمَانٌ",
+      "transliteration": "Fiy Iiymaanun",
+      "translation_uz": "ichida iymon",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1235,9 +1235,9 @@
     "model": "arab.word",
     "pk": 95,
     "fields": {
-      "arabic": "عِلْمنا",
-      "transliteration": "'Ilmna",
-      "translation_uz": "ilmbizning",
+      "arabic": "مِنْ إِيمَانٌ",
+      "transliteration": "Min Iiymaanun",
+      "translation_uz": "iymondan",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1248,9 +1248,9 @@
     "model": "arab.word",
     "pk": 96,
     "fields": {
-      "arabic": "عِلْمهم",
-      "transliteration": "'Ilmhm",
-      "translation_uz": "ilmularning",
+      "arabic": "إِلَى إِيمَانٌ",
+      "transliteration": "Iilaa Iiymaanun",
+      "translation_uz": "iymonga",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1261,9 +1261,9 @@
     "model": "arab.word",
     "pk": 97,
     "fields": {
-      "arabic": "حِكْمَة",
-      "transliteration": "Hikmah",
-      "translation_uz": "hikmat",
+      "arabic": "عَلَى إِيمَانٌ",
+      "transliteration": "'Alaa Iiymaanun",
+      "translation_uz": "iymon ustida",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1274,9 +1274,9 @@
     "model": "arab.word",
     "pk": 98,
     "fields": {
-      "arabic": "حِكْمَةة",
-      "transliteration": "Hikmahh",
-      "translation_uz": "hikmat (tushuncha)",
+      "arabic": "بِإِيمَانٌ",
+      "transliteration": "Biiiymaanun",
+      "translation_uz": "iymon bilan",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1287,9 +1287,9 @@
     "model": "arab.word",
     "pk": 99,
     "fields": {
-      "arabic": "حِكْمَةات",
-      "transliteration": "Hikmahat",
-      "translation_uz": "hikmatlar",
+      "arabic": "لِإِيمَانٌ",
+      "transliteration": "Liiiymaanun",
+      "translation_uz": "iymon uchun",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1300,9 +1300,9 @@
     "model": "arab.word",
     "pk": 100,
     "fields": {
-      "arabic": "حِكْمَةي",
-      "transliteration": "Hikmahy",
-      "translation_uz": "hikmatga oid",
+      "arabic": "فِي كُفْرٌ",
+      "transliteration": "Fiy Kufrun",
+      "translation_uz": "ichida kufr",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1313,9 +1313,9 @@
     "model": "arab.word",
     "pk": 101,
     "fields": {
-      "arabic": "حِكْمَةيّة",
-      "transliteration": "Hikmahyh",
-      "translation_uz": "hikmatlik",
+      "arabic": "مِنْ كُفْرٌ",
+      "transliteration": "Min Kufrun",
+      "translation_uz": "kufrdan",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1326,9 +1326,9 @@
     "model": "arab.word",
     "pk": 102,
     "fields": {
-      "arabic": "حِكْمَةكم",
-      "transliteration": "Hikmahkm",
-      "translation_uz": "hikmatingiz",
+      "arabic": "إِلَى كُفْرٌ",
+      "transliteration": "Iilaa Kufrun",
+      "translation_uz": "kufrga",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1339,9 +1339,9 @@
     "model": "arab.word",
     "pk": 103,
     "fields": {
-      "arabic": "حِكْمَةنا",
-      "transliteration": "Hikmahna",
-      "translation_uz": "hikmatbizning",
+      "arabic": "عَلَى كُفْرٌ",
+      "transliteration": "'Alaa Kufrun",
+      "translation_uz": "kufr ustida",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1352,9 +1352,9 @@
     "model": "arab.word",
     "pk": 104,
     "fields": {
-      "arabic": "حِكْمَةهم",
-      "transliteration": "Hikmahhm",
-      "translation_uz": "hikmatularning",
+      "arabic": "بِكُفْرٌ",
+      "transliteration": "Bikufrun",
+      "translation_uz": "kufr bilan",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1365,9 +1365,9 @@
     "model": "arab.word",
     "pk": 105,
     "fields": {
-      "arabic": "نُور",
-      "transliteration": "Nuwr",
-      "translation_uz": "nur",
+      "arabic": "لِكُفْرٌ",
+      "transliteration": "Likufrun",
+      "translation_uz": "kufr uchun",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1378,9 +1378,9 @@
     "model": "arab.word",
     "pk": 106,
     "fields": {
-      "arabic": "نُورة",
-      "transliteration": "Nuwrh",
-      "translation_uz": "nur (tushuncha)",
+      "arabic": "فِي تَقْوَىٰ",
+      "transliteration": "Fiy Taqwaa",
+      "translation_uz": "ichida taqvo",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1391,9 +1391,9 @@
     "model": "arab.word",
     "pk": 107,
     "fields": {
-      "arabic": "نُورات",
-      "transliteration": "Nuwrat",
-      "translation_uz": "nurlar",
+      "arabic": "مِنْ تَقْوَىٰ",
+      "transliteration": "Min Taqwaa",
+      "translation_uz": "taqvodan",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1404,9 +1404,9 @@
     "model": "arab.word",
     "pk": 108,
     "fields": {
-      "arabic": "نُوري",
-      "transliteration": "Nuwry",
-      "translation_uz": "nurga oid",
+      "arabic": "إِلَى تَقْوَىٰ",
+      "transliteration": "Iilaa Taqwaa",
+      "translation_uz": "taqvoga",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1417,9 +1417,9 @@
     "model": "arab.word",
     "pk": 109,
     "fields": {
-      "arabic": "نُوريّة",
-      "transliteration": "Nuwryh",
-      "translation_uz": "nurlik",
+      "arabic": "عَلَى تَقْوَىٰ",
+      "transliteration": "'Alaa Taqwaa",
+      "translation_uz": "taqvo ustida",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1430,9 +1430,9 @@
     "model": "arab.word",
     "pk": 110,
     "fields": {
-      "arabic": "نُوركم",
-      "transliteration": "Nuwrkm",
-      "translation_uz": "nuringiz",
+      "arabic": "بِتَقْوَىٰ",
+      "transliteration": "Bitaqwaa",
+      "translation_uz": "taqvo bilan",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1443,9 +1443,9 @@
     "model": "arab.word",
     "pk": 111,
     "fields": {
-      "arabic": "نُورنا",
-      "transliteration": "Nuwrna",
-      "translation_uz": "nurbizning",
+      "arabic": "لِتَقْوَىٰ",
+      "transliteration": "Litaqwaa",
+      "translation_uz": "taqvo uchun",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1456,9 +1456,9 @@
     "model": "arab.word",
     "pk": 112,
     "fields": {
-      "arabic": "نُورهم",
-      "transliteration": "Nuwrhm",
-      "translation_uz": "nurularning",
+      "arabic": "فِي رَحْمَةٌ",
+      "transliteration": "Fiy Rahmahun",
+      "translation_uz": "ichida rahmat",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1469,9 +1469,9 @@
     "model": "arab.word",
     "pk": 113,
     "fields": {
-      "arabic": "ظُلْمَة",
-      "transliteration": "Zulmah",
-      "translation_uz": "zulmat",
+      "arabic": "مِنْ رَحْمَةٌ",
+      "transliteration": "Min Rahmahun",
+      "translation_uz": "rahmatdan",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1482,9 +1482,9 @@
     "model": "arab.word",
     "pk": 114,
     "fields": {
-      "arabic": "ظُلْمَةة",
-      "transliteration": "Zulmahh",
-      "translation_uz": "zulmat (tushuncha)",
+      "arabic": "إِلَى رَحْمَةٌ",
+      "transliteration": "Iilaa Rahmahun",
+      "translation_uz": "rahmatga",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1495,9 +1495,9 @@
     "model": "arab.word",
     "pk": 115,
     "fields": {
-      "arabic": "ظُلْمَةات",
-      "transliteration": "Zulmahat",
-      "translation_uz": "zulmatlar",
+      "arabic": "عَلَى رَحْمَةٌ",
+      "transliteration": "'Alaa Rahmahun",
+      "translation_uz": "rahmat ustida",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1508,9 +1508,9 @@
     "model": "arab.word",
     "pk": 116,
     "fields": {
-      "arabic": "ظُلْمَةي",
-      "transliteration": "Zulmahy",
-      "translation_uz": "zulmatga oid",
+      "arabic": "بِرَحْمَةٌ",
+      "transliteration": "Birahmahun",
+      "translation_uz": "rahmat bilan",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1521,9 +1521,9 @@
     "model": "arab.word",
     "pk": 117,
     "fields": {
-      "arabic": "ظُلْمَةيّة",
-      "transliteration": "Zulmahyh",
-      "translation_uz": "zulmatlik",
+      "arabic": "لِرَحْمَةٌ",
+      "transliteration": "Lirahmahun",
+      "translation_uz": "rahmat uchun",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1534,9 +1534,9 @@
     "model": "arab.word",
     "pk": 118,
     "fields": {
-      "arabic": "ظُلْمَةكم",
-      "transliteration": "Zulmahkm",
-      "translation_uz": "zulmatingiz",
+      "arabic": "فِي مَغْفِرَةٌ",
+      "transliteration": "Fiy Maghfirahun",
+      "translation_uz": "ichida mag‘firat",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1547,9 +1547,9 @@
     "model": "arab.word",
     "pk": 119,
     "fields": {
-      "arabic": "ظُلْمَةنا",
-      "transliteration": "Zulmahna",
-      "translation_uz": "zulmatbizning",
+      "arabic": "مِنْ مَغْفِرَةٌ",
+      "transliteration": "Min Maghfirahun",
+      "translation_uz": "mag‘firatdan",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1560,9 +1560,9 @@
     "model": "arab.word",
     "pk": 120,
     "fields": {
-      "arabic": "ظُلْمَةهم",
-      "transliteration": "Zulmahhm",
-      "translation_uz": "zulmatularning",
+      "arabic": "إِلَى مَغْفِرَةٌ",
+      "transliteration": "Iilaa Maghfirahun",
+      "translation_uz": "mag‘firatga",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1573,9 +1573,9 @@
     "model": "arab.word",
     "pk": 121,
     "fields": {
-      "arabic": "حَقّ",
-      "transliteration": "Haq",
-      "translation_uz": "haq",
+      "arabic": "عَلَى مَغْفِرَةٌ",
+      "transliteration": "'Alaa Maghfirahun",
+      "translation_uz": "mag‘firat ustida",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1586,9 +1586,9 @@
     "model": "arab.word",
     "pk": 122,
     "fields": {
-      "arabic": "حَقّة",
-      "transliteration": "Haqh",
-      "translation_uz": "haq (tushuncha)",
+      "arabic": "بِمَغْفِرَةٌ",
+      "transliteration": "Bimaghfirahun",
+      "translation_uz": "mag‘firat bilan",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1599,9 +1599,9 @@
     "model": "arab.word",
     "pk": 123,
     "fields": {
-      "arabic": "حَقّات",
-      "transliteration": "Haqat",
-      "translation_uz": "haqlar",
+      "arabic": "لِمَغْفِرَةٌ",
+      "transliteration": "Limaghfirahun",
+      "translation_uz": "mag‘firat uchun",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1612,9 +1612,9 @@
     "model": "arab.word",
     "pk": 124,
     "fields": {
-      "arabic": "حَقّي",
-      "transliteration": "Haqy",
-      "translation_uz": "haqga oid",
+      "arabic": "فِي عَذَابٌ",
+      "transliteration": "Fiy 'Adhaabun",
+      "translation_uz": "ichida azob",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1625,9 +1625,9 @@
     "model": "arab.word",
     "pk": 125,
     "fields": {
-      "arabic": "حَقّيّة",
-      "transliteration": "Haqyh",
-      "translation_uz": "haqlik",
+      "arabic": "مِنْ عَذَابٌ",
+      "transliteration": "Min 'Adhaabun",
+      "translation_uz": "azobdan",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1638,9 +1638,9 @@
     "model": "arab.word",
     "pk": 126,
     "fields": {
-      "arabic": "حَقّكم",
-      "transliteration": "Haqkm",
-      "translation_uz": "haqingiz",
+      "arabic": "إِلَى عَذَابٌ",
+      "transliteration": "Iilaa 'Adhaabun",
+      "translation_uz": "azobga",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1651,9 +1651,9 @@
     "model": "arab.word",
     "pk": 127,
     "fields": {
-      "arabic": "حَقّنا",
-      "transliteration": "Haqna",
-      "translation_uz": "haqbizning",
+      "arabic": "عَلَى عَذَابٌ",
+      "transliteration": "'Alaa 'Adhaabun",
+      "translation_uz": "azob ustida",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1664,9 +1664,9 @@
     "model": "arab.word",
     "pk": 128,
     "fields": {
-      "arabic": "حَقّهم",
-      "transliteration": "Haqhm",
-      "translation_uz": "haqularning",
+      "arabic": "بِعَذَابٌ",
+      "transliteration": "Bi'Adhaabun",
+      "translation_uz": "azob bilan",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1677,9 +1677,9 @@
     "model": "arab.word",
     "pk": 129,
     "fields": {
-      "arabic": "صِدْق",
-      "transliteration": "Sidq",
-      "translation_uz": "rostlik",
+      "arabic": "لِعَذَابٌ",
+      "transliteration": "Li'Adhaabun",
+      "translation_uz": "azob uchun",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1690,9 +1690,9 @@
     "model": "arab.word",
     "pk": 130,
     "fields": {
-      "arabic": "صِدْقة",
-      "transliteration": "Sidqh",
-      "translation_uz": "rostlik (tushuncha)",
+      "arabic": "فِي جَنَّةٌ",
+      "transliteration": "Fiy Janahun",
+      "translation_uz": "ichida jannat",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1703,9 +1703,9 @@
     "model": "arab.word",
     "pk": 131,
     "fields": {
-      "arabic": "صِدْقات",
-      "transliteration": "Sidqat",
-      "translation_uz": "rostliklar",
+      "arabic": "مِنْ جَنَّةٌ",
+      "transliteration": "Min Janahun",
+      "translation_uz": "jannatdan",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1716,9 +1716,9 @@
     "model": "arab.word",
     "pk": 132,
     "fields": {
-      "arabic": "صِدْقي",
-      "transliteration": "Sidqy",
-      "translation_uz": "rostlikga oid",
+      "arabic": "إِلَى جَنَّةٌ",
+      "transliteration": "Iilaa Janahun",
+      "translation_uz": "jannatga",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1729,9 +1729,9 @@
     "model": "arab.word",
     "pk": 133,
     "fields": {
-      "arabic": "صِدْقيّة",
-      "transliteration": "Sidqyh",
-      "translation_uz": "rostliklik",
+      "arabic": "عَلَى جَنَّةٌ",
+      "transliteration": "'Alaa Janahun",
+      "translation_uz": "jannat ustida",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1742,9 +1742,9 @@
     "model": "arab.word",
     "pk": 134,
     "fields": {
-      "arabic": "صِدْقكم",
-      "transliteration": "Sidqkm",
-      "translation_uz": "rostlikingiz",
+      "arabic": "بِجَنَّةٌ",
+      "transliteration": "Bijanahun",
+      "translation_uz": "jannat bilan",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1755,9 +1755,9 @@
     "model": "arab.word",
     "pk": 135,
     "fields": {
-      "arabic": "صِدْقنا",
-      "transliteration": "Sidqna",
-      "translation_uz": "rostlikbizning",
+      "arabic": "لِجَنَّةٌ",
+      "transliteration": "Lijanahun",
+      "translation_uz": "jannat uchun",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1768,9 +1768,9 @@
     "model": "arab.word",
     "pk": 136,
     "fields": {
-      "arabic": "صِدْقهم",
-      "transliteration": "Sidqhm",
-      "translation_uz": "rostlikularning",
+      "arabic": "فِي نَارٌ",
+      "transliteration": "Fiy Naarun",
+      "translation_uz": "ichida do‘zax",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1781,9 +1781,9 @@
     "model": "arab.word",
     "pk": 137,
     "fields": {
-      "arabic": "سَلَام",
-      "transliteration": "Salaam",
-      "translation_uz": "tinchlik",
+      "arabic": "مِنْ نَارٌ",
+      "transliteration": "Min Naarun",
+      "translation_uz": "do‘zaxdan",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1794,9 +1794,9 @@
     "model": "arab.word",
     "pk": 138,
     "fields": {
-      "arabic": "سَلَامة",
-      "transliteration": "Salaamh",
-      "translation_uz": "tinchlik (tushuncha)",
+      "arabic": "إِلَى نَارٌ",
+      "transliteration": "Iilaa Naarun",
+      "translation_uz": "do‘zaxga",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1807,9 +1807,9 @@
     "model": "arab.word",
     "pk": 139,
     "fields": {
-      "arabic": "سَلَامات",
-      "transliteration": "Salaamat",
-      "translation_uz": "tinchliklar",
+      "arabic": "عَلَى نَارٌ",
+      "transliteration": "'Alaa Naarun",
+      "translation_uz": "do‘zax ustida",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1820,9 +1820,9 @@
     "model": "arab.word",
     "pk": 140,
     "fields": {
-      "arabic": "سَلَامي",
-      "transliteration": "Salaamy",
-      "translation_uz": "tinchlikga oid",
+      "arabic": "بِنَارٌ",
+      "transliteration": "Binaarun",
+      "translation_uz": "do‘zax bilan",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1833,9 +1833,9 @@
     "model": "arab.word",
     "pk": 141,
     "fields": {
-      "arabic": "سَلَاميّة",
-      "transliteration": "Salaamyh",
-      "translation_uz": "tinchliklik",
+      "arabic": "لِنَارٌ",
+      "transliteration": "Linaarun",
+      "translation_uz": "do‘zax uchun",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1846,9 +1846,9 @@
     "model": "arab.word",
     "pk": 142,
     "fields": {
-      "arabic": "سَلَامكم",
-      "transliteration": "Salaamkm",
-      "translation_uz": "tinchlikingiz",
+      "arabic": "فِي نُورٌ",
+      "transliteration": "Fiy Nuwrun",
+      "translation_uz": "ichida nur",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1859,9 +1859,9 @@
     "model": "arab.word",
     "pk": 143,
     "fields": {
-      "arabic": "سَلَامنا",
-      "transliteration": "Salaamna",
-      "translation_uz": "tinchlikbizning",
+      "arabic": "مِنْ نُورٌ",
+      "transliteration": "Min Nuwrun",
+      "translation_uz": "nurdan",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1872,9 +1872,9 @@
     "model": "arab.word",
     "pk": 144,
     "fields": {
-      "arabic": "سَلَامهم",
-      "transliteration": "Salaamhm",
-      "translation_uz": "tinchlikularning",
+      "arabic": "إِلَى نُورٌ",
+      "transliteration": "Iilaa Nuwrun",
+      "translation_uz": "nurga",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1885,9 +1885,9 @@
     "model": "arab.word",
     "pk": 145,
     "fields": {
-      "arabic": "دِين",
-      "transliteration": "Diyn",
-      "translation_uz": "din",
+      "arabic": "عَلَى نُورٌ",
+      "transliteration": "'Alaa Nuwrun",
+      "translation_uz": "nur ustida",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1898,9 +1898,9 @@
     "model": "arab.word",
     "pk": 146,
     "fields": {
-      "arabic": "دِينة",
-      "transliteration": "Diynh",
-      "translation_uz": "din (tushuncha)",
+      "arabic": "بِنُورٌ",
+      "transliteration": "Binuwrun",
+      "translation_uz": "nur bilan",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1911,9 +1911,9 @@
     "model": "arab.word",
     "pk": 147,
     "fields": {
-      "arabic": "دِينات",
-      "transliteration": "Diynat",
-      "translation_uz": "dinlar",
+      "arabic": "لِنُورٌ",
+      "transliteration": "Linuwrun",
+      "translation_uz": "nur uchun",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1924,9 +1924,9 @@
     "model": "arab.word",
     "pk": 148,
     "fields": {
-      "arabic": "دِيني",
-      "transliteration": "Diyny",
-      "translation_uz": "dinga oid",
+      "arabic": "فِي ظُلْمَةٌ",
+      "transliteration": "Fiy Zulmahun",
+      "translation_uz": "ichida zulmat",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1937,9 +1937,9 @@
     "model": "arab.word",
     "pk": 149,
     "fields": {
-      "arabic": "دِينيّة",
-      "transliteration": "Diynyh",
-      "translation_uz": "dinlik",
+      "arabic": "مِنْ ظُلْمَةٌ",
+      "transliteration": "Min Zulmahun",
+      "translation_uz": "zulmatdan",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1950,9 +1950,9 @@
     "model": "arab.word",
     "pk": 150,
     "fields": {
-      "arabic": "دِينكم",
-      "transliteration": "Diynkm",
-      "translation_uz": "diningiz",
+      "arabic": "إِلَى ظُلْمَةٌ",
+      "transliteration": "Iilaa Zulmahun",
+      "translation_uz": "zulmatga",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1963,9 +1963,9 @@
     "model": "arab.word",
     "pk": 151,
     "fields": {
-      "arabic": "دِيننا",
-      "transliteration": "Diynna",
-      "translation_uz": "dinbizning",
+      "arabic": "عَلَى ظُلْمَةٌ",
+      "transliteration": "'Alaa Zulmahun",
+      "translation_uz": "zulmat ustida",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1976,9 +1976,9 @@
     "model": "arab.word",
     "pk": 152,
     "fields": {
-      "arabic": "دِينهم",
-      "transliteration": "Diynhm",
-      "translation_uz": "dinularning",
+      "arabic": "بِظُلْمَةٌ",
+      "transliteration": "Bizulmahun",
+      "translation_uz": "zulmat bilan",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
@@ -1989,1400 +1989,9 @@
     "model": "arab.word",
     "pk": 153,
     "fields": {
-      "arabic": "شَرِيعَة",
-      "transliteration": "Shariy'Ah",
-      "translation_uz": "shariat",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 154,
-    "fields": {
-      "arabic": "شَرِيعَةة",
-      "transliteration": "Shariy'Ahh",
-      "translation_uz": "shariat (tushuncha)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 155,
-    "fields": {
-      "arabic": "شَرِيعَةات",
-      "transliteration": "Shariy'Ahat",
-      "translation_uz": "shariatlar",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 156,
-    "fields": {
-      "arabic": "شَرِيعَةي",
-      "transliteration": "Shariy'Ahy",
-      "translation_uz": "shariatga oid",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 157,
-    "fields": {
-      "arabic": "شَرِيعَةيّة",
-      "transliteration": "Shariy'Ahyh",
-      "translation_uz": "shariatlik",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 158,
-    "fields": {
-      "arabic": "شَرِيعَةكم",
-      "transliteration": "Shariy'Ahkm",
-      "translation_uz": "shariatingiz",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 159,
-    "fields": {
-      "arabic": "شَرِيعَةنا",
-      "transliteration": "Shariy'Ahna",
-      "translation_uz": "shariatbizning",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 160,
-    "fields": {
-      "arabic": "شَرِيعَةهم",
-      "transliteration": "Shariy'Ahhm",
-      "translation_uz": "shariatularning",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 161,
-    "fields": {
-      "arabic": "كَبِير كِتَاب",
-      "transliteration": "Kabiyr Kitaab",
-      "translation_uz": "kitob (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 162,
-    "fields": {
-      "arabic": "كَبِير قُرْآن",
-      "transliteration": "Kabiyr Quran",
-      "translation_uz": "Qur’on (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 163,
-    "fields": {
-      "arabic": "كَبِير آيَة",
-      "transliteration": "Kabiyr Ayah",
-      "translation_uz": "oyat (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 164,
-    "fields": {
-      "arabic": "كَبِير سُورَة",
-      "transliteration": "Kabiyr Suwrah",
-      "translation_uz": "sura (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 165,
-    "fields": {
-      "arabic": "كَبِير رَحْمَة",
-      "transliteration": "Kabiyr Rahmah",
-      "translation_uz": "rahmat (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 166,
-    "fields": {
-      "arabic": "كَبِير مَغْفِرَة",
-      "transliteration": "Kabiyr Maghfirah",
-      "translation_uz": "mag‘firat (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 167,
-    "fields": {
-      "arabic": "كَبِير صَلَاة",
-      "transliteration": "Kabiyr Salaah",
-      "translation_uz": "namoz (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 168,
-    "fields": {
-      "arabic": "كَبِير زَكَاة",
-      "transliteration": "Kabiyr Zakaah",
-      "translation_uz": "zakot (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 169,
-    "fields": {
-      "arabic": "كَبِير صَوْم",
-      "transliteration": "Kabiyr Sawm",
-      "translation_uz": "ro‘za (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 170,
-    "fields": {
-      "arabic": "كَبِير حَجّ",
-      "transliteration": "Kabiyr Haj",
-      "translation_uz": "haj (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 171,
-    "fields": {
-      "arabic": "كَبِير إِيمَان",
-      "transliteration": "Kabiyr Iiymaan",
-      "translation_uz": "iymon (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 172,
-    "fields": {
-      "arabic": "كَبِير عِلْم",
-      "transliteration": "Kabiyr 'Ilm",
-      "translation_uz": "ilm (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 173,
-    "fields": {
-      "arabic": "كَبِير حِكْمَة",
-      "transliteration": "Kabiyr Hikmah",
-      "translation_uz": "hikmat (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 174,
-    "fields": {
-      "arabic": "كَبِير نُور",
-      "transliteration": "Kabiyr Nuwr",
-      "translation_uz": "nur (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 175,
-    "fields": {
-      "arabic": "كَبِير ظُلْمَة",
-      "transliteration": "Kabiyr Zulmah",
-      "translation_uz": "zulmat (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 176,
-    "fields": {
-      "arabic": "كَبِير حَقّ",
-      "transliteration": "Kabiyr Haq",
-      "translation_uz": "haq (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 177,
-    "fields": {
-      "arabic": "كَبِير صِدْق",
-      "transliteration": "Kabiyr Sidq",
-      "translation_uz": "rostlik (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 178,
-    "fields": {
-      "arabic": "كَبِير سَلَام",
-      "transliteration": "Kabiyr Salaam",
-      "translation_uz": "tinchlik (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 179,
-    "fields": {
-      "arabic": "كَبِير دِين",
-      "transliteration": "Kabiyr Diyn",
-      "translation_uz": "din (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 180,
-    "fields": {
-      "arabic": "كَبِير شَرِيعَة",
-      "transliteration": "Kabiyr Shariy'Ah",
-      "translation_uz": "shariat (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 181,
-    "fields": {
-      "arabic": "صَغِير كِتَاب",
-      "transliteration": "Saghiyr Kitaab",
-      "translation_uz": "kitob (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 182,
-    "fields": {
-      "arabic": "صَغِير قُرْآن",
-      "transliteration": "Saghiyr Quran",
-      "translation_uz": "Qur’on (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 183,
-    "fields": {
-      "arabic": "صَغِير آيَة",
-      "transliteration": "Saghiyr Ayah",
-      "translation_uz": "oyat (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 184,
-    "fields": {
-      "arabic": "صَغِير سُورَة",
-      "transliteration": "Saghiyr Suwrah",
-      "translation_uz": "sura (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 185,
-    "fields": {
-      "arabic": "صَغِير رَحْمَة",
-      "transliteration": "Saghiyr Rahmah",
-      "translation_uz": "rahmat (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 186,
-    "fields": {
-      "arabic": "صَغِير مَغْفِرَة",
-      "transliteration": "Saghiyr Maghfirah",
-      "translation_uz": "mag‘firat (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 187,
-    "fields": {
-      "arabic": "صَغِير صَلَاة",
-      "transliteration": "Saghiyr Salaah",
-      "translation_uz": "namoz (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 188,
-    "fields": {
-      "arabic": "صَغِير زَكَاة",
-      "transliteration": "Saghiyr Zakaah",
-      "translation_uz": "zakot (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 189,
-    "fields": {
-      "arabic": "صَغِير صَوْم",
-      "transliteration": "Saghiyr Sawm",
-      "translation_uz": "ro‘za (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 190,
-    "fields": {
-      "arabic": "صَغِير حَجّ",
-      "transliteration": "Saghiyr Haj",
-      "translation_uz": "haj (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 191,
-    "fields": {
-      "arabic": "صَغِير إِيمَان",
-      "transliteration": "Saghiyr Iiymaan",
-      "translation_uz": "iymon (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 192,
-    "fields": {
-      "arabic": "صَغِير عِلْم",
-      "transliteration": "Saghiyr 'Ilm",
-      "translation_uz": "ilm (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 193,
-    "fields": {
-      "arabic": "صَغِير حِكْمَة",
-      "transliteration": "Saghiyr Hikmah",
-      "translation_uz": "hikmat (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 194,
-    "fields": {
-      "arabic": "صَغِير نُور",
-      "transliteration": "Saghiyr Nuwr",
-      "translation_uz": "nur (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 195,
-    "fields": {
-      "arabic": "صَغِير ظُلْمَة",
-      "transliteration": "Saghiyr Zulmah",
-      "translation_uz": "zulmat (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 196,
-    "fields": {
-      "arabic": "صَغِير حَقّ",
-      "transliteration": "Saghiyr Haq",
-      "translation_uz": "haq (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 197,
-    "fields": {
-      "arabic": "صَغِير صِدْق",
-      "transliteration": "Saghiyr Sidq",
-      "translation_uz": "rostlik (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 198,
-    "fields": {
-      "arabic": "صَغِير سَلَام",
-      "transliteration": "Saghiyr Salaam",
-      "translation_uz": "tinchlik (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 199,
-    "fields": {
-      "arabic": "صَغِير دِين",
-      "transliteration": "Saghiyr Diyn",
-      "translation_uz": "din (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 200,
-    "fields": {
-      "arabic": "صَغِير شَرِيعَة",
-      "transliteration": "Saghiyr Shariy'Ah",
-      "translation_uz": "shariat (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 201,
-    "fields": {
-      "arabic": "جَمِيل كِتَاب",
-      "transliteration": "Jamiyl Kitaab",
-      "translation_uz": "kitob (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 202,
-    "fields": {
-      "arabic": "جَمِيل قُرْآن",
-      "transliteration": "Jamiyl Quran",
-      "translation_uz": "Qur’on (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 203,
-    "fields": {
-      "arabic": "جَمِيل آيَة",
-      "transliteration": "Jamiyl Ayah",
-      "translation_uz": "oyat (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 204,
-    "fields": {
-      "arabic": "جَمِيل سُورَة",
-      "transliteration": "Jamiyl Suwrah",
-      "translation_uz": "sura (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 205,
-    "fields": {
-      "arabic": "جَمِيل رَحْمَة",
-      "transliteration": "Jamiyl Rahmah",
-      "translation_uz": "rahmat (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 206,
-    "fields": {
-      "arabic": "جَمِيل مَغْفِرَة",
-      "transliteration": "Jamiyl Maghfirah",
-      "translation_uz": "mag‘firat (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 207,
-    "fields": {
-      "arabic": "جَمِيل صَلَاة",
-      "transliteration": "Jamiyl Salaah",
-      "translation_uz": "namoz (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 208,
-    "fields": {
-      "arabic": "جَمِيل زَكَاة",
-      "transliteration": "Jamiyl Zakaah",
-      "translation_uz": "zakot (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 209,
-    "fields": {
-      "arabic": "جَمِيل صَوْم",
-      "transliteration": "Jamiyl Sawm",
-      "translation_uz": "ro‘za (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 210,
-    "fields": {
-      "arabic": "جَمِيل حَجّ",
-      "transliteration": "Jamiyl Haj",
-      "translation_uz": "haj (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 211,
-    "fields": {
-      "arabic": "جَمِيل إِيمَان",
-      "transliteration": "Jamiyl Iiymaan",
-      "translation_uz": "iymon (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 212,
-    "fields": {
-      "arabic": "جَمِيل عِلْم",
-      "transliteration": "Jamiyl 'Ilm",
-      "translation_uz": "ilm (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 213,
-    "fields": {
-      "arabic": "جَمِيل حِكْمَة",
-      "transliteration": "Jamiyl Hikmah",
-      "translation_uz": "hikmat (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 214,
-    "fields": {
-      "arabic": "جَمِيل نُور",
-      "transliteration": "Jamiyl Nuwr",
-      "translation_uz": "nur (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 215,
-    "fields": {
-      "arabic": "جَمِيل ظُلْمَة",
-      "transliteration": "Jamiyl Zulmah",
-      "translation_uz": "zulmat (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 216,
-    "fields": {
-      "arabic": "جَمِيل حَقّ",
-      "transliteration": "Jamiyl Haq",
-      "translation_uz": "haq (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 217,
-    "fields": {
-      "arabic": "جَمِيل صِدْق",
-      "transliteration": "Jamiyl Sidq",
-      "translation_uz": "rostlik (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 218,
-    "fields": {
-      "arabic": "جَمِيل سَلَام",
-      "transliteration": "Jamiyl Salaam",
-      "translation_uz": "tinchlik (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 219,
-    "fields": {
-      "arabic": "جَمِيل دِين",
-      "transliteration": "Jamiyl Diyn",
-      "translation_uz": "din (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 220,
-    "fields": {
-      "arabic": "جَمِيل شَرِيعَة",
-      "transliteration": "Jamiyl Shariy'Ah",
-      "translation_uz": "shariat (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 221,
-    "fields": {
-      "arabic": "عَظِيم كِتَاب",
-      "transliteration": "'Aziym Kitaab",
-      "translation_uz": "kitob (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 222,
-    "fields": {
-      "arabic": "عَظِيم قُرْآن",
-      "transliteration": "'Aziym Quran",
-      "translation_uz": "Qur’on (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 223,
-    "fields": {
-      "arabic": "عَظِيم آيَة",
-      "transliteration": "'Aziym Ayah",
-      "translation_uz": "oyat (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 224,
-    "fields": {
-      "arabic": "عَظِيم سُورَة",
-      "transliteration": "'Aziym Suwrah",
-      "translation_uz": "sura (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 225,
-    "fields": {
-      "arabic": "عَظِيم رَحْمَة",
-      "transliteration": "'Aziym Rahmah",
-      "translation_uz": "rahmat (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 226,
-    "fields": {
-      "arabic": "عَظِيم مَغْفِرَة",
-      "transliteration": "'Aziym Maghfirah",
-      "translation_uz": "mag‘firat (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 227,
-    "fields": {
-      "arabic": "عَظِيم صَلَاة",
-      "transliteration": "'Aziym Salaah",
-      "translation_uz": "namoz (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 228,
-    "fields": {
-      "arabic": "عَظِيم زَكَاة",
-      "transliteration": "'Aziym Zakaah",
-      "translation_uz": "zakot (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 229,
-    "fields": {
-      "arabic": "عَظِيم صَوْم",
-      "transliteration": "'Aziym Sawm",
-      "translation_uz": "ro‘za (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 230,
-    "fields": {
-      "arabic": "عَظِيم حَجّ",
-      "transliteration": "'Aziym Haj",
-      "translation_uz": "haj (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 231,
-    "fields": {
-      "arabic": "عَظِيم إِيمَان",
-      "transliteration": "'Aziym Iiymaan",
-      "translation_uz": "iymon (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 232,
-    "fields": {
-      "arabic": "عَظِيم عِلْم",
-      "transliteration": "'Aziym 'Ilm",
-      "translation_uz": "ilm (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 233,
-    "fields": {
-      "arabic": "عَظِيم حِكْمَة",
-      "transliteration": "'Aziym Hikmah",
-      "translation_uz": "hikmat (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 234,
-    "fields": {
-      "arabic": "عَظِيم نُور",
-      "transliteration": "'Aziym Nuwr",
-      "translation_uz": "nur (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 235,
-    "fields": {
-      "arabic": "عَظِيم ظُلْمَة",
-      "transliteration": "'Aziym Zulmah",
-      "translation_uz": "zulmat (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 236,
-    "fields": {
-      "arabic": "عَظِيم حَقّ",
-      "transliteration": "'Aziym Haq",
-      "translation_uz": "haq (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 237,
-    "fields": {
-      "arabic": "عَظِيم صِدْق",
-      "transliteration": "'Aziym Sidq",
-      "translation_uz": "rostlik (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 238,
-    "fields": {
-      "arabic": "عَظِيم سَلَام",
-      "transliteration": "'Aziym Salaam",
-      "translation_uz": "tinchlik (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 239,
-    "fields": {
-      "arabic": "عَظِيم دِين",
-      "transliteration": "'Aziym Diyn",
-      "translation_uz": "din (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 240,
-    "fields": {
-      "arabic": "عَظِيم شَرِيعَة",
-      "transliteration": "'Aziym Shariy'Ah",
-      "translation_uz": "shariat (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 241,
-    "fields": {
-      "arabic": "قَدِيم كِتَاب",
-      "transliteration": "Qadiym Kitaab",
-      "translation_uz": "kitob (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 242,
-    "fields": {
-      "arabic": "قَدِيم قُرْآن",
-      "transliteration": "Qadiym Quran",
-      "translation_uz": "Qur’on (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 243,
-    "fields": {
-      "arabic": "قَدِيم آيَة",
-      "transliteration": "Qadiym Ayah",
-      "translation_uz": "oyat (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 244,
-    "fields": {
-      "arabic": "قَدِيم سُورَة",
-      "transliteration": "Qadiym Suwrah",
-      "translation_uz": "sura (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 245,
-    "fields": {
-      "arabic": "قَدِيم رَحْمَة",
-      "transliteration": "Qadiym Rahmah",
-      "translation_uz": "rahmat (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 246,
-    "fields": {
-      "arabic": "قَدِيم مَغْفِرَة",
-      "transliteration": "Qadiym Maghfirah",
-      "translation_uz": "mag‘firat (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 247,
-    "fields": {
-      "arabic": "قَدِيم صَلَاة",
-      "transliteration": "Qadiym Salaah",
-      "translation_uz": "namoz (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 248,
-    "fields": {
-      "arabic": "قَدِيم زَكَاة",
-      "transliteration": "Qadiym Zakaah",
-      "translation_uz": "zakot (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 249,
-    "fields": {
-      "arabic": "قَدِيم صَوْم",
-      "transliteration": "Qadiym Sawm",
-      "translation_uz": "ro‘za (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 250,
-    "fields": {
-      "arabic": "قَدِيم حَجّ",
-      "transliteration": "Qadiym Haj",
-      "translation_uz": "haj (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 251,
-    "fields": {
-      "arabic": "قَدِيم إِيمَان",
-      "transliteration": "Qadiym Iiymaan",
-      "translation_uz": "iymon (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 252,
-    "fields": {
-      "arabic": "قَدِيم عِلْم",
-      "transliteration": "Qadiym 'Ilm",
-      "translation_uz": "ilm (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 253,
-    "fields": {
-      "arabic": "قَدِيم حِكْمَة",
-      "transliteration": "Qadiym Hikmah",
-      "translation_uz": "hikmat (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 254,
-    "fields": {
-      "arabic": "قَدِيم نُور",
-      "transliteration": "Qadiym Nuwr",
-      "translation_uz": "nur (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 255,
-    "fields": {
-      "arabic": "قَدِيم ظُلْمَة",
-      "transliteration": "Qadiym Zulmah",
-      "translation_uz": "zulmat (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 256,
-    "fields": {
-      "arabic": "قَدِيم حَقّ",
-      "transliteration": "Qadiym Haq",
-      "translation_uz": "haq (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 257,
-    "fields": {
-      "arabic": "قَدِيم صِدْق",
-      "transliteration": "Qadiym Sidq",
-      "translation_uz": "rostlik (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 258,
-    "fields": {
-      "arabic": "قَدِيم سَلَام",
-      "transliteration": "Qadiym Salaam",
-      "translation_uz": "tinchlik (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 259,
-    "fields": {
-      "arabic": "قَدِيم دِين",
-      "transliteration": "Qadiym Diyn",
-      "translation_uz": "din (sifatli)",
-      "translation_ru": "",
-      "category": 11,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
-    }
-  },
-  {
-    "model": "arab.word",
-    "pk": 260,
-    "fields": {
-      "arabic": "قَدِيم شَرِيعَة",
-      "transliteration": "Qadiym Shariy'Ah",
-      "translation_uz": "shariat (sifatli)",
+      "arabic": "لِظُلْمَةٌ",
+      "transliteration": "Lizulmahun",
+      "translation_uz": "zulmat uchun",
       "translation_ru": "",
       "category": 11,
       "created_at": "2024-01-01T00:00:00Z",
