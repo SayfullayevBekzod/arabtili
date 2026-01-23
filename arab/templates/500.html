@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}500 - Server xatosi{% endblock %}
+
+{% block content %}
+<section class="min-h-[70vh] flex items-center justify-center">
+    <div class="text-center">
+        <div
+            class="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-96 w-96 rounded-full bg-amber-500/10 blur-3xl">
+        </div>
+
+        <div class="relative">
+            <h1
+                class="text-[10rem] sm:text-[14rem] font-black text-transparent bg-clip-text bg-gradient-to-br from-amber-400 via-orange-500 to-red-500 leading-none select-none">
+                500
+            </h1>
+        </div>
+
+        <h2 class="mt-4 text-2xl sm:text-3xl font-bold text-white">Server xatosi</h2>
+        <p class="mt-3 text-slate-400 max-w-md mx-auto">
+            Kechirasiz, serverda muammo yuz berdi. Iltimos keyinroq urinib ko'ring.
+        </p>
+
+        <div class="mt-8">
+            <a href="/"
+                class="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-white text-slate-950 font-semibold hover:bg-slate-200 transition">
+                <i class="fa-solid fa-house"></i>
+                Bosh sahifaga
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

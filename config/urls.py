@@ -10,3 +10,7 @@ urlpatterns = [
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+# Custom error handlers
+handler404 = 'arab.views.custom_404'
+handler500 = 'arab.views.custom_500'

@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}404 - Sahifa topilmadi{% endblock %}
+
+{% block content %}
+<section class="min-h-[70vh] flex items-center justify-center">
+    <div class="text-center">
+        <!-- Glow effects -->
+        <div
+            class="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-96 w-96 rounded-full bg-rose-500/10 blur-3xl">
+        </div>
+
+        <!-- 404 Number -->
+        <div class="relative">
+            <h1
+                class="text-[10rem] sm:text-[14rem] font-black text-transparent bg-clip-text bg-gradient-to-br from-rose-400 via-fuchsia-500 to-violet-500 leading-none select-none">
+                404
+            </h1>
+            <div
+                class="absolute inset-0 text-[10rem] sm:text-[14rem] font-black text-white/5 blur-sm leading-none select-none">
+                404
+            </div>
+        </div>
+
+        <!-- Message -->
+        <h2 class="mt-4 text-2xl sm:text-3xl font-bold text-white">Sahifa topilmadi</h2>
+        <p class="mt-3 text-slate-400 max-w-md mx-auto">
+            Kechirasiz, siz qidirayotgan sahifa mavjud emas yoki ko'chirilgan bo'lishi mumkin.
+        </p>
+
+        <!-- Action buttons -->
+        <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
+            <a href="/"
+                class="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-white text-slate-950 font-semibold hover:bg-slate-200 transition">
+                <i class="fa-solid fa-house"></i>
+                Bosh sahifaga
+            </a>
+            <a href="javascript:history.back()"
+                class="inline-flex items-center gap-2 px-6 py-3 rounded-2xl border border-white/10 bg-white/5 text-white font-semibold hover:bg-white/10 transition">
+                <i class="fa-solid fa-arrow-left"></i>
+                Orqaga
+            </a>
+        </div>
+
+        <!-- Helpful links -->
+        <div class="mt-12 flex flex-wrap justify-center gap-4 text-sm">
+            <a href="/courses/" class="text-slate-400 hover:text-white transition">📚 Kurslar</a>
+            <a href="/dictionary/" class="text-slate-400 hover:text-white transition">📖 Lug'at</a>
+            <a href="/tajweed/" class="text-slate-400 hover:text-white transition">📿 Tajwid</a>
+            <a href="/quran/" class="text-slate-400 hover:text-white transition">🕌 Qur'on</a>
+        </div>
+    </div>
+</section>
+{% endblock %}
