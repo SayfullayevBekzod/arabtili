@@ -129,6 +129,11 @@ class Letter(TimeStamped):
 
     joins_to_next = models.BooleanField(default=True)
 
+
+    # Makhraj info
+    makhraj_image = models.ImageField(upload_to="makhraj/", blank=True, null=True, help_text="Image showing articulation point")
+    makhraj_description = models.TextField(blank=True, help_text="Description of articulation mechanism")
+
     class Meta:
         ordering = ["order"]
 

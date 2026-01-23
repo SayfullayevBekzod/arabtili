@@ -36,6 +36,25 @@
   </div>
 </section>
 
+<!-- Makhraj Section -->
+{% if letter.makhraj_image or letter.makhraj_description %}
+<section class="mt-6 rounded-3xl border border-white/10 bg-slate-800/50 p-8">
+  <h2 class="text-2xl font-bold text-white mb-4">Maxraj (Talaffuz o'rni)</h2>
+  <div class="flex flex-col md:flex-row gap-8 items-start">
+    {% if letter.makhraj_image %}
+    <div class="w-full md:w-1/3">
+      <img src="{{ letter.makhraj_image.url }}" alt="Makhraj" class="w-full rounded-2xl border border-white/10">
+    </div>
+    {% endif %}
+    <div class="w-full md:w-2/3">
+      {% if letter.makhraj_description %}
+      <p class="text-lg text-slate-300 leading-relaxed">{{ letter.makhraj_description|linebreaks }}</p>
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
 <div class="mt-6 grid lg:grid-cols-3 gap-4">
 
   <!-- LEFT: BIG PREVIEW -->
