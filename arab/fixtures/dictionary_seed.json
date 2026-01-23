@@ -1,253 +1,6819 @@
 [
-    {
-        "model": "arab.vocabularycategory",
-        "pk": 1,
-        "fields": {
-            "name": "Salomlashish",
-            "description": "Greetings",
-            "created_at": "2024-01-01T00:00:00Z",
-            "updated_at": "2024-01-01T00:00:00Z"
-        }
-    },
-    {
-        "model": "arab.vocabularycategory",
-        "pk": 2,
-        "fields": {
-            "name": "Oilaviy",
-            "description": "Family members",
-            "created_at": "2024-01-01T00:00:00Z",
-            "updated_at": "2024-01-01T00:00:00Z"
-        }
-    },
-    {
-        "model": "arab.vocabularycategory",
-        "pk": 3,
-        "fields": {
-            "name": "Uyda",
-            "description": "Home items",
-            "created_at": "2024-01-01T00:00:00Z",
-            "updated_at": "2024-01-01T00:00:00Z"
-        }
-    },
-    {
-        "model": "arab.word",
-        "pk": 1,
-        "fields": {
-            "arabic": "مَرْحَبًا",
-            "transliteration": "Marhaban",
-            "translation_uz": "Salom",
-            "translation_ru": "Привет",
-            "category": 1,
-            "created_at": "2024-01-01T00:00:00Z",
-            "updated_at": "2024-01-01T00:00:00Z"
-        }
-    },
-    {
-        "model": "arab.word",
-        "pk": 2,
-        "fields": {
-            "arabic": "السَّلَامُ عَلَيْكُمْ",
-            "transliteration": "Assalomu alaykum",
-            "translation_uz": "Sizga tinchlik bo‘lsin",
-            "translation_ru": "Мир вам",
-            "category": 1,
-            "created_at": "2024-01-01T00:00:00Z",
-            "updated_at": "2024-01-01T00:00:00Z"
-        }
-    },
-    {
-        "model": "arab.word",
-        "pk": 3,
-        "fields": {
-            "arabic": "وَعَلَيْكُمُ السَّلَامُ",
-            "transliteration": "Va alaykum assalom",
-            "translation_uz": "Sizga ham tinchlik bo‘lsin",
-            "translation_ru": "И вам мир",
-            "category": 1,
-            "created_at": "2024-01-01T00:00:00Z",
-            "updated_at": "2024-01-01T00:00:00Z"
-        }
-    },
-    {
-        "model": "arab.word",
-        "pk": 4,
-        "fields": {
-            "arabic": "كَيْفَ حَالُكَ؟",
-            "transliteration": "Kayfa haluka?",
-            "translation_uz": "Ahvolingiz qanday? (erkakka)",
-            "translation_ru": "Как дела? (мужчина)",
-            "category": 1,
-            "created_at": "2024-01-01T00:00:00Z",
-            "updated_at": "2024-01-01T00:00:00Z"
-        }
-    },
-    {
-        "model": "arab.word",
-        "pk": 5,
-        "fields": {
-            "arabic": "أَنَا بِخَيْرٍ",
-            "transliteration": "Ana bixayr",
-            "translation_uz": "Men yaxshiman",
-            "translation_ru": "Я в порядке",
-            "category": 1,
-            "created_at": "2024-01-01T00:00:00Z",
-            "updated_at": "2024-01-01T00:00:00Z"
-        }
-    },
-    {
-        "model": "arab.word",
-        "pk": 6,
-        "fields": {
-            "arabic": "شُكْرًا",
-            "transliteration": "Shukran",
-            "translation_uz": "Rahmat",
-            "translation_ru": "Спасибо",
-            "category": 1,
-            "created_at": "2024-01-01T00:00:00Z",
-            "updated_at": "2024-01-01T00:00:00Z"
-        }
-    },
-    {
-        "model": "arab.word",
-        "pk": 7,
-        "fields": {
-            "arabic": "أَبٌ",
-            "transliteration": "Abun",
-            "translation_uz": "Ota",
-            "translation_ru": "Отец",
-            "category": 2,
-            "created_at": "2024-01-01T00:00:00Z",
-            "updated_at": "2024-01-01T00:00:00Z"
-        }
-    },
-    {
-        "model": "arab.word",
-        "pk": 8,
-        "fields": {
-            "arabic": "أُمٌّ",
-            "transliteration": "Ummun",
-            "translation_uz": "Ona",
-            "translation_ru": "Мать",
-            "category": 2,
-            "created_at": "2024-01-01T00:00:00Z",
-            "updated_at": "2024-01-01T00:00:00Z"
-        }
-    },
-    {
-        "model": "arab.word",
-        "pk": 9,
-        "fields": {
-            "arabic": "أَخٌ",
-            "transliteration": "Axun",
-            "translation_uz": "Aka/Uka",
-            "translation_ru": "Брат",
-            "category": 2,
-            "created_at": "2024-01-01T00:00:00Z",
-            "updated_at": "2024-01-01T00:00:00Z"
-        }
-    },
-    {
-        "model": "arab.word",
-        "pk": 10,
-        "fields": {
-            "arabic": "أُخْتٌ",
-            "transliteration": "Uxtun",
-            "translation_uz": "Opa/Singil",
-            "translation_ru": "Сестра",
-            "category": 2,
-            "created_at": "2024-01-01T00:00:00Z",
-            "updated_at": "2024-01-01T00:00:00Z"
-        }
-    },
-    {
-        "model": "arab.word",
-        "pk": 11,
-        "fields": {
-            "arabic": "بَيْتٌ",
-            "transliteration": "Baytun",
-            "translation_uz": "Uy",
-            "translation_ru": "Дом",
-            "category": 3,
-            "created_at": "2024-01-01T00:00:00Z",
-            "updated_at": "2024-01-01T00:00:00Z"
-        }
-    },
-    {
-        "model": "arab.word",
-        "pk": 12,
-        "fields": {
-            "arabic": "بَابٌ",
-            "transliteration": "Babun",
-            "translation_uz": "Eshik",
-            "translation_ru": "Дверь",
-            "category": 3,
-            "created_at": "2024-01-01T00:00:00Z",
-            "updated_at": "2024-01-01T00:00:00Z"
-        }
-    },
-    {
-        "model": "arab.word",
-        "pk": 13,
-        "fields": {
-            "arabic": "نَافِذَةٌ",
-            "transliteration": "Nafizatun",
-            "translation_uz": "Deraza",
-            "translation_ru": "Окно",
-            "category": 3,
-            "created_at": "2024-01-01T00:00:00Z",
-            "updated_at": "2024-01-01T00:00:00Z"
-        }
-    },
-    {
-        "model": "arab.word",
-        "pk": 14,
-        "fields": {
-            "arabic": "غُرْفَةٌ",
-            "transliteration": "G'urfatun",
-            "translation_uz": "Xona",
-            "translation_ru": "Комната",
-            "category": 3,
-            "created_at": "2024-01-01T00:00:00Z",
-            "updated_at": "2024-01-01T00:00:00Z"
-        }
-    },
-    {
-        "model": "arab.word",
-        "pk": 15,
-        "fields": {
-            "arabic": "مَطْبَخٌ",
-            "transliteration": "Matbaxun",
-            "translation_uz": "Oshxona",
-            "translation_ru": "Кухня",
-            "category": 3,
-            "created_at": "2024-01-01T00:00:00Z",
-            "updated_at": "2024-01-01T00:00:00Z"
-        }
-    },
-    {
-        "model": "arab.word",
-        "pk": 16,
-        "fields": {
-            "arabic": "كِتَابٌ",
-            "transliteration": "Kitabun",
-            "translation_uz": "Kitob",
-            "translation_ru": "Книга",
-            "category": 3,
-            "created_at": "2024-01-01T00:00:00Z",
-            "updated_at": "2024-01-01T00:00:00Z"
-        }
-    },
-    {
-        "model": "arab.word",
-        "pk": 17,
-        "fields": {
-            "arabic": "قَلَمٌ",
-            "transliteration": "Qalamun",
-            "translation_uz": "Qalam",
-            "translation_ru": "Карандаш",
-            "category": 3,
-            "created_at": "2024-01-01T00:00:00Z",
-            "updated_at": "2024-01-01T00:00:00Z"
-        }
+  {
+    "model": "arab.vocabularycategory",
+    "pk": 1,
+    "fields": {
+      "name": "Qur'on: Alloh va Iymon",
+      "description": "Quranic words regarding Allah and Faith",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
     }
+  },
+  {
+    "model": "arab.vocabularycategory",
+    "pk": 2,
+    "fields": {
+      "name": "Qur'on: Payg'ambarlar",
+      "description": "Prophets and People in Quran",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.vocabularycategory",
+    "pk": 3,
+    "fields": {
+      "name": "Qur'on: Oxirat",
+      "description": "Afterlife, Jannah, Jahannam",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.vocabularycategory",
+    "pk": 4,
+    "fields": {
+      "name": "Qur'on: Tabiat",
+      "description": "Nature words in Quran",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.vocabularycategory",
+    "pk": 5,
+    "fields": {
+      "name": "Salomlashish va Muloqot",
+      "description": "Daily communication",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.vocabularycategory",
+    "pk": 6,
+    "fields": {
+      "name": "Oila va Qarindoshlar",
+      "description": "Family",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.vocabularycategory",
+    "pk": 7,
+    "fields": {
+      "name": "Uy va Ro'zg'or",
+      "description": "Home items",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.vocabularycategory",
+    "pk": 8,
+    "fields": {
+      "name": "Shahar va Sayohat",
+      "description": "City life and travel",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.vocabularycategory",
+    "pk": 9,
+    "fields": {
+      "name": "Ta'lim va Ilm",
+      "description": "Education",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.vocabularycategory",
+    "pk": 10,
+    "fields": {
+      "name": "Tana a'zolari",
+      "description": "Body parts",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.vocabularycategory",
+    "pk": 11,
+    "fields": {
+      "name": "Salomatlik",
+      "description": "Health",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.vocabularycategory",
+    "pk": 12,
+    "fields": {
+      "name": "Oziq-ovqat va Ichimliklar",
+      "description": "Food & Drinks",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.vocabularycategory",
+    "pk": 13,
+    "fields": {
+      "name": "Kiyim-kechak",
+      "description": "Clothes",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.vocabularycategory",
+    "pk": 14,
+    "fields": {
+      "name": "Ranglar va Shakllar",
+      "description": "Colors and Shapes",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.vocabularycategory",
+    "pk": 15,
+    "fields": {
+      "name": "Raqamlar va Vaqt",
+      "description": "Numbers and Time",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.vocabularycategory",
+    "pk": 16,
+    "fields": {
+      "name": "Tabiat va Ob-havo",
+      "description": "Nature and Weather",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.vocabularycategory",
+    "pk": 17,
+    "fields": {
+      "name": "Hayvonlar va Qushlar",
+      "description": "Animals",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.vocabularycategory",
+    "pk": 18,
+    "fields": {
+      "name": "Kasblar",
+      "description": "Professions",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.vocabularycategory",
+    "pk": 19,
+    "fields": {
+      "name": "Fe'llar (Harakat)",
+      "description": "Common Verbs",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.vocabularycategory",
+    "pk": 20,
+    "fields": {
+      "name": "Sifatlar (Tasvir)",
+      "description": "Adjectives",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 1,
+    "fields": {
+      "arabic": "اللّٰه",
+      "transliteration": "Allah",
+      "translation_uz": "Alloh",
+      "translation_ru": "Аллах",
+      "category": 1,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 2,
+    "fields": {
+      "arabic": "رَبّ",
+      "transliteration": "Rabb",
+      "translation_uz": "Robb (Parvardigor)",
+      "translation_ru": "Господь",
+      "category": 1,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 3,
+    "fields": {
+      "arabic": "إِلٰه",
+      "transliteration": "Ilah",
+      "translation_uz": "Iloh",
+      "translation_ru": "Бог",
+      "category": 1,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 4,
+    "fields": {
+      "arabic": "رَحْمٰن",
+      "transliteration": "Rahman",
+      "translation_uz": "Mehribon",
+      "translation_ru": "Милостивый",
+      "category": 1,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 5,
+    "fields": {
+      "arabic": "رَحِيم",
+      "transliteration": "Rahim",
+      "translation_uz": "Rahmli",
+      "translation_ru": "Милосердный",
+      "category": 1,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 6,
+    "fields": {
+      "arabic": "مَلِك",
+      "transliteration": "Malik",
+      "translation_uz": "Podshoh",
+      "translation_ru": "Царь",
+      "category": 1,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 7,
+    "fields": {
+      "arabic": "قُدُّوس",
+      "transliteration": "Quddus",
+      "translation_uz": "Muqaddas",
+      "translation_ru": "Святой",
+      "category": 1,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 8,
+    "fields": {
+      "arabic": "سَلَام",
+      "transliteration": "Salam",
+      "translation_uz": "Tinchlik",
+      "translation_ru": "Мир",
+      "category": 1,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 9,
+    "fields": {
+      "arabic": "مُؤْمِن",
+      "transliteration": "Mu'min",
+      "translation_uz": "Mo'min",
+      "translation_ru": "Верующий",
+      "category": 1,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 10,
+    "fields": {
+      "arabic": "مُهَيْمِن",
+      "transliteration": "Muhaymin",
+      "translation_uz": "Himoya qiluvchi",
+      "translation_ru": "Охраняющий",
+      "category": 1,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 11,
+    "fields": {
+      "arabic": "عَزِيز",
+      "transliteration": "Aziz",
+      "translation_uz": "Qudratli",
+      "translation_ru": "Могущественный",
+      "category": 1,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 12,
+    "fields": {
+      "arabic": "جَبَّار",
+      "transliteration": "Jabbar",
+      "translation_uz": "Oliy",
+      "translation_ru": "Могучий",
+      "category": 1,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 13,
+    "fields": {
+      "arabic": "مُتَكَبِّر",
+      "transliteration": "Mutakabbir",
+      "translation_uz": "Ulug'",
+      "translation_ru": "Гордый",
+      "category": 1,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 14,
+    "fields": {
+      "arabic": "خَالِق",
+      "transliteration": "Xaliq",
+      "translation_uz": "Yaratuvchi",
+      "translation_ru": "Творец",
+      "category": 1,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 15,
+    "fields": {
+      "arabic": "بَارِئ",
+      "transliteration": "Bari'",
+      "translation_uz": "Yo'qdan bor qiluvchi",
+      "translation_ru": "Создатель",
+      "category": 1,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 16,
+    "fields": {
+      "arabic": "مُصَوِّر",
+      "transliteration": "Musavvir",
+      "translation_uz": "Shakl beruvchi",
+      "translation_ru": "Формирующий",
+      "category": 1,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 17,
+    "fields": {
+      "arabic": "غَفَّار",
+      "transliteration": "Ghaffar",
+      "translation_uz": "Kechiruvchi",
+      "translation_ru": "Прощающий",
+      "category": 1,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 18,
+    "fields": {
+      "arabic": "قَهَّار",
+      "transliteration": "Qahhar",
+      "translation_uz": "G'olib",
+      "translation_ru": "Господствующий",
+      "category": 1,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 19,
+    "fields": {
+      "arabic": "وَهَّاب",
+      "transliteration": "Vahhab",
+      "translation_uz": "O'ta saxiy",
+      "translation_ru": "Дарующий",
+      "category": 1,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 20,
+    "fields": {
+      "arabic": "رَزَّاق",
+      "transliteration": "Razzaq",
+      "translation_uz": "Rizq beruvchi",
+      "translation_ru": "Дающий средства",
+      "category": 1,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 21,
+    "fields": {
+      "arabic": "عَلِيم",
+      "transliteration": "Alim",
+      "translation_uz": "Biluvchi",
+      "translation_ru": "Знающий",
+      "category": 1,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 22,
+    "fields": {
+      "arabic": "حَكِيم",
+      "transliteration": "Hakim",
+      "translation_uz": "Hikmatli",
+      "translation_ru": "Мудрый",
+      "category": 1,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 23,
+    "fields": {
+      "arabic": "وَدُود",
+      "transliteration": "Vadud",
+      "translation_uz": "Sevuvchi",
+      "translation_ru": "Любящий",
+      "category": 1,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 24,
+    "fields": {
+      "arabic": "مَجِيد",
+      "transliteration": "Majid",
+      "translation_uz": "Ulug'vor",
+      "translation_ru": "Славный",
+      "category": 1,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 25,
+    "fields": {
+      "arabic": "حَقّ",
+      "transliteration": "Haqq",
+      "translation_uz": "Haqiqat",
+      "translation_ru": "Истина",
+      "category": 1,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 26,
+    "fields": {
+      "arabic": "نُور",
+      "transliteration": "Nur",
+      "translation_uz": "Nur",
+      "translation_ru": "Свет",
+      "category": 1,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 27,
+    "fields": {
+      "arabic": "هَادِي",
+      "transliteration": "Hadi",
+      "translation_uz": "Hidoyat qiluvchi",
+      "translation_ru": "Наставляющий",
+      "category": 1,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 28,
+    "fields": {
+      "arabic": "بَاقِي",
+      "transliteration": "Baqi",
+      "translation_uz": "Boqiy",
+      "translation_ru": "Вечный",
+      "category": 1,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 29,
+    "fields": {
+      "arabic": "أَحَد",
+      "transliteration": "Ahad",
+      "translation_uz": "Yagona",
+      "translation_ru": "Единый",
+      "category": 1,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 30,
+    "fields": {
+      "arabic": "صَمَد",
+      "transliteration": "Samad",
+      "translation_uz": "Hojatbaror",
+      "translation_ru": "Самодостаточный",
+      "category": 1,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 31,
+    "fields": {
+      "arabic": "دِين",
+      "transliteration": "Din",
+      "translation_uz": "Din",
+      "translation_ru": "Религия",
+      "category": 1,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 32,
+    "fields": {
+      "arabic": "إِسْلَام",
+      "transliteration": "Islam",
+      "translation_uz": "Islom",
+      "translation_ru": "Ислам",
+      "category": 1,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 33,
+    "fields": {
+      "arabic": "إِيمَان",
+      "transliteration": "Iman",
+      "translation_uz": "Iymon",
+      "translation_ru": "Вера",
+      "category": 1,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 34,
+    "fields": {
+      "arabic": "إِحْسَان",
+      "transliteration": "Ihsan",
+      "translation_uz": "Ezgulik",
+      "translation_ru": "Ихсан",
+      "category": 1,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 35,
+    "fields": {
+      "arabic": "تَقْوَى",
+      "transliteration": "Taqva",
+      "translation_uz": "Taqvo",
+      "translation_ru": "Богобоязненность",
+      "category": 1,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 36,
+    "fields": {
+      "arabic": "عِبَادَة",
+      "transliteration": "Ibada",
+      "translation_uz": "Ibodat",
+      "translation_ru": "Поклонение",
+      "category": 1,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 37,
+    "fields": {
+      "arabic": "صَلَاة",
+      "transliteration": "Salah",
+      "translation_uz": "Namoz",
+      "translation_ru": "Молитва",
+      "category": 1,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 38,
+    "fields": {
+      "arabic": "زَكَاة",
+      "transliteration": "Zakah",
+      "translation_uz": "Zakot",
+      "translation_ru": "Закят",
+      "category": 1,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 39,
+    "fields": {
+      "arabic": "صَوْم",
+      "transliteration": "Sawm",
+      "translation_uz": "Ro'za",
+      "translation_ru": "Пост",
+      "category": 1,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 40,
+    "fields": {
+      "arabic": "حَجّ",
+      "transliteration": "Hajj",
+      "translation_uz": "Haj",
+      "translation_ru": "Хаджу",
+      "category": 1,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 41,
+    "fields": {
+      "arabic": "دُعَاء",
+      "transliteration": "Du'a",
+      "translation_uz": "Duo",
+      "translation_ru": "Мольба",
+      "category": 1,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 42,
+    "fields": {
+      "arabic": "ذِكْر",
+      "transliteration": "Zikr",
+      "translation_uz": "Zikr",
+      "translation_ru": "Поминание",
+      "category": 1,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 43,
+    "fields": {
+      "arabic": "تَوْبَة",
+      "transliteration": "Tawbah",
+      "translation_uz": "Tavba",
+      "translation_ru": "Покаяние",
+      "category": 1,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 44,
+    "fields": {
+      "arabic": "صَبْر",
+      "transliteration": "Sabr",
+      "translation_uz": "Sabr",
+      "translation_ru": "Терпение",
+      "category": 1,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 45,
+    "fields": {
+      "arabic": "شُكْر",
+      "transliteration": "Shukr",
+      "translation_uz": "Shukr",
+      "translation_ru": "Благодарность",
+      "category": 1,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 46,
+    "fields": {
+      "arabic": "يَقِين",
+      "transliteration": "Yaqin",
+      "translation_uz": "Ishonch",
+      "translation_ru": "Убежденность",
+      "category": 1,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 47,
+    "fields": {
+      "arabic": "نِيَّة",
+      "transliteration": "Niyyah",
+      "translation_uz": "Niyat",
+      "translation_ru": "Намерение",
+      "category": 1,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 48,
+    "fields": {
+      "arabic": "إِخْلَاس",
+      "transliteration": "Ikhlas",
+      "translation_uz": "Ixlos",
+      "translation_ru": "Искренность",
+      "category": 1,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 49,
+    "fields": {
+      "arabic": "رَحْمَة",
+      "transliteration": "Rahmah",
+      "translation_uz": "Rahmat",
+      "translation_ru": "Милость",
+      "category": 1,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 50,
+    "fields": {
+      "arabic": "بَرَكَة",
+      "transliteration": "Barakah",
+      "translation_uz": "Baraka",
+      "translation_ru": "Благодать",
+      "category": 1,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 51,
+    "fields": {
+      "arabic": "نَبِيّ",
+      "transliteration": "Nabiy",
+      "translation_uz": "Payg'ambar",
+      "translation_ru": "Пророк",
+      "category": 2,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 52,
+    "fields": {
+      "arabic": "رَسُول",
+      "transliteration": "Rasul",
+      "translation_uz": "Elchi",
+      "translation_ru": "Посланник",
+      "category": 2,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 53,
+    "fields": {
+      "arabic": "آدَم",
+      "transliteration": "Adam",
+      "translation_uz": "Odam (a.s)",
+      "translation_ru": "Адам",
+      "category": 2,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 54,
+    "fields": {
+      "arabic": "نُوح",
+      "transliteration": "Nuh",
+      "translation_uz": "Nuh (a.s)",
+      "translation_ru": "Нух",
+      "category": 2,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 55,
+    "fields": {
+      "arabic": "إِبْرَاهِيم",
+      "transliteration": "Ibrahim",
+      "translation_uz": "Ibrohim (a.s)",
+      "translation_ru": "Ибрахим",
+      "category": 2,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 56,
+    "fields": {
+      "arabic": "مُوسَى",
+      "transliteration": "Musa",
+      "translation_uz": "Muso (a.s)",
+      "translation_ru": "Муса",
+      "category": 2,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 57,
+    "fields": {
+      "arabic": "عِيسَى",
+      "transliteration": "Isa",
+      "translation_uz": "Iso (a.s)",
+      "translation_ru": "Иса",
+      "category": 2,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 58,
+    "fields": {
+      "arabic": "مُحَمَّد",
+      "transliteration": "Muhammad",
+      "translation_uz": "Muhammad (s.a.v)",
+      "translation_ru": "Мухаммад",
+      "category": 2,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 59,
+    "fields": {
+      "arabic": "يُوسُف",
+      "transliteration": "Yusuf",
+      "translation_uz": "Yusuf (a.s)",
+      "translation_ru": "Юсуф",
+      "category": 2,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 60,
+    "fields": {
+      "arabic": "يُونُس",
+      "transliteration": "Yunus",
+      "translation_uz": "Yunus (a.s)",
+      "translation_ru": "Юнус",
+      "category": 2,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 61,
+    "fields": {
+      "arabic": "سُلَيْمَان",
+      "transliteration": "Sulayman",
+      "translation_uz": "Sulaymon (a.s)",
+      "translation_ru": "Сулейман",
+      "category": 2,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 62,
+    "fields": {
+      "arabic": "دَاوُود",
+      "transliteration": "Dawud",
+      "translation_uz": "Dovud (a.s)",
+      "translation_ru": "Давуд",
+      "category": 2,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 63,
+    "fields": {
+      "arabic": "إِسْمَاعِيل",
+      "transliteration": "Isma'il",
+      "translation_uz": "Ismoil (a.s)",
+      "translation_ru": "Исмаил",
+      "category": 2,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 64,
+    "fields": {
+      "arabic": "إِسْحَاق",
+      "transliteration": "Ishaq",
+      "translation_uz": "Is'hoq (a.s)",
+      "translation_ru": "Исхак",
+      "category": 2,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 65,
+    "fields": {
+      "arabic": "يَعْقُوب",
+      "transliteration": "Ya'qub",
+      "translation_uz": "Ya'qub (a.s)",
+      "translation_ru": "Якуб",
+      "category": 2,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 66,
+    "fields": {
+      "arabic": "أَيُّوب",
+      "transliteration": "Ayyub",
+      "translation_uz": "Ayyub (a.s)",
+      "translation_ru": "Айюб",
+      "category": 2,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 67,
+    "fields": {
+      "arabic": "شُعَيْب",
+      "transliteration": "Shu'ayb",
+      "translation_uz": "Shu'ayb (a.s)",
+      "translation_ru": "Шуайб",
+      "category": 2,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 68,
+    "fields": {
+      "arabic": "صَالِح",
+      "transliteration": "Salih",
+      "translation_uz": "Solih (a.s)",
+      "translation_ru": "Салих",
+      "category": 2,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 69,
+    "fields": {
+      "arabic": "هُود",
+      "transliteration": "Hud",
+      "translation_uz": "Hud (a.s)",
+      "translation_ru": "Худ",
+      "category": 2,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 70,
+    "fields": {
+      "arabic": "لُوط",
+      "transliteration": "Lut",
+      "translation_uz": "Lut (a.s)",
+      "translation_ru": "Лут",
+      "category": 2,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 71,
+    "fields": {
+      "arabic": "إِنْسَان",
+      "transliteration": "Insan",
+      "translation_uz": "Inson",
+      "translation_ru": "Человек",
+      "category": 2,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 72,
+    "fields": {
+      "arabic": "بَشَر",
+      "transliteration": "Bashar",
+      "translation_uz": "Odamzot",
+      "translation_ru": "Человечество",
+      "category": 2,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 73,
+    "fields": {
+      "arabic": "رَجُل",
+      "transliteration": "Rajul",
+      "translation_uz": "Erkak",
+      "translation_ru": "Мужчина",
+      "category": 2,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 74,
+    "fields": {
+      "arabic": "امْرَأَة",
+      "transliteration": "Imra'a",
+      "translation_uz": "Ayol",
+      "translation_ru": "Женщина",
+      "category": 2,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 75,
+    "fields": {
+      "arabic": "وَلَد",
+      "transliteration": "Walad",
+      "translation_uz": "Bola",
+      "translation_ru": "Ребенок",
+      "category": 2,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 76,
+    "fields": {
+      "arabic": "وَالِد",
+      "transliteration": "Walid",
+      "translation_uz": "Ota",
+      "translation_ru": "Отец",
+      "category": 2,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 77,
+    "fields": {
+      "arabic": "وَالِدَة",
+      "transliteration": "Walida",
+      "translation_uz": "Ona",
+      "translation_ru": "Мать",
+      "category": 2,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 78,
+    "fields": {
+      "arabic": "أَخ",
+      "transliteration": "Akh",
+      "translation_uz": "Birodar",
+      "translation_ru": "Брат",
+      "category": 2,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 79,
+    "fields": {
+      "arabic": "أُخْت",
+      "transliteration": "Ukht",
+      "translation_uz": "Singil",
+      "translation_ru": "Сестра",
+      "category": 2,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 80,
+    "fields": {
+      "arabic": "قَوْم",
+      "transliteration": "Qawm",
+      "translation_uz": "Qavm",
+      "translation_ru": "Народ",
+      "category": 2,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 81,
+    "fields": {
+      "arabic": "أُمَّة",
+      "transliteration": "Ummah",
+      "translation_uz": "Ummat",
+      "translation_ru": "Община",
+      "category": 2,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 82,
+    "fields": {
+      "arabic": "مَلَأ",
+      "transliteration": "Mala'",
+      "translation_uz": "Zodagonlar",
+      "translation_ru": "Знать",
+      "category": 2,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 83,
+    "fields": {
+      "arabic": "عَبْد",
+      "transliteration": "Abd",
+      "translation_uz": "Qul/Banda",
+      "translation_ru": "Раб",
+      "category": 2,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 84,
+    "fields": {
+      "arabic": "أَصْحَاب",
+      "transliteration": "Ashab",
+      "translation_uz": "Sohiblar/Egalar",
+      "translation_ru": "Обитатели",
+      "category": 2,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 85,
+    "fields": {
+      "arabic": "عَدُوّ",
+      "transliteration": "Aduww",
+      "translation_uz": "Dushman",
+      "translation_ru": "Враг",
+      "category": 2,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 86,
+    "fields": {
+      "arabic": "وَلِيّ",
+      "transliteration": "Waliyy",
+      "translation_uz": "Do'st/Homi",
+      "translation_ru": "Покровитель",
+      "category": 2,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 87,
+    "fields": {
+      "arabic": "شَهِيد",
+      "transliteration": "Shahid",
+      "translation_uz": "Guvoh/Shahid",
+      "translation_ru": "Свидетель/Мученик",
+      "category": 2,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 88,
+    "fields": {
+      "arabic": "صِدِّيق",
+      "transliteration": "Siddiq",
+      "translation_uz": "Rostgo'y",
+      "translation_ru": "Правдивый",
+      "category": 2,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 89,
+    "fields": {
+      "arabic": "كَافِر",
+      "transliteration": "Kafir",
+      "translation_uz": "Kofir",
+      "translation_ru": "Неверный",
+      "category": 2,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 90,
+    "fields": {
+      "arabic": "مُنَافِق",
+      "transliteration": "Munafiq",
+      "translation_uz": "Munofiq",
+      "translation_ru": "Лицемер",
+      "category": 2,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 91,
+    "fields": {
+      "arabic": "مُشْرِك",
+      "transliteration": "Mushrik",
+      "translation_uz": "Mushrik",
+      "translation_ru": "Многобожник",
+      "category": 2,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 92,
+    "fields": {
+      "arabic": "ظَالِم",
+      "transliteration": "Zalim",
+      "translation_uz": "Zolim",
+      "translation_ru": "Тиран",
+      "category": 2,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 93,
+    "fields": {
+      "arabic": "فَاسِق",
+      "transliteration": "Fasiq",
+      "translation_uz": "Fosiq",
+      "translation_ru": "Грешник",
+      "category": 2,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 94,
+    "fields": {
+      "arabic": "مُجْرِم",
+      "transliteration": "Mujrim",
+      "translation_uz": "Jinoyatchi",
+      "translation_ru": "Преступник",
+      "category": 2,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 95,
+    "fields": {
+      "arabic": "غَنِيّ",
+      "transliteration": "Ghaniyy",
+      "translation_uz": "Boy",
+      "translation_ru": "Богатый",
+      "category": 2,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 96,
+    "fields": {
+      "arabic": "فَقِير",
+      "transliteration": "Faqir",
+      "translation_uz": "Kambag'al",
+      "translation_ru": "Бедный",
+      "category": 2,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 97,
+    "fields": {
+      "arabic": "يَتِيم",
+      "transliteration": "Yatim",
+      "translation_uz": "Yetim",
+      "translation_ru": "Сирота",
+      "category": 2,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 98,
+    "fields": {
+      "arabic": "مِسْكِين",
+      "transliteration": "Miskin",
+      "translation_uz": "Miskin",
+      "translation_ru": "Неимущий",
+      "category": 2,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 99,
+    "fields": {
+      "arabic": "ضَعِيف",
+      "transliteration": "Da'if",
+      "translation_uz": "Zaif",
+      "translation_ru": "Слабый",
+      "category": 2,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 100,
+    "fields": {
+      "arabic": "قَوِيّ",
+      "transliteration": "Qawiyy",
+      "translation_uz": "Kuchli",
+      "translation_ru": "Сильный",
+      "category": 2,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 101,
+    "fields": {
+      "arabic": "آخِرَة",
+      "transliteration": "Akhirah",
+      "translation_uz": "Oxirat",
+      "translation_ru": "Потусторонний мир",
+      "category": 3,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 102,
+    "fields": {
+      "arabic": "قِيَامَة",
+      "transliteration": "Qiyamah",
+      "translation_uz": "Qiyomat",
+      "translation_ru": "Воскресение",
+      "category": 3,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 103,
+    "fields": {
+      "arabic": "سَاعَة",
+      "transliteration": "Sa'ah",
+      "translation_uz": "Soat (Qiyomat)",
+      "translation_ru": "Час",
+      "category": 3,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 104,
+    "fields": {
+      "arabic": "بَعْث",
+      "transliteration": "Ba'th",
+      "translation_uz": "Qayta tirilish",
+      "translation_ru": "Воскрешение",
+      "category": 3,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 105,
+    "fields": {
+      "arabic": "حَشْر",
+      "transliteration": "Hashr",
+      "translation_uz": "To'planish",
+      "translation_ru": "Сбор",
+      "category": 3,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 106,
+    "fields": {
+      "arabic": "حِسَاب",
+      "transliteration": "Hisab",
+      "translation_uz": "Hisob-kitob",
+      "translation_ru": "Расчет",
+      "category": 3,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 107,
+    "fields": {
+      "arabic": "مِيزَان",
+      "transliteration": "Mizan",
+      "translation_uz": "Tarozi",
+      "translation_ru": "Весы",
+      "category": 3,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 108,
+    "fields": {
+      "arabic": "كِتَاب",
+      "transliteration": "Kitab",
+      "translation_uz": "Kitob/Amallar daftari",
+      "translation_ru": "Книга",
+      "category": 3,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 109,
+    "fields": {
+      "arabic": "جَنَّة",
+      "transliteration": "Jannah",
+      "translation_uz": "Jannat",
+      "translation_ru": "Рай",
+      "category": 3,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 110,
+    "fields": {
+      "arabic": "نَار",
+      "transliteration": "Nar",
+      "translation_uz": "Olov (Do'zax)",
+      "translation_ru": "Огонь",
+      "category": 3,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 111,
+    "fields": {
+      "arabic": "جَحِيم",
+      "transliteration": "Jahim",
+      "translation_uz": "Jahiyma (Do'zax)",
+      "translation_ru": "Ад",
+      "category": 3,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 112,
+    "fields": {
+      "arabic": "سَعِير",
+      "transliteration": "Sa'ir",
+      "translation_uz": "Lovullagan olov",
+      "translation_ru": "Пламя",
+      "category": 3,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 113,
+    "fields": {
+      "arabic": "جَهَنَّم",
+      "transliteration": "Jahannam",
+      "translation_uz": "Jahannam",
+      "translation_ru": "Геенна",
+      "category": 3,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 114,
+    "fields": {
+      "arabic": "عَذَاب",
+      "transliteration": "Azab",
+      "translation_uz": "Azob",
+      "translation_ru": "Наказание",
+      "category": 3,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 115,
+    "fields": {
+      "arabic": "عِقَاب",
+      "transliteration": "Iqab",
+      "translation_uz": "Jazo",
+      "translation_ru": "Кара",
+      "category": 3,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 116,
+    "fields": {
+      "arabic": "ثَوَاب",
+      "transliteration": "Thawab",
+      "translation_uz": "Savob",
+      "translation_ru": "Награда",
+      "category": 3,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 117,
+    "fields": {
+      "arabic": "اجْر",
+      "transliteration": "Ajr",
+      "translation_uz": "Mukofot",
+      "translation_ru": "Плата",
+      "category": 3,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 118,
+    "fields": {
+      "arabic": "فَوْز",
+      "transliteration": "Fawz",
+      "translation_uz": "Yutuq",
+      "translation_ru": "Успех",
+      "category": 3,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 119,
+    "fields": {
+      "arabic": "نَعِيم",
+      "transliteration": "Na'im",
+      "translation_uz": "Ne'mat",
+      "translation_ru": "Блаженство",
+      "category": 3,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 120,
+    "fields": {
+      "arabic": "خُلْد",
+      "transliteration": "Khuld",
+      "translation_uz": "Abadiylik",
+      "translation_ru": "Вечность",
+      "category": 3,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 121,
+    "fields": {
+      "arabic": "مَوْت",
+      "transliteration": "Mawt",
+      "translation_uz": "O'lim",
+      "translation_ru": "Смерть",
+      "category": 3,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 122,
+    "fields": {
+      "arabic": "قَبْر",
+      "transliteration": "Qabr",
+      "translation_uz": "Qabr",
+      "translation_ru": "Могила",
+      "category": 3,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 123,
+    "fields": {
+      "arabic": "رُوح",
+      "transliteration": "Ruh",
+      "translation_uz": "Ruh",
+      "translation_ru": "Душа",
+      "category": 3,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 124,
+    "fields": {
+      "arabic": "نَفْس",
+      "transliteration": "Nafs",
+      "translation_uz": "Nafs/Jon",
+      "translation_ru": "Душа/Личность",
+      "category": 3,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 125,
+    "fields": {
+      "arabic": "مَلَك",
+      "transliteration": "Malak",
+      "translation_uz": "Farishta",
+      "translation_ru": "Ангел",
+      "category": 3,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 126,
+    "fields": {
+      "arabic": "جِنّ",
+      "transliteration": "Jinn",
+      "translation_uz": "Jin",
+      "translation_ru": "Джинн",
+      "category": 3,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 127,
+    "fields": {
+      "arabic": "شَيْطَان",
+      "transliteration": "Shaytan",
+      "translation_uz": "Shayton",
+      "translation_ru": "Сатана",
+      "category": 3,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 128,
+    "fields": {
+      "arabic": "إِبْلِيس",
+      "transliteration": "Iblis",
+      "translation_uz": "Iblis",
+      "translation_ru": "Иблис",
+      "category": 3,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 129,
+    "fields": {
+      "arabic": "غَيْب",
+      "transliteration": "Ghayb",
+      "translation_uz": "G'ayb",
+      "translation_ru": "Сокровенное",
+      "category": 3,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 130,
+    "fields": {
+      "arabic": "شَهَادَة",
+      "transliteration": "Shahadah",
+      "translation_uz": "Oshkora",
+      "translation_ru": "Явное",
+      "category": 3,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 131,
+    "fields": {
+      "arabic": "سَمَاء",
+      "transliteration": "Sama'",
+      "translation_uz": "Osmon",
+      "translation_ru": "Небо",
+      "category": 4,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 132,
+    "fields": {
+      "arabic": "أَرْض",
+      "transliteration": "Ard",
+      "translation_uz": "Yer",
+      "translation_ru": "Земля",
+      "category": 4,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 133,
+    "fields": {
+      "arabic": "شَمْس",
+      "transliteration": "Shams",
+      "translation_uz": "Quyosh",
+      "translation_ru": "Солнце",
+      "category": 4,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 134,
+    "fields": {
+      "arabic": "قَمَر",
+      "transliteration": "Qamar",
+      "translation_uz": "Oy",
+      "translation_ru": "Луна",
+      "category": 4,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 135,
+    "fields": {
+      "arabic": "نَجْم",
+      "transliteration": "Najm",
+      "translation_uz": "Yulduz",
+      "translation_ru": "Звезда",
+      "category": 4,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 136,
+    "fields": {
+      "arabic": "كَوَاكِب",
+      "transliteration": "Kawakib",
+      "translation_uz": "Yulduzlar/Sayyoralar",
+      "translation_ru": "Планеты",
+      "category": 4,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 137,
+    "fields": {
+      "arabic": "لَيْل",
+      "transliteration": "Layl",
+      "translation_uz": "Tun",
+      "translation_ru": "Ночь",
+      "category": 4,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 138,
+    "fields": {
+      "arabic": "نَهَار",
+      "transliteration": "Nahar",
+      "translation_uz": "Kunduz",
+      "translation_ru": "День",
+      "category": 4,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 139,
+    "fields": {
+      "arabic": "جَبَل",
+      "transliteration": "Jabal",
+      "translation_uz": "Tog'",
+      "translation_ru": "Гора",
+      "category": 4,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 140,
+    "fields": {
+      "arabic": "بَحْر",
+      "transliteration": "Bahr",
+      "translation_uz": "Dengiz",
+      "translation_ru": "Море",
+      "category": 4,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 141,
+    "fields": {
+      "arabic": "نَهْر",
+      "transliteration": "Nahr",
+      "translation_uz": "Daryo",
+      "translation_ru": "Река",
+      "category": 4,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 142,
+    "fields": {
+      "arabic": "شَجَر",
+      "transliteration": "Shajar",
+      "translation_uz": "Daraxt",
+      "translation_ru": "Дерево",
+      "category": 4,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 143,
+    "fields": {
+      "arabic": "نَخْل",
+      "transliteration": "Nakhl",
+      "translation_uz": "Xurmo daraxti",
+      "translation_ru": "Пальма",
+      "category": 4,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 144,
+    "fields": {
+      "arabic": "زَرْع",
+      "transliteration": "Zar'",
+      "translation_uz": "Ekin",
+      "translation_ru": "Посев",
+      "category": 4,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 145,
+    "fields": {
+      "arabic": "ثَمَر",
+      "transliteration": "Thamar",
+      "translation_uz": "Meva",
+      "translation_ru": "Плод",
+      "category": 4,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 146,
+    "fields": {
+      "arabic": "مَاء",
+      "transliteration": "Ma'",
+      "translation_uz": "Suv",
+      "translation_ru": "Вода",
+      "category": 4,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 147,
+    "fields": {
+      "arabic": "مَطَر",
+      "transliteration": "Matar",
+      "translation_uz": "Yomg'ir",
+      "translation_ru": "Дождь",
+      "category": 4,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 148,
+    "fields": {
+      "arabic": "غَيْث",
+      "transliteration": "Ghayth",
+      "translation_uz": "Foydali yomg'ir",
+      "translation_ru": "Ливень",
+      "category": 4,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 149,
+    "fields": {
+      "arabic": "سَحَاب",
+      "transliteration": "Sahab",
+      "translation_uz": "Bulut",
+      "translation_ru": "Облако",
+      "category": 4,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 150,
+    "fields": {
+      "arabic": "رِيح",
+      "transliteration": "Rih",
+      "translation_uz": "Shamol",
+      "translation_ru": "Ветер",
+      "category": 4,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 151,
+    "fields": {
+      "arabic": "طَيْر",
+      "transliteration": "Tayr",
+      "translation_uz": "Qush",
+      "translation_ru": "Птица",
+      "category": 4,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 152,
+    "fields": {
+      "arabic": "دَابَّة",
+      "transliteration": "Dabbah",
+      "translation_uz": "Jonivor",
+      "translation_ru": "Животное",
+      "category": 4,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 153,
+    "fields": {
+      "arabic": "أَنْعَام",
+      "transliteration": "An'am",
+      "translation_uz": "Chorva",
+      "translation_ru": "Скот",
+      "category": 4,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 154,
+    "fields": {
+      "arabic": "إِبِل",
+      "transliteration": "Ibil",
+      "translation_uz": "Tuya",
+      "translation_ru": "Верблюд",
+      "category": 4,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 155,
+    "fields": {
+      "arabic": "خَيْل",
+      "transliteration": "Khayl",
+      "translation_uz": "Otlar",
+      "translation_ru": "Лошади",
+      "category": 4,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 156,
+    "fields": {
+      "arabic": "بَغْل",
+      "transliteration": "Baghl",
+      "translation_uz": "Xachir",
+      "translation_ru": "Мул",
+      "category": 4,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 157,
+    "fields": {
+      "arabic": "حِمَار",
+      "transliteration": "Himar",
+      "translation_uz": "Eshak",
+      "translation_ru": "Осел",
+      "category": 4,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 158,
+    "fields": {
+      "arabic": "نَحْل",
+      "transliteration": "Nahl",
+      "translation_uz": "Asalar",
+      "translation_ru": "Пчела",
+      "category": 4,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 159,
+    "fields": {
+      "arabic": "نَمْل",
+      "transliteration": "Naml",
+      "translation_uz": "Chumoli",
+      "translation_ru": "Муравей",
+      "category": 4,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 160,
+    "fields": {
+      "arabic": "عَنْكَبُوت",
+      "transliteration": "Ankabut",
+      "translation_uz": "O'rgimchak",
+      "translation_ru": "Паук",
+      "category": 4,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 161,
+    "fields": {
+      "arabic": "مَرْحَبًا",
+      "transliteration": "Marhaban",
+      "translation_uz": "Salom",
+      "translation_ru": "Привет",
+      "category": 5,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 162,
+    "fields": {
+      "arabic": "أَهْلًا",
+      "transliteration": "Ahlan",
+      "translation_uz": "Xush kelibsiz",
+      "translation_ru": "Добро пожаловать",
+      "category": 5,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 163,
+    "fields": {
+      "arabic": "كَيْفَ",
+      "transliteration": "Kayfa",
+      "translation_uz": "Qanday",
+      "translation_ru": "Как",
+      "category": 5,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 164,
+    "fields": {
+      "arabic": "حَال",
+      "transliteration": "Hal",
+      "translation_uz": "Ahvol",
+      "translation_ru": "Состояние",
+      "category": 5,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 165,
+    "fields": {
+      "arabic": "بِخَيْر",
+      "transliteration": "Bikhayr",
+      "translation_uz": "Yaxshi",
+      "translation_ru": "Хорошо",
+      "category": 5,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 166,
+    "fields": {
+      "arabic": "شُكْرًا",
+      "transliteration": "Shukran",
+      "translation_uz": "Rahmat",
+      "translation_ru": "Спасибо",
+      "category": 5,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 167,
+    "fields": {
+      "arabic": "عَفْوًا",
+      "transliteration": "Afwan",
+      "translation_uz": "Arzimaydi",
+      "translation_ru": "Пожалуйста",
+      "category": 5,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 168,
+    "fields": {
+      "arabic": "نَعَم",
+      "transliteration": "Na'am",
+      "translation_uz": "Ha",
+      "translation_ru": "Да",
+      "category": 5,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 169,
+    "fields": {
+      "arabic": "لَا",
+      "transliteration": "La",
+      "translation_uz": "Yo'q",
+      "translation_ru": "Нет",
+      "category": 5,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 170,
+    "fields": {
+      "arabic": "مِنْ فَضْلِك",
+      "transliteration": "Min fadlik",
+      "translation_uz": "Iltimos",
+      "translation_ru": "Пожалуйста (просьба)",
+      "category": 5,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 171,
+    "fields": {
+      "arabic": "مَعَ السَّلَامَة",
+      "transliteration": "Ma'a as-salama",
+      "translation_uz": "Xayr",
+      "translation_ru": "До свидания",
+      "category": 5,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 172,
+    "fields": {
+      "arabic": "صَبَاح",
+      "transliteration": "Sabah",
+      "translation_uz": "Tong",
+      "translation_ru": "Утро",
+      "category": 5,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 173,
+    "fields": {
+      "arabic": "مَسَاء",
+      "transliteration": "Masa'",
+      "translation_uz": "Kech",
+      "translation_ru": "Вечер",
+      "category": 5,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 174,
+    "fields": {
+      "arabic": "لَيْلَة",
+      "transliteration": "Laylah",
+      "translation_uz": "Tun",
+      "translation_ru": "Ночь",
+      "category": 5,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 175,
+    "fields": {
+      "arabic": "سَعِيد",
+      "transliteration": "Sa'id",
+      "translation_uz": "Baxtli/Xursand",
+      "translation_ru": "Счастливый",
+      "category": 5,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 176,
+    "fields": {
+      "arabic": "آسِف",
+      "transliteration": "Asif",
+      "translation_uz": "Uzr",
+      "translation_ru": "Извините",
+      "category": 5,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 177,
+    "fields": {
+      "arabic": "اسْم",
+      "transliteration": "Ism",
+      "translation_uz": "Ism",
+      "translation_ru": "Имя",
+      "category": 5,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 178,
+    "fields": {
+      "arabic": "مَا",
+      "transliteration": "Ma",
+      "translation_uz": "Nima",
+      "translation_ru": "Что",
+      "category": 5,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 179,
+    "fields": {
+      "arabic": "مَنْ",
+      "transliteration": "Man",
+      "translation_uz": "Kim",
+      "translation_ru": "Кто",
+      "category": 5,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 180,
+    "fields": {
+      "arabic": "أَيْنَ",
+      "transliteration": "Ayna",
+      "translation_uz": "Qayerda",
+      "translation_ru": "Где",
+      "category": 5,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 181,
+    "fields": {
+      "arabic": "مَتَى",
+      "transliteration": "Mata",
+      "translation_uz": "Qachon",
+      "translation_ru": "Когда",
+      "category": 5,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 182,
+    "fields": {
+      "arabic": "كَمْ",
+      "transliteration": "Kam",
+      "translation_uz": "Qancha",
+      "translation_ru": "Сколько",
+      "category": 5,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 183,
+    "fields": {
+      "arabic": "لِمَاذَا",
+      "transliteration": "Limaza",
+      "translation_uz": "Nega",
+      "translation_ru": "Почему",
+      "category": 5,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 184,
+    "fields": {
+      "arabic": "لُغَة",
+      "transliteration": "Lughah",
+      "translation_uz": "Til",
+      "translation_ru": "Язык",
+      "category": 5,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 185,
+    "fields": {
+      "arabic": "عَرَبِيّ",
+      "transliteration": "Arabiyy",
+      "translation_uz": "Arabcha",
+      "translation_ru": "Арабский",
+      "category": 5,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 186,
+    "fields": {
+      "arabic": "تَكَلَّمَ",
+      "transliteration": "Takallama",
+      "translation_uz": "Gapirdi",
+      "translation_ru": "Говорил",
+      "category": 5,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 187,
+    "fields": {
+      "arabic": "فَهِمَ",
+      "transliteration": "Fahima",
+      "translation_uz": "Tushundi",
+      "translation_ru": "Понял",
+      "category": 5,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 188,
+    "fields": {
+      "arabic": "سَأَلَ",
+      "transliteration": "Sa'ala",
+      "translation_uz": "So'radi",
+      "translation_ru": "Спросил",
+      "category": 5,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 189,
+    "fields": {
+      "arabic": "أَجَابَ",
+      "transliteration": "Ajaba",
+      "translation_uz": "Javob berdi",
+      "translation_ru": "Ответил",
+      "category": 5,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 190,
+    "fields": {
+      "arabic": "قَالَ",
+      "transliteration": "Qala",
+      "translation_uz": "Aytmoq",
+      "translation_ru": "Сказал",
+      "category": 5,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 191,
+    "fields": {
+      "arabic": "أُسْرَة",
+      "transliteration": "Usrah",
+      "translation_uz": "Oila",
+      "translation_ru": "Семья",
+      "category": 6,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 192,
+    "fields": {
+      "arabic": "عَائِلَة",
+      "transliteration": "A'ilah",
+      "translation_uz": "Oila (katta)",
+      "translation_ru": "Семья (род)",
+      "category": 6,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 193,
+    "fields": {
+      "arabic": "وَالِدَان",
+      "transliteration": "Walidan",
+      "translation_uz": "Ota-ona",
+      "translation_ru": "Родители",
+      "category": 6,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 194,
+    "fields": {
+      "arabic": "زَوْج",
+      "transliteration": "Zawj",
+      "translation_uz": "Er",
+      "translation_ru": "Муж",
+      "category": 6,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 195,
+    "fields": {
+      "arabic": "زَوْجَة",
+      "transliteration": "Zawjah",
+      "translation_uz": "Xotin",
+      "translation_ru": "Жена",
+      "category": 6,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 196,
+    "fields": {
+      "arabic": "ابْن",
+      "transliteration": "Ibn",
+      "translation_uz": "O'g'il",
+      "translation_ru": "Сын",
+      "category": 6,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 197,
+    "fields": {
+      "arabic": "ابْنَة",
+      "transliteration": "Ibna",
+      "translation_uz": "Qiz",
+      "translation_ru": "Дочь",
+      "category": 6,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 198,
+    "fields": {
+      "arabic": "حَفِيد",
+      "transliteration": "Hafid",
+      "translation_uz": "Nevara",
+      "translation_ru": "Внук",
+      "category": 6,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 199,
+    "fields": {
+      "arabic": "عَمّ",
+      "transliteration": "Amm",
+      "translation_uz": "Amaki",
+      "translation_ru": "Дядя (по отцу)",
+      "category": 6,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 200,
+    "fields": {
+      "arabic": "عَمَّة",
+      "transliteration": "Ammah",
+      "translation_uz": "Amma",
+      "translation_ru": "Тетя (по отцу)",
+      "category": 6,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 201,
+    "fields": {
+      "arabic": "خَال",
+      "transliteration": "Khal",
+      "translation_uz": "Toga",
+      "translation_ru": "Дядя (по матери)",
+      "category": 6,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 202,
+    "fields": {
+      "arabic": "خَالَة",
+      "transliteration": "Khala",
+      "translation_uz": "Xola",
+      "translation_ru": "Тетя (по матери)",
+      "category": 6,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 203,
+    "fields": {
+      "arabic": "طِفْل",
+      "transliteration": "Tifl",
+      "translation_uz": "Go'dak",
+      "translation_ru": "Младенец",
+      "category": 6,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 204,
+    "fields": {
+      "arabic": "شَابّ",
+      "transliteration": "Shabb",
+      "translation_uz": "Yigit",
+      "translation_ru": "Юноша",
+      "category": 6,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 205,
+    "fields": {
+      "arabic": "شَيْخ",
+      "transliteration": "Shaykh",
+      "translation_uz": "Qariya",
+      "translation_ru": "Старик",
+      "category": 6,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 206,
+    "fields": {
+      "arabic": "أَقَارِب",
+      "transliteration": "Aqarib",
+      "translation_uz": "Qarindoshlar",
+      "translation_ru": "Родственники",
+      "category": 6,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 207,
+    "fields": {
+      "arabic": "صَدِيق",
+      "transliteration": "Sadiq",
+      "translation_uz": "Do'st",
+      "translation_ru": "Друг",
+      "category": 6,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 208,
+    "fields": {
+      "arabic": "جَار",
+      "transliteration": "Jar",
+      "translation_uz": "Qo'shni",
+      "translation_ru": "Сосед",
+      "category": 6,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 209,
+    "fields": {
+      "arabic": "ضَيْف",
+      "transliteration": "Dayf",
+      "translation_uz": "Mehmon",
+      "translation_ru": "Гость",
+      "category": 6,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 210,
+    "fields": {
+      "arabic": "نَاس",
+      "transliteration": "Nas",
+      "translation_uz": "Odamlar",
+      "translation_ru": "Люди",
+      "category": 6,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 211,
+    "fields": {
+      "arabic": "بَيْت",
+      "transliteration": "Bayt",
+      "translation_uz": "Uy",
+      "translation_ru": "Дом",
+      "category": 7,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 212,
+    "fields": {
+      "arabic": "مَنْزِل",
+      "transliteration": "Manzil",
+      "translation_uz": "Turar joy",
+      "translation_ru": "Жилье",
+      "category": 7,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 213,
+    "fields": {
+      "arabic": "شَقَّة",
+      "transliteration": "Shaqqah",
+      "translation_uz": "Kvartira",
+      "translation_ru": "Квартира",
+      "category": 7,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 214,
+    "fields": {
+      "arabic": "غُرْفَة جُلُوس",
+      "transliteration": "Ghurfat julus",
+      "translation_uz": "Mehmonxona",
+      "translation_ru": "Гостиная",
+      "category": 7,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 215,
+    "fields": {
+      "arabic": "غُرْفَة نَوْم",
+      "transliteration": "Ghurfat nawm",
+      "translation_uz": "Yotoqxona",
+      "translation_ru": "Спальня",
+      "category": 7,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 216,
+    "fields": {
+      "arabic": "حَمَّام",
+      "transliteration": "Hammam",
+      "translation_uz": "Hammom",
+      "translation_ru": "Ванная",
+      "category": 7,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 217,
+    "fields": {
+      "arabic": "مِرْحَاض",
+      "transliteration": "Mirhad",
+      "translation_uz": "Hojatxona",
+      "translation_ru": "Туалет",
+      "category": 7,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 218,
+    "fields": {
+      "arabic": "مَطْبَخ",
+      "transliteration": "Matbakh",
+      "translation_uz": "Oshxona",
+      "translation_ru": "Кухня",
+      "category": 7,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 219,
+    "fields": {
+      "arabic": "شُرْفَة",
+      "transliteration": "Shurfah",
+      "translation_uz": "Balkon",
+      "translation_ru": "Балкон",
+      "category": 7,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 220,
+    "fields": {
+      "arabic": "حَدِيقَة",
+      "transliteration": "Hadiqah",
+      "translation_uz": "Bog'",
+      "translation_ru": "Сад",
+      "category": 7,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 221,
+    "fields": {
+      "arabic": "أَثَاث",
+      "transliteration": "Athath",
+      "translation_uz": "Mebel",
+      "translation_ru": "Мебель",
+      "category": 7,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 222,
+    "fields": {
+      "arabic": "سَرِير",
+      "transliteration": "Sarir",
+      "translation_uz": "Krovat",
+      "translation_ru": "Кровать",
+      "category": 7,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 223,
+    "fields": {
+      "arabic": "خِزَانَة",
+      "transliteration": "Khizanah",
+      "translation_uz": "Shkaf",
+      "translation_ru": "Шкаф",
+      "category": 7,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 224,
+    "fields": {
+      "arabic": "أَرِيكَة",
+      "transliteration": "Arikah",
+      "translation_uz": "Divan",
+      "translation_ru": "Диван",
+      "category": 7,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 225,
+    "fields": {
+      "arabic": "كُرْسِيّ",
+      "transliteration": "Kursiyy",
+      "translation_uz": "Stul",
+      "translation_ru": "Стул",
+      "category": 7,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 226,
+    "fields": {
+      "arabic": "طَاوِلَة",
+      "transliteration": "Tawilah",
+      "translation_uz": "Stol",
+      "translation_ru": "Стол",
+      "category": 7,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 227,
+    "fields": {
+      "arabic": "مِصْبَاح",
+      "transliteration": "Misbah",
+      "translation_uz": "Chiroq",
+      "translation_ru": "Лампа",
+      "category": 7,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 228,
+    "fields": {
+      "arabic": "سَجَّادَة",
+      "transliteration": "Sajjadah",
+      "translation_uz": "Gilam",
+      "translation_ru": "Ковер",
+      "category": 7,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 229,
+    "fields": {
+      "arabic": "مِرْآة",
+      "transliteration": "Mir'ah",
+      "translation_uz": "Ko'zgu",
+      "translation_ru": "Зеркало",
+      "category": 7,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 230,
+    "fields": {
+      "arabic": "ثَلَّاجَة",
+      "transliteration": "Thallajah",
+      "translation_uz": "Muzlatgich",
+      "translation_ru": "Холодильник",
+      "category": 7,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 231,
+    "fields": {
+      "arabic": "غَسَّالَة",
+      "transliteration": "Ghassalah",
+      "translation_uz": "Kir yuvish mashinasi",
+      "translation_ru": "Стиральная машина",
+      "category": 7,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 232,
+    "fields": {
+      "arabic": "فُرْن",
+      "transliteration": "Furn",
+      "translation_uz": "Pech",
+      "translation_ru": "Печь",
+      "category": 7,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 233,
+    "fields": {
+      "arabic": "سِكِّين",
+      "transliteration": "Sikkin",
+      "translation_uz": "Pichoq",
+      "translation_ru": "Нож",
+      "category": 7,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 234,
+    "fields": {
+      "arabic": "مِلْعَقَة",
+      "transliteration": "Mil'aqah",
+      "translation_uz": "Qoshiq",
+      "translation_ru": "Ложка",
+      "category": 7,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 235,
+    "fields": {
+      "arabic": "شَوْكَة",
+      "transliteration": "Shawkah",
+      "translation_uz": "Vilk",
+      "translation_ru": "Вилка",
+      "category": 7,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 236,
+    "fields": {
+      "arabic": "صَحْن",
+      "transliteration": "Sahn",
+      "translation_uz": "Tarenka",
+      "translation_ru": "Тарелка",
+      "category": 7,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 237,
+    "fields": {
+      "arabic": "كُوب",
+      "transliteration": "Kub",
+      "translation_uz": "Krujka",
+      "translation_ru": "Кружка",
+      "category": 7,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 238,
+    "fields": {
+      "arabic": "كَأْس",
+      "transliteration": "Ka's",
+      "translation_uz": "Stakan",
+      "translation_ru": "Стакан",
+      "category": 7,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 239,
+    "fields": {
+      "arabic": "قِدْر",
+      "transliteration": "Qidr",
+      "translation_uz": "Qozon",
+      "translation_ru": "Кастрюля",
+      "category": 7,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 240,
+    "fields": {
+      "arabic": "مِفْتَاح",
+      "transliteration": "Miftah",
+      "translation_uz": "Kalit",
+      "translation_ru": "Ключ",
+      "category": 7,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 241,
+    "fields": {
+      "arabic": "مَدِينَة",
+      "transliteration": "Madinah",
+      "translation_uz": "Shahar",
+      "translation_ru": "Город",
+      "category": 8,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 242,
+    "fields": {
+      "arabic": "قَرْيَة",
+      "transliteration": "Qaryah",
+      "translation_uz": "Qishloq",
+      "translation_ru": "Деревня",
+      "category": 8,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 243,
+    "fields": {
+      "arabic": "شَارِع",
+      "transliteration": "Shari'",
+      "translation_uz": "Ko'cha",
+      "translation_ru": "Улица",
+      "category": 8,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 244,
+    "fields": {
+      "arabic": "طَرِيق",
+      "transliteration": "Tariq",
+      "translation_uz": "Yo'l",
+      "translation_ru": "Дорога",
+      "category": 8,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 245,
+    "fields": {
+      "arabic": "مَيْدَان",
+      "transliteration": "Maydan",
+      "translation_uz": "Maydon",
+      "translation_ru": "Площадь",
+      "category": 8,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 246,
+    "fields": {
+      "arabic": "سُوق",
+      "transliteration": "Suq",
+      "translation_uz": "Bozor",
+      "translation_ru": "Рынок",
+      "category": 8,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 247,
+    "fields": {
+      "arabic": "مَحَلّ",
+      "transliteration": "Mahall",
+      "translation_uz": "Do'kon",
+      "translation_ru": "Магазин",
+      "category": 8,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 248,
+    "fields": {
+      "arabic": "مَدْرَسَة",
+      "transliteration": "Madrasah",
+      "translation_uz": "Maktab",
+      "translation_ru": "Школа",
+      "category": 8,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 249,
+    "fields": {
+      "arabic": "جَامِعَة",
+      "transliteration": "Jami'ah",
+      "translation_uz": "Universitet",
+      "translation_ru": "Университет",
+      "category": 8,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 250,
+    "fields": {
+      "arabic": "مُسْتَشْفَى",
+      "transliteration": "Mustashfa",
+      "translation_uz": "Kasalxona",
+      "translation_ru": "Больница",
+      "category": 8,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 251,
+    "fields": {
+      "arabic": "صَيْدَلِيَّة",
+      "transliteration": "Saydaliyyah",
+      "translation_uz": "Dorixona",
+      "translation_ru": "Аптека",
+      "category": 8,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 252,
+    "fields": {
+      "arabic": "مَسْجِد",
+      "transliteration": "Masjid",
+      "translation_uz": "Masjid",
+      "translation_ru": "Мечеть",
+      "category": 8,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 253,
+    "fields": {
+      "arabic": "مَطْعَم",
+      "transliteration": "Mat'am",
+      "translation_uz": "Restoran",
+      "translation_ru": "Ресторан",
+      "category": 8,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 254,
+    "fields": {
+      "arabic": "فُنْدُق",
+      "transliteration": "Funduq",
+      "translation_uz": "Mehmonxona",
+      "translation_ru": "Отель",
+      "category": 8,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 255,
+    "fields": {
+      "arabic": "مَطَار",
+      "transliteration": "Matar",
+      "translation_uz": "Aeroport",
+      "translation_ru": "Аэропорт",
+      "category": 8,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 256,
+    "fields": {
+      "arabic": "مَحَطَّة",
+      "transliteration": "Mahattah",
+      "translation_uz": "Bekat",
+      "translation_ru": "Станция",
+      "category": 8,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 257,
+    "fields": {
+      "arabic": "قِطَار",
+      "transliteration": "Qitar",
+      "translation_uz": "Poyezd",
+      "translation_ru": "Поезд",
+      "category": 8,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 258,
+    "fields": {
+      "arabic": "حَافِلَة",
+      "transliteration": "Hafilah",
+      "translation_uz": "Avtobus",
+      "translation_ru": "Автобус",
+      "category": 8,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 259,
+    "fields": {
+      "arabic": "سَيَّارَة",
+      "transliteration": "Sayyarah",
+      "translation_uz": "Mashina",
+      "translation_ru": "Машина",
+      "category": 8,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 260,
+    "fields": {
+      "arabic": "طَائِرَة",
+      "transliteration": "Ta'irah",
+      "translation_uz": "Samolyot",
+      "translation_ru": "Самолет",
+      "category": 8,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 261,
+    "fields": {
+      "arabic": "تَذْكِرَة",
+      "transliteration": "Tazkirah",
+      "translation_uz": "Chipta",
+      "translation_ru": "Билет",
+      "category": 8,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 262,
+    "fields": {
+      "arabic": "جَوَاز سَفَر",
+      "transliteration": "Jawaz safar",
+      "translation_uz": "Pasport",
+      "translation_ru": "Паспорт",
+      "category": 8,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 263,
+    "fields": {
+      "arabic": "سَفَر",
+      "transliteration": "Safar",
+      "translation_uz": "Sayohat",
+      "translation_ru": "Путешествие",
+      "category": 8,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 264,
+    "fields": {
+      "arabic": "خَرِيطَة",
+      "transliteration": "Kharitah",
+      "translation_uz": "Xarita",
+      "translation_ru": "Карта",
+      "category": 8,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 265,
+    "fields": {
+      "arabic": "شَمَال",
+      "transliteration": "Shamal",
+      "translation_uz": "Shimol",
+      "translation_ru": "Север",
+      "category": 8,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 266,
+    "fields": {
+      "arabic": "جَنُوب",
+      "transliteration": "Janub",
+      "translation_uz": "Janub",
+      "translation_ru": "Юг",
+      "category": 8,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 267,
+    "fields": {
+      "arabic": "شَرْق",
+      "transliteration": "Sharq",
+      "translation_uz": "Sharq",
+      "translation_ru": "Восток",
+      "category": 8,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 268,
+    "fields": {
+      "arabic": "غَرْب",
+      "transliteration": "Gharb",
+      "translation_uz": "G'arb",
+      "translation_ru": "Запад",
+      "category": 8,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 269,
+    "fields": {
+      "arabic": "بَلَد",
+      "transliteration": "Balad",
+      "translation_uz": "Mamlakat",
+      "translation_ru": "Страна",
+      "category": 8,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 270,
+    "fields": {
+      "arabic": "عَاصِمَة",
+      "transliteration": "Asimah",
+      "translation_uz": "Poytaxt",
+      "translation_ru": "Столица",
+      "category": 8,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 271,
+    "fields": {
+      "arabic": "عِلْم",
+      "transliteration": "Ilm",
+      "translation_uz": "Ilm",
+      "translation_ru": "Наука",
+      "category": 9,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 272,
+    "fields": {
+      "arabic": "دَرْس",
+      "transliteration": "Dars",
+      "translation_uz": "Dars",
+      "translation_ru": "Урок",
+      "category": 9,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 273,
+    "fields": {
+      "arabic": "كِتَاب",
+      "transliteration": "Kitab",
+      "translation_uz": "Kitob",
+      "translation_ru": "Книга",
+      "category": 9,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 274,
+    "fields": {
+      "arabic": "دَفْتَر",
+      "transliteration": "Daftar",
+      "translation_uz": "Daftar",
+      "translation_ru": "Тетрадь",
+      "category": 9,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 275,
+    "fields": {
+      "arabic": "قَلَم",
+      "transliteration": "Qalam",
+      "translation_uz": "Qalam",
+      "translation_ru": "Ручка",
+      "category": 9,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 276,
+    "fields": {
+      "arabic": "وَرَقَة",
+      "transliteration": "Waraqah",
+      "translation_uz": "Qog'oz",
+      "translation_ru": "Бумага",
+      "category": 9,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 277,
+    "fields": {
+      "arabic": "سَبُّورَة",
+      "transliteration": "Sabburah",
+      "translation_uz": "Doska",
+      "translation_ru": "Доска",
+      "category": 9,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 278,
+    "fields": {
+      "arabic": "طَالِب",
+      "transliteration": "Talib",
+      "translation_uz": "Talaba",
+      "translation_ru": "Студент",
+      "category": 9,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 279,
+    "fields": {
+      "arabic": "تِلْمِيذ",
+      "transliteration": "Tilmidh",
+      "translation_uz": "O'quvchi",
+      "translation_ru": "Ученик",
+      "category": 9,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 280,
+    "fields": {
+      "arabic": "مُعَلِّم",
+      "transliteration": "Mu'allim",
+      "translation_uz": "O'qituvchi",
+      "translation_ru": "Учитель",
+      "category": 9,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 281,
+    "fields": {
+      "arabic": "أُسْتَاذ",
+      "transliteration": "Ustad",
+      "translation_uz": "Ustoz",
+      "translation_ru": "Профессор",
+      "category": 9,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 282,
+    "fields": {
+      "arabic": "امْتِحَان",
+      "transliteration": "Imtihan",
+      "translation_uz": "Imtihon",
+      "translation_ru": "Экзамен",
+      "category": 9,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 283,
+    "fields": {
+      "arabic": "نَتِيجَة",
+      "transliteration": "Natijah",
+      "translation_uz": "Natija",
+      "translation_ru": "Результат",
+      "category": 9,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 284,
+    "fields": {
+      "arabic": "سُؤَال",
+      "transliteration": "Su'al",
+      "translation_uz": "Savol",
+      "translation_ru": "Вопрос",
+      "category": 9,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 285,
+    "fields": {
+      "arabic": "جَوَاب",
+      "transliteration": "Jawab",
+      "translation_uz": "Javob",
+      "translation_ru": "Ответ",
+      "category": 9,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 286,
+    "fields": {
+      "arabic": "تَمْرِين",
+      "transliteration": "Tamrin",
+      "translation_uz": "Mashq",
+      "translation_ru": "Упражнение",
+      "category": 9,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 287,
+    "fields": {
+      "arabic": "مَكْتَبَة",
+      "transliteration": "Maktabah",
+      "translation_uz": "Kutubxona",
+      "translation_ru": "Библиотека",
+      "category": 9,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 288,
+    "fields": {
+      "arabic": "كَلِمَة",
+      "transliteration": "Kalimah",
+      "translation_uz": "So'z",
+      "translation_ru": "Слово",
+      "category": 9,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 289,
+    "fields": {
+      "arabic": "جُمْلَة",
+      "transliteration": "Jumlah",
+      "translation_uz": "Gap",
+      "translation_ru": "Предложение",
+      "category": 9,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 290,
+    "fields": {
+      "arabic": "حَرْف",
+      "transliteration": "Harf",
+      "translation_uz": "Harf",
+      "translation_ru": "Буква",
+      "category": 9,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 291,
+    "fields": {
+      "arabic": "رَقَم",
+      "transliteration": "Raqam",
+      "translation_uz": "Raqam",
+      "translation_ru": "Цифра",
+      "category": 9,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 292,
+    "fields": {
+      "arabic": "تَارِيخ",
+      "transliteration": "Tarikh",
+      "translation_uz": "Tarix/Sana",
+      "translation_ru": "История/Дата",
+      "category": 9,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 293,
+    "fields": {
+      "arabic": "جُغْرَافِيَا",
+      "transliteration": "Jughrafiya",
+      "translation_uz": "Geografiya",
+      "translation_ru": "География",
+      "category": 9,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 294,
+    "fields": {
+      "arabic": "رِيَاضِيَّات",
+      "transliteration": "Riyadiyyat",
+      "translation_uz": "Matematika",
+      "translation_ru": "Математика",
+      "category": 9,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 295,
+    "fields": {
+      "arabic": "فِيزِيَاء",
+      "transliteration": "Fiziya'",
+      "translation_uz": "Fizika",
+      "translation_ru": "Физика",
+      "category": 9,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 296,
+    "fields": {
+      "arabic": "كِيمِيَاء",
+      "transliteration": "Kimiya'",
+      "translation_uz": "Kimyo",
+      "translation_ru": "Химия",
+      "category": 9,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 297,
+    "fields": {
+      "arabic": "حَاسُوب",
+      "transliteration": "Hasub",
+      "translation_uz": "Kompyuter",
+      "translation_ru": "Компьютер",
+      "category": 9,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 298,
+    "fields": {
+      "arabic": "إِنْتَرْنِت",
+      "transliteration": "Internet",
+      "translation_uz": "Internet",
+      "translation_ru": "Интернет",
+      "category": 9,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 299,
+    "fields": {
+      "arabic": "هَاتِف",
+      "transliteration": "Hatif",
+      "translation_uz": "Telefon",
+      "translation_ru": "Телефон",
+      "category": 9,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 300,
+    "fields": {
+      "arabic": "رِسَالَة",
+      "transliteration": "Risalah",
+      "translation_uz": "Xabar",
+      "translation_ru": "Сообщение",
+      "category": 9,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 301,
+    "fields": {
+      "arabic": "جِسْم",
+      "transliteration": "Jism",
+      "translation_uz": "Tana",
+      "translation_ru": "Тело",
+      "category": 10,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 302,
+    "fields": {
+      "arabic": "رَأْس",
+      "transliteration": "Ra's",
+      "translation_uz": "Bosh",
+      "translation_ru": "Голова",
+      "category": 10,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 303,
+    "fields": {
+      "arabic": "شَعْر",
+      "transliteration": "Sha'r",
+      "translation_uz": "Soch",
+      "translation_ru": "Волосы",
+      "category": 10,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 304,
+    "fields": {
+      "arabic": "وَجْه",
+      "transliteration": "Wajh",
+      "translation_uz": "Yuz",
+      "translation_ru": "Лицо",
+      "category": 10,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 305,
+    "fields": {
+      "arabic": "عَيْن",
+      "transliteration": "Ayn",
+      "translation_uz": "Ko'z",
+      "translation_ru": "Глаз",
+      "category": 10,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 306,
+    "fields": {
+      "arabic": "أَنْف",
+      "transliteration": "Anf",
+      "translation_uz": "Burun",
+      "translation_ru": "Нос",
+      "category": 10,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 307,
+    "fields": {
+      "arabic": "فَم",
+      "transliteration": "Fam",
+      "translation_uz": "Og'iz",
+      "translation_ru": "Рот",
+      "category": 10,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 308,
+    "fields": {
+      "arabic": "أُذُن",
+      "transliteration": "Udhun",
+      "translation_uz": "Quloq",
+      "translation_ru": "Ухо",
+      "category": 10,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 309,
+    "fields": {
+      "arabic": "لِسَان",
+      "transliteration": "Lisan",
+      "translation_uz": "Til",
+      "translation_ru": "Язык",
+      "category": 10,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 310,
+    "fields": {
+      "arabic": "سِنّ",
+      "transliteration": "Sinn",
+      "translation_uz": "Tish",
+      "translation_ru": "Зуб",
+      "category": 10,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 311,
+    "fields": {
+      "arabic": "عُنُق",
+      "transliteration": "Unuq",
+      "translation_uz": "Bo'yin",
+      "translation_ru": "Шея",
+      "category": 10,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 312,
+    "fields": {
+      "arabic": "كَتِف",
+      "transliteration": "Katif",
+      "translation_uz": "Yelka",
+      "translation_ru": "Плечо",
+      "category": 10,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 313,
+    "fields": {
+      "arabic": "يَد",
+      "transliteration": "Yad",
+      "translation_uz": "Qo'l",
+      "translation_ru": "Рука",
+      "category": 10,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 314,
+    "fields": {
+      "arabic": "إِصْبَع",
+      "transliteration": "Isba'",
+      "translation_uz": "Barmoq",
+      "translation_ru": "Палец",
+      "category": 10,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 315,
+    "fields": {
+      "arabic": "صَدْر",
+      "transliteration": "Sadr",
+      "translation_uz": "Ko'krak",
+      "translation_ru": "Грудь",
+      "category": 10,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 316,
+    "fields": {
+      "arabic": "بَطْن",
+      "transliteration": "Batn",
+      "translation_uz": "Qorin",
+      "translation_ru": "Живот",
+      "category": 10,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 317,
+    "fields": {
+      "arabic": "ظَهْر",
+      "transliteration": "Zahr",
+      "translation_uz": "Orqa/Bel",
+      "translation_ru": "Спина",
+      "category": 10,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 318,
+    "fields": {
+      "arabic": "رِجْل",
+      "transliteration": "Rijl",
+      "translation_uz": "Oyoq",
+      "translation_ru": "Нога",
+      "category": 10,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 319,
+    "fields": {
+      "arabic": "قَدَم",
+      "transliteration": "Qadam",
+      "translation_uz": "Kaft (oyoq)",
+      "translation_ru": "Ступня",
+      "category": 10,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 320,
+    "fields": {
+      "arabic": "قَلْب",
+      "transliteration": "Qalb",
+      "translation_uz": "Yurak",
+      "translation_ru": "Сердце",
+      "category": 10,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 321,
+    "fields": {
+      "arabic": "دَم",
+      "transliteration": "Dam",
+      "translation_uz": "Qon",
+      "translation_ru": "Кровь",
+      "category": 10,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 322,
+    "fields": {
+      "arabic": "عَظْم",
+      "transliteration": "Azm",
+      "translation_uz": "Suyak",
+      "translation_ru": "Кость",
+      "category": 10,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 323,
+    "fields": {
+      "arabic": "جِلْد",
+      "transliteration": "Jild",
+      "translation_uz": "Teri",
+      "translation_ru": "Кожа",
+      "category": 10,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 324,
+    "fields": {
+      "arabic": "لِحْيَة",
+      "transliteration": "Lihyah",
+      "translation_uz": "Soqol",
+      "translation_ru": "Борода",
+      "category": 10,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 325,
+    "fields": {
+      "arabic": "شَارِب",
+      "transliteration": "Sharib",
+      "translation_uz": "Mo'ylov",
+      "translation_ru": "Усы",
+      "category": 10,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 326,
+    "fields": {
+      "arabic": "صِحَّة",
+      "transliteration": "Sihha",
+      "translation_uz": "Sog'liq",
+      "translation_ru": "Здоровье",
+      "category": 11,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 327,
+    "fields": {
+      "arabic": "مَرَض",
+      "transliteration": "Marad",
+      "translation_uz": "Kasallik",
+      "translation_ru": "Болезнь",
+      "category": 11,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 328,
+    "fields": {
+      "arabic": "مَرِيض",
+      "transliteration": "Marid",
+      "translation_uz": "Bemor",
+      "translation_ru": "Больной",
+      "category": 11,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 329,
+    "fields": {
+      "arabic": "أَلَم",
+      "transliteration": "Alam",
+      "translation_uz": "Og'riq",
+      "translation_ru": "Боль",
+      "category": 11,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 330,
+    "fields": {
+      "arabic": "حُمَّى",
+      "transliteration": "Humma",
+      "translation_uz": "Isitma",
+      "translation_ru": "Лихорадка",
+      "category": 11,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 331,
+    "fields": {
+      "arabic": "سُعَال",
+      "transliteration": "Su'al",
+      "translation_uz": "Yo'tal",
+      "translation_ru": "Кашель",
+      "category": 11,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 332,
+    "fields": {
+      "arabic": "دَوَاء",
+      "transliteration": "Dawa'",
+      "translation_uz": "Dori",
+      "translation_ru": "Лекарство",
+      "category": 11,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 333,
+    "fields": {
+      "arabic": "عِلَاج",
+      "transliteration": "Ilaj",
+      "translation_uz": "Davolash",
+      "translation_ru": "Лечение",
+      "category": 11,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 334,
+    "fields": {
+      "arabic": "طَبِيب",
+      "transliteration": "Tabib",
+      "translation_uz": "Doktor",
+      "translation_ru": "Врач",
+      "category": 11,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 335,
+    "fields": {
+      "arabic": "مُمَرِّضَة",
+      "transliteration": "Mumarrida",
+      "translation_uz": "Hamshira",
+      "translation_ru": "Медсестра",
+      "category": 11,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 336,
+    "fields": {
+      "arabic": "إِسْعَاف",
+      "transliteration": "Is'af",
+      "translation_uz": "Tez yordam",
+      "translation_ru": "Скорая помощь",
+      "category": 11,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 337,
+    "fields": {
+      "arabic": "عَمَلِيَّة",
+      "transliteration": "Amaliyyah",
+      "translation_uz": "Operatsiya",
+      "translation_ru": "Операция",
+      "category": 11,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 338,
+    "fields": {
+      "arabic": "ضَغْط",
+      "transliteration": "Daght",
+      "translation_uz": "Bosim",
+      "translation_ru": "Давление",
+      "category": 11,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 339,
+    "fields": {
+      "arabic": "سُكَّرِيّ",
+      "transliteration": "Sukkariyy",
+      "translation_uz": "Qand kasalligi",
+      "translation_ru": "Диабет",
+      "category": 11,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 340,
+    "fields": {
+      "arabic": "صُدَاع",
+      "transliteration": "Suda'",
+      "translation_uz": "Bosh og'rig'i",
+      "translation_ru": "Головная боль",
+      "category": 11,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 341,
+    "fields": {
+      "arabic": "طَعَام",
+      "transliteration": "Ta'am",
+      "translation_uz": "Ovqat",
+      "translation_ru": "Еда",
+      "category": 12,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 342,
+    "fields": {
+      "arabic": "أَكْل",
+      "transliteration": "Akl",
+      "translation_uz": "Yeyish",
+      "translation_ru": "Пища",
+      "category": 12,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 343,
+    "fields": {
+      "arabic": "شَرَاب",
+      "transliteration": "Sharab",
+      "translation_uz": "Ichimlik",
+      "translation_ru": "Напиток",
+      "category": 12,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 344,
+    "fields": {
+      "arabic": "خُبْز",
+      "transliteration": "Khubz",
+      "translation_uz": "Non",
+      "translation_ru": "Хлеб",
+      "category": 12,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 345,
+    "fields": {
+      "arabic": "لَحْم",
+      "transliteration": "Lahm",
+      "translation_uz": "Go'sht",
+      "translation_ru": "Мясо",
+      "category": 12,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 346,
+    "fields": {
+      "arabic": "دَجَاج",
+      "transliteration": "Dajaj",
+      "translation_uz": "Tovuq",
+      "translation_ru": "Курица",
+      "category": 12,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 347,
+    "fields": {
+      "arabic": "سَمَك",
+      "transliteration": "Samak",
+      "translation_uz": "Baliq",
+      "translation_ru": "Рыба",
+      "category": 12,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 348,
+    "fields": {
+      "arabic": "بَيْض",
+      "transliteration": "Bayd",
+      "translation_uz": "Tuxum",
+      "translation_ru": "Яйцо",
+      "category": 12,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 349,
+    "fields": {
+      "arabic": "جُبْن",
+      "transliteration": "Jubn",
+      "translation_uz": "Pishloq",
+      "translation_ru": "Сыр",
+      "category": 12,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 350,
+    "fields": {
+      "arabic": "حَلِيب",
+      "transliteration": "Halib",
+      "translation_uz": "Sut",
+      "translation_ru": "Молоко",
+      "category": 12,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 351,
+    "fields": {
+      "arabic": "لَبَن",
+      "transliteration": "Laban",
+      "translation_uz": "Qatiq",
+      "translation_ru": "Кефир",
+      "category": 12,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 352,
+    "fields": {
+      "arabic": "زُبْدَة",
+      "transliteration": "Zubdah",
+      "translation_uz": "Saryog'",
+      "translation_ru": "Масло (сливочное)",
+      "category": 12,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 353,
+    "fields": {
+      "arabic": "زَيْت",
+      "transliteration": "Zayt",
+      "translation_uz": "Yog'",
+      "translation_ru": "Масло (растительное)",
+      "category": 12,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 354,
+    "fields": {
+      "arabic": "أَرُزّ",
+      "transliteration": "Aruzz",
+      "translation_uz": "Guruch",
+      "translation_ru": "Рис",
+      "category": 12,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 355,
+    "fields": {
+      "arabic": "مَكَرُونَة",
+      "transliteration": "Makarunah",
+      "translation_uz": "Makaron",
+      "translation_ru": "Макароны",
+      "category": 12,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 356,
+    "fields": {
+      "arabic": "حِسَاء",
+      "transliteration": "Hisa'",
+      "translation_uz": "Sho'rva",
+      "translation_ru": "Суп",
+      "category": 12,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 357,
+    "fields": {
+      "arabic": "سَلَطَة",
+      "transliteration": "Salatah",
+      "translation_uz": "Salat",
+      "translation_ru": "Салат",
+      "category": 12,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 358,
+    "fields": {
+      "arabic": "فَاكِهَة",
+      "transliteration": "Fakihah",
+      "translation_uz": "Meva",
+      "translation_ru": "Фрукт",
+      "category": 12,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 359,
+    "fields": {
+      "arabic": "تُفَّاح",
+      "transliteration": "Tuffah",
+      "translation_uz": "Olma",
+      "translation_ru": "Яблоко",
+      "category": 12,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 360,
+    "fields": {
+      "arabic": "مَوْز",
+      "transliteration": "Mawz",
+      "translation_uz": "Banan",
+      "translation_ru": "Банан",
+      "category": 12,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 361,
+    "fields": {
+      "arabic": "بُرْتُقَال",
+      "transliteration": "Burtuqal",
+      "translation_uz": "Apelsin",
+      "translation_ru": "Апельсин",
+      "category": 12,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 362,
+    "fields": {
+      "arabic": "عِنَب",
+      "transliteration": "Inab",
+      "translation_uz": "Uzum",
+      "translation_ru": "Виноград",
+      "category": 12,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 363,
+    "fields": {
+      "arabic": "بِطِّيخ",
+      "transliteration": "Bittikh",
+      "translation_uz": "Tarvuz",
+      "translation_ru": "Арбуз",
+      "category": 12,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 364,
+    "fields": {
+      "arabic": "خُضَار",
+      "transliteration": "Khudar",
+      "translation_uz": "Sabzavot",
+      "translation_ru": "Овощи",
+      "category": 12,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 365,
+    "fields": {
+      "arabic": "طَمَاطِم",
+      "transliteration": "Tamatim",
+      "translation_uz": "Pomidor",
+      "translation_ru": "Помидор",
+      "category": 12,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 366,
+    "fields": {
+      "arabic": "خِيَار",
+      "transliteration": "Khiyar",
+      "translation_uz": "Bodring",
+      "translation_ru": "Огурец",
+      "category": 12,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 367,
+    "fields": {
+      "arabic": "بَطَاطِس",
+      "transliteration": "Batatis",
+      "translation_uz": "Kartoshka",
+      "translation_ru": "Картофель",
+      "category": 12,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 368,
+    "fields": {
+      "arabic": "بَصَل",
+      "transliteration": "Basal",
+      "translation_uz": "Piyoz",
+      "translation_ru": "Лук",
+      "category": 12,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 369,
+    "fields": {
+      "arabic": "ثُوم",
+      "transliteration": "Thum",
+      "translation_uz": "Sarimsoq",
+      "translation_ru": "Чеснок",
+      "category": 12,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 370,
+    "fields": {
+      "arabic": "مَاء",
+      "transliteration": "Ma'",
+      "translation_uz": "Suv",
+      "translation_ru": "Вода",
+      "category": 12,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 371,
+    "fields": {
+      "arabic": "شَاي",
+      "transliteration": "Shay",
+      "translation_uz": "Choy",
+      "translation_ru": "Чай",
+      "category": 12,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 372,
+    "fields": {
+      "arabic": "قَهْوَة",
+      "transliteration": "Qahwah",
+      "translation_uz": "Qahva",
+      "translation_ru": "Кофе",
+      "category": 12,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 373,
+    "fields": {
+      "arabic": "عَصِير",
+      "transliteration": "Asir",
+      "translation_uz": "Sharbat",
+      "translation_ru": "Сок",
+      "category": 12,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 374,
+    "fields": {
+      "arabic": "سُكَّر",
+      "transliteration": "Sukkar",
+      "translation_uz": "Shakar",
+      "translation_ru": "Сахар",
+      "category": 12,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 375,
+    "fields": {
+      "arabic": "مِلْح",
+      "transliteration": "Milh",
+      "translation_uz": "Tuz",
+      "translation_ru": "Соль",
+      "category": 12,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 376,
+    "fields": {
+      "arabic": "فُلْفُل",
+      "transliteration": "Fulful",
+      "translation_uz": "Murch",
+      "translation_ru": "Перец",
+      "category": 12,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 377,
+    "fields": {
+      "arabic": "حَلْوَى",
+      "transliteration": "Halwa",
+      "translation_uz": "Shirinlik",
+      "translation_ru": "Сладости",
+      "category": 12,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 378,
+    "fields": {
+      "arabic": "فُطُور",
+      "transliteration": "Futur",
+      "translation_uz": "Nonushta",
+      "translation_ru": "Завтрак",
+      "category": 12,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 379,
+    "fields": {
+      "arabic": "غَدَاء",
+      "transliteration": "Ghada'",
+      "translation_uz": "Tushlik",
+      "translation_ru": "Обед",
+      "category": 12,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 380,
+    "fields": {
+      "arabic": "عَشَاء",
+      "transliteration": "Asha'",
+      "translation_uz": "Kechki ovqat",
+      "translation_ru": "Ужин",
+      "category": 12,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 381,
+    "fields": {
+      "arabic": "مَلَابِس",
+      "transliteration": "Malabis",
+      "translation_uz": "Kiyimlar",
+      "translation_ru": "Одежда",
+      "category": 13,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 382,
+    "fields": {
+      "arabic": "قَمِيص",
+      "transliteration": "Qamis",
+      "translation_uz": "Ko'ylak",
+      "translation_ru": "Рубашка",
+      "category": 13,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 383,
+    "fields": {
+      "arabic": "بَنْطَلُون",
+      "transliteration": "Bantalun",
+      "translation_uz": "Shim",
+      "translation_ru": "Брюки",
+      "category": 13,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 384,
+    "fields": {
+      "arabic": "فُسْتَان",
+      "transliteration": "Fustan",
+      "translation_uz": "Ayollar ko'ylagi",
+      "translation_ru": "Платье",
+      "category": 13,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 385,
+    "fields": {
+      "arabic": "حِجَاب",
+      "transliteration": "Hijab",
+      "translation_uz": "Ro'mol",
+      "translation_ru": "Хиджаб",
+      "category": 13,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 386,
+    "fields": {
+      "arabic": "مِعْطَف",
+      "transliteration": "Mi'taf",
+      "translation_uz": "Palto",
+      "translation_ru": "Пальто",
+      "category": 13,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 387,
+    "fields": {
+      "arabic": "سُتْرَة",
+      "transliteration": "Sutrah",
+      "translation_uz": "Kofta/Jemper",
+      "translation_ru": "Куртка",
+      "category": 13,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 388,
+    "fields": {
+      "arabic": "حِذَاء",
+      "transliteration": "Hiza'",
+      "translation_uz": "Oyoq kiyim",
+      "translation_ru": "Обувь",
+      "category": 13,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 389,
+    "fields": {
+      "arabic": "جَوْرَب",
+      "transliteration": "Jawrab",
+      "translation_uz": "Paypoq",
+      "translation_ru": "Носки",
+      "category": 13,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 390,
+    "fields": {
+      "arabic": "قُبَّعَة",
+      "transliteration": "Qubba'ah",
+      "translation_uz": "Bosh kiyim",
+      "translation_ru": "Шапка",
+      "category": 13,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 391,
+    "fields": {
+      "arabic": "نَظَّارَة",
+      "transliteration": "Nazzarah",
+      "translation_uz": "Ko'zoynak",
+      "translation_ru": "Очки",
+      "category": 13,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 392,
+    "fields": {
+      "arabic": "سَاعَة يَد",
+      "transliteration": "Sa'at yad",
+      "translation_uz": "Qo'l soati",
+      "translation_ru": "Наручные часы",
+      "category": 13,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 393,
+    "fields": {
+      "arabic": "خَاتَم",
+      "transliteration": "Khatam",
+      "translation_uz": "Uzuk",
+      "translation_ru": "Кольцо",
+      "category": 13,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 394,
+    "fields": {
+      "arabic": "حَقِيبَة",
+      "transliteration": "Haqibah",
+      "translation_uz": "Sumka",
+      "translation_ru": "Сумка",
+      "category": 13,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 395,
+    "fields": {
+      "arabic": "أَبْيَض",
+      "transliteration": "Abyad",
+      "translation_uz": "Oq",
+      "translation_ru": "Белый",
+      "category": 14,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 396,
+    "fields": {
+      "arabic": "أَسْوَد",
+      "transliteration": "Aswad",
+      "translation_uz": "Qora",
+      "translation_ru": "Черный",
+      "category": 14,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 397,
+    "fields": {
+      "arabic": "أَحْمَر",
+      "transliteration": "Ahmar",
+      "translation_uz": "Qizil",
+      "translation_ru": "Красный",
+      "category": 14,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 398,
+    "fields": {
+      "arabic": "أَخْضَر",
+      "transliteration": "Akhdar",
+      "translation_uz": "Yashil",
+      "translation_ru": "Зеленый",
+      "category": 14,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 399,
+    "fields": {
+      "arabic": "أَزْرَق",
+      "transliteration": "Azraq",
+      "translation_uz": "Ko'k",
+      "translation_ru": "Синий",
+      "category": 14,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 400,
+    "fields": {
+      "arabic": "أَصْفَر",
+      "transliteration": "Asfar",
+      "translation_uz": "Sariq",
+      "translation_ru": "Желтый",
+      "category": 14,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 401,
+    "fields": {
+      "arabic": "بُنِّيّ",
+      "transliteration": "Bunniyy",
+      "translation_uz": "Jigarrang",
+      "translation_ru": "Коричневый",
+      "category": 14,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 402,
+    "fields": {
+      "arabic": "رَمَادِيّ",
+      "transliteration": "Ramadiyy",
+      "translation_uz": "Kulrang",
+      "translation_ru": "Серый",
+      "category": 14,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 403,
+    "fields": {
+      "arabic": "بُرْتُقَالِيّ",
+      "transliteration": "Burtuqaliyy",
+      "translation_uz": "Zarg'aldoq",
+      "translation_ru": "Оранжевый",
+      "category": 14,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 404,
+    "fields": {
+      "arabic": "وَرْدِيّ",
+      "transliteration": "Wardiyy",
+      "translation_uz": "Pushti",
+      "translation_ru": "Розовый",
+      "category": 14,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 405,
+    "fields": {
+      "arabic": "بَنَفْسَجِيّ",
+      "transliteration": "Banafsajiyy",
+      "translation_uz": "Binafsha",
+      "translation_ru": "Фиолетовый",
+      "category": 14,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 406,
+    "fields": {
+      "arabic": "ذَهَبِيّ",
+      "transliteration": "Dhahabiyy",
+      "translation_uz": "Oltin rang",
+      "translation_ru": "Золотой",
+      "category": 14,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 407,
+    "fields": {
+      "arabic": "فِضِّيّ",
+      "transliteration": "Fiddiyy",
+      "translation_uz": "Kumush rang",
+      "translation_ru": "Серебряный",
+      "category": 14,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 408,
+    "fields": {
+      "arabic": "شَكْل",
+      "transliteration": "Shakl",
+      "translation_uz": "Shakl",
+      "translation_ru": "Форма",
+      "category": 14,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 409,
+    "fields": {
+      "arabic": "دَائِرَة",
+      "transliteration": "Da'irah",
+      "translation_uz": "Doira",
+      "translation_ru": "Круг",
+      "category": 14,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 410,
+    "fields": {
+      "arabic": "مُرَبَّع",
+      "transliteration": "Murabba'",
+      "translation_uz": "Kvadrat",
+      "translation_ru": "Квадрат",
+      "category": 14,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 411,
+    "fields": {
+      "arabic": "مُثَلَّث",
+      "transliteration": "Muthallath",
+      "translation_uz": "Uchburchak",
+      "translation_ru": "Треугольник",
+      "category": 14,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 412,
+    "fields": {
+      "arabic": "مُسْتَطِيل",
+      "transliteration": "Mustatil",
+      "translation_uz": "To'g'ri to'rtburchak",
+      "translation_ru": "Прямоугольник",
+      "category": 14,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 413,
+    "fields": {
+      "arabic": "صِفْر",
+      "transliteration": "Sifr",
+      "translation_uz": "Nol",
+      "translation_ru": "Ноль",
+      "category": 15,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 414,
+    "fields": {
+      "arabic": "وَاحِد",
+      "transliteration": "Wahid",
+      "translation_uz": "Bir",
+      "translation_ru": "Один",
+      "category": 15,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 415,
+    "fields": {
+      "arabic": "اثْنَان",
+      "transliteration": "Ithnan",
+      "translation_uz": "Ikki",
+      "translation_ru": "Два",
+      "category": 15,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 416,
+    "fields": {
+      "arabic": "ثَلَاثَة",
+      "transliteration": "Thalatha",
+      "translation_uz": "Uch",
+      "translation_ru": "Три",
+      "category": 15,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 417,
+    "fields": {
+      "arabic": "أَرْبَعَة",
+      "transliteration": "Arba'a",
+      "translation_uz": "To'rt",
+      "translation_ru": "Четыре",
+      "category": 15,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 418,
+    "fields": {
+      "arabic": "خَمْسَة",
+      "transliteration": "Khamsa",
+      "translation_uz": "Besh",
+      "translation_ru": "Пять",
+      "category": 15,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 419,
+    "fields": {
+      "arabic": "سِتَّة",
+      "transliteration": "Sitta",
+      "translation_uz": "Olti",
+      "translation_ru": "Шесть",
+      "category": 15,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 420,
+    "fields": {
+      "arabic": "سَبْعَة",
+      "transliteration": "Sab'a",
+      "translation_uz": "Yetti",
+      "translation_ru": "Семь",
+      "category": 15,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 421,
+    "fields": {
+      "arabic": "ثَمَانِيَة",
+      "transliteration": "Thamaniyah",
+      "translation_uz": "Sakkiz",
+      "translation_ru": "Восемь",
+      "category": 15,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 422,
+    "fields": {
+      "arabic": "تِسْعَة",
+      "transliteration": "Tis'a",
+      "translation_uz": "To'qqiz",
+      "translation_ru": "Девять",
+      "category": 15,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 423,
+    "fields": {
+      "arabic": "عَشَرَة",
+      "transliteration": "Ashara",
+      "translation_uz": "O'n",
+      "translation_ru": "Десять",
+      "category": 15,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 424,
+    "fields": {
+      "arabic": "أَحَدَ عَشَر",
+      "transliteration": "Ahada ashar",
+      "translation_uz": "O'n bir",
+      "translation_ru": "Одиннадцать",
+      "category": 15,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 425,
+    "fields": {
+      "arabic": "عِشْرُونَ",
+      "transliteration": "Ishrun",
+      "translation_uz": "Yigirma",
+      "translation_ru": "Двадцать",
+      "category": 15,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 426,
+    "fields": {
+      "arabic": "ثَلَاثُونَ",
+      "transliteration": "Thalathun",
+      "translation_uz": "O'ttiz",
+      "translation_ru": "Тридцать",
+      "category": 15,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 427,
+    "fields": {
+      "arabic": "مِائَة",
+      "transliteration": "Mi'ah",
+      "translation_uz": "Yuz",
+      "translation_ru": "Сто",
+      "category": 15,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 428,
+    "fields": {
+      "arabic": "أَلْف",
+      "transliteration": "Alf",
+      "translation_uz": "Ming",
+      "translation_ru": "Тысяча",
+      "category": 15,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 429,
+    "fields": {
+      "arabic": "أَوَّل",
+      "transliteration": "Awwal",
+      "translation_uz": "Birinchi",
+      "translation_ru": "Первый",
+      "category": 15,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 430,
+    "fields": {
+      "arabic": "ثَانِي",
+      "transliteration": "Thani",
+      "translation_uz": "Ikkinchi",
+      "translation_ru": "Второй",
+      "category": 15,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 431,
+    "fields": {
+      "arabic": "جَوّ",
+      "transliteration": "Jaww",
+      "translation_uz": "Havo",
+      "translation_ru": "Погода",
+      "category": 16,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 432,
+    "fields": {
+      "arabic": "حَارّ",
+      "transliteration": "Harr",
+      "translation_uz": "Issiq",
+      "translation_ru": "Жарко",
+      "category": 16,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 433,
+    "fields": {
+      "arabic": "بَارِد",
+      "transliteration": "Barid",
+      "translation_uz": "Sovuq",
+      "translation_ru": "Холодно",
+      "category": 16,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 434,
+    "fields": {
+      "arabic": "مُشْمِس",
+      "transliteration": "Mushmis",
+      "translation_uz": "Quyoshli",
+      "translation_ru": "Солнечно",
+      "category": 16,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 435,
+    "fields": {
+      "arabic": "غَائِم",
+      "transliteration": "Gha'im",
+      "translation_uz": "Bulutli",
+      "translation_ru": "Облачно",
+      "category": 16,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 436,
+    "fields": {
+      "arabic": "ثَلْج",
+      "transliteration": "Thalj",
+      "translation_uz": "Qor",
+      "translation_ru": "Снег",
+      "category": 16,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 437,
+    "fields": {
+      "arabic": "عَاصِفَة",
+      "transliteration": "Asifah",
+      "translation_uz": "Bo'ron",
+      "translation_ru": "Буря",
+      "category": 16,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 438,
+    "fields": {
+      "arabic": "فَصْل",
+      "transliteration": "Fasl",
+      "translation_uz": "Fasl",
+      "translation_ru": "Сезон",
+      "category": 16,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 439,
+    "fields": {
+      "arabic": "رَبِيع",
+      "transliteration": "Rabi'",
+      "translation_uz": "Bahor",
+      "translation_ru": "Весна",
+      "category": 16,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 440,
+    "fields": {
+      "arabic": "صَيْف",
+      "transliteration": "Sayf",
+      "translation_uz": "Yoz",
+      "translation_ru": "Лето",
+      "category": 16,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 441,
+    "fields": {
+      "arabic": "خَرِيف",
+      "transliteration": "Kharif",
+      "translation_uz": "Kuz",
+      "translation_ru": "Осень",
+      "category": 16,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 442,
+    "fields": {
+      "arabic": "شِتَاء",
+      "transliteration": "Shita'",
+      "translation_uz": "Qish",
+      "translation_ru": "Зима",
+      "category": 16,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 443,
+    "fields": {
+      "arabic": "حَيَوَان",
+      "transliteration": "Hayawan",
+      "translation_uz": "Hayvon",
+      "translation_ru": "Животное",
+      "category": 17,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 444,
+    "fields": {
+      "arabic": "أَسَد",
+      "transliteration": "Asad",
+      "translation_uz": "Sher",
+      "translation_ru": "Лев",
+      "category": 17,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 445,
+    "fields": {
+      "arabic": "نَمِر",
+      "transliteration": "Namir",
+      "translation_uz": "Yo'lbars",
+      "translation_ru": "Тигр",
+      "category": 17,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 446,
+    "fields": {
+      "arabic": "فِيل",
+      "transliteration": "Fil",
+      "translation_uz": "Fil",
+      "translation_ru": "Слон",
+      "category": 17,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 447,
+    "fields": {
+      "arabic": "زَرَافَة",
+      "transliteration": "Zarafah",
+      "translation_uz": "Jirafa",
+      "translation_ru": "Жираф",
+      "category": 17,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 448,
+    "fields": {
+      "arabic": "قِرْد",
+      "transliteration": "Qird",
+      "translation_uz": "Maymun",
+      "translation_ru": "Обезьяна",
+      "category": 17,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 449,
+    "fields": {
+      "arabic": "دُبّ",
+      "transliteration": "Dubb",
+      "translation_uz": "Ayiq",
+      "translation_ru": "Медведь",
+      "category": 17,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 450,
+    "fields": {
+      "arabic": "قِطّ",
+      "transliteration": "Qitt",
+      "translation_uz": "Mushuk",
+      "translation_ru": "Кошка",
+      "category": 17,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 451,
+    "fields": {
+      "arabic": "كَلْب",
+      "transliteration": "Kalb",
+      "translation_uz": "It",
+      "translation_ru": "Собака",
+      "category": 17,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 452,
+    "fields": {
+      "arabic": "حِصَان",
+      "transliteration": "Hisan",
+      "translation_uz": "Ot",
+      "translation_ru": "Лошадь",
+      "category": 17,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 453,
+    "fields": {
+      "arabic": "جَمَل",
+      "transliteration": "Jamal",
+      "translation_uz": "Tuya",
+      "translation_ru": "Верблюд",
+      "category": 17,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 454,
+    "fields": {
+      "arabic": "بَقَرَة",
+      "transliteration": "Baqarah",
+      "translation_uz": "Sigir",
+      "translation_ru": "Корова",
+      "category": 17,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 455,
+    "fields": {
+      "arabic": "غَنَم",
+      "transliteration": "Ghanam",
+      "translation_uz": "Qo'y",
+      "translation_ru": "Овца",
+      "category": 17,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 456,
+    "fields": {
+      "arabic": "دَجَاجَة",
+      "transliteration": "Dajajah",
+      "translation_uz": "Tovuq",
+      "translation_ru": "Курица",
+      "category": 17,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 457,
+    "fields": {
+      "arabic": "عُصْفُور",
+      "transliteration": "Usfur",
+      "translation_uz": "Chumchuq",
+      "translation_ru": "Воробей",
+      "category": 17,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 458,
+    "fields": {
+      "arabic": "نَسْر",
+      "transliteration": "Nasr",
+      "translation_uz": "Burgut",
+      "translation_ru": "Орел",
+      "category": 17,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 459,
+    "fields": {
+      "arabic": "سَمَكَة",
+      "transliteration": "Samakah",
+      "translation_uz": "Baliq",
+      "translation_ru": "Рыба",
+      "category": 17,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 460,
+    "fields": {
+      "arabic": "مُهَنْدِس",
+      "transliteration": "Muhandis",
+      "translation_uz": "Muhandis",
+      "translation_ru": "Инженер",
+      "category": 18,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 461,
+    "fields": {
+      "arabic": "مُدِير",
+      "transliteration": "Mudir",
+      "translation_uz": "Boshliq",
+      "translation_ru": "Директор",
+      "category": 18,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 462,
+    "fields": {
+      "arabic": "مُوَظَّف",
+      "transliteration": "Muwazzaf",
+      "translation_uz": "Xodim",
+      "translation_ru": "Служащий",
+      "category": 18,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 463,
+    "fields": {
+      "arabic": "عَامِل",
+      "transliteration": "Amil",
+      "translation_uz": "Ishchi",
+      "translation_ru": "Рабочий",
+      "category": 18,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 464,
+    "fields": {
+      "arabic": "فَلَّاح",
+      "transliteration": "Fallah",
+      "translation_uz": "Dehqon",
+      "translation_ru": "Фермер",
+      "category": 18,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 465,
+    "fields": {
+      "arabic": "طَبَّاخ",
+      "transliteration": "Tabbakh",
+      "translation_uz": "Oshpaz",
+      "translation_ru": "Повар",
+      "category": 18,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 466,
+    "fields": {
+      "arabic": "سَائِق",
+      "transliteration": "Sa'iq",
+      "translation_uz": "Haydovchi",
+      "translation_ru": "Водитель",
+      "category": 18,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 467,
+    "fields": {
+      "arabic": "طَيَّار",
+      "transliteration": "Tayyar",
+      "translation_uz": "Uchuvchi",
+      "translation_ru": "Пилот",
+      "category": 18,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 468,
+    "fields": {
+      "arabic": "جُنْدِيّ",
+      "transliteration": "Jundiyy",
+      "translation_uz": "Askar",
+      "translation_ru": "Солдат",
+      "category": 18,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 469,
+    "fields": {
+      "arabic": "شُرْطِيّ",
+      "transliteration": "Shurtiyy",
+      "translation_uz": "Politsiyachi",
+      "translation_ru": "Полицейский",
+      "category": 18,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 470,
+    "fields": {
+      "arabic": "فَعَلَ",
+      "transliteration": "Fa'ala",
+      "translation_uz": "Bajardi",
+      "translation_ru": "Делал",
+      "category": 19,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 471,
+    "fields": {
+      "arabic": "عَمِلَ",
+      "transliteration": "Amila",
+      "translation_uz": "Ishladi",
+      "translation_ru": "Работал",
+      "category": 19,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 472,
+    "fields": {
+      "arabic": "دَرَسَ",
+      "transliteration": "Darasa",
+      "translation_uz": "O'rgandi",
+      "translation_ru": "Учил",
+      "category": 19,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 473,
+    "fields": {
+      "arabic": "عَرَفَ",
+      "transliteration": "Arafa",
+      "translation_uz": "Bildi/Tanidi",
+      "translation_ru": "Узнал",
+      "category": 19,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 474,
+    "fields": {
+      "arabic": "سَمِعَ",
+      "transliteration": "Sami'a",
+      "translation_uz": "Eshitdi",
+      "translation_ru": "Слышал",
+      "category": 19,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 475,
+    "fields": {
+      "arabic": "نَظَرَ",
+      "transliteration": "Nazara",
+      "translation_uz": "Qaradi",
+      "translation_ru": "Смотрел",
+      "category": 19,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 476,
+    "fields": {
+      "arabic": "رَأَى",
+      "transliteration": "Ra'a",
+      "translation_uz": "Ko'rdi",
+      "translation_ru": "Видел",
+      "category": 19,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 477,
+    "fields": {
+      "arabic": "مَشَى",
+      "transliteration": "Masha",
+      "translation_uz": "Yurdi",
+      "translation_ru": "Шел",
+      "category": 19,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 478,
+    "fields": {
+      "arabic": "جَاءَ",
+      "transliteration": "Ja'a",
+      "translation_uz": "Keldi",
+      "translation_ru": "Пришел",
+      "category": 19,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 479,
+    "fields": {
+      "arabic": "سَافَرَ",
+      "transliteration": "Safara",
+      "translation_uz": "Sayohat qildi",
+      "translation_ru": "Путешествовал",
+      "category": 19,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 480,
+    "fields": {
+      "arabic": "رَجَعَ",
+      "transliteration": "Raja'a",
+      "translation_uz": "Qaytdi",
+      "translation_ru": "Вернулся",
+      "category": 19,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 481,
+    "fields": {
+      "arabic": "فَتَحَ",
+      "transliteration": "Fataha",
+      "translation_uz": "Ochdi",
+      "translation_ru": "Открыл",
+      "category": 19,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 482,
+    "fields": {
+      "arabic": "أَغْلَقَ",
+      "transliteration": "Aghlaqa",
+      "translation_uz": "Yopdi",
+      "translation_ru": "Закрыл",
+      "category": 19,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 483,
+    "fields": {
+      "arabic": "بَدَأَ",
+      "transliteration": "Bada'a",
+      "translation_uz": "Boshladi",
+      "translation_ru": "Начал",
+      "category": 19,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 484,
+    "fields": {
+      "arabic": "انْتَهَى",
+      "transliteration": "Intaha",
+      "translation_uz": "Tugadi",
+      "translation_ru": "Закончил",
+      "category": 19,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 485,
+    "fields": {
+      "arabic": "أَحَبَّ",
+      "transliteration": "Ahabba",
+      "translation_uz": "Yaxshi ko'rdi",
+      "translation_ru": "Любил",
+      "category": 19,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 486,
+    "fields": {
+      "arabic": "أَرَادَ",
+      "transliteration": "Arada",
+      "translation_uz": "Xohladi",
+      "translation_ru": "Хотел",
+      "category": 19,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 487,
+    "fields": {
+      "arabic": "اِشْتَرَى",
+      "transliteration": "Ishtara",
+      "translation_uz": "Sotib oldi",
+      "translation_ru": "Купил",
+      "category": 19,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 488,
+    "fields": {
+      "arabic": "بَاعَ",
+      "transliteration": "Ba'a",
+      "translation_uz": "Sotdi",
+      "translation_ru": "Продал",
+      "category": 19,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 489,
+    "fields": {
+      "arabic": "دَفَعَ",
+      "transliteration": "Dafa'a",
+      "translation_uz": "To'ladi/Itardi",
+      "translation_ru": "Платил/Толкал",
+      "category": 19,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 490,
+    "fields": {
+      "arabic": "كَبِير",
+      "transliteration": "Kabir",
+      "translation_uz": "Katta",
+      "translation_ru": "Большой",
+      "category": 20,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 491,
+    "fields": {
+      "arabic": "صَغِير",
+      "transliteration": "Saghir",
+      "translation_uz": "Kichik",
+      "translation_ru": "Маленький",
+      "category": 20,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 492,
+    "fields": {
+      "arabic": "طَوِيل",
+      "transliteration": "Tawil",
+      "translation_uz": "Uzun",
+      "translation_ru": "Длинный",
+      "category": 20,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 493,
+    "fields": {
+      "arabic": "قَصِير",
+      "transliteration": "Qasir",
+      "translation_uz": "Qisqa",
+      "translation_ru": "Короткий",
+      "category": 20,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 494,
+    "fields": {
+      "arabic": "جَدِيد",
+      "transliteration": "Jadid",
+      "translation_uz": "Yangi",
+      "translation_ru": "Новый",
+      "category": 20,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 495,
+    "fields": {
+      "arabic": "قَدِيم",
+      "transliteration": "Qadim",
+      "translation_uz": "Eski",
+      "translation_ru": "Старый",
+      "category": 20,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 496,
+    "fields": {
+      "arabic": "غَالٍ",
+      "transliteration": "Ghalin",
+      "translation_uz": "Qimmat",
+      "translation_ru": "Дорогой",
+      "category": 20,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 497,
+    "fields": {
+      "arabic": "رَخِيص",
+      "transliteration": "Rakhis",
+      "translation_uz": "Arzon",
+      "translation_ru": "Дешевый",
+      "category": 20,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 498,
+    "fields": {
+      "arabic": "سَهْل",
+      "transliteration": "Sahl",
+      "translation_uz": "Oson",
+      "translation_ru": "Легкий",
+      "category": 20,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 499,
+    "fields": {
+      "arabic": "صَعْب",
+      "transliteration": "Sa'b",
+      "translation_uz": "Qiyin",
+      "translation_ru": "Трудный",
+      "category": 20,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 500,
+    "fields": {
+      "arabic": "قَرِيب",
+      "transliteration": "Qarib",
+      "translation_uz": "Yaqin",
+      "translation_ru": "Близкий",
+      "category": 20,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 501,
+    "fields": {
+      "arabic": "بَعِيد",
+      "transliteration": "Ba'id",
+      "translation_uz": "Uzoq",
+      "translation_ru": "Далекий",
+      "category": 20,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 502,
+    "fields": {
+      "arabic": "جَيِّد",
+      "transliteration": "Jayyid",
+      "translation_uz": "Yaxshi",
+      "translation_ru": "Хороший",
+      "category": 20,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 503,
+    "fields": {
+      "arabic": "سَيِّئ",
+      "transliteration": "Sayyi'",
+      "translation_uz": "Yomon",
+      "translation_ru": "Плохой",
+      "category": 20,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 504,
+    "fields": {
+      "arabic": "نَظِيف",
+      "transliteration": "Nazif",
+      "translation_uz": "Toza",
+      "translation_ru": "Чистый",
+      "category": 20,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 505,
+    "fields": {
+      "arabic": "وَسِخ",
+      "transliteration": "Wasikh",
+      "translation_uz": "Kir",
+      "translation_ru": "Грязный",
+      "category": 20,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 506,
+    "fields": {
+      "arabic": "جَمِيل",
+      "transliteration": "Jamil",
+      "translation_uz": "Chiroyli",
+      "translation_ru": "Красивый",
+      "category": 20,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 507,
+    "fields": {
+      "arabic": "مُفِيد",
+      "transliteration": "Mufid",
+      "translation_uz": "Foydali",
+      "translation_ru": "Полезный",
+      "category": 20,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 508,
+    "fields": {
+      "arabic": "مُهِمّ",
+      "transliteration": "Muhimm",
+      "translation_uz": "Muhim",
+      "translation_ru": "Важный",
+      "category": 20,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "arab.word",
+    "pk": 509,
+    "fields": {
+      "arabic": "مَشْهُور",
+      "transliteration": "Mashhur",
+      "translation_uz": "Mashhur",
+      "translation_ru": "Известный",
+      "category": 20,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  }
 ]
