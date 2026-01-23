@@ -133,23 +133,7 @@
           </span>
         </label>
 
-        <!-- Face Capture (Inline) -->
-        <div class="mb-4">
-          <label class="text-sm text-slate-300 mb-2 block">Face ID (Registration)</label>
-          <div class="relative w-full aspect-video bg-black rounded-2xl overflow-hidden border border-white/10 group">
-            <video id="video" class="w-full h-full object-cover transform scale-x-[-1]" autoplay playsinline
-              muted></video>
-            <canvas id="canvas" class="hidden"></canvas>
 
-            <div id="cam-status"
-              class="absolute inset-0 flex items-center justify-center bg-slate-900/80 pointer-events-none">
-              <span class="text-xs text-slate-400">Camera start...</span>
-            </div>
-          </div>
-          <input type="hidden" name="face_data" id="face_data">
-          <p class="text-[10px] text-slate-500 mt-1">* Yuzingizni to'g'irlab turing, registratsiya vaqtida avtomatik
-            saqlanadi.</p>
-        </div>
 
         <!-- Button -->
         <button id="reg-btn"
@@ -159,65 +143,7 @@
         </button>
       </form>
 
-      <script>
-        const vid = document.getElementById('video');
-        const canv = document.getElementById('canvas');
-        const inp = document.getElementById('face_data');
-        const stat = document.getElementById('cam-status');
-        const btnReg = document.getElementById('reg-btn');
-        const form = document.querySelector('form');
 
-        // Auto start camera
-        async function startCamera() {
-          try {
-            // Check if mediaDevices is available (requires HTTPS or localhost)
-            if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-              stat.innerHTML = '<span class="text-red-400">Camera API mavjud emas (HTTPS kerak)</span>';
-              return;
-            }
-
-            const stream = await navigator.mediaDevices.getUserMedia({
-              video: { facingMode: 'user', width: { ideal: 640 }, height: { ideal: 480 } }
-            });
-            vid.srcObject = stream;
-            vid.onloadedmetadata = () => {
-              stat.style.display = 'none';
-            };
-          } catch (err) {
-            console.error('Camera Error:', err);
-            if (err.name === 'NotAllowedError') {
-              stat.innerHTML = '<span class="text-red-400">Camera ruxsati berilmadi</span>';
-            } else if (err.name === 'NotFoundError') {
-              stat.innerHTML = '<span class="text-red-400">Camera topilmadi</span>';
-            } else {
-              stat.innerHTML = '<span class="text-red-400">Camera xatosi: ' + err.message + '</span>';
-            }
-          }
-        }
-        startCamera();
-
-        // On submit, capture frame
-        form.addEventListener('submit', (e) => {
-          // Prevent default momentarily to capture
-          if (!inp.value && vid.srcObject) {
-            e.preventDefault();
-            btnReg.textContent = "Processing...";
-            btnReg.disabled = true;
-
-            // Capture
-            canv.width = vid.videoWidth;
-            canv.height = vid.videoHeight;
-            const ctx = canv.getContext('2d');
-            ctx.drawImage(vid, 0, 0, canv.width, canv.height);
-
-            // Set to hidden input
-            inp.value = canv.toDataURL('image/jpeg', 0.8);
-
-            // Submit
-            form.submit();
-          }
-        });
-      </script>
 
       <!-- Footer links -->
       <div class="mt-6 border-t border-white/10 pt-5">
