@@ -57,15 +57,29 @@
 
     async function startCamera() {
         try {
-            const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } });
+            // Check API support
+            if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+                statusMsg.innerHTML = '<span class="text-red-400">Camera API mavjud emas (HTTPS kerak)</span>';
+                return;
+            }
+
+            const stream = await navigator.mediaDevices.getUserMedia({
+                video: { facingMode: "user", width: { ideal: 640 }, height: { ideal: 480 } }
+            });
             video.srcObject = stream;
             video.onloadedmetadata = () => {
                 statusMsg.textContent = "Tayyor. Scan tugmasini bosing.";
                 scanBtn.disabled = false;
             };
         } catch (err) {
-            statusMsg.textContent = "Camera xatosi";
-            statusMsg.classList.add('text-red-400');
+            console.error(err);
+            if (err.name === 'NotAllowedError') {
+                statusMsg.innerHTML = '<span class="text-red-400">Camera ruxsati berilmadi</span>';
+            } else if (err.name === 'NotFoundError') {
+                statusMsg.innerHTML = '<span class="text-red-400">Camera topilmadi</span>';
+            } else {
+                statusMsg.innerHTML = '<span class="text-red-400">Xatolik: ' + err.message + '</span>';
+            }
         }
     }
 
