@@ -8,8 +8,14 @@ python manage.py collectstatic --no-input
 python manage.py migrate
 
 # Load fixtures if they exist
-python manage.py loaddata arab/fixtures/arabic_basics.json --ignorenonexistent || true
-python manage.py loaddata arab/fixtures/tajweed_seed.json --ignorenonexistent || true
+# Load ALL JSON fixtures automatically
+echo "Loading all fixtures..."
+for file in arab/fixtures/*.json; do
+    if [ -f "$file" ]; then
+        echo "Loading $file..."
+        python manage.py loaddata "$file" --ignorenonexistent || true
+    fi
+done
 
 # Create superuser
 echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser('admin', 'admin@example.com', 'admin') if not User.objects.filter(username='admin').exists() else print('Admin already exists')" | python manage.py shell
