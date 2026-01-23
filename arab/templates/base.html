@@ -16,6 +16,42 @@
   <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
   <style>
+    /* Global Loader */
+    .loader-wrapper {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #020617;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: opacity 0.5s ease;
+    }
+
+    .loader {
+      width: 48px;
+      height: 48px;
+      border: 5px solid #FFF;
+      border-bottom-color: #10b981;
+      border-radius: 50%;
+      display: inline-block;
+      box-sizing: border-box;
+      animation: rotation 1s linear infinite;
+    }
+
+    @keyframes rotation {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
     .arabic-font {
       font-family: "Noto Naskh Arabic", serif;
     }
@@ -126,6 +162,11 @@
 </head>
 
 <body class="bg-slate-950 text-white font-['Inter'] selection:bg-emerald-400/30">
+
+  <!-- Global Loader -->
+  <div class="loader-wrapper" id="page-loader">
+    <span class="loader"></span>
+  </div>
 
   <!-- HEADER -->
   <header class="sticky top-3 z-50">
@@ -435,6 +476,17 @@
     }
     document.addEventListener('DOMContentLoaded', setupNotifications);
     {% endif %}
+
+    // Hide loader
+    window.addEventListener('load', () => {
+      const loader = document.getElementById('page-loader');
+      if (loader) {
+        loader.style.opacity = '0';
+        setTimeout(() => {
+          loader.style.display = 'none';
+        }, 500);
+      }
+    });
   </script>
 
 </body>
