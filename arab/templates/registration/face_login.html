@@ -17,7 +17,8 @@
         <!-- Video Preview -->
         <div
             class="relative w-full aspect-[3/4] bg-black rounded-2xl overflow-hidden mb-6 border-2 border-dashed border-white/10">
-            <video id="video" class="w-full h-full object-cover transform scale-x-[-1]" autoplay playsinline></video>
+            <video id="video" class="w-full h-full object-cover transform scale-x-[-1]" autoplay playsinline
+                muted></video>
             <canvas id="canvas" class="hidden"></canvas>
 
             <!-- Searching Line -->
@@ -63,9 +64,14 @@
                 return;
             }
 
-            const stream = await navigator.mediaDevices.getUserMedia({
-                video: { facingMode: "user", width: { ideal: 640 }, height: { ideal: 480 } }
-            });
+            // Simplified constraints for mobile compatibility
+            const constraints = {
+                video: {
+                    facingMode: "user"
+                }
+            };
+
+            const stream = await navigator.mediaDevices.getUserMedia(constraints);
             video.srcObject = stream;
             video.onloadedmetadata = () => {
                 statusMsg.textContent = "Tayyor. Scan tugmasini bosing.";
