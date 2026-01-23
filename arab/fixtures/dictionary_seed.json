@@ -3,9 +3,8 @@
         "model": "arab.vocabularycategory",
         "pk": 1,
         "fields": {
-            "name_uz": "Salomlashish",
-            "name_ru": "Приветствие",
-            "icon": "fas fa-handshake",
+            "name": "Salomlashish",
+            "description": "Greetings",
             "created_at": "2024-01-01T00:00:00Z",
             "updated_at": "2024-01-01T00:00:00Z"
         }
@@ -14,9 +13,8 @@
         "model": "arab.vocabularycategory",
         "pk": 2,
         "fields": {
-            "name_uz": "Oilaviy",
-            "name_ru": "Семья",
-            "icon": "fas fa-users",
+            "name": "Oilaviy",
+            "description": "Family members",
             "created_at": "2024-01-01T00:00:00Z",
             "updated_at": "2024-01-01T00:00:00Z"
         }
@@ -25,9 +23,8 @@
         "model": "arab.vocabularycategory",
         "pk": 3,
         "fields": {
-            "name_uz": "Uyda",
-            "name_ru": "Дома",
-            "icon": "fas fa-home",
+            "name": "Uyda",
+            "description": "Home items",
             "created_at": "2024-01-01T00:00:00Z",
             "updated_at": "2024-01-01T00:00:00Z"
         }
