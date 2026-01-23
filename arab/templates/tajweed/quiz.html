@@ -1,23 +1,52 @@
 {% extends "base.html" %}
+{% block title %}Tajvid Testi{% endblock %}
 {% block content %}
-<div style="max-width:720px;margin:24px auto;">
-  <h2>{{ quiz.prompt }}</h2>
 
-  <form method="post">
+<div class="max-w-3xl mx-auto py-12 px-4">
+  <div class="text-center mb-10">
+    <div
+      class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-bold tracking-widest uppercase mb-4">
+      🎓 Tajvid Bilimi
+    </div>
+    <h1 class="text-4xl font-black text-white">{{ quiz.prompt }}</h1>
+    <p class="mt-4 text-slate-400">To‘g‘ri javobni tanlang va bilimingizni tekshiring.</p>
+  </div>
+
+  <form method="post" class="space-y-6">
     {% csrf_token %}
 
-    <div style="margin-top:16px;">
+    <div class="grid gap-4">
       {% for opt in options %}
-        <label style="display:block;padding:10px;border:1px solid #ddd;border-radius:10px;margin-bottom:10px;cursor:pointer;">
-          <input type="radio" name="option" value="{{ opt.id }}" required>
-          {{ opt.text }}
-        </label>
+      <label
+        class="relative flex items-center p-6 rounded-3xl bg-slate-900/40 border border-white/10 hover:border-emerald-500/50 hover:bg-slate-800/50 cursor-pointer transition-all group overflow-hidden">
+        <input type="radio" name="option" value="{{ opt.id }}" class="peer sr-only" required>
+
+        <!-- Radio circle -->
+        <div
+          class="w-6 h-6 rounded-full border-2 border-slate-600 peer-checked:border-emerald-500 peer-checked:bg-emerald-500 transition-all mr-4 flex-shrink-0">
+        </div>
+
+        <span class="text-lg text-slate-200 peer-checked:text-white font-bold">{{ opt.text }}</span>
+
+        <!-- Subtle glow on check -->
+        <div
+          class="absolute inset-0 rounded-3xl ring-2 ring-emerald-500 ring-opacity-0 peer-checked:ring-opacity-100 transition-all pointer-events-none">
+        </div>
+      </label>
       {% endfor %}
     </div>
 
-    <button type="submit" style="padding:10px 16px;border-radius:10px;border:0;background:#111;color:#fff;">
-      Tekshirish
-    </button>
+    <div class="pt-8">
+      <button type="submit"
+        class="w-full py-5 rounded-[2rem] bg-emerald-500 text-slate-950 font-black text-xl shadow-xl shadow-emerald-500/20 hover:scale-[1.02] active:scale-[0.98] transition-all">
+        TEKSHIRISH
+      </button>
+    </div>
   </form>
+
+  <div class="mt-10 text-center text-xs text-slate-500 uppercase tracking-widest">
+    Keyingi savolga o‘tish uchun javobni belgilang
+  </div>
 </div>
+
 {% endblock %}

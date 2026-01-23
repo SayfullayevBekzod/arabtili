@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+{% block title %}Profil Sozlamalari{% endblock %}
+{% block content %}
+
+<div class="max-w-4xl mx-auto py-12 px-4">
+    <div class="flex flex-col md:flex-row gap-8">
+        <!-- Sidebar Navigation -->
+        <aside class="w-full md:w-64 space-y-2">
+            <a href="{% url 'arab:settings_profile' %}"
+                class="flex items-center gap-3 px-6 py-4 rounded-2xl bg-emerald-500 text-slate-950 font-bold transition-all">
+                <i class="fas fa-user-circle"></i> Profile
+            </a>
+            <a href="{% url 'arab:settings_password' %}"
+                class="flex items-center gap-3 px-6 py-4 rounded-2xl bg-white/5 border border-white/5 text-slate-400 hover:bg-white/10 hover:text-white transition-all font-bold">
+                <i class="fas fa-key"></i> Security
+            </a>
+            <a href="{% url 'arab:progress' %}"
+                class="flex items-center gap-3 px-6 py-4 rounded-2xl bg-white/5 border border-white/5 text-slate-400 hover:bg-white/10 hover:text-white transition-all font-bold">
+                <i class="fas fa-arrow-left"></i> Orqaga
+            </a>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="flex-1">
+            <div
+                class="bg-slate-900/40 border border-white/10 rounded-[2.5rem] p-8 md:p-12 shadow-2xl backdrop-blur-xl">
+                <h1 class="text-3xl font-black text-white mb-2">Profil Sozlamalari</h1>
+                <p class="text-slate-400 text-sm mb-10">O'zingizning shaxsiy ma'lumotlaringizni boshqaring.</p>
+
+                {% if messages %}
+                <div class="mb-8 space-y-2">
+                    {% for message in messages %}
+                    <div
+                        class="px-6 py-4 rounded-2xl {% if message.tags == 'success' %}bg-emerald-500/10 border border-emerald-500/20 text-emerald-400{% else %}bg-red-500/10 border border-red-500/20 text-red-400{% endif %} flex items-center gap-3 font-bold text-sm">
+                        <i
+                            class="fas {% if message.tags == 'success' %}fa-check-circle{% else %}fa-exclamation-circle{% endif %}"></i>
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                <form method="POST" enctype="multipart/form-data" class="space-y-8">
+                    {% csrf_token %}
+
+                    <!-- Avatar Section -->
+                    <div class="flex flex-col items-center md:items-start gap-6 pb-8 border-b border-white/5">
+                        <div class="relative">
+                            <div class="h-32 w-32 rounded-[2rem] bg-gradient-to-tr from-emerald-500 to-sky-500 p-1">
+                                <div
+                                    class="h-full w-full rounded-[1.8rem] bg-slate-950 overflow-hidden flex items-center justify-center">
+                                    {% if user.profile.avatar %}
+                                    <img src="{{ user.profile.avatar.url }}" alt="avatar"
+                                        class="h-full w-full object-cover">
+                                    {% else %}
+                                    <span class="text-3xl">👤</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <label for="id_avatar"
+                                class="absolute -bottom-2 -right-2 h-10 w-10 rounded-xl bg-white text-slate-950 flex items-center justify-center cursor-pointer hover:scale-110 transition-transform shadow-xl border-4 border-slate-950">
+                                <i class="fas fa-camera text-xs"></i>
+                            </label>
+                        </div>
+                        <div class="space-y-1 text-center md:text-left">
+                            <h4 class="text-white font-bold">Profil surati</h4>
+                            <p class="text-xs text-slate-500">Tavsiya etiladi: 512x512px (PNG, JPG)</p>
+                            <div class="hidden">
+                                {{ p_form.avatar }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Input Fields -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="space-y-2">
+                            <label
+                                class="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-4">Username</label>
+                            <input type="text" name="username" value="{{ u_form.username.value }}"
+                                class="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-emerald-500 transition-all">
+                            {% if u_form.username.errors %}
+                            <p class="text-[10px] text-red-400 pl-4">{{ u_form.username.errors.0 }}</p>
+                            {% endif %}
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-4">Email
+                                Address</label>
+                            <input type="email" name="email" value="{{ u_form.email.value }}"
+                                class="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-emerald-500 transition-all">
+                            {% if u_form.email.errors %}
+                            <p class="text-[10px] text-red-400 pl-4">{{ u_form.email.errors.0 }}</p>
+                            {% endif %}
+                        </div>
+
+                        <div class="md:col-span-2 space-y-2">
+                            <label class="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-4">Bio /
+                                Status</label>
+                            <textarea name="bio" rows="3"
+                                class="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-emerald-500 transition-all">{{ p_form.bio.value|default:"" }}</textarea>
+                        </div>
+                    </div>
+
+                    <div class="pt-6">
+                        <button type="submit"
+                            class="w-full py-5 rounded-3xl bg-emerald-500 text-slate-950 font-black text-sm tracking-widest hover:scale-[1.02] active:scale-[0.98] transition-all shadow-[0_20px_40px_rgba(16,185,129,0.2)] uppercase">
+                            O'zgarishlarni Saqlash
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

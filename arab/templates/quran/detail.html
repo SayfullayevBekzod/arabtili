@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% load tajweed_tags %}
+{% block title %}{{ surah.name }} - Qur'on{% endblock %}
+{% block content %}
+
+<!-- Navigation Header -->
+<div class="flex items-center justify-between mb-8">
+    <div class="flex items-center gap-4">
+        <a href="{% url 'arab:quran_index' %}"
+            class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-slate-400 hover:bg-white/10 hover:text-white transition">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+        <div>
+            <h1 class="text-2xl font-bold text-white flex items-center gap-3">
+                {{ surah.name }}
+                <span class="text-sm font-normal text-slate-500 border border-white/10 px-2 py-0.5 rounded-lg">{{
+                    surah.place }}</span>
+            </h1>
+            <p class="text-xs text-slate-400">{{ surah.english_name }} • {{ surah.ayah_count }} oyat</p>
+        </div>
+    </div>
+
+    <div class="flex items-center gap-2">
+        {% if prev_surah %}
+        <a href="{% url 'arab:quran_detail' prev_surah.number %}"
+            class="px-3 py-2 rounded-xl bg-white/5 text-slate-400 text-sm hover:bg-white/10 hover:text-white transition">
+            <i class="fas fa-chevron-left mr-1"></i> {{ prev_surah.name }}
+        </a>
+        {% endif %}
+        {% if next_surah %}
+        <a href="{% url 'arab:quran_detail' next_surah.number %}"
+            class="px-3 py-2 rounded-xl bg-white/5 text-slate-400 text-sm hover:bg-white/10 hover:text-white transition">
+            {{ next_surah.name }} <i class="fas fa-chevron-right ml-1"></i>
+        </a>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Bismillah (if not Tawbah 9) -->
+{% if surah.number != 9 %}
+<div class="text-center mb-12">
+    <div class="arabic-font text-3xl md:text-4xl text-emerald-400/80 leading-loose">
+        بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ
+    </div>
+</div>
+{% endif %}
+
+<!-- Ayahs List -->
+<div class="space-y-6 max-w-4xl mx-auto">
+    {% for ayah in ayahs %}
+    <div
+        class="group relative rounded-3xl border border-white/5 bg-white/[0.02] p-6 hover:bg-white/5 transition-all duration-300">
+        <!-- Number -->
+        <div
+            class="absolute top-4 left-4 w-8 h-8 rounded-full border border-white/10 text-[10px] flex items-center justify-center text-slate-500">
+            {{ ayah.number_in_surah }}
+        </div>
+
+        <!-- Content -->
+        <div class="text-right w-full" dir="rtl">
+            <p class="arabic-font text-3xl md:text-4xl leading-[2.5] text-white">
+                {{ ayah.text|auto_tajweed }}
+                <span
+                    class="inline-flex items-center justify-center w-8 h-8 mr-2 border border-emerald-500/30 rounded-full text-emerald-500 text-xs font-sans align-middle">
+                    {{ ayah.number_in_surah }}
+                </span>
+            </p>
+        </div>
+
+        <!-- Actions (Audio/Copy) -->
+        <div
+            class="mt-6 pt-4 border-t border-white/5 flex items-center justify-end gap-3 opacity-0 group-hover:opacity-100 transition-opacity">
+            {% if ayah.audio %}
+            <button onclick="new Audio('{{ ayah.audio.url }}').play()"
+                class="text-slate-400 hover:text-emerald-400 transition" title="Tinglash">
+                <i class="fas fa-play"></i>
+            </button>
+            {% endif %}
+            <button class="text-slate-400 hover:text-white transition" title="Nusxalash">
+                <i class="fas fa-copy"></i>
+            </button>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

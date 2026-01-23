@@ -3,32 +3,36 @@
 {% block content %}
 
 <!-- HERO -->
-<section class="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-6 md:p-10">
-  <div class="pointer-events-none absolute -top-32 -left-32 h-80 w-80 rounded-full bg-emerald-400/15 blur-3xl"></div>
-  <div class="pointer-events-none absolute -bottom-32 -right-32 h-80 w-80 rounded-full bg-sky-400/15 blur-3xl"></div>
+<section class="relative overflow-hidden rounded-[2.5rem] border border-white/10 bg-slate-900/40 p-8 md:p-12">
+  <div class="pointer-events-none absolute -top-32 -left-32 h-80 w-80 rounded-full bg-emerald-500/10 blur-[100px]">
+  </div>
+  <div class="pointer-events-none absolute -bottom-32 -right-32 h-80 w-80 rounded-full bg-sky-500/10 blur-[100px]">
+  </div>
 
-  <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
-    <div>
-      <div class="text-xs text-slate-400">Arab Alifbosi • #{{ letter.order }}</div>
-      <h1 class="mt-1 text-3xl md:text-5xl font-black">
-        {{ letter.name }}
-      </h1>
-      <p class="mt-2 text-slate-300 text-sm max-w-2xl leading-relaxed">
-        Harf shakllari (Isolated/Initial/Medial/Final), harakat misollari va so‘z ichidagi ko‘rinishlar.
-      </p>
-
-      <div class="mt-5 flex flex-wrap gap-2">
-        <span class="rounded-2xl border border-white/10 bg-slate-950/40 px-3 py-2 text-xs text-slate-300">✅ Shakllar</span>
-        <span class="rounded-2xl border border-white/10 bg-slate-950/40 px-3 py-2 text-xs text-slate-300">✅ Harakatlar</span>
-        <span class="rounded-2xl border border-white/10 bg-slate-950/40 px-3 py-2 text-xs text-slate-300">✅ Misollar</span>
+  <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
+    <div class="space-y-4">
+      <div
+        class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-[10px] font-black uppercase tracking-widest text-slate-400">
+        ALIFBO • TARTIB RAQAMI: #{{ letter.order }}
       </div>
+      <h1 class="text-5xl md:text-6xl font-black text-white leading-tight">
+        {{ letter.name }} <span class="text-emerald-400">Harfi</span>
+      </h1>
+      <p class="text-slate-400 text-lg max-w-xl leading-relaxed">
+        Bu harfni yozilish shakllari, talaffuz qoidalari va real so'zlardagi misollar orqali chuqurroq o'rganing.
+      </p>
     </div>
 
-    <a href="/alphabet/"
-       class="inline-flex items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-sm
-              hover:bg-white/10 hover:border-white/20 transition">
-      ← Alifboga qaytish
-    </a>
+    <div class="flex flex-wrap gap-3">
+      <a href="/alphabet/"
+        class="px-6 py-3 rounded-2xl bg-white/5 border border-white/10 text-white font-bold text-sm hover:bg-white/10 transition">
+        ← RO'YXATGA QAYTISH
+      </a>
+      <a href="{% url 'arab:letter_practice' letter.id %}"
+        class="px-6 py-3 rounded-2xl bg-emerald-500 text-slate-950 font-black text-sm hover:bg-emerald-400 transition shadow-lg shadow-emerald-500/20">
+        YOZISHNI MASHQ QILISH
+      </a>
+    </div>
   </div>
 </section>
 
@@ -107,7 +111,8 @@
     <div class="mt-5 rounded-2xl border border-white/10 bg-white/5 p-4 [direction:ltr]">
       <div class="text-xs text-slate-400">Tip</div>
       <div class="text-sm text-slate-200 mt-1 leading-relaxed">
-        Harfni yodlash uchun: <span class="text-white font-semibold">Isolated → Initial → Medial → Final</span> tartibida ko‘rib chiqing.
+        Harfni yodlash uchun: <span class="text-white font-semibold">Isolated → Initial → Medial → Final</span>
+        tartibida ko‘rib chiqing.
       </div>
     </div>
   </section>
@@ -120,32 +125,30 @@
     </div>
 
     {% if examples %}
-      <!-- 🔥 ko'p so'z sig'adi: wrap + chips -->
-      <div class="mt-4 flex flex-wrap gap-3" dir="rtl">
-        {% for ex in examples %}
-          <div
-            class="group rounded-2xl border border-white/10 bg-slate-950/40 px-4 py-3
+    <!-- 🔥 ko'p so'z sig'adi: wrap + chips -->
+    <div class="mt-4 flex flex-wrap gap-3" dir="rtl">
+      {% for ex in examples %}
+      <div class="group rounded-2xl border border-white/10 bg-slate-950/40 px-4 py-3
                    hover:bg-white/5 transition cursor-pointer select-none"
-            title="{{ ex.transliteration|default:'' }} • {{ ex.translation_uz|default:'' }}"
-          >
-            <div class="arabic-font text-3xl font-black text-white leading-none">
-              {{ ex.arabic_text }}
-            </div>
+        title="{{ ex.transliteration|default:'' }} • {{ ex.translation_uz|default:'' }}">
+        <div class="arabic-font text-3xl font-black text-white leading-none">
+          {{ ex.arabic_text }}
+        </div>
 
-            <div class="mt-2 text-[11px] text-slate-300 [direction:ltr]">
-              {{ ex.transliteration|default:"—" }}
-            </div>
+        <div class="mt-2 text-[11px] text-slate-300 [direction:ltr]">
+          {{ ex.transliteration|default:"—" }}
+        </div>
 
-            <div class="mt-1 text-xs text-slate-200 [direction:ltr]">
-              UZ: <span class="font-semibold text-white">{{ ex.translation_uz|default:"—" }}</span>
-            </div>
-          </div>
-        {% endfor %}
+        <div class="mt-1 text-xs text-slate-200 [direction:ltr]">
+          UZ: <span class="font-semibold text-white">{{ ex.translation_uz|default:"—" }}</span>
+        </div>
       </div>
+      {% endfor %}
+    </div>
     {% else %}
-      <div class="mt-4 text-slate-400 text-sm">
-        Misollar hali qo‘shilmagan.
-      </div>
+    <div class="mt-4 text-slate-400 text-sm">
+      Misollar hali qo‘shilmagan.
+    </div>
     {% endif %}
 
     <div class="mt-5 rounded-2xl border border-white/10 bg-white/5 p-4">

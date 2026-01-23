@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}Placement Test{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto py-12 px-4">
+    <div class="text-center mb-10">
+        <h1 class="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">
+            Darajani aniqlash
+        </h1>
+        <p class="mt-4 text-lg text-slate-400">
+            Ushbu qisqa test orqali sizning darajangizni (A0, A1, A2) aniqlaymiz.
+        </p>
+    </div>
+
+    <form method="post" class="space-y-8">
+        {% csrf_token %}
+
+        {% for q in questions %}
+        <div class="p-6 rounded-3xl bg-slate-900/50 border border-white/5 shadow-xl backdrop-blur-sm">
+            <h3 class="text-xl font-bold text-white mb-4">
+                <span class="text-emerald-500 mr-2">{{ q.id }}.</span> {{ q.text }}
+            </h3>
+
+            <div class="grid gap-3">
+                {% for opt in q.options %}
+                <label
+                    class="relative flex items-center p-4 rounded-xl border border-white/10 hover:border-emerald-500/50 hover:bg-emerald-500/10 cursor-pointer transition-all group">
+                    <input type="radio" name="q_{{ q.id }}" value="{{ forloop.counter0 }}" class="peer sr-only">
+                    <div
+                        class="w-5 h-5 rounded-full border-2 border-slate-500 peer-checked:border-emerald-500 peer-checked:bg-emerald-500 transition-all mr-3">
+                    </div>
+                    <span class="text-slate-300 peer-checked:text-white font-medium">{{ opt }}</span>
+                    <div
+                        class="absolute inset-0 rounded-xl ring-2 ring-emerald-500 ring-opacity-0 peer-checked:ring-opacity-100 transition-all">
+                    </div>
+                </label>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+
+        <div class="pt-6">
+            <button type="submit"
+                class="w-full py-4 rounded-2xl bg-gradient-to-r from-emerald-500 to-cyan-600 text-white font-bold text-lg shadow-lg shadow-emerald-500/20 hover:scale-[1.02] active:scale-[0.98] transition-transform">
+                Natijani ko‘rish
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}

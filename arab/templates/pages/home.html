@@ -1,137 +1,182 @@
 {% extends "base.html" %}
-{% block title %}Arab Academy{% endblock %}
+{% block title %}AlifPro Academy - Bosh Sahifa{% endblock %}
 {% block content %}
 
-<section class="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5">
-  <!-- glow -->
-  <div class="pointer-events-none absolute -top-40 -left-40 h-96 w-96 rounded-full bg-emerald-400/20 blur-3xl"></div>
-  <div class="pointer-events-none absolute -bottom-40 -right-40 h-96 w-96 rounded-full bg-sky-400/20 blur-3xl"></div>
+<!-- HERO SECTION -->
+<section class="relative overflow-hidden rounded-[3.5rem] border border-white/10 bg-slate-900/40 mb-10 shadow-2xl">
+  <!-- Immersive Background Elements -->
+  <div
+    class="pointer-events-none absolute -top-40 -left-40 h-[500px] w-[500px] rounded-full bg-emerald-500/10 blur-[120px]">
+  </div>
+  <div
+    class="pointer-events-none absolute -bottom-40 -right-40 h-[500px] w-[500px] rounded-full bg-sky-500/10 blur-[120px]">
+  </div>
+  <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/dark-matter.png')] opacity-10">
+  </div>
 
-  <div class="p-8 md:p-12">
-    <div class="grid lg:grid-cols-2 gap-10 items-center">
+  <div class="relative z-10 p-10 md:p-20">
+    <div class="grid lg:grid-cols-2 gap-16 items-center">
 
-      <!-- Left -->
-      <div>
-        <div class="inline-flex items-center gap-2 rounded-2xl border border-white/10 bg-slate-950/40 px-4 py-2 text-sm text-slate-300">
-          <span class="h-2 w-2 rounded-full bg-emerald-400"></span>
-          0 → PRO • Alifbo + Qur’on lug‘ati + Practice
-        </div>
-
-        <h1 class="mt-5 text-4xl md:text-5xl lg:text-6xl font-black leading-[1.05]">
-          Arab tilini
-          <span class="relative">
-            <span class="bg-gradient-to-r from-emerald-300 to-sky-300 bg-clip-text text-transparent">0 dan PRO</span>
-            <span class="absolute -bottom-2 left-0 h-[6px] w-full rounded-full bg-gradient-to-r from-emerald-400/30 to-sky-400/30 blur"></span>
+      <!-- Hero Left (Content) -->
+      <div class="space-y-10">
+        <div
+          class="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-white/5 border border-white/10 text-[10px] font-black tracking-[0.2em] text-emerald-400 uppercase">
+          <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
           </span>
-          gacha o‘rgan
-        </h1>
-
-        <p class="mt-4 text-slate-300 max-w-xl leading-relaxed">
-          Alifbo • So‘zlar • Tinglash • Yozish • Review • Real progress.
-          Har darsda kichik qadam, har haftada katta natija.
-        </p>
-
-        <!-- chips -->
-        <div class="mt-6 flex flex-wrap gap-2">
-          <span class="rounded-2xl border border-white/10 bg-white/5 px-3 py-2 text-xs text-slate-300">✅ Interaktiv alifbo</span>
-          <span class="rounded-2xl border border-white/10 bg-white/5 px-3 py-2 text-xs text-slate-300">📚 Qur’oniy lug‘at</span>
-          <span class="rounded-2xl border border-white/10 bg-white/5 px-3 py-2 text-xs text-slate-300">🧠 Smart Review</span>
-          <span class="rounded-2xl border border-white/10 bg-white/5 px-3 py-2 text-xs text-slate-300">📈 Progress tracking</span>
+          Professional Arab Tili Platformasi
         </div>
 
-        <!-- buttons -->
-        <div class="mt-7 flex flex-col sm:flex-row gap-3">
+        <div class="space-y-6">
+          <h1 class="text-6xl md:text-8xl font-black leading-[0.95] tracking-tighter text-white">
+            Arab Tilini <br />
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-sky-400">Professional</span>
+            <br />
+            Darajada O'rgan.
+          </h1>
+          <p class="text-slate-400 text-lg md:text-xl max-w-lg leading-relaxed font-medium">
+            Alifbodan Qur'oniy lug'atgacha bo'lgan to'liq kurslar. <br />
+            Interaktiv tizim bilan til o'rganishni san'atga aylantiring.
+          </p>
+        </div>
+
+        <div class="flex flex-wrap gap-4 pt-4">
+          {% if user.is_authenticated %}
+          <a href="{% if next_lesson %}{% url 'arab:lesson_detail' next_lesson.id %}{% else %}/practice/{% endif %}"
+            class="px-10 py-5 rounded-[2rem] bg-emerald-500 text-slate-950 font-black text-sm tracking-widest hover:scale-105 transition-all shadow-[0_20px_50px_rgba(16,185,129,0.3)]">
+            {% if next_lesson %}
+            DAVOM ETISH: {{ next_lesson.title|truncatechars:15 }}
+            {% else %}
+            O'QISHNI DAVOM ETTIRISH →
+            {% endif %}
+          </a>
+          {% else %}
+          <a href="/accounts/register/"
+            class="px-10 py-5 rounded-[2rem] bg-white text-slate-950 font-black text-sm tracking-widest hover:scale-105 transition-all shadow-[0_20px_50px_rgba(255,255,255,0.1)]">
+            HOZIRROQ BOSHLASH →
+          </a>
           <a href="/courses/"
-             class="group inline-flex items-center justify-center gap-2 rounded-2xl bg-white px-6 py-3 font-semibold text-slate-950 transition hover:bg-slate-200">
-            🚀 Boshlash
-            <span class="transition group-hover:translate-x-0.5">→</span>
+            class="px-10 py-5 rounded-[2rem] bg-white/5 border border-white/10 text-white font-bold text-sm hover:bg-white/10 transition-all">
+            Kurslarni Ko'rish
           </a>
-
-          <a href="/roadmap/"
-             class="group inline-flex items-center justify-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-6 py-3 font-semibold text-white transition hover:bg-white/10 hover:border-white/20">
-            🧭 Yo‘l xaritasi
-            <span class="transition group-hover:translate-x-0.5">→</span>
-          </a>
+          {% endif %}
         </div>
 
-        <!-- mini stats -->
-        <div class="mt-8 grid grid-cols-3 gap-3 max-w-md">
-          <div class="rounded-2xl border border-white/10 bg-slate-950/40 p-4 hover:bg-white/5 transition">
-            <div class="text-white font-black text-xl">28</div>
-            <div class="text-xs text-slate-400">Harf (alifbo)</div>
+        <!-- Live Social Proof Stats -->
+        <div class="pt-10 flex gap-12 border-t border-white/5">
+          <div>
+            <div class="text-3xl font-black text-white">{{ total_words }}</div>
+            <div class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-1">LUG'ATDAGI SO'ZLAR</div>
           </div>
-          <div class="rounded-2xl border border-white/10 bg-slate-950/40 p-4 hover:bg-white/5 transition">
-            <div class="text-white font-black text-xl">1000+</div>
-            <div class="text-xs text-slate-400">So‘zlar bazasi</div>
+          <div>
+            <div class="text-3xl font-black text-white">{{ active_users }}</div>
+            <div class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-1">AKTIV O'QUVCHILAR</div>
           </div>
-          <div class="rounded-2xl border border-white/10 bg-slate-950/40 p-4 hover:bg-white/5 transition">
-            <div class="text-white font-black text-xl">PRO</div>
-            <div class="text-xs text-slate-400">Yo‘l xaritasi</div>
+          <div>
+            <div class="text-3xl font-black text-white">{{ total_letters }}/28</div>
+            <div class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-1">ALIFBO DARSLARI</div>
           </div>
         </div>
       </div>
 
-      <!-- Right -->
-      <div class="relative">
-        <div class="rounded-3xl border border-white/10 bg-slate-950/40 p-7 md:p-8">
-          <div class="flex items-center justify-between">
-            <div>
-              <div class="text-white font-bold">Live preview</div>
-              <div class="text-xs text-slate-400 mt-1">Alifbo → harakat → test</div>
+      <!-- Hero Right (Interactive Visual) -->
+      <div class="relative group">
+        <div
+          class="absolute -inset-1 bg-gradient-to-r from-emerald-500 to-sky-500 rounded-[3.5rem] blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200">
+        </div>
+        <div class="relative p-10 md:p-14 rounded-[3.5rem] bg-slate-950 border border-white/10 space-y-12">
+
+          {% if user.is_authenticated %}
+          <div class="space-y-6">
+            <div class="flex items-center justify-between">
+              <h3 class="text-xl font-black text-white">Sizning Progressingiz</h3>
+              <div
+                class="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[9px] font-black uppercase tracking-widest">
+                L{{ game.level }} DARAXA
+              </div>
             </div>
-            <div class="rounded-2xl border border-white/10 bg-white/5 px-3 py-2 text-xs text-slate-300">
-              Smart Mode
+            <!-- Mini Progress Visuals -->
+            <div class="grid grid-cols-2 gap-4">
+              <div class="p-6 rounded-[2rem] bg-white/5 border border-white/5 space-y-2">
+                <div class="text-2xl">🔥</div>
+                <div class="text-lg font-black">{{ streak.current_streak }} Kun</div>
+                <div class="text-[8px] font-bold text-slate-500 uppercase">STREAK</div>
+              </div>
+              <div class="p-6 rounded-[2rem] bg-white/5 border border-white/5 space-y-2">
+                <div class="text-2xl">🧩</div>
+                <div class="text-lg font-black">{{ game.xp_total }}</div>
+                <div class="text-[8px] font-bold text-slate-500 uppercase">UMUMIY XP</div>
+              </div>
             </div>
+            <a href="/progress/"
+              class="block w-full py-4 text-center rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 transition text-xs font-bold text-slate-400">
+              Barcha Statistikani Ko'rish
+            </a>
           </div>
-
-          <!-- Arabic preview -->
-          <div class="mt-6 rounded-3xl border border-white/10 bg-white/5 p-6" dir="rtl">
-            <div class="arabic-font text-6xl font-black tracking-wide text-white">
-              ا ب ت ث ج ح خ
+          {% else %}
+          <!-- Interactive Preview for Guests -->
+          <div class="space-y-8">
+            <h3 class="text-2xl font-black text-white text-center">Interaktiv Tajriba</h3>
+            <div class="p-8 rounded-[2rem] bg-white/5 border border-white/5 text-center space-y-6" dir="rtl">
+              <div class="arabic-font text-8xl text-white font-black animate-pulse">ا ب ت</div>
+              <div class="grid grid-cols-3 gap-3 [direction:ltr]">
+                <div class="p-4 rounded-xl bg-slate-950 border border-white/5 text-xs">
+                  <div class="text-emerald-400 font-bold mb-1">Tajvid</div>
+                  <div class="text-slate-500 font-medium">Qoidalari</div>
+                </div>
+                <div class="p-4 rounded-xl bg-slate-950 border border-white/5 text-xs">
+                  <div class="text-sky-400 font-bold mb-1">So'zlar</div>
+                  <div class="text-slate-500 font-medium">Lug'ati</div>
+                </div>
+                <div class="p-4 rounded-xl bg-slate-950 border border-white/5 text-xs">
+                  <div class="text-fuchsia-400 font-bold mb-1">Mashq</div>
+                  <div class="text-slate-500 font-medium">Tizimi</div>
+                </div>
+              </div>
             </div>
-
-            <div class="mt-4 grid grid-cols-3 gap-2 [direction:ltr]">
-              <div class="rounded-2xl border border-white/10 bg-slate-950/40 p-3 hover:bg-white/5 transition">
-                <div class="text-xs text-slate-400">Fatha</div>
-                <div class="text-lg font-bold text-white arabic-font" dir="rtl">بَ</div>
-              </div>
-              <div class="rounded-2xl border border-white/10 bg-slate-950/40 p-3 hover:bg-white/5 transition">
-                <div class="text-xs text-slate-400">Kasra</div>
-                <div class="text-lg font-bold text-white arabic-font" dir="rtl">بِ</div>
-              </div>
-              <div class="rounded-2xl border border-white/10 bg-slate-950/40 p-3 hover:bg-white/5 transition">
-                <div class="text-xs text-slate-400">Damma</div>
-                <div class="text-lg font-bold text-white arabic-font" dir="rtl">بُ</div>
-              </div>
-            </div>
-
-            <p class="mt-4 text-slate-300 text-sm [direction:ltr]">
-              Interactive alphabet + diacritics + smart review.
+            <p class="text-center text-xs text-slate-500 italic font-medium">
+              "Sizning kelajagingiz bugungi qadamingizdan boshlanadi."
             </p>
           </div>
-
-          <!-- feature cards -->
-          <div class="mt-6 grid sm:grid-cols-2 gap-3">
-            <a href="/alphabet/" class="group rounded-2xl border border-white/10 bg-white/5 p-4 transition hover:bg-white/10 hover:border-white/20">
-              <div class="text-white font-semibold">Alifbo</div>
-              <div class="text-xs text-slate-400 mt-1">28 harf + yozilish shakllari</div>
-              <div class="mt-3 text-xs text-slate-300">Ochish →</div>
-            </a>
-            <a href="/practice/" class="group rounded-2xl border border-white/10 bg-white/5 p-4 transition hover:bg-white/10 hover:border-white/20">
-              <div class="text-white font-semibold">Practice</div>
-              <div class="text-xs text-slate-400 mt-1">typing, listening, flashcards</div>
-              <div class="mt-3 text-xs text-slate-300">Boshlash →</div>
-            </a>
-          </div>
-        </div>
-
-        <!-- floating badge -->
-        <div class="absolute -top-4 -right-4 rounded-2xl border border-white/10 bg-slate-950/70 backdrop-blur px-4 py-2 text-xs text-slate-200">
-          ✨ New: Qur’on lug‘ati
+          {% endif %}
         </div>
       </div>
 
     </div>
+  </div>
+</section>
+
+<!-- FEATURES GRID -->
+<section class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
+  <div class="p-8 rounded-[2.5rem] bg-slate-800/10 border border-white/5 hover:bg-slate-800/20 transition-all group">
+    <div
+      class="h-12 w-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 grid place-items-center text-xl mb-6 group-hover:scale-110 transition-transform">
+      🔤</div>
+    <h4 class="font-black text-lg text-white mb-2">Interaktiv Alifbo</h4>
+    <p class="text-sm text-slate-400 leading-relaxed">Har bir harfning maxraji, yozilish shakllari va audio talaffuzi.
+    </p>
+  </div>
+  <div class="p-8 rounded-[2.5rem] bg-slate-800/10 border border-white/5 hover:bg-slate-800/20 transition-all group">
+    <div
+      class="h-12 w-12 rounded-2xl bg-sky-500/10 border border-sky-500/20 grid place-items-center text-xl mb-6 group-hover:scale-110 transition-transform">
+      🧠</div>
+    <h4 class="font-black text-lg text-white mb-2">Smart Takrorlash</h4>
+    <p class="text-sm text-slate-400 leading-relaxed">Unutish egri chizig'iga asoslangan aqlli takrorlash algoritmi.</p>
+  </div>
+  <div class="p-8 rounded-[2.5rem] bg-slate-800/10 border border-white/5 hover:bg-slate-800/20 transition-all group">
+    <div
+      class="h-12 w-12 rounded-2xl bg-fuchsia-500/10 border border-fuchsia-500/20 grid place-items-center text-xl mb-6 group-hover:scale-110 transition-transform">
+      📚</div>
+    <h4 class="font-black text-lg text-white mb-2">Boy Lug'at</h4>
+    <p class="text-sm text-slate-400 leading-relaxed">Qur'oniy va zamonaviy arab tili so'zlarining 1000+ bazasi.</p>
+  </div>
+  <div class="p-8 rounded-[2.5rem] bg-slate-800/10 border border-white/5 hover:bg-slate-800/20 transition-all group">
+    <div
+      class="h-12 w-12 rounded-2xl bg-orange-500/10 border border-orange-500/20 grid place-items-center text-xl mb-6 group-hover:scale-110 transition-transform">
+      🎓</div>
+    <h4 class="font-black text-lg text-white mb-2">Tizimli Kurslar</h4>
+    <p class="text-sm text-slate-400 leading-relaxed">Noldan professional darajagacha bo'lgan darsliklar.</p>
   </div>
 </section>
 

@@ -19,11 +19,35 @@
   <div class="lg:col-span-2 space-y-4">
 
     <section class="rounded-3xl border border-white/10 bg-white/5 p-6">
+      <div class="flex items-center justify-between">
+        <h2 class="text-lg font-bold">🎥 Video Dars</h2>
+        <span class="text-xs text-slate-400">{{ lesson.videos.count }} ta</span>
+      </div>
+
+      <div class="mt-4 space-y-3">
+        {% for v in lesson.videos.all %}
+        <a href="{% url 'arab:video_detail' v.id %}"
+          class="block rounded-2xl border border-white/10 bg-black/20 p-4 hover:bg-white/10 transition group">
+          <div class="flex items-center justify-between">
+            <div class="font-semibold text-white group-hover:text-emerald-300 transition">{{ v.title }}</div>
+            <div class="text-xs text-slate-400">⏱ {{ v.duration }}s</div>
+          </div>
+          <div class="mt-1 text-xs text-slate-400">
+            {% if v.is_free %}Free{% else %}Premium{% endif %}
+          </div>
+        </a>
+        {% empty %}
+        <div class="text-sm text-slate-400">Video dars yo‘q.</div>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section class="rounded-3xl border border-white/10 bg-white/5 p-6">
       <h2 class="text-lg font-bold">📘 Theory</h2>
       {% if lesson.theory %}
-        <div class="mt-3 text-slate-200 leading-relaxed whitespace-pre-line">{{ lesson.theory }}</div>
+      <div class="mt-3 text-slate-200 leading-relaxed whitespace-pre-line">{{ lesson.theory }}</div>
       {% else %}
-        <div class="mt-3 text-slate-400 text-sm">Hali theory qo‘shilmagan.</div>
+      <div class="mt-3 text-slate-400 text-sm">Hali theory qo‘shilmagan.</div>
       {% endif %}
     </section>
 
@@ -35,12 +59,12 @@
 
       <div class="mt-4 space-y-3">
         {% for s in lesson.sections.all %}
-          <div class="rounded-2xl border border-white/10 bg-black/20 p-4">
-            <div class="font-semibold">{{ s.order }}. {{ s.title }}</div>
-            <div class="mt-2 text-slate-200 text-sm whitespace-pre-line">{{ s.content }}</div>
-          </div>
+        <div class="rounded-2xl border border-white/10 bg-black/20 p-4">
+          <div class="font-semibold">{{ s.order }}. {{ s.title }}</div>
+          <div class="mt-2 text-slate-200 text-sm whitespace-pre-line">{{ s.content }}</div>
+        </div>
         {% empty %}
-          <div class="text-slate-400 text-sm">Section yo‘q.</div>
+        <div class="text-slate-400 text-sm">Section yo‘q.</div>
         {% endfor %}
       </div>
     </section>
@@ -58,23 +82,24 @@
 
       <div class="mt-4 space-y-2">
         {% for w in lesson.words.all|slice:":12" %}
-          <div class="rounded-2xl border border-white/10 bg-black/20 p-3">
-            <div class="arabic-font text-2xl font-black" dir="rtl">{{ w.arabic }}</div>
-            <div class="text-xs text-slate-300 mt-1">
-              {% if w.translation_uz %}UZ: <span class="text-white font-semibold">{{ w.translation_uz }}</span>{% endif %}
-              {% if w.translation_ru %}<span class="text-slate-500"> • </span>RU: <span class="text-slate-100 font-semibold">{{ w.translation_ru }}</span>{% endif %}
-            </div>
-            {% if w.transliteration %}
-              <div class="text-xs text-slate-400 mt-1">{{ w.transliteration }}</div>
-            {% endif %}
+        <div class="rounded-2xl border border-white/10 bg-black/20 p-3">
+          <div class="arabic-font text-2xl font-black" dir="rtl">{{ w.arabic }}</div>
+          <div class="text-xs text-slate-300 mt-1">
+            {% if w.translation_uz %}UZ: <span class="text-white font-semibold">{{ w.translation_uz }}</span>{% endif %}
+            {% if w.translation_ru %}<span class="text-slate-500"> • </span>RU: <span
+              class="text-slate-100 font-semibold">{{ w.translation_ru }}</span>{% endif %}
           </div>
+          {% if w.transliteration %}
+          <div class="text-xs text-slate-400 mt-1">{{ w.transliteration }}</div>
+          {% endif %}
+        </div>
         {% empty %}
-          <div class="text-slate-400 text-sm">Bu darsga so‘z qo‘shilmagan.</div>
+        <div class="text-slate-400 text-sm">Bu darsga so‘z qo‘shilmagan.</div>
         {% endfor %}
       </div>
 
       {% if lesson.words.count > 12 %}
-        <div class="mt-3 text-xs text-slate-400">Yana so‘zlar lug‘atda.</div>
+      <div class="mt-3 text-xs text-slate-400">Yana so‘zlar lug‘atda.</div>
       {% endif %}
     </section>
 
@@ -86,24 +111,21 @@
 
       <div class="mt-4 space-y-2">
         {% for e in lesson.exercises.all %}
-          <div class="rounded-2xl border border-white/10 bg-black/20 p-4">
-            <div class="font-semibold">{{ e.title }}</div>
-            <div class="mt-1 text-xs text-slate-400">{{ e.get_type_display }}</div>
-            {% if e.instruction %}
-              <div class="mt-2 text-sm text-slate-200">{{ e.instruction }}</div>
-            {% endif %}
-            <div class="mt-3">
-              <button class="rounded-2xl bg-white text-slate-950 px-4 py-2 text-sm font-semibold hover:bg-slate-200">
-                <a href="{% url 'arab:exercise_run' e.id %}"
-                    class="inline-flex rounded-2xl bg-white text-slate-950 px-4 py-2 text-sm font-semibold hover:bg-slate-200">
-                    Start
-                </a>
-              </button>
-              <span class="ml-2 text-xs text-slate-400">(keyin backend ulaymiz)</span>
-            </div>
+        <div class="rounded-2xl border border-white/10 bg-black/20 p-4">
+          <div class="font-semibold">{{ e.title }}</div>
+          <div class="mt-1 text-xs text-slate-400">{{ e.get_type_display }}</div>
+          {% if e.instruction %}
+          <div class="mt-2 text-sm text-slate-200">{{ e.instruction }}</div>
+          {% endif %}
+          <div class="mt-3">
+            <a href="{% url 'arab:exercise_run' e.id %}"
+              class="inline-flex rounded-2xl bg-white text-slate-950 px-6 py-2 text-sm font-semibold hover:bg-slate-200 transition">
+              Start
+            </a>
           </div>
+        </div>
         {% empty %}
-          <div class="text-slate-400 text-sm">Exercise yo‘q.</div>
+        <div class="text-slate-400 text-sm">Exercise yo‘q.</div>
         {% endfor %}
       </div>
     </section>

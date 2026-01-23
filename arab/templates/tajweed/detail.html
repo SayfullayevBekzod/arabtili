@@ -3,33 +3,138 @@
 {% block title %}{{ rule.title }}{% endblock %}
 {% block content %}
 
-<section class="rounded-3xl border border-white/10 bg-white/5 p-6">
-  <div class="text-xs text-slate-400">{{ rule.level }}</div>
-  <h1 class="mt-1 text-3xl font-black">{{ rule.title }}</h1>
-  <p class="mt-3 text-slate-200 leading-relaxed whitespace-pre-line">{{ rule.explanation }}</p>
+<!-- BACK BUTTON -->
+<a href="{% url 'arab:tajweed_index' %}"
+  class="inline-flex items-center gap-2 text-sm text-slate-400 hover:text-white transition mb-6">
+  ← Tajvid qoidalari
+</a>
+
+<!-- RULE HEADER -->
+<section class="rounded-3xl border border-white/10 bg-white/5 p-8 relative overflow-hidden">
+  <div class="pointer-events-none absolute -top-32 -right-32 h-64 w-64 rounded-full bg-emerald-500/10 blur-3xl"></div>
+
+  <div class="relative">
+    <div class="flex flex-wrap gap-2">
+      <div
+        class="inline-block rounded-xl border border-white/10 bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-300">
+        Level {{ rule.level }}
+      </div>
+      <div
+        class="inline-block rounded-xl border border-white/10 bg-sky-500/10 px-3 py-1 text-xs font-semibold text-sky-300">
+        {{ rule.get_category_display }}
+      </div>
+    </div>
+    <h1 class="mt-4 text-4xl md:text-5xl font-black text-white leading-tight">
+      {{ rule.title }}
+    </h1>
+
+    <!-- LOGIC PATH -->
+    <div class="mt-4 p-4 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-between group">
+      <div class="flex items-center gap-3">
+        <span class="text-2xl">🌲</span>
+        <div>
+          <div class="text-xs font-bold text-slate-500 uppercase tracking-widest">Mantiqiy yo'l</div>
+          <div class="text-sm text-slate-300 font-medium">Ushbu qoidani mantiqiy topishni o'rganing</div>
+        </div>
+      </div>
+      <a href="{% url 'arab:tajweed_logic_tree' %}"
+        class="rounded-xl bg-white/5 px-4 py-2 text-xs font-bold hover:bg-emerald-500 hover:text-slate-950 transition">Topuvchi
+        →</a>
+    </div>
+
+    <div class="mt-6 text-lg text-slate-200 leading-relaxed max-w-3xl whitespace-pre-line">
+      {{ rule.explanation }}
+    </div>
+
+    <!-- COLOR LEGEND -->
+    <div class="mt-8 border-t border-white/10 pt-6">
+      <h3 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-4">Ranglar ma'nosi</h3>
+      <div class="flex flex-wrap gap-4">
+        <div class="flex items-center gap-3 bg-white/5 rounded-xl px-4 py-2 border border-white/5">
+          <div class="w-3 h-3 rounded-full bg-emerald-400 shadow-[0_0_10px_rgba(52,211,153,0.5)]"></div>
+          <span class="text-sm text-slate-300">Tabiiy / Asosiy</span>
+        </div>
+        <div class="flex items-center gap-3 bg-white/5 rounded-xl px-4 py-2 border border-white/5">
+          <div class="w-3 h-3 rounded-full bg-amber-400 shadow-[0_0_10px_rgba(251,191,36,0.5)]"></div>
+          <span class="text-sm text-slate-300">G'unna (Burun)</span>
+        </div>
+        <div class="flex items-center gap-3 bg-white/5 rounded-xl px-4 py-2 border border-white/5">
+          <div class="w-3 h-3 rounded-full bg-rose-400 shadow-[0_0_10px_rgba(251,113,133,0.5)]"></div>
+          <span class="text-sm text-slate-300">Madd (Cho'ziq)</span>
+        </div>
+        <div class="flex items-center gap-3 bg-white/5 rounded-xl px-4 py-2 border border-white/5">
+          <div class="w-3 h-3 rounded-full bg-sky-400 shadow-[0_0_10px_rgba(56,189,248,0.5)]"></div>
+          <span class="text-sm text-slate-300">Qalqala (Tebranish)</span>
+        </div>
+        <div class="flex items-center gap-3 bg-white/5 rounded-xl px-4 py-2 border border-white/5">
+          <div class="w-3 h-3 rounded-full bg-violet-400 shadow-[0_0_10px_rgba(167,139,250,0.5)]"></div>
+          <span class="text-sm text-slate-300">Maxsus qoidalar</span>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<div class="mt-6 space-y-4">
+<!-- EXAMPLES LIST -->
+<div class="mt-8 space-y-6">
+  <div class="flex items-center justify-between">
+    <h2 class="text-2xl font-bold">Misollar</h2>
+    <span class="text-xs text-slate-400">{{ examples|length }} ta misol</span>
+  </div>
+
   {% for ex in examples %}
-    <div class="rounded-3xl border border-white/10 bg-white/5 p-6">
-      <div class="flex items-start justify-between gap-4">
-        <div class="arabic-font text-4xl font-black leading-relaxed" dir="rtl">
+  <div
+    class="group relative rounded-3xl border border-white/10 bg-white/5 p-6 md:p-8 hover:bg-white/10 transition-all duration-300">
+    <!-- Decor line -->
+    <div
+      class="absolute left-0 top-8 h-12 w-1 rounded-r-full bg-emerald-500 opacity-50 group-hover:opacity-100 transition">
+    </div>
+
+    <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
+
+      <!-- Arabic & Transliteration -->
+      <div>
+        <div class="arabic-font text-5xl md:text-6xl font-black leading-relaxed tracking-wide text-white" dir="rtl">
           {% highlight_arabic ex %}
         </div>
-        {% if ex.audio %}
-          <button class="rounded-2xl bg-white text-slate-950 px-4 py-2 font-semibold hover:bg-slate-200"
-                  onclick="new Audio('{{ ex.audio.url }}').play()">
-            🔊 Audio
-          </button>
+
+        {% if ex.transliteration %}
+        <div class="mt-4 text-lg text-emerald-300 font-medium font-serif italic opacity-90">
+          / {{ ex.transliteration }} /
+        </div>
         {% endif %}
       </div>
 
-      {% if ex.translation_uz %}
-        <div class="mt-3 text-sm text-slate-300">{{ ex.translation_uz }}</div>
+      <!-- Audio Action -->
+      {% if ex.audio %}
+      <button
+        class="shrink-0 rounded-2xl bg-white/10 text-white px-5 py-3 font-semibold hover:bg-white hover:text-slate-950 transition flex items-center gap-2 group/btn"
+        onclick="new Audio('{{ ex.audio.url }}').play()">
+        <span class="text-xl group-hover/btn:scale-110 transition">🔊</span>
+        <span>Tinglash</span>
+      </button>
       {% endif %}
     </div>
+
+    <!-- Description & Translation -->
+    <div class="mt-6 border-t border-white/5 pt-4 grid gap-2">
+      {% if ex.description %}
+      <div class="text-sm text-slate-300">
+        <span class="text-emerald-400 font-semibold">Izoh:</span> {{ ex.description }}
+      </div>
+      {% endif %}
+
+      {% if ex.translation_uz %}
+      <div class="text-sm text-slate-400">
+        <span class="text-slate-500">Tarjima:</span> {{ ex.translation_uz }}
+      </div>
+      {% endif %}
+    </div>
+  </div>
   {% empty %}
-    <div class="text-slate-300">Hali misollar yo‘q.</div>
+  <div class="rounded-3xl border border-dashed border-white/10 p-8 text-center text-slate-400">
+    Hozircha misollar kiritilmagan.
+  </div>
   {% endfor %}
 </div>
 

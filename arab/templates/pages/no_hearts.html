@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Yuraklar tugadi{% endblock %}
+
+{% block content %}
+<div class="max-w-xl mx-auto py-20 px-4 text-center">
+    <div
+        class="inline-flex items-center justify-center w-24 h-24 rounded-full bg-red-500/20 shadow-lg shadow-red-500/20 mb-8 animate-pulse">
+        <span class="text-5xl">💔</span>
+    </div>
+
+    <h1 class="text-4xl font-black text-white mb-4">Yuraklar tugadi!</h1>
+    <p class="text-lg text-slate-400 mb-10">
+        Sizda xato qilish imkoniyati qolmadi. Davom etish uchun Review qiling va yuraklarni tiklang.
+    </p>
+
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="{% url 'arab:review' %}"
+            class="py-3 px-8 rounded-2xl bg-gradient-to-r from-emerald-500 to-cyan-500 text-white font-bold shadow-lg shadow-emerald-500/20 hover:scale-[1.02] transition-transform">
+            🧠 Review qilish (+1 ❤️)
+        </a>
+        <a href="{% url 'arab:home' %}"
+            class="py-3 px-8 rounded-2xl bg-slate-800 text-slate-300 font-bold hover:bg-slate-700 transition-colors">
+            🏠 Bosh sahifa
+        </a>
+    </div>
+</div>
+{% endblock %}

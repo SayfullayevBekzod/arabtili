@@ -1,152 +1,141 @@
 {% extends "base.html" %}
-{% block title %}Review{% endblock %}
+{% block title %}Review Session - Spaced Repetition{% endblock %}
 {% block content %}
 
-<!-- HERO -->
-<section class="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-6 md:p-10">
-  <div class="pointer-events-none absolute -top-32 -left-32 h-80 w-80 rounded-full bg-emerald-400/15 blur-3xl"></div>
-  <div class="pointer-events-none absolute -bottom-32 -right-32 h-80 w-80 rounded-full bg-sky-400/15 blur-3xl"></div>
-
-  <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-5">
-    <div>
-      <div class="text-xs text-slate-400">Review • Spaced repetition</div>
-      <h1 class="mt-1 text-3xl md:text-5xl font-black">🧠 Review</h1>
-      <p class="mt-2 text-slate-300 text-sm max-w-2xl leading-relaxed">
-        Bugun takrorlanadigan kartalar. Avval o‘zingiz eslang, keyin ma’nosini oching.
-      </p>
-
-      <div class="mt-5 flex flex-wrap gap-2 text-xs">
-        <span class="rounded-2xl border border-white/10 bg-slate-950/40 px-3 py-2 text-slate-300">✅ Recall first</span>
-        <span class="rounded-2xl border border-white/10 bg-slate-950/40 px-3 py-2 text-slate-300">✅ Grade</span>
-        <span class="rounded-2xl border border-white/10 bg-slate-950/40 px-3 py-2 text-slate-300">✅ Repeat daily</span>
+<div x-data="reviewSession()" class="max-w-4xl mx-auto py-10 px-4">
+  <!-- Header with Progress -->
+  <div class="mb-12 space-y-4">
+    <div class="flex items-center justify-between">
+      <h1 class="text-3xl font-black flex items-center gap-3">
+        <span class="text-emerald-400">🧠</span> Takrorlash
+      </h1>
+      <div class="text-xs font-bold text-slate-500 uppercase tracking-widest">
+        Kartalar: <span class="text-white" x-text="currentIndex + 1"></span> / <span x-text="totalCards"></span>
       </div>
     </div>
 
-    <div class="rounded-3xl border border-white/10 bg-slate-950/40 px-5 py-4 text-sm text-slate-300 self-start">
-      <div class="text-xs text-slate-400">Bugungi kartalar</div>
-      <div class="mt-1 text-2xl font-black text-white">{{ cards|length }}</div>
-      <div class="mt-1 text-xs text-slate-500">ta</div>
+    <div class="h-1.5 w-full bg-white/5 rounded-full overflow-hidden border border-white/5">
+      <div class="h-full bg-emerald-500 transition-all duration-500" :style="'width: ' + progress + '%'"></div>
     </div>
   </div>
-</section>
 
-<!-- CARDS -->
-<div class="mt-6 grid md:grid-cols-2 gap-4">
+  <!-- Cards Container -->
+  <div class="relative min-h-[500px]">
+    {% for c in cards %}
+    <div x-show="currentIndex === {{ forloop.index0 }}" x-transition:enter="transition ease-out duration-300 transform"
+      x-transition:enter-start="opacity-0 translate-x-12" x-transition:enter-end="opacity-100 translate-x-0"
+      class="absolute inset-0">
 
-  {% for c in cards %}
-    <div class="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-6
-                transition-all duration-300 hover:bg-white/10 hover:-translate-y-1 hover:border-white/20">
+      <div
+        class="bg-slate-900/60 border border-white/10 rounded-[3rem] p-10 md:p-16 shadow-2xl backdrop-blur-xl h-full flex flex-col items-center justify-center text-center space-y-10">
 
-      <span class="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition
-                   bg-gradient-to-tr from-transparent via-white/10 to-transparent"></span>
+        <!-- Card Type Badge -->
+        <div
+          class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-[10px] font-black tracking-widest text-slate-500 uppercase">
+          {% if c.word %}SO'Z{% else %}HARF{% endif %} KARTASI
+        </div>
 
-      <!-- Header -->
-      <div class="flex items-start justify-between gap-4">
-        <div class="text-xs">
+        <!-- Main Content (Front) -->
+        <div class="space-y-6">
           {% if c.word %}
-            <span class="rounded-full border border-emerald-400/30 bg-emerald-500/15 px-3 py-1 text-emerald-200">WORD</span>
+          <div
+            class="arabic-font text-7xl md:text-9xl font-black text-white hover:scale-105 transition-transform duration-500 select-none"
+            dir="rtl">
+            {{ c.word.arabic }}
+          </div>
           {% else %}
-            <span class="rounded-full border border-sky-400/30 bg-sky-500/15 px-3 py-1 text-sky-200">LETTER</span>
+          <div
+            class="arabic-font text-8xl md:text-[10rem] font-black text-white hover:scale-105 transition-transform duration-500 select-none"
+            dir="rtl">
+            {{ c.letter.arabic }}
+          </div>
+          <div class="text-2xl font-black text-slate-300">{{ c.letter.name }}</div>
           {% endif %}
         </div>
 
-        <div class="text-xs text-slate-400">
-          <span class="rounded-full border border-white/10 bg-slate-950/40 px-3 py-1">
-            Due: {{ c.due_at }}
-          </span>
-        </div>
-      </div>
+        <!-- Reveal Button / Back Side -->
+        <div class="w-full max-w-sm" x-data="{ revealed: false }">
+          <button x-show="!revealed" @click="revealed = true"
+            class="w-full py-5 rounded-[2rem] bg-white text-slate-950 font-black text-sm tracking-widest hover:bg-emerald-400 transition-all shadow-xl shadow-white/5">
+            MA'NOSINI KO'RISH
+          </button>
 
-      <!-- Prompt -->
-      {% if c.word %}
-        <div class="mt-4" dir="rtl">
-          <div class="arabic-font text-4xl md:text-5xl font-black text-white">{{ c.word.arabic }}</div>
-        </div>
+          <div x-show="revealed" x-transition:enter="transition ease-out duration-300"
+            class="space-y-8 animate-in fade-in slide-in-from-bottom-4">
 
-        <!-- reveal area -->
-        <div class="mt-4 rounded-2xl border border-white/10 bg-slate-950/40 p-4 [direction:ltr]">
-          <div class="flex items-center justify-between gap-3">
-            <div class="text-xs text-slate-400">Ma’no</div>
-            <button type="button"
-                    class="revealBtn rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-xs text-slate-300 hover:bg-white/10 transition">
-              Show
-            </button>
+            <div class="space-y-3">
+              {% if c.word %}
+              <div class="text-3xl font-black text-emerald-400">{{ c.word.translation_uz }}</div>
+              <div class="text-lg text-slate-400">{{ c.word.transliteration }}</div>
+              {% else %}
+              <div class="p-4 rounded-2xl bg-white/5 border border-white/5 text-sm text-slate-400 italic">
+                Ushbu harfni esladingizmi? Shakllarini ko'z oldingizga keltiring.
+              </div>
+              {% endif %}
+            </div>
+
+            <!-- Grade Buttons -->
+            <div class="grid grid-cols-3 gap-3">
+              <a href="/review/grade/{{ c.id }}/0/"
+                class="flex flex-col items-center justify-center p-4 rounded-2xl bg-red-500/10 border border-red-500/20 text-red-500 hover:bg-red-500 hover:text-white transition-all group">
+                <span class="font-black text-lg">0</span>
+                <span
+                  class="text-[9px] font-bold uppercase tracking-tighter opacity-60 group-hover:opacity-100">Qiyin</span>
+              </a>
+              <a href="/review/grade/{{ c.id }}/3/"
+                class="flex flex-col items-center justify-center p-4 rounded-2xl bg-sky-500/10 border border-sky-500/20 text-sky-500 hover:bg-sky-500 hover:text-white transition-all group">
+                <span class="font-black text-lg">3</span>
+                <span
+                  class="text-[9px] font-bold uppercase tracking-tighter opacity-60 group-hover:opacity-100">O'rtacha</span>
+              </a>
+              <a href="/review/grade/{{ c.id }}/5/"
+                class="flex flex-col items-center justify-center p-4 rounded-2xl bg-emerald-500 text-slate-950 hover:bg-emerald-400 transition-all group shadow-lg shadow-emerald-500/20">
+                <span class="font-black text-lg">5</span>
+                <span
+                  class="text-[9px] font-bold uppercase tracking-tighter opacity-80 group-hover:opacity-100">Oson</span>
+              </a>
+            </div>
           </div>
-
-          <div class="revealBody hidden mt-3 text-sm text-slate-200">
-            <div>
-              UZ:
-              <span class="text-white font-semibold">{{ c.word.translation_uz|default:"—" }}</span>
-            </div>
-            <div class="mt-1 text-slate-300">
-              RU:
-              <span class="text-slate-100 font-semibold">{{ c.word.translation_ru|default:"—" }}</span>
-            </div>
-            <div class="mt-2 text-xs text-slate-400">
-              Transliteration: <span class="text-slate-200">{{ c.word.transliteration|default:"—" }}</span>
-            </div>
-          </div>
         </div>
 
-      {% else %}
-        <div class="mt-4 text-center" dir="rtl">
-          <div class="arabic-font text-6xl md:text-7xl font-black text-white">{{ c.letter.arabic }}</div>
-          <div class="mt-2 text-sm text-slate-300 [direction:ltr]">{{ c.letter.name }}</div>
-        </div>
-
-        <div class="mt-4 rounded-2xl border border-white/10 bg-slate-950/40 p-4 text-xs text-slate-300 [direction:ltr]">
-          Tip: Harfni eslab, shakllarini ko‘z oldingizga keltiring.
-        </div>
-      {% endif %}
-
-      <!-- Grades -->
-      <div class="mt-5 grid grid-cols-3 gap-2 text-sm">
-        <a href="/review/grade/{{ c.id }}/0/"
-           class="rounded-2xl border border-white/10 bg-slate-950/35 p-3 text-center hover:bg-white/10 transition">
-          0
-          <div class="text-[10px] text-slate-400 mt-1">Qiyin</div>
-        </a>
-
-        <a href="/review/grade/{{ c.id }}/3/"
-           class="rounded-2xl border border-white/10 bg-slate-950/35 p-3 text-center hover:bg-white/10 transition">
-          3
-          <div class="text-[10px] text-slate-400 mt-1">O‘rtacha</div>
-        </a>
-
-        <a href="/review/grade/{{ c.id }}/5/"
-           class="rounded-2xl bg-white text-slate-950 p-3 text-center font-semibold hover:bg-slate-200 transition">
-          5
-          <div class="text-[10px] text-slate-700 mt-1">Oson</div>
-        </a>
-      </div>
-
-    </div>
-  {% empty %}
-    <div class="rounded-3xl border border-white/10 bg-white/5 p-8 text-slate-300">
-      <div class="text-2xl font-black">Bugun review yo‘q 🎉</div>
-      <div class="mt-2 text-sm text-slate-400">
-        Ertaga qaytib ko‘ring yoki lug‘atdan yangi so‘zlarni qo‘shing.
-      </div>
-      <div class="mt-5 flex gap-2">
-        <a href="/dictionary/" class="rounded-2xl bg-white text-slate-950 px-5 py-3 text-sm font-semibold hover:bg-slate-200 transition">📚 Lug‘at</a>
-        <a href="/practice/" class="rounded-2xl border border-white/10 bg-white/5 px-5 py-3 text-sm hover:bg-white/10 transition">Practice</a>
       </div>
     </div>
-  {% endfor %}
+    {% endfor %}
 
+    <!-- Empty State -->
+    {% if not cards %}
+    <div class="bg-slate-900/40 border border-white/10 rounded-[3rem] p-16 text-center space-y-6">
+      <div class="text-6xl">🎉</div>
+      <h2 class="text-3xl font-black text-white">Hammasi tayyor!</h2>
+      <p class="text-slate-400 max-w-sm mx-auto">Bugun uchun barcha kartalarni takrorlab bo'ldingiz. Ertaga yana qaytib
+        keling.</p>
+      <div class="flex justify-center gap-3">
+        <a href="/dictionary/" class="px-8 py-4 rounded-2xl bg-emerald-500 text-slate-950 font-black text-sm">LUG'ATGA
+          O'TISH</a>
+        <a href="/practice/"
+          class="px-8 py-4 rounded-2xl bg-white/5 border border-white/10 text-white font-bold text-sm">MASHQ HUBI</a>
+      </div>
+    </div>
+    {% endif %}
+  </div>
 </div>
 
 <script>
-  // reveal meaning (word cards)
-  document.querySelectorAll(".revealBtn").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const wrap = btn.closest(".rounded-2xl");
-      const body = wrap.querySelector(".revealBody");
-      const isHidden = body.classList.contains("hidden");
-      body.classList.toggle("hidden");
-      btn.textContent = isHidden ? "Hide" : "Show";
-    });
-  });
+function reviewSession() {
+    return {
+        currentIndex: 0,
+        totalCards: {{ cards|length }},
+        get progress() {
+            return this.totalCards > 0 ? ((this.currentIndex) / this.totalCards) * 100 : 0;
+        }
+    }
+}
 </script>
+
+<style>
+  .font-arabic {
+    font-family: 'Noto Naskh Arabic', serif;
+  }
+</style>
 
 {% endblock %}

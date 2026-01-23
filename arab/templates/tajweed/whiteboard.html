@@ -1,0 +1,350 @@
+{% extends "base.html" %}
+{% block title %}Xattotlik Mashqi - Calligraphy Practice{% endblock %}
+{% block content %}
+
+<div class="max-w-7xl mx-auto py-10 px-4" x-data="whiteboard()">
+    <div class="text-center mb-10">
+        <h1 class="text-4xl font-black">🖌️ <span
+                x-text="mode === 'whiteboard' ? 'Oq doska' : 'Xattotlik Mashqi'"></span></h1>
+        <p class="mt-4 text-slate-400"
+            x-text="mode === 'whiteboard' ? 'Yozishni mashq qiling. Marker rangini tanlang va boshlang.' : 'Xattotlik qoidalariga ko\'ra yozishni mashq qiling. Andoza ustidan chizing.'">
+        </p>
+    </div>
+
+    <!-- Mode Toggle -->
+    <div class="flex justify-center mb-8">
+        <div class="inline-flex p-1 bg-white/5 border border-white/10 rounded-2xl">
+            <button @click="setMode('whiteboard')" class="px-6 py-2 rounded-xl font-bold transition-all"
+                :class="mode === 'whiteboard' ? 'bg-emerald-500 text-slate-950 shadow-lg' : 'text-slate-400 hover:text-white'">
+                Oq doska
+            </button>
+            <button @click="setMode('calligraphy')" class="px-6 py-2 rounded-xl font-bold transition-all"
+                :class="mode === 'calligraphy' ? 'bg-purple-500 text-white shadow-lg' : 'text-slate-400 hover:text-white'">
+                Xattotlik
+            </button>
+        </div>
+    </div>
+
+    <div class="flex flex-col lg:flex-row gap-8">
+        <!-- Toolbar -->
+        <div
+            class="lg:w-64 flex flex-col gap-4 p-6 rounded-[2rem] bg-white/5 border border-white/10 items-center overflow-hidden">
+
+            <template x-if="mode === 'calligraphy'">
+                <div class="w-full space-y-4">
+                    <div class="text-xs font-bold text-slate-500 uppercase tracking-widest">Andozalar</div>
+                    <div class="grid grid-cols-3 lg:grid-cols-2 gap-2 h-44 overflow-y-auto pr-2 custom-scrollbar">
+                        <template x-for="t in templates" :key="t.word">
+                            <button @click="setTemplate(t)"
+                                class="p-2 rounded-xl border-2 transition-all text-xl font-arabic flex items-center justify-center min-h-[50px] select-none"
+                                :class="currentTemplate?.word === t.word ? 'border-purple-500 bg-purple-500/20' : 'border-transparent bg-white/5 hover:bg-white/10'">
+                                <span x-text="t.word"></span>
+                            </button>
+                        </template>
+                    </div>
+                </div>
+            </template>
+
+            <div class="h-px w-full bg-white/10 my-2"></div>
+
+            <div class="w-full space-y-4">
+                <div class="text-xs font-bold text-slate-500 uppercase tracking-widest text-center">Markerlar</div>
+                <div class="grid grid-cols-3 gap-2">
+                    <template x-for="c in colors" :key="c.name">
+                        <button @click="setColor(c.hex)"
+                            class="h-10 w-10 rounded-full border-2 transition-transform hover:scale-110 mx-auto"
+                            :class="currentColor === c.hex && !isEraser ? 'border-white' : 'border-transparent'"
+                            :style="'background-color: ' + c.hex" :title="c.name">
+                        </button>
+                    </template>
+                </div>
+            </div>
+
+            <div class="h-px w-full bg-white/10 my-2"></div>
+
+            <div class="grid grid-cols-3 gap-2 w-full">
+                <button @click="setEraser()"
+                    class="p-4 rounded-2xl border-2 transition-all flex items-center justify-center"
+                    :class="isEraser ? 'border-purple-500 bg-purple-500/20 text-white' : 'border-transparent bg-white/10 text-slate-300'"
+                    title="O'chirg'ich">
+                    🧽
+                </button>
+
+                <button @click="clear()"
+                    class="p-4 rounded-2xl bg-white/10 border-2 border-transparent hover:bg-red-500/20 text-slate-300 hover:text-red-400 transition flex items-center justify-center"
+                    title="Tozalash">
+                    🗑️
+                </button>
+
+                <button @click="download()"
+                    class="p-4 rounded-2xl bg-white/10 border-2 border-transparent hover:bg-emerald-500/20 text-slate-300 hover:text-emerald-400 transition flex items-center justify-center"
+                    title="Saqlash">
+                    💾
+                </button>
+            </div>
+        </div>
+
+        <!-- Drawing Area -->
+        <div class="flex-1 flex flex-col gap-4">
+            <div class="relative group flex-1 bg-slate-900/40 rounded-[3rem] border-2 border-white/5 overflow-hidden">
+                <!-- Guide Layer -->
+                <canvas id="guideCanvas" class="absolute inset-0 pointer-events-none z-0"></canvas>
+
+                <!-- Main Layer -->
+                <canvas id="canvas"
+                    class="relative z-10 w-full h-[500px] md:h-[650px] cursor-crosshair transition-colors group-hover:border-white/10 outline-none"
+                    @mousedown="startDrawing($event)" @mousemove="handleMove($event)" @mouseup="stopDrawing()"
+                    @mouseleave="stopDrawing()" @touchstart.passive="startDrawing($event)"
+                    @touchmove.passive="handleMove($event)" @touchend.passive="stopDrawing()">
+                </canvas>
+
+                <!-- Template Overlay -->
+                <div x-show="mode === 'calligraphy' && currentTemplate"
+                    class="absolute inset-0 pointer-events-none z-0 flex items-center justify-center transition-opacity duration-300 select-none">
+                    <div class="text-[14rem] md:text-[24rem] font-arabic leading-none opacity-10 text-emerald-400"
+                        x-text="currentTemplate?.word"></div>
+                </div>
+
+                <!-- Guidance indicators -->
+                <div x-show="mode === 'calligraphy'" class="absolute bottom-8 left-8 z-30 flex items-center gap-3">
+                    <button @click="toggleGuideline()"
+                        class="px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-xs font-bold hover:bg-white/10 transition backdrop-blur-md">
+                        Chiziqlar: <span x-text="showGuides ? 'ON' : 'OFF'"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function whiteboard() {
+        return {
+            mode: 'calligraphy',
+            colors: [
+                { name: 'Oq', hex: '#ffffff' }, { name: 'Zangori', hex: '#38bdf8' },
+                { name: 'Zumrad', hex: '#10b981' }, { name: 'Sariq', hex: '#ffb822' },
+                { name: 'Pushti', hex: '#f472b6' }, { name: 'Qora', hex: '#000000' }
+            ],
+            templates: [
+                { word: 'ا', name: 'Alif' }, { word: 'ب', name: 'Ba' }, { word: 'ت', name: 'Ta' },
+                { word: 'ث', name: 'Tha' }, { word: 'ج', name: 'Jim' }, { word: 'س', name: 'Seen' },
+                { word: 'ص', name: 'Sod' }, { word: 'ط', name: 'To' }, { word: 'ع', name: 'Ayn' },
+                { word: 'ف', name: 'Fe' }, { word: 'ق', name: 'Qof' }, { word: 'ك', name: 'Kaf' },
+                { word: 'م', name: 'Meem' }, { word: 'ن', name: 'Noon' }, { word: 'هـ', name: 'Ha' },
+                { word: 'و', name: 'Wov' }, { word: 'ي', name: 'Ya' }, { word: 'الله', name: 'Allah' },
+                { word: 'مُحَمَّد', name: 'Muhammad' }, { word: 'سَلَام', name: 'Salom' }
+            ],
+            currentColor: '#ffffff',
+            currentTemplate: null,
+            isEraser: false,
+            isDrawing: false,
+            showGuides: true,
+            ctx: null,
+            guideCtx: null,
+            canvas: null,
+            guideCanvas: null,
+            lastPos: null,
+            needsSave: false,
+
+            init() {
+                this.currentTemplate = this.templates[0];
+                this.$nextTick(() => {
+                    this.canvas = document.getElementById('canvas');
+                    this.guideCanvas = document.getElementById('guideCanvas');
+                    this.ctx = this.canvas.getContext('2d', { alpha: true });
+                    this.guideCtx = this.guideCanvas.getContext('2d', { alpha: true });
+
+                    this.resize();
+                    this.loadFromLocal();
+
+                    // Efficiency: Resize observer or debounced resize
+                    let resizeTimer;
+                    window.addEventListener('resize', () => {
+                        clearTimeout(resizeTimer);
+                        resizeTimer = setTimeout(() => this.resize(), 150);
+                    });
+
+                    // Auto-save debouncer (every 3 seconds if needed)
+                    setInterval(() => {
+                        if (this.needsSave) { this.saveToLocal(); this.needsSave = false; }
+                    }, 3000);
+                });
+            },
+
+            setMode(m) {
+                this.mode = m;
+                this.drawGuides();
+                this.setCtxStyles();
+            },
+
+            resize() {
+                const rect = this.canvas.parentElement.getBoundingClientRect();
+                const temp = this.canvas.toDataURL();
+
+                this.canvas.width = rect.width;
+                this.canvas.height = this.canvas.offsetHeight || 650;
+                this.guideCanvas.width = this.canvas.width;
+                this.guideCanvas.height = this.canvas.height;
+
+                const img = new Image();
+                img.src = temp;
+                img.onload = () => {
+                    this.ctx.drawImage(img, 0, 0);
+                    this.setCtxStyles();
+                };
+
+                this.setCtxStyles();
+                this.drawGuides();
+            },
+
+            drawGuides() {
+                const g = this.guideCtx;
+                const w = this.guideCanvas.width;
+                const h = this.guideCanvas.height;
+                g.clearRect(0, 0, w, h);
+                if (!this.showGuides) return;
+
+                const cy = h / 2;
+                g.strokeStyle = 'rgba(255, 255, 255, 0.04)';
+                g.lineWidth = 1;
+
+                if (this.mode === 'calligraphy') {
+                    const space = 80;
+                    g.beginPath(); g.moveTo(50, cy); g.lineTo(w - 50, cy); g.stroke();
+                    g.setLineDash([5, 5]);
+                    g.beginPath(); g.moveTo(50, cy - space); g.lineTo(w - 50, cy - space); g.stroke();
+                    g.beginPath(); g.moveTo(50, cy + space); g.lineTo(w - 50, cy + space); g.stroke();
+                    g.setLineDash([]);
+                } else {
+                    for (let i = 50; i < h; i += 50) {
+                        g.beginPath(); g.moveTo(0, i); g.lineTo(w, i); g.stroke();
+                    }
+                }
+            },
+
+            toggleGuideline() { this.showGuides = !this.showGuides; this.drawGuides(); },
+
+            setCtxStyles() {
+                this.ctx.lineCap = 'round';
+                this.ctx.lineJoin = 'round';
+                this.ctx.lineWidth = this.mode === 'calligraphy' && !this.isEraser ? 14 : (this.isEraser ? 40 : 5);
+                this.ctx.strokeStyle = this.isEraser ? '#0f172a' : this.currentColor;
+            },
+
+            getPos(e) {
+                const rect = this.canvas.getBoundingClientRect();
+                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+                return { x: clientX - rect.left, y: clientY - rect.top };
+            },
+
+            startDrawing(e) {
+                this.isDrawing = true;
+                this.setCtxStyles();
+                const pos = this.getPos(e);
+                this.lastPos = pos;
+                if (this.mode === 'calligraphy' && !this.isEraser) {
+                    this.drawNib(pos.x, pos.y);
+                } else {
+                    this.ctx.beginPath();
+                    this.ctx.moveTo(pos.x, pos.y);
+                }
+            },
+
+            handleMove(e) {
+                if (!this.isDrawing) return;
+                // FPS optimization: use requestAnimationFrame if many events
+                window.requestAnimationFrame(() => this.draw(this.getPos(e)));
+            },
+
+            draw(pos) {
+                if (!this.isDrawing) return;
+                if (this.mode === 'calligraphy' && !this.isEraser) {
+                    const dist = Math.hypot(pos.x - this.lastPos.x, pos.y - this.lastPos.y);
+                    const steps = Math.min(Math.ceil(dist / 2), 20); // Cap steps for perf
+                    for (let i = 0; i < steps; i++) {
+                        const x = this.lastPos.x + (pos.x - this.lastPos.x) * (i / steps);
+                        const y = this.lastPos.y + (pos.y - this.lastPos.y) * (i / steps);
+                        this.drawNib(x, y);
+                    }
+                    this.drawNib(pos.x, pos.y);
+                } else {
+                    this.ctx.lineTo(pos.x, pos.y);
+                    this.ctx.stroke();
+                }
+                this.lastPos = pos;
+                this.needsSave = true;
+            },
+
+            drawNib(x, y) {
+                const w = this.ctx.lineWidth;
+                const h = w / 4;
+                this.ctx.save();
+                this.ctx.translate(x, y);
+                this.ctx.rotate(0.7); // ~40 deg
+                this.ctx.fillStyle = this.currentColor;
+                this.ctx.fillRect(-w / 2, -h / 2, w, h);
+                this.ctx.restore();
+            },
+
+            stopDrawing() {
+                if (!this.isDrawing) return;
+                this.isDrawing = false;
+                if (this.mode !== 'calligraphy' || this.isEraser) this.ctx.closePath();
+                this.saveToLocal();
+            },
+
+            saveToLocal() {
+                // Memory efficient saving
+                try { localStorage.setItem('whiteboard_cache', this.canvas.toDataURL('image/png', 0.5)); } catch (e) { }
+            },
+
+            loadFromLocal() {
+                const data = localStorage.getItem('whiteboard_cache');
+                if (data) {
+                    const img = new Image();
+                    img.src = data;
+                    img.onload = () => this.ctx.drawImage(img, 0, 0);
+                }
+            },
+
+            setColor(hex) { this.isEraser = false; this.currentColor = hex; this.setCtxStyles(); },
+            setEraser() { this.isEraser = true; this.setCtxStyles(); },
+            setTemplate(t) { this.currentTemplate = t; this.clear(); },
+            clear() { this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); this.saveToLocal(); },
+            download() {
+                const link = document.createElement('a');
+                link.download = `arab-lesson-${Date.now()}.png`;
+                link.href = this.canvas.toDataURL();
+                link.click();
+            }
+        }
+    }
+</script>
+
+<style>
+    .font-arabic {
+        font-family: 'Amiri', serif;
+    }
+
+    canvas {
+        touch-action: none;
+        background: transparent;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.02);
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: 10px;
+    }
+</style>
+
+{% endblock %}

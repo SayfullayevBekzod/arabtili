@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="uz">
+
 <head>
   <meta charset="utf-8">
   <title>{% block title %}Arab Academy{% endblock %}</title>
@@ -8,44 +9,128 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;700;900&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;700;900&family=Inter:wght@400;600;800&display=swap"
+    rel="stylesheet">
   <script src="https://kit.fontawesome.com/a2e0e6adf3.js" crossorigin="anonymous"></script>
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
   <style>
-    .arabic-font { font-family: "Noto Naskh Arabic", serif; }
+    .arabic-font {
+      font-family: "Noto Naskh Arabic", serif;
+    }
 
-    .logo-glow{
-      box-shadow: 0 0 0 0 rgba(52,211,153,0);
+    .logo-glow {
+      box-shadow: 0 0 0 0 rgba(52, 211, 153, 0);
       transition: box-shadow .3s ease, transform .3s ease;
     }
-    .group:hover .logo-glow{
+
+    .group:hover .logo-glow {
       box-shadow:
-        0 0 0 4px rgba(52,211,153,.14),
-        0 10px 40px rgba(56,189,248,.20);
+        0 0 0 4px rgba(52, 211, 153, .14),
+        0 10px 40px rgba(56, 189, 248, .20);
       transform: scale(1.05);
     }
 
-    .mobile-link{
+    .nav-link {
+      position: relative;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #10b981, #3b82f6);
+      transition: all 0.3s ease;
+      transform: translateX(-50%);
+      border-radius: 10px;
+    }
+
+    .nav-link:hover::after,
+    .nav-link.active::after {
+      width: 60%;
+    }
+
+    .mobile-link {
       padding: 14px 16px;
       border-radius: 1rem;
-      border: 1px solid rgba(255,255,255,.08);
-      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255, 255, 255, .08);
+      background: rgba(255, 255, 255, .04);
       transition: all .25s;
     }
-    .mobile-link:hover{
-      background: rgba(255,255,255,.12);
+
+    .mobile-link:hover {
+      background: rgba(255, 255, 255, .12);
       transform: translateX(4px);
+    }
+
+    @keyframes slideUpNav {
+      from {
+        transform: translate(-50%, 2rem);
+        opacity: 0;
+      }
+
+      to {
+        transform: translate(-50%, 0);
+        opacity: 1;
+      }
+    }
+
+    .floating-nav {
+      position: fixed;
+      bottom: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 2rem);
+      max-width: 400px;
+      background: rgba(15, 23, 42, 0.8);
+      backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 2.25rem;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 0.85rem;
+      box-shadow:
+        0 4px 6px -1px rgba(0, 0, 0, 0.1),
+        0 20px 25px -5px rgba(0, 0, 0, 0.2),
+        0 10px 10px -5px rgba(0, 0, 0, 0.1);
+      z-index: 100;
+      animation: slideUpNav 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+      animation-delay: 0.2s;
+    }
+
+    .floating-nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.25rem;
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 0.7rem;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .floating-nav-item.active {
+      color: #10b981;
+    }
+
+    .floating-nav-item i {
+      font-size: 1.25rem;
     }
   </style>
 </head>
 
 <body class="bg-slate-950 text-white font-['Inter'] selection:bg-emerald-400/30">
 
-<!-- HEADER -->
-<header class="sticky top-3 z-50">
-  <div class="mx-auto w-[min(1150px,92%)]">
-    <div
-      class="
+  <!-- HEADER -->
+  <header class="sticky top-3 z-50">
+    <div class="mx-auto w-[min(1150px,92%)]">
+      <div class="
         flex items-center justify-between gap-3
         rounded-3xl
         border border-white/10
@@ -54,162 +139,304 @@
         px-4 sm:px-6 py-3
         transition-all duration-300
         hover:bg-white/5
-      "
-    >
+      ">
 
-      <!-- Brand -->
-      <a href="/" class="flex items-center gap-3 group select-none">
-        <!-- Ideal text logo -->
-        <div class="relative h-11 w-11 rounded-2xl overflow-hidden border border-white/10 logo-glow">
-          <div class="absolute inset-0 bg-gradient-to-br from-emerald-400/40 via-sky-400/30 to-fuchsia-400/20"></div>
-          <div class="absolute inset-0 opacity-70 bg-[radial-gradient(circle_at_20%_20%,rgba(255,255,255,.35),transparent_60%)]"></div>
-          <div class="relative h-full w-full grid place-items-center">
-            <div class="text-[13px] font-black tracking-wider">AP</div>
-            <div class="absolute -bottom-1 right-1 arabic-font text-[13px] opacity-90" dir="rtl">ع</div>
+        <!-- Brand -->
+        <a href="/" class="flex items-center gap-3 group select-none">
+          <!-- Ideal text logo -->
+          <div class="relative h-11 w-11 rounded-2xl overflow-hidden border border-white/10 logo-glow">
+            <div class="absolute inset-0 bg-gradient-to-br from-emerald-400/40 via-sky-400/30 to-fuchsia-400/20"></div>
+            <div
+              class="absolute inset-0 opacity-70 bg-[radial-gradient(circle_at_20%_20%,rgba(255,255,255,.35),transparent_60%)]">
+            </div>
+            <div class="relative h-full w-full grid place-items-center">
+              <div class="text-[13px] font-black tracking-wider">AP</div>
+              <div class="absolute -bottom-1 right-1 arabic-font text-[13px] opacity-90" dir="rtl">ع</div>
+            </div>
           </div>
-        </div>
 
-        <div class="leading-tight">
-          <div class="font-black leading-none text-white">AlifPro Academy</div>
-          <div class="text-[11px] text-slate-300 leading-none">0 → PRO learning</div>
-        </div>
-      </a>
-
-      <!-- Desktop Nav -->
-      <nav class="hidden lg:flex items-center gap-1 text-sm">
-        {% with p=request.path %}
-        <a href="/alphabet/" class="px-4 py-2 rounded-2xl transition hover:bg-white/10 hover:text-white {% if '/alphabet/' in p %}bg-white/10{% endif %}">Alifbo</a>
-        <a href="/courses/" class="px-4 py-2 rounded-2xl transition hover:bg-white/10 hover:text-white {% if '/courses/' in p or '/lessons/' in p %}bg-white/10{% endif %}">Kurslar</a>
-        <a href="/practice/" class="px-4 py-2 rounded-2xl transition hover:bg-white/10 hover:text-white {% if '/practice/' in p %}bg-white/10{% endif %}">Practice</a>
-        <a href="/review/" class="px-4 py-2 rounded-2xl transition hover:bg-white/10 hover:text-white {% if '/review/' in p %}bg-white/10{% endif %}">Review</a>
-        <a href="/dictionary/" class="px-4 py-2 rounded-2xl transition hover:bg-white/10 hover:text-white {% if '/dictionary/' in p %}bg-white/10{% endif %}">Lug‘at</a>
-        <a href="/tajweed/"
-          class="px-4 py-2 rounded-2xl transition hover:bg-white/10 hover:text-white
-          {% if '/tajweed/' in p %}bg-white/10{% endif %}">
-          Tajweed
+          <div class="leading-tight">
+            <div class="font-black leading-none text-white">AlifPro Academy</div>
+            <div class="text-[11px] text-slate-300 leading-none">0 → PRO learning</div>
+          </div>
         </a>
-        {% endwith %}
-      </nav>
 
-      <!-- Right (desktop buttons) -->
-      <div class="hidden sm:flex items-center gap-2">
-        {% if user.is_authenticated %}
-          <a href="/progress/" class="px-4 py-2 rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 transition">
+        <!-- Desktop Nav -->
+        <nav class="hidden lg:flex items-center gap-1 text-sm">
+          {% with p=request.path %}
+          <a href="/alphabet/"
+            class="nav-link flex items-center gap-2 px-4 py-2 rounded-2xl transition hover:bg-white/10 hover:text-white {% if '/alphabet/' in p %}active bg-white/10 text-white{% else %}text-slate-400{% endif %}">
+            <i class="fas fa-font opacity-70"></i>
+            <span>Alifbo</span>
+          </a>
+          <a href="/courses/"
+            class="nav-link flex items-center gap-2 px-4 py-2 rounded-2xl transition hover:bg-white/10 hover:text-white {% if '/courses/' in p or '/lessons/' in p %}active bg-white/10 text-white{% else %}text-slate-400{% endif %}">
+            <i class="fas fa-graduation-cap opacity-70"></i>
+            <span>Kurslar</span>
+          </a>
+
+          {% if user.is_authenticated %}
+          <a href="/practice/"
+            class="nav-link flex items-center gap-2 px-4 py-2 rounded-2xl transition hover:bg-white/10 hover:text-white {% if '/practice/' in p %}active bg-white/10 text-white{% else %}text-slate-400{% endif %}">
+            <i class="fas fa-bolt opacity-70"></i>
+            <span>Practice</span>
+          </a>
+          <a href="/review/"
+            class="nav-link flex items-center gap-2 px-4 py-2 rounded-2xl transition hover:bg-white/10 hover:text-white {% if '/review/' in p %}active bg-white/10 text-white{% else %}text-slate-400{% endif %}">
+            <i class="fas fa-brain opacity-70"></i>
+            <span>Review</span>
+          </a>
+          <a href="/dictionary/"
+            class="nav-link flex items-center gap-2 px-4 py-2 rounded-2xl transition hover:bg-white/10 hover:text-white {% if '/dictionary/' in p %}active bg-white/10 text-white{% else %}text-slate-400{% endif %}">
+            <i class="fas fa-book opacity-70"></i>
+            <span>Lug‘at</span>
+          </a>
+          <a href="/tajweed/"
+            class="nav-link flex items-center gap-2 px-4 py-2 rounded-2xl transition hover:bg-white/10 hover:text-white {% if '/tajweed/' in p %}active bg-white/10 text-white{% else %}text-slate-400{% endif %}">
+            <i class="fas fa-quran opacity-70"></i>
+            <span>Tajweed</span>
+          </a>
+          <a href="/quran/"
+            class="nav-link flex items-center gap-2 px-4 py-2 rounded-2xl transition hover:bg-white/10 hover:text-white {% if '/quran/' in p %}active bg-white/10 text-white{% else %}text-slate-400{% endif %}">
+            <i class="fas fa-book-open opacity-70"></i>
+            <span>Qur'on</span>
+          </a>
+          {% endif %}
+          {% endwith %}
+        </nav>
+
+        <!-- Right (desktop buttons) -->
+        <div class="hidden sm:flex items-center gap-2">
+          {% if user.is_authenticated %}
+          <a href="{% url 'arab:settings_profile' %}"
+            class="px-4 py-2 rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 transition">
             <span class="text-sm font-semibold">Account</span>
           </a>
-          <a href="/accounts/logout/" class="inline-flex px-4 py-2 rounded-2xl bg-white text-slate-950 font-semibold hover:bg-slate-200 transition">
+          <a href="/accounts/logout/"
+            class="inline-flex px-4 py-2 rounded-2xl bg-white text-slate-950 font-semibold hover:bg-slate-200 transition">
             Logout
           </a>
-        {% else %}
-          <a href="/accounts/login/" class="inline-flex px-4 py-2 rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 transition">
+          {% else %}
+          <a href="/accounts/login/"
+            class="inline-flex px-4 py-2 rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 transition">
             Login
           </a>
-          <a href="/accounts/register/" class="inline-flex px-4 py-2 rounded-2xl bg-white text-slate-950 font-semibold hover:bg-slate-200 transition">
+          <a href="/accounts/register/"
+            class="inline-flex px-4 py-2 rounded-2xl bg-white text-slate-950 font-semibold hover:bg-slate-200 transition">
             Register
           </a>
-        {% endif %}
-      </div>
+          {% endif %}
+        </div>
 
-      <!-- Mobile menu button -->
-      <button id="mobileMenuBtn"
-        class="sm:hidden inline-flex h-10 w-10 items-center justify-center rounded-2xl
+        <!-- Mobile menu button (Top Header) -->
+        <button id="mobileMenuBtn" class="lg:hidden inline-flex h-10 w-10 items-center justify-center rounded-2xl
                border border-white/10 bg-white/5 hover:bg-white/10 transition">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
-             viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M4 6h16M4 12h16M4 18h16"/>
-        </svg>
-      </button>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
 
+      </div>
     </div>
+  </header>
+
+  <!-- FLOATING MOBILE NAV -->
+  <div class="floating-nav lg:hidden">
+    {% with p=request.path %}
+    <a href="/" class="floating-nav-item {% if p == '/' %}active{% endif %}">
+      <i class="fas fa-home"></i>
+      <span>Home</span>
+    </a>
+    <a href="/alphabet/" class="floating-nav-item {% if '/alphabet/' in p %}active{% endif %}">
+      <i class="fas fa-font"></i>
+      <span>Alifbo</span>
+    </a>
+    <a href="/courses/" class="floating-nav-item {% if '/courses/' in p or '/lessons/' in p %}active{% endif %}">
+      <i class="fas fa-graduation-cap"></i>
+      <span>Kurslar</span>
+    </a>
+    {% if user.is_authenticated %}
+    <a href="/progress/" class="floating-nav-item {% if '/progress/' in p %}active{% endif %}">
+      <i class="fas fa-user"></i>
+      <span>Pro</span>
+    </a>
+    {% endif %}
+    <button id="mobileMoreBtn" class="floating-nav-item">
+      <i class="fas fa-bars"></i>
+      <span>Menu</span>
+    </button>
+    {% endwith %}
   </div>
-</header>
 
-<!-- MOBILE MENU (drawer) -->
-<div id="mobileMenu" class="fixed inset-0 z-[60] hidden sm:hidden">
-  <div id="mobileOverlay" class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
+  <!-- MOBILE MENU (drawer) -->
+  <div id="mobileMenu" class="fixed inset-0 z-[110] hidden lg:hidden">
+    <div id="mobileOverlay" class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
 
-  <div id="mobilePanel"
-       class="absolute right-0 top-0 h-full w-[88%] max-w-sm
+    <div id="mobilePanel" class="absolute right-0 top-0 h-full w-[88%] max-w-sm
               bg-slate-950 border-l border-white/10
               p-6 flex flex-col
               translate-x-full transition-transform duration-300">
 
-    <div class="flex items-center justify-between mb-6">
-      <div class="flex items-center gap-3">
-        <div class="h-11 w-11 rounded-2xl overflow-hidden border border-white/10 logo-glow">
-          <div class="h-full w-full bg-gradient-to-br from-emerald-400/35 via-sky-400/25 to-fuchsia-400/20 grid place-items-center">
-            <div class="text-[13px] font-black tracking-wider">AP</div>
-            <div class="absolute -bottom-1 right-1 arabic-font text-[13px] opacity-90" dir="rtl">ع</div>
+      <div class="flex items-center justify-between mb-6">
+        <div class="flex items-center gap-3">
+          <div class="h-11 w-11 rounded-2xl overflow-hidden border border-white/10 logo-glow">
+            <div
+              class="h-full w-full bg-gradient-to-br from-emerald-400/35 via-sky-400/25 to-fuchsia-400/20 grid place-items-center">
+              <div class="text-[13px] font-black tracking-wider">AP</div>
+              <div class="absolute -bottom-1 right-1 arabic-font text-[13px] opacity-90" dir="rtl">ع</div>
+            </div>
+          </div>
+          <div>
+            <div class="font-black">AlifPro</div>
+            <div class="text-xs text-slate-400">Menu</div>
           </div>
         </div>
-        <div>
-          <div class="font-black">AlifPro</div>
-          <div class="text-xs text-slate-400">Menu</div>
-        </div>
+
+        <button id="mobileClose" class="h-9 w-9 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10">
+          ✕
+        </button>
       </div>
 
-      <button id="mobileClose" class="h-9 w-9 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10">
-        ✕
-      </button>
-    </div>
+      <nav class="flex flex-col gap-2 text-sm overflow-y-auto">
+        <a href="/alphabet/" class="mobile-link flex items-center gap-3">
+          <span class="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-400">
+            <i class="fas fa-font"></i>
+          </span>
+          <span>Alifbo</span>
+        </a>
+        <a href="/courses/" class="mobile-link flex items-center gap-3">
+          <span class="w-8 h-8 rounded-lg bg-sky-500/10 flex items-center justify-center text-sky-400">
+            <i class="fas fa-graduation-cap"></i>
+          </span>
+          <span>Kurslar</span>
+        </a>
+        {% if user.is_authenticated %}
+        <a href="/practice/" class="mobile-link flex items-center gap-3">
+          <span class="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-400">
+            <i class="fas fa-bolt"></i>
+          </span>
+          <span>Practice</span>
+        </a>
+        <a href="/review/" class="mobile-link flex items-center gap-3">
+          <span class="w-8 h-8 rounded-lg bg-purple-500/10 flex items-center justify-center text-purple-400">
+            <i class="fas fa-brain"></i>
+          </span>
+          <span>Review</span>
+        </a>
+        <a href="/dictionary/" class="mobile-link flex items-center gap-3">
+          <span class="w-8 h-8 rounded-lg bg-pink-500/10 flex items-center justify-center text-pink-400">
+            <i class="fas fa-book"></i>
+          </span>
+          <span>Lug‘at</span>
+        </a>
+        <a href="/tajweed/" class="mobile-link flex items-center gap-3">
+          <span class="w-8 h-8 rounded-lg bg-indigo-500/10 flex items-center justify-center text-indigo-400">
+            <i class="fas fa-quran"></i>
+          </span>
+          <span>Tajweed</span>
+        </a>
+        <a href="/quran/" class="mobile-link flex items-center gap-3">
+          <span class="w-8 h-8 rounded-lg bg-teal-500/10 flex items-center justify-center text-teal-400">
+            <i class="fas fa-book-open"></i>
+          </span>
+          <span>Qur'on</span>
+        </a>
+        {% endif %}
+      </nav>
 
-    <nav class="flex flex-col gap-2 text-sm">
-      <a href="/alphabet/" class="mobile-link">🔤 Alifbo</a>
-      <a href="/courses/" class="mobile-link">🎓 Kurslar</a>
-      <a href="/practice/" class="mobile-link">⚡ Practice</a>
-      <a href="/review/" class="mobile-link">🧠 Review</a>
-      <a href="/dictionary/" class="mobile-link">📚 Lug‘at</a>
-      <a href="/roadmap/" class="mobile-link">🗺 Roadmap</a>
-      <a href="/tajweed/" class="mobile-link">📖 Tajweed</a>
-    </nav>
-
-    <div class="mt-auto pt-6 border-t border-white/10">
-      {% if user.is_authenticated %}
-        <a href="/accounts/logout/" class="block text-center rounded-2xl bg-white text-slate-950 py-3 font-semibold hover:bg-slate-200 transition">
+      <div class="mt-auto pt-6 border-t border-white/10">
+        {% if user.is_authenticated %}
+        <a href="/accounts/logout/"
+          class="block text-center rounded-2xl bg-white text-slate-950 py-3 font-semibold hover:bg-slate-200 transition">
           Logout
         </a>
-      {% else %}
-        <a href="/accounts/login/" class="block text-center rounded-2xl border border-white/10 bg-white/5 py-3 mb-2 hover:bg-white/10 transition">
+        {% else %}
+        <a href="/accounts/login/"
+          class="block text-center rounded-2xl border border-white/10 bg-white/5 py-3 mb-2 hover:bg-white/10 transition">
           Login
         </a>
-        <a href="/accounts/register/" class="block text-center rounded-2xl bg-white text-slate-950 py-3 font-semibold hover:bg-slate-200 transition">
+        <a href="/accounts/register/"
+          class="block text-center rounded-2xl bg-white text-slate-950 py-3 font-semibold hover:bg-slate-200 transition">
           Register
         </a>
-      {% endif %}
+        {% endif %}
+      </div>
+
     </div>
-
   </div>
-</div>
 
-<main class="mx-auto w-[min(1150px,92%)] py-8">
-  {% block content %}{% endblock %}
-</main>
+  <main class="mx-auto w-[min(1150px,92%)] py-8 lg:pb-8 pb-32">
+    {% block content %}{% endblock %}
+  </main>
 
-<script>
-  const btn = document.getElementById("mobileMenuBtn");
-  const menu = document.getElementById("mobileMenu");
-  const panel = document.getElementById("mobilePanel");
-  const close = document.getElementById("mobileClose");
-  const overlay = document.getElementById("mobileOverlay");
+  <script>
+    const btn = document.getElementById("mobileMenuBtn");
+    const menu = document.getElementById("mobileMenu");
+    const panel = document.getElementById("mobilePanel");
+    const close = document.getElementById("mobileClose");
+    const overlay = document.getElementById("mobileOverlay");
 
-  function openMenu(){
-    menu.classList.remove("hidden");
-    requestAnimationFrame(() => panel.classList.remove("translate-x-full"));
-    document.body.style.overflow = "hidden";
-  }
-  function closeMenu(){
-    panel.classList.add("translate-x-full");
-    setTimeout(() => menu.classList.add("hidden"), 250);
-    document.body.style.overflow = "";
-  }
+    function openMenu() {
+      menu.classList.remove("hidden");
+      requestAnimationFrame(() => panel.classList.remove("translate-x-full"));
+      document.body.style.overflow = "hidden";
+    }
+    function closeMenu() {
+      panel.classList.add("translate-x-full");
+      setTimeout(() => menu.classList.add("hidden"), 250);
+      document.body.style.overflow = "";
+    }
 
-  btn?.addEventListener("click", openMenu);
-  close?.addEventListener("click", closeMenu);
-  overlay?.addEventListener("click", closeMenu);
+    btn?.addEventListener("click", openMenu);
+    document.getElementById("mobileMoreBtn")?.addEventListener("click", openMenu);
+    close?.addEventListener("click", closeMenu);
+    overlay?.addEventListener("click", closeMenu);
 
-  menu?.querySelectorAll("a").forEach(a => a.addEventListener("click", closeMenu));
-</script>
+    menu?.querySelectorAll("a").forEach(a => a.addEventListener("click", closeMenu));
+
+    // --- GLOBAL STUDY TIMER ---
+    {% if user.is_authenticated %}
+    (function () {
+      let seconds = 0;
+      setInterval(() => {
+        seconds++;
+        if (seconds % 60 === 0) { // Every minute
+          fetch("{% url 'arab:api_study_time_update' %}", {
+            method: "POST",
+            headers: { "X-CSRFToken": "{{ csrf_token }}" }
+          });
+        }
+      }, 1000);
+    })();
+    {% endif %}
+
+    // --- PUSH NOTIFICATIONS ---
+    {% if user.is_authenticated %}
+    function setupNotifications() {
+      if (!("Notification" in window)) return;
+
+      if (Notification.permission === "default") {
+        Notification.requestPermission();
+      }
+
+      const lastReminded = localStorage.getItem('last_study_reminder');
+      const now = new Date().getTime();
+      if (!lastReminded || (now - lastReminded > 24 * 60 * 60 * 1000)) {
+        if (Notification.permission === "granted") {
+          setTimeout(() => {
+            new Notification("AlifPro Academy", {
+              body: "Bugungi darslarni esdan chiqarmadingizmi? 📚",
+              icon: "/static/img/logo.png"
+            });
+            localStorage.setItem('last_study_reminder', now);
+          }, 5000);
+        }
+      }
+    }
+    document.addEventListener('DOMContentLoaded', setupNotifications);
+    {% endif %}
+  </script>
 
 </body>
+
 </html>

@@ -18,7 +18,17 @@
 
   {% for q in questions %}
     <div class="rounded-3xl border border-white/10 bg-white/5 p-6">
-      <div class="font-bold text-lg">{{ forloop.counter }}. {{ q.text }}</div>
+      <div class="font-bold text-lg leading-relaxed">{{ forloop.counter }}. {{ q.text }}</div>
+
+      {% if q.audio %}
+        <div class="mt-4 mb-4 p-4 rounded-2xl bg-slate-950/30 border border-white/5">
+          <div class="text-xs text-slate-400 mb-2">🔉 Audio tinglang</div>
+          <audio controls class="w-full h-8">
+            <source src="{{ q.audio.url }}" type="audio/mpeg">
+            Browseringiz audio formatni qo‘llab-quvvatlamaydi.
+          </audio>
+        </div>
+      {% endif %}
 
       <div class="mt-4 grid gap-2">
         {% for c in q.choices.all %}

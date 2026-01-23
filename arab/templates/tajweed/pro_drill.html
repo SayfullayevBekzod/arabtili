@@ -1,0 +1,215 @@
+{% extends "base.html" %}
+{% block title %}Tajvid Time Attack{% endblock %}
+{% block content %}
+
+<div class="max-w-4xl mx-auto py-10 px-4" x-data="proDrill()">
+    <div class="text-center mb-10">
+        <div
+            class="inline-flex rounded-full bg-sky-500/10 px-4 py-1.5 text-xs font-bold text-sky-400 uppercase tracking-widest mb-4">
+            🚀 Pro Level Drill
+        </div>
+        <h1 class="text-4xl font-black">⚡ Time Attack: Tajvid</h1>
+        <p class="mt-4 text-slate-400">Har bir misol uchun 10 soniya! Tezkorlik va aniqlik testi.</p>
+    </div>
+
+    <div class="relative bg-white/5 border border-white/10 rounded-[3rem] p-8 md:p-12 overflow-hidden shadow-2xl">
+
+        <!-- START SCREEN -->
+        <template x-if="gameState === 'start'">
+            <div class="text-center py-10">
+                <div class="text-6xl mb-6">⚡</div>
+                <h2 class="text-3xl font-black mb-4">Tayyormisiz?</h2>
+                <div class="text-left max-w-sm mx-auto space-y-3 mb-8 text-slate-300">
+                    <p class="flex items-center gap-2"><span class="text-emerald-400">✓</span> 10 ta tasodifiy misol.
+                    </p>
+                    <p class="flex items-center gap-2"><span class="text-emerald-400">✓</span> Har biriga 10 soniya
+                        vaqt.</p>
+                    <p class="flex items-center gap-2"><span class="text-emerald-400">✓</span> Xato qilsangiz, to'g'ri
+                        javob ko'rsatiladi.</p>
+                    <p class="flex items-center gap-2"><span class="text-emerald-400">✓</span> 80% dan yuqori natija = ✨
+                        PRO.</p>
+                </div>
+                <button @click="startGame()"
+                    class="rounded-2xl bg-white text-slate-950 px-10 py-4 font-black hover:bg-emerald-400 hover:scale-105 transition duration-300 text-xl shadow-[0_10px_40px_-10px_rgba(255,255,255,0.3)]">
+                    BOSHLASH 🚀
+                </button>
+            </div>
+        </template>
+
+        <!-- GAME SCREEN -->
+        <template x-if="gameState === 'playing'">
+            <div class="relative z-10">
+                <!-- Timer & Score -->
+                <div class="flex items-center justify-between mb-8">
+                    <div class="flex items-center gap-3">
+                        <div class="h-12 w-12 rounded-2xl bg-white/5 flex items-center justify-center font-black text-2xl"
+                            :class="timer < 4 ? 'text-red-500 animate-pulse' : 'text-white'" x-text="timer"></div>
+                        <div class="text-sm font-bold text-slate-400">SONIYA QOLDI</div>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-xs font-bold text-slate-500 uppercase">SCORE</div>
+                        <div class="text-2xl font-black text-sky-400" x-text="score + ' / ' + total"></div>
+                    </div>
+                </div>
+
+                <div class="h-1 bg-white/5 rounded-full mb-10">
+                    <div class="h-full bg-sky-500 transition-all duration-1000" :style="'width: ' + (timer*10) + '%'">
+                    </div>
+                </div>
+
+                <!-- Question -->
+                <div class="text-center">
+                    <div class="text-slate-500 text-sm font-bold mb-4" x-text="'MISOL #' + (currentIndex + 1)"></div>
+                    <div class="text-5xl md:text-7xl font-arabic text-white mb-10 leading-relaxed dir-rtl"
+                        x-text="currentExample.arabic"></div>
+
+                    <div class="grid sm:grid-cols-2 gap-4">
+                        <template x-for="option in currentOptions" :key="option.id">
+                            <button @click="submitAnswer(option.id)" :class="answered && option.id === currentExample.ruleId ? 'bg-emerald-500 text-slate-950 border-emerald-400' : 
+                                        answered && option.id === lastSelected && option.id !== currentExample.ruleId ? 'bg-red-500 text-white border-red-400' : 
+                                        'bg-slate-900/50 border-white/10 hover:bg-white/10'"
+                                class="p-4 rounded-2xl border font-bold transition-all text-lg relative overflow-hidden group">
+                                <span x-text="option.title"></span>
+                            </button>
+                        </template>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <!-- RESULT SCREEN -->
+        <template x-if="gameState === 'result'">
+            <div class="text-center py-10">
+                <div class="text-6xl mb-6" x-text="score > 7 ? '👑' : '🏁'"></div>
+                <h2 class="text-3xl font-black">Natija!</h2>
+                <div class="mt-4 text-7xl font-black text-sky-400" x-text="Math.round((score/total)*100) + '%'"></div>
+                <p class="mt-4 text-slate-400" x-text="score + ' ta to\'g\'ri javob'"></p>
+
+                <div class="mt-10 flex gap-4 justify-center">
+                    <button @click="reset()"
+                        class="rounded-2xl bg-white text-slate-950 px-8 py-4 font-bold hover:bg-slate-200 transition">Qayta
+                        urinish</button>
+                    <a href="{% url 'arab:tajweed_index' %}"
+                        class="rounded-2xl border border-white/10 px-8 py-4 font-bold hover:bg-white/10 transition">Yopish</a>
+                </div>
+            </div>
+        </template>
+    </div>
+</div>
+
+<script>
+    function proDrill() {
+        // Injecting examples from server side
+        const rawExamples = [
+            {% for ex in examples %}
+    {
+        id: { { ex.id } },
+        arabic: "{{ ex.arabic_text|escapejs }}",
+            ruleId: { { ex.rule.id } },
+        ruleTitle: "{{ ex.rule.title|escapejs }}"
+    },
+    {% endfor %}
+        ];
+
+    const allRules = [
+        {% for r in rules_list %}
+    { id: { { r.id } }, title: "{{ r.title|escapejs }}" },
+    {% endfor %}
+        ];
+
+    return {
+        gameState: 'start',
+        currentIndex: 0,
+        score: 0,
+        total: rawExamples.length,
+        timer: 10,
+        interval: null,
+        currentExample: null,
+        currentOptions: [],
+        answered: false,
+        lastSelected: null,
+
+        startGame() {
+            this.gameState = 'playing';
+            this.nextQuestion();
+        },
+
+        nextQuestion() {
+            if (this.currentIndex >= this.total) {
+                this.endGame();
+                return;
+            }
+
+            this.currentExample = rawExamples[this.currentIndex];
+            this.timer = 10;
+            this.buildOptions();
+            this.startTimer();
+        },
+
+        buildOptions() {
+            // Pick 3 random wrong rules + 1 correct
+            const correctRule = { id: this.currentExample.ruleId, title: this.currentExample.ruleTitle };
+            let wrongRules = allRules.filter(r => r.id !== correctRule.id);
+            // Shuffle and pick 3
+            wrongRules = wrongRules.sort(() => 0.5 - Math.random()).slice(0, 3);
+
+            this.currentOptions = [...wrongRules, correctRule].sort(() => 0.5 - Math.random());
+        },
+
+        startTimer() {
+            clearInterval(this.interval);
+            this.interval = setInterval(() => {
+                this.timer--;
+                if (this.timer <= 0) {
+                    this.submitAnswer(null); // Time out
+                }
+            }, 1000);
+        },
+
+        submitAnswer(ruleId) {
+            if (this.answered) return;
+
+            clearInterval(this.interval);
+            this.answered = true;
+            this.lastSelected = ruleId;
+
+            if (ruleId === this.currentExample.ruleId) {
+                this.score++;
+                // Micro-feedback
+            }
+
+            setTimeout(() => {
+                this.answered = false;
+                this.lastSelected = null;
+                this.currentIndex++;
+                this.nextQuestion();
+            }, 800);
+        },
+
+        endGame() {
+            clearInterval(this.interval);
+            this.gameState = 'result';
+        },
+
+        reset() {
+            this.gameState = 'start';
+            this.currentIndex = 0;
+            this.score = 0;
+            // Shuffle rawExamples for next run
+            rawExamples.sort(() => 0.5 - Math.random());
+        }
+    }
+}
+</script>
+
+<style>
+    .font-arabic {
+        font-family: 'Amiri', serif;
+    }
+
+    .dir-rtl {
+        direction: rtl;
+    }
+</style>
+
+{% endblock %}

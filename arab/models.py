@@ -6,6 +6,37 @@ from django.utils import timezone
 
 
 # ----------------------------
+# QURAN
+# ----------------------------
+class QuranSurah(models.Model):
+    number = models.PositiveIntegerField(primary_key=True)  # 1..114
+    name = models.CharField(max_length=100)  # Fatiha
+    english_name = models.CharField(max_length=100)  # The Opening
+    ayah_count = models.PositiveIntegerField()
+    place = models.CharField(max_length=20, choices=[("Mecca", "Mecca"), ("Medina", "Medina")], default="Mecca")
+
+    class Meta:
+        ordering = ["number"]
+
+    def __str__(self):
+        return f"{self.number}. {self.name}"
+
+
+class QuranAyah(models.Model):
+    surah = models.ForeignKey(QuranSurah, on_delete=models.CASCADE, related_name="ayahs")
+    number_in_surah = models.PositiveIntegerField()
+    text = models.TextField()  # Arabic text (Uthmani)
+    audio = models.FileField(upload_to="audio/quran/", blank=True, null=True)
+
+    class Meta:
+        ordering = ["surah", "number_in_surah"]
+        unique_together = ("surah", "number_in_surah")
+
+    def __str__(self):
+        return f"{self.surah.name}:{self.number_in_surah}"
+
+
+# ----------------------------
 # BASE
 # ----------------------------
 class TimeStamped(models.Model):
@@ -234,6 +265,7 @@ class Exercise(TimeStamped):
 class Question(TimeStamped):
     exercise = models.ForeignKey(Exercise, on_delete=models.CASCADE, related_name="questions")
     text = models.TextField()
+    audio = models.FileField(upload_to="audio/questions/", blank=True, null=True)
     explanation = models.TextField(blank=True)
 
     def __str__(self):
@@ -359,8 +391,18 @@ class UserAchievement(TimeStamped):
 # TAJWEED
 # ----------------------------
 class TajweedRule(TimeStamped):
+    CATEGORY_CHOICES = [
+        ("alphabet", "Harflar va Maxraj"),
+        ("noon_sakinah", "Noon Sakinah va Tanween"),
+        ("meem_sakinah", "Meem Sakinah"),
+        ("mudood", "Muddood (Cho'ziqlar)"),
+        ("sifat", "Harf Sifatlari"),
+        ("other", "Boshqa qoidalar"),
+    ]
+
     slug = models.SlugField(unique=True)
     title = models.CharField(max_length=200)
+    category = models.CharField(max_length=50, choices=CATEGORY_CHOICES, default="other")
     short_desc = models.CharField(max_length=255, blank=True)
     explanation = models.TextField()
     level = models.CharField(
@@ -381,6 +423,8 @@ class TajweedExample(TimeStamped):
     rule = models.ForeignKey(TajweedRule, on_delete=models.CASCADE, related_name="examples")
     arabic_text = models.TextField()
     translation_uz = models.TextField(blank=True)
+    transliteration = models.CharField(max_length=255, blank=True)
+    description = models.TextField(blank=True, help_text="Qoida qanday qo'llanilishi haqida izoh")
     audio = models.FileField(upload_to="audio/tajweed/", blank=True, null=True)
 
     def __str__(self):
@@ -511,7 +555,50 @@ class UserFavoriteWord(TimeStamped):
 
 
 
+
+# ----------------------------
+# MISSIONS
+# ----------------------------
+class Mission(TimeStamped):
+    MISSION_TYPES = [
+        ("review", "Review"),
+        ("lesson", "Lesson"),
+        ("word", "New Words"),
+        ("time", "Study Time"),
+    ]
+    title = models.CharField(max_length=200)
+    description = models.CharField(max_length=255, blank=True)
+    mission_type = models.CharField(max_length=20, choices=MISSION_TYPES)
+    required_count = models.PositiveIntegerField(default=1)  # e.g. 10 reviews
+    xp_reward = models.PositiveIntegerField(default=10)
+
+    class Meta:
+        ordering = ["id"]
+
+    def __str__(self):
+        return f"{self.title} ({self.required_count} {self.mission_type})"
+
+
+class UserMissionProgress(TimeStamped):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="mission_progress")
+    mission = models.ForeignKey(Mission, on_delete=models.CASCADE, related_name="user_progress")
+    date = models.DateField(db_index=True, default=timezone.now)
+    
+    current_progress = models.PositiveIntegerField(default=0)
+    is_completed = models.BooleanField(default=False)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=["user", "mission", "date"], name="uniq_user_mission_date"),
+        ]
+
+    def __str__(self):
+        return f"{self.user} - {self.mission} ({self.current_progress}/{self.mission.required_count})"
+
+
 class UserDailyStat(models.Model):
+
+
     """
     Har kunlik statistika: heatmap, streak, weekly chart, daily goals, study time, XP.
     """
@@ -542,6 +629,11 @@ class UserGamification(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="gamification")
     xp_total = models.PositiveIntegerField(default=0)
     level = models.PositiveIntegerField(default=1)
+    
+    # Hearts system
+    hearts = models.PositiveIntegerField(default=5)
+    last_heart_refill = models.DateTimeField(default=timezone.now)
+    badges = models.JSONField(default=list, blank=True)
 
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -568,3 +660,113 @@ class UserWeakArea(models.Model):
 
     def __str__(self):
         return f"{self.user_id} {self.key} {self.pct}%"
+
+
+# ----------------------------
+# VIDEO LESSONS
+# ----------------------------
+class LessonVideo(TimeStamped):
+    """
+    Video darslik (YouTube/URL).
+    Lesson modeliga bog'lanadi. Bitta lesson'da bir nechta video bo'lishi mumkin.
+    """
+    PROVIDER_CHOICES = (
+        ("youtube", "YouTube"),
+        ("url", "Direct URL (MP4/Video link)"),
+    )
+
+    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, related_name="videos")
+    title = models.CharField(max_length=200)
+    provider = models.CharField(max_length=10, choices=PROVIDER_CHOICES, default="youtube")
+    
+    # YouTube ID yoki to'g'ridan-to'g'ri URL
+    video_id = models.CharField(max_length=50, blank=True, help_text="YouTube ID")
+    video_url = models.URLField(max_length=500, blank=True, help_text="To'g'ridan-to'g'ri video URL (MP4, yoki boshqa)")
+    
+    duration = models.PositiveIntegerField(default=0, help_text="Sekundlarda")
+    order = models.PositiveIntegerField(default=0)
+    is_free = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ["order"]
+
+    def __str__(self):
+        return self.title
+
+    @property
+    def is_youtube(self):
+        if self.provider == "youtube":
+            return True
+        if self.video_url:
+            return "youtube.com" in self.video_url or "youtu.be" in self.video_url
+        return False
+
+    @property
+    def get_youtube_id(self):
+        """
+        Extracts YouTube ID from video_id or video_url if provider is youtube.
+        """
+        if self.video_id and len(self.video_id) == 11:
+            return self.video_id
+        
+        target = self.video_url or self.video_id or ""
+        import re
+        # Regex for various Youtube URL formats
+        regex = r'(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})'
+        match = re.search(regex, target)
+        if match:
+            return match.group(1)
+        return self.video_id
+
+    @property
+    def get_url(self):
+        if self.provider == "youtube":
+            y_id = self.get_youtube_id
+            return f"https://www.youtube.com/embed/{y_id}"
+        if self.video_url:
+            return self.video_url
+        return ""
+
+
+class UserVideoProgress(TimeStamped):
+    """
+    User videoni qancha ko'rdi.
+    """
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="video_progress")
+    video = models.ForeignKey(LessonVideo, on_delete=models.CASCADE, related_name="progress")
+    
+    progress_seconds = models.PositiveIntegerField(default=0)
+    is_watched = models.BooleanField(default=False)
+    
+    class Meta:
+        unique_together = ("user", "video")
+
+    def __str__(self):
+        return f"{self.user} - {self.video} ({self.progress_seconds}s)"
+
+
+# ----------------------------
+# PROFILE
+# ----------------------------
+class Profile(TimeStamped):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="profile")
+    avatar = models.ImageField(upload_to="avatars/", blank=True, null=True)
+    bio = models.TextField(max_length=500, blank=True)
+    face_encoding = models.TextField(blank=True, null=True, help_text="JSON list of face encoding values")
+
+    def __str__(self):
+        return f"{self.user.username}'s profile"
+
+# Signals to auto-create/save Profile
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+@receiver(post_save, sender=settings.AUTH_USER_MODEL)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.get_or_create(user=instance)
+
+@receiver(post_save, sender=settings.AUTH_USER_MODEL)
+def save_user_profile(sender, instance, **kwargs):
+    if hasattr(instance, 'profile'):
+        instance.profile.save()

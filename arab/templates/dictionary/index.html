@@ -1,162 +1,291 @@
 {% extends "base.html" %}
-{% block title %}Lug‘at{% endblock %}
+{% load tajweed_tags %}
+{% block title %}Lug‘at - Qur’on va Arab tili{% endblock %}
 {% block content %}
 
-<!-- HERO / SEARCH -->
-<section class="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-6 md:p-10">
-  <div class="pointer-events-none absolute -top-32 -left-32 h-80 w-80 rounded-full bg-emerald-400/15 blur-3xl"></div>
-  <div class="pointer-events-none absolute -bottom-32 -right-32 h-80 w-80 rounded-full bg-sky-400/15 blur-3xl"></div>
+<!-- HERO / SEARCH SECTION -->
+<section
+  class="relative overflow-hidden rounded-[3rem] border border-white/10 bg-slate-900/40 p-8 md:p-12 mb-8 shadow-2xl">
+  <div class="pointer-events-none absolute -top-32 -left-32 h-80 w-80 rounded-full bg-emerald-500/10 blur-[100px]">
+  </div>
+  <div class="pointer-events-none absolute -bottom-32 -right-32 h-80 w-80 rounded-full bg-sky-500/10 blur-[100px]">
+  </div>
 
-  <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-5">
-    <div>
-      <div class="text-xs text-slate-400">Dictionary • Qur’on lug‘ati</div>
-      <h1 class="mt-1 text-3xl md:text-5xl font-black">📚 Lug‘at</h1>
-      <p class="mt-2 text-slate-300 text-sm max-w-2xl leading-relaxed">
-        So‘z, translit, UZ/RU ma’no bo‘yicha qidirish. Masalan: <span class="text-slate-200">بيت</span>, <span class="text-slate-200">bayt</span>, <span class="text-slate-200">uy</span>.
+  <div class="flex flex-col lg:flex-row gap-10 items-center">
+    <div class="flex-1 space-y-6">
+      <div
+        class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-bold tracking-widest uppercase">
+        <span class="relative flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+        </span>
+        Aqlli Lug‘at
+      </div>
+      <h1 class="text-4xl md:text-6xl font-black leading-tight tracking-tight">Kashf qiling, <br /><span
+          class="text-emerald-400">O‘rganing,</span> Saqlang.</h1>
+
+      <p class="text-slate-400 text-lg max-w-xl leading-relaxed">
+        Minglab so‘zlarni arabcha, transliteratsiya yoki o‘zbekcha ma’nosi orqali qulay qidirish tizimi.
       </p>
 
-      <div class="mt-5 flex flex-wrap gap-2 text-xs">
-        <span class="rounded-2xl border border-white/10 bg-slate-950/40 px-3 py-2 text-slate-300">✅ Arabic</span>
-        <span class="rounded-2xl border border-white/10 bg-slate-950/40 px-3 py-2 text-slate-300">✅ Transliteration</span>
-        <span class="rounded-2xl border border-white/10 bg-slate-950/40 px-3 py-2 text-slate-300">✅ UZ/RU</span>
+      <!-- Alphabet Filter (Latin & Arabic) -->
+      <div class="space-y-4">
+        <div class="flex flex-wrap gap-1.5">
+          <a href="?alpha="
+            class="px-3 py-1.5 rounded-lg text-xs font-bold transition {% if not alpha %}bg-emerald-500 text-slate-950{% else %}bg-white/5 text-slate-400 hover:bg-white/10{% endif %}">ALL</a>
+          {% for char in "ABCÇDEFGHIİJKLMNOPQRSTUVYZ"|make_list %}
+          <a href="?alpha={{ char }}&q={{ q }}&cat={{ cat }}"
+            class="px-3 py-1.5 rounded-lg text-xs font-bold transition {% if alpha == char %}bg-emerald-500 text-slate-950{% else %}bg-white/5 text-slate-400 hover:bg-white/10{% endif %}">
+            {{ char }}
+          </a>
+          {% endfor %}
+        </div>
+        <div class="flex flex-wrap gap-1.5" dir="rtl">
+          {% for a_char in "ابتثجحخدذرزسشصضطظعغفقكلمنهوي"|make_list %}
+          <a href="?alpha={{ a_char }}&q={{ q }}&cat={{ cat }}"
+            class="px-3 py-1.5 rounded-lg text-lg font-arabic transition {% if alpha == a_char %}bg-sky-500 text-slate-950{% else %}bg-white/5 text-slate-400 hover:bg-white/10{% endif %}">
+            {{ a_char }}
+          </a>
+          {% endfor %}
+        </div>
       </div>
     </div>
 
-    <div class="rounded-3xl border border-white/10 bg-slate-950/40 px-4 py-3 text-sm text-slate-300 self-start">
-      <div class="text-xs text-slate-400">Qidiruv</div>
-      <div class="mt-1">
-        {% if q %}<span class="text-white font-semibold">“{{ q }}”</span>{% else %}—{% endif %}
-        {% if cat %}<span class="text-slate-400"> • </span><span class="text-slate-200">cat: {{ cat }}</span>{% endif %}
-      </div>
-    </div>
-  </div>
-
-  <!-- Search form -->
-  <form method="get" class="mt-6 grid grid-cols-1 md:grid-cols-12 gap-3">
-    <div class="md:col-span-6">
-      <label class="text-xs text-slate-400">So‘z / translit / ma’no</label>
-      <div class="mt-2 relative">
-        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">
-          <i class="fa-solid fa-magnifying-glass"></i>
-        </span>
-        <input name="q" value="{{ q }}" placeholder="Qidiruv: بيت, bayt, uy..."
-               class="w-full rounded-2xl border border-white/10 bg-black/30 pl-11 pr-4 py-3 text-sm outline-none
-                      focus:ring-2 focus:ring-white/20 focus:border-white/20 transition"/>
-      </div>
-    </div>
-
-    <div class="md:col-span-4">
-      <label class="text-xs text-slate-400">Kategoriya (ixtiyoriy)</label>
-      <div class="mt-2 relative">
-        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">
-          <i class="fa-solid fa-tags"></i>
-        </span>
-        <input name="cat" value="{{ cat }}" placeholder="Masalan: Uy va oila"
-               class="w-full rounded-2xl border border-white/10 bg-black/30 pl-11 pr-4 py-3 text-sm outline-none
-                      focus:ring-2 focus:ring-white/20 focus:border-white/20 transition"/>
-      </div>
-    </div>
-
-    <div class="md:col-span-2 flex items-end gap-2">
-      <button class="w-full rounded-2xl bg-white text-slate-950 px-6 py-3 text-sm font-semibold hover:bg-slate-200 transition">
-        Qidirish
-      </button>
-
-      <a href="/dictionary/"
-         class="hidden md:inline-flex rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm hover:bg-white/10 transition">
-        Clear
-      </a>
-    </div>
-  </form>
-
-  <!-- Quick chips (UI only) -->
-  <div class="mt-5 flex flex-wrap gap-2 text-xs text-slate-300">
-    <span class="rounded-2xl border border-white/10 bg-white/5 px-3 py-2">Tip: arabcha yozsang tez topadi</span>
-    <span class="rounded-2xl border border-white/10 bg-white/5 px-3 py-2">Tip: cat orqali filter qil</span>
-    <span class="rounded-2xl border border-white/10 bg-white/5 px-3 py-2">Tip: translit: bayt, kitab…</span>
-  </div>
-</section>
-
-<!-- RESULTS -->
-<div class="mt-6">
-  <div class="flex items-center justify-between mb-3">
-    <div class="text-sm text-slate-400">
-      Natijalar:
-      <span class="text-slate-200 font-semibold">{{ words|length }}</span>
-    </div>
-  </div>
-
-  <div class="grid md:grid-cols-2 gap-4">
-    {% for w in words %}
-      <div class="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-6 transition-all duration-300
-                  hover:bg-white/10 hover:-translate-y-1 hover:border-white/20" dir="rtl">
-
-        <span class="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition
-                     bg-gradient-to-tr from-transparent via-white/10 to-transparent"></span>
-
-        <div class="flex items-start justify-between gap-4">
-          <div class="arabic-font text-4xl md:text-5xl font-black text-white">
-            {{ w.arabic }}
-          </div>
-
-          <div class="flex items-center gap-2 [direction:ltr]">
-            {% if w.category %}
-              <div class="text-[11px] rounded-full border border-white/10 bg-slate-950/40 px-3 py-1 text-slate-200">
-                {{ w.category.name }}
-              </div>
-            {% endif %}
-
-            <button type="button"
-                    class="copyBtn rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-xs text-slate-300 hover:bg-white/10 transition"
-                    data-copy="{{ w.arabic }}">
-              Copy
+    <div class="w-full lg:w-[400px] shrink-0">
+      <form method="get"
+        class="space-y-4 p-6 rounded-[2.5rem] bg-slate-950/60 border border-white/10 backdrop-blur-xl shadow-2xl">
+        <div class="space-y-2">
+          <label class="text-[10px] font-bold text-slate-500 uppercase tracking-widest px-2">Qidiruv</label>
+          <div class="relative group">
+            <input name="q" value="{{ q }}" placeholder="بيت, uy, bayt..."
+              class="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-sm outline-none focus:border-emerald-500/50 focus:ring-4 focus:ring-emerald-500/10 transition-all" />
+            <button
+              class="absolute right-3 top-1/2 -translate-y-1/2 h-8 w-8 rounded-xl bg-white/5 grid place-items-center group-hover:bg-emerald-500 transition-colors">
+              🔍
             </button>
           </div>
         </div>
 
-        <div class="mt-3 text-sm text-slate-300 [direction:ltr]">
-          {{ w.transliteration|default:"—" }}
+        <div class="space-y-2">
+          <label class="text-[10px] font-bold text-slate-500 uppercase tracking-widest px-2">Kategoriya</label>
+          <input name="cat" value="{{ cat }}" placeholder="Ixtiyoriy..."
+            class="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-sm outline-none focus:border-sky-500/50 transition-all" />
         </div>
 
-        <div class="mt-3 rounded-2xl border border-white/10 bg-slate-950/40 p-4 [direction:ltr]">
-          <div class="text-xs text-slate-400">Ma’nolar</div>
-          <div class="mt-2 text-sm text-slate-200">
-            UZ: <span class="text-white font-semibold">{{ w.translation_uz|default:"—" }}</span>
-          </div>
-          <div class="mt-1 text-sm text-slate-300">
-            RU: <span class="text-slate-100 font-semibold">{{ w.translation_ru|default:"—" }}</span>
-          </div>
+        <div class="pt-2 grid grid-cols-2 gap-3">
+          <button type="submit"
+            class="w-full py-4 rounded-2xl bg-emerald-500 text-slate-950 font-black text-sm hover:scale-[1.02] active:scale-95 transition-all shadow-lg shadow-emerald-500/20">
+            QIDIRISH
+          </button>
+          <a href="/dictionary/"
+            class="grid place-items-center py-4 rounded-2xl bg-white/5 border border-white/10 font-bold text-xs hover:bg-white/10 transition">
+            TOZALASH
+          </a>
         </div>
-
-        <div class="mt-4 flex items-center justify-between text-xs text-slate-400 [direction:ltr]">
-          <span>So‘z kartasi</span>
-          <span class="transition group-hover:translate-x-1">→</span>
-        </div>
-
-      </div>
-    {% empty %}
-      <div class="rounded-3xl border border-white/10 bg-white/5 p-6 text-slate-300">
-        Hech narsa topilmadi. Boshqa so‘z yoki translit bilan urinib ko‘ring.
-      </div>
-    {% endfor %}
+      </form>
+    </div>
   </div>
+</section>
+
+<!-- RESULTS COUNT & PAGINATION (Top) -->
+<div class="flex items-center justify-between px-4 mb-6">
+  <div class="text-sm">
+    <span class="text-slate-500">Natijalar:</span>
+    <span class="font-black text-emerald-400 ml-1">{{ page_obj.paginator.count }}</span>
+  </div>
+
+  <!-- MINIMAL PAGINATION -->
+  {% if page_obj.has_other_pages %}
+  <div class="flex items-center gap-2">
+    {% if page_obj.has_previous %}
+    <a href="?page={{ page_obj.previous_page_number }}&q={{ q }}&cat={{ cat }}&alpha={{ alpha }}"
+      class="h-10 w-10 rounded-xl bg-white/5 border border-white/10 grid place-items-center hover:bg-white/10 transition">←</a>
+    {% endif %}
+    <div class="px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-xs font-black">
+      {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}
+    </div>
+    {% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}&q={{ q }}&cat={{ cat }}&alpha={{ alpha }}"
+      class="h-10 w-10 rounded-xl bg-white/5 border border-white/10 grid place-items-center hover:bg-white/10 transition">→</a>
+    {% endif %}
+  </div>
+  {% endif %}
 </div>
 
+<!-- DYNAMIC GRID -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+  {% for w in page_obj %}
+  <div
+    class="group relative bg-slate-900/40 border border-white/10 rounded-[2.5rem] p-7 transition-all duration-500 hover:bg-slate-800/50 hover:border-emerald-500/30 hover:-translate-y-2 shadow-xl hover:shadow-emerald-500/5 overflow-hidden">
+
+    <!-- Hover Glow -->
+    <div
+      class="absolute -right-20 -top-20 h-40 w-40 rounded-full bg-emerald-500/10 blur-[50px] opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+    </div>
+
+    <div class="flex flex-col h-full">
+      <div class="flex items-start justify-between mb-6" dir="rtl">
+        <div class="arabic-font text-5xl font-black text-white leading-tight">
+          {{ w.arabic|auto_tajweed }}
+        </div>
+        <div class="flex flex-col gap-2 [direction:ltr]">
+          <button
+            class="copyBtn h-10 w-10 rounded-2xl bg-white/5 border border-white/10 grid place-items-center hover:bg-emerald-500 hover:text-slate-950 transition-all"
+            data-copy="{{ w.arabic }}" title="Nusxalash">
+            <i class="fa-regular fa-copy"></i>
+          </button>
+          {% if w.audio %}
+          <button
+            class="h-10 w-10 rounded-2xl bg-white/5 border border-white/10 grid place-items-center hover:bg-sky-500 hover:text-slate-950 transition-all"
+            onclick="new Audio('{{ w.audio.url }}').play()">
+            <i class="fa-solid fa-volume-high"></i>
+          </button>
+          {% endif %}
+          <button
+            class="addCardBtn h-10 w-10 rounded-2xl bg-white/5 border border-white/10 grid place-items-center hover:bg-orange-500 hover:text-slate-950 transition-all"
+            data-id="{{ w.id }}" title="Takrorlashga qo'shish">
+            <i class="fa-solid fa-plus"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <div class="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">Transliteratsiya</div>
+        <div class="text-sky-400 font-bold tracking-wide">{{ w.transliteration|default:"—" }}</div>
+      </div>
+
+      <div class="mt-auto space-y-3">
+        <div
+          class="p-4 rounded-3xl bg-slate-950/40 border border-white/5 group-hover:border-emerald-500/20 transition-colors">
+          <div class="text-[9px] font-bold text-slate-500 uppercase tracking-tighter mb-2">Ma'nolar</div>
+          <div class="space-y-2">
+            <div class="flex items-center gap-3">
+              <span class="text-[10px] font-bold text-emerald-500/50">UZ</span>
+              <span class="text-sm text-slate-200 font-bold truncate">{{ w.translation_uz|default:"—" }}</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="text-[10px] font-bold text-sky-500/50">RU</span>
+              <span class="text-xs text-slate-400 truncate">{{ w.translation_ru|default:"—" }}</span>
+            </div>
+          </div>
+        </div>
+
+        {% if w.category %}
+        <div class="flex items-center gap-2">
+          <div class="h-1.5 w-1.5 rounded-full bg-emerald-500"></div>
+          <div class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">{{ w.category.name }}</div>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  {% empty %}
+  <div class="col-span-full py-20 text-center space-y-4 rounded-[3rem] border border-white/5 bg-white/5">
+    <div class="text-6xl">🔍</div>
+    <h3 class="text-xl font-bold">Hech narsa topilmadi</h3>
+    <p class="text-slate-500">Boshqa so‘z yoki kategoriya bilan urinib ko‘ring.</p>
+    <a href="/dictionary/"
+      class="inline-block px-6 py-3 rounded-2xl bg-emerald-500 text-slate-950 font-bold text-sm">Barchasini ko'rish</a>
+  </div>
+  {% endfor %}
+</div>
+
+<!-- LARGE PAGINATION (Bottom) -->
+{% if page_obj.has_other_pages %}
+<div class="mt-12 flex justify-center pb-10">
+  <div class="inline-flex items-center p-1 bg-white/5 border border-white/10 rounded-[2rem] shadow-xl">
+    {% if page_obj.has_previous %}
+    <a href="?page=1&q={{ q }}&cat={{ cat }}&alpha={{ alpha }}"
+      class="h-12 w-12 rounded-full grid place-items-center hover:bg-white/10 transition">«</a>
+    <a href="?page={{ page_obj.previous_page_number }}&q={{ q }}&cat={{ cat }}&alpha={{ alpha }}"
+      class="h-12 w-12 rounded-full grid place-items-center hover:bg-white/10 transition">‹</a>
+    {% endif %}
+
+    {% for i in page_obj.paginator.page_range %}
+    {% if page_obj.number == i %}
+    <span
+      class="h-12 w-12 rounded-full bg-emerald-500 text-slate-950 grid place-items-center font-black shadow-lg shadow-emerald-500/20">{{
+      i }}</span>
+    {% elif i > page_obj.number|add:'-3' and i < page_obj.number|add:'3' %} <a
+      href="?page={{ i }}&q={{ q }}&cat={{ cat }}&alpha={{ alpha }}"
+      class="h-12 w-12 rounded-full grid place-items-center hover:bg-white/10 transition text-sm font-bold">{{ i }}</a>
+      {% endif %}
+      {% endfor %}
+
+      {% if page_obj.has_next %}
+      <a href="?page={{ page_obj.next_page_number }}&q={{ q }}&cat={{ cat }}&alpha={{ alpha }}"
+        class="h-12 w-12 rounded-full grid place-items-center hover:bg-white/10 transition">›</a>
+      <a href="?page={{ page_obj.paginator.num_pages }}&q={{ q }}&cat={{ cat }}&alpha={{ alpha }}"
+        class="h-12 w-12 rounded-full grid place-items-center hover:bg-white/10 transition">»</a>
+      {% endif %}
+  </div>
+</div>
+{% endif %}
+
 <script>
-  // Copy arabic word
+  // Copy logic
   document.querySelectorAll(".copyBtn").forEach(btn => {
     btn.addEventListener("click", async () => {
       const text = btn.dataset.copy || "";
       try {
         await navigator.clipboard.writeText(text);
-        const old = btn.textContent;
-        btn.textContent = "Copied!";
-        setTimeout(() => btn.textContent = old, 900);
+        const icon = btn.querySelector('i');
+        icon.className = "fa-solid fa-check";
+        btn.classList.add('bg-emerald-500', 'text-slate-950');
+        setTimeout(() => {
+          icon.className = "fa-regular fa-copy";
+          btn.classList.remove('bg-emerald-500', 'text-slate-950');
+        }, 1500);
+      } catch (e) {
+        console.error(e);
+      }
+    });
+  });
+
+  // Add to Card logic
+  document.querySelectorAll(".addCardBtn").forEach(btn => {
+    btn.addEventListener("click", async () => {
+      const wordId = btn.dataset.id;
+      try {
+        const response = await fetch(`/dictionary/add/${wordId}/`, {
+          method: "POST",
+          headers: { "X-CSRFToken": "{{ csrf_token }}" }
+        });
+        const data = await response.json();
+        const icon = btn.querySelector('i');
+
+        if (data.status === 'created') {
+          icon.className = "fa-solid fa-check";
+          btn.classList.add('bg-orange-500', 'text-slate-950');
+          // Optional: show a small toast or just leave the checkmark
+        } else {
+          // Already exists or error
+          btn.classList.add('opacity-50');
+        }
       } catch (e) {
         console.error(e);
       }
     });
   });
 </script>
+
+<style>
+  .font-arabic {
+    font-family: 'Noto Naskh Arabic', serif;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+  }
+</style>
 
 {% endblock %}

@@ -10,7 +10,8 @@
       <div class="text-xs text-slate-400">0 → PRO learning</div>
       <h1 class="mt-1 text-3xl md:text-5xl font-black text-white">🗺 Roadmap</h1>
       <p class="mt-2 text-slate-300 text-sm max-w-2xl leading-relaxed">
-        Duolingo uslubida bosqichma-bosqich: <span class="text-white/90">A0</span> → <span class="text-white/90">B1</span>.
+        Duolingo uslubida bosqichma-bosqich: <span class="text-white/90">A0</span> → <span
+          class="text-white/90">B1</span>.
         Har bir bosqichda lesson + practice + review.
       </p>
 
@@ -24,11 +25,11 @@
 
     <div class="flex items-center gap-2">
       <a href="/courses/"
-         class="rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-sm text-white/90 hover:bg-white/10 transition">
+        class="rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-sm text-white/90 hover:bg-white/10 transition">
         Kurslar
       </a>
       <a href="/alphabet/"
-         class="rounded-2xl bg-emerald-400 px-4 py-2 text-sm font-semibold text-slate-950 hover:bg-emerald-300 transition">
+        class="rounded-2xl bg-emerald-400 px-4 py-2 text-sm font-semibold text-slate-950 hover:bg-emerald-300 transition">
         🚀 Start A0
       </a>
     </div>
@@ -49,30 +50,39 @@
 
       {% for lvl in levels %}
       {% comment %}
-        Zig-zag: even -> left, odd -> right
+      Zig-zag: even -> left, odd -> right
       {% endcomment %}
 
       <div class="relative">
         <!-- node -->
         <div class="absolute left-1/2 -translate-x-1/2">
           {% if lvl == "A0" %}
-            <!-- active -->
-            <div class="h-16 w-16 rounded-full bg-emerald-400 text-slate-950 grid place-items-center shadow-lg shadow-emerald-500/20 border border-white/20">
-              <span class="text-xl">⭐</span>
-            </div>
-            <div class="mt-2 text-center text-xs text-emerald-200 font-semibold">Start</div>
+          <!-- active -->
+          <div
+            class="h-16 w-16 rounded-full bg-emerald-400 text-slate-950 grid place-items-center shadow-lg shadow-emerald-500/20 border border-white/20">
+            <span class="text-xl">⭐</span>
+          </div>
+          <div class="mt-2 text-center text-xs text-emerald-200 font-semibold">Start</div>
+          {% elif lvl == "Quran" %}
+          <!-- Quran -->
+          <div
+            class="h-16 w-16 rounded-full bg-violet-400 text-slate-950 grid place-items-center shadow-lg shadow-violet-500/20 border border-white/20">
+            <span class="text-xl">🕌</span>
+          </div>
+          <div class="mt-2 text-center text-xs text-violet-200 font-semibold">Special</div>
           {% elif lvl == "B1" %}
-            <!-- final -->
-            <div class="h-16 w-16 rounded-full bg-sky-400 text-slate-950 grid place-items-center shadow-lg shadow-sky-500/20 border border-white/20">
-              <span class="text-xl">🏁</span>
-            </div>
-            <div class="mt-2 text-center text-xs text-sky-200 font-semibold">PRO</div>
+          <!-- final -->
+          <div
+            class="h-16 w-16 rounded-full bg-sky-400 text-slate-950 grid place-items-center shadow-lg shadow-sky-500/20 border border-white/20">
+            <span class="text-xl">🏁</span>
+          </div>
+          <div class="mt-2 text-center text-xs text-sky-200 font-semibold">PRO</div>
           {% else %}
-            <!-- middle (locked look) -->
-            <div class="h-16 w-16 rounded-full bg-white/10 text-white grid place-items-center border border-white/10">
-              <span class="text-xl">🔒</span>
-            </div>
-            <div class="mt-2 text-center text-xs text-slate-400 font-semibold">Locked</div>
+          <!-- middle (locked look) -->
+          <div class="h-16 w-16 rounded-full bg-white/10 text-white grid place-items-center border border-white/10">
+            <span class="text-xl">🔒</span>
+          </div>
+          <div class="mt-2 text-center text-xs text-slate-400 font-semibold">Locked</div>
           {% endif %}
         </div>
 
@@ -84,7 +94,8 @@
             md:pl-[52%]
           {% endif %}
         ">
-          <div class="group rounded-3xl border border-white/10 bg-slate-950/30 p-5 md:p-6 hover:bg-slate-950/45 transition">
+          <div
+            class="group rounded-3xl border border-white/10 bg-slate-950/30 p-5 md:p-6 hover:bg-slate-950/45 transition">
 
             <div class="flex items-start justify-between gap-4">
               <div>
@@ -95,45 +106,59 @@
               <div class="flex gap-2 text-xs">
                 <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-slate-200">Unit</span>
                 {% if lvl == "A0" %}
-                  <span class="rounded-full border border-emerald-400/30 bg-emerald-500/15 px-3 py-1 text-emerald-200">Active</span>
+                <span
+                  class="rounded-full border border-emerald-400/30 bg-emerald-500/15 px-3 py-1 text-emerald-200">Active</span>
+                {% elif lvl == "Quran" %}
+                <span
+                  class="rounded-full border border-violet-400/30 bg-violet-500/15 px-3 py-1 text-violet-200">Bonus</span>
                 {% elif lvl == "B1" %}
-                  <span class="rounded-full border border-sky-400/30 bg-sky-500/15 px-3 py-1 text-sky-200">Final</span>
+                <span class="rounded-full border border-sky-400/30 bg-sky-500/15 px-3 py-1 text-sky-200">Final</span>
                 {% else %}
-                  <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-slate-300">Soon</span>
+                <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-slate-300">Soon</span>
                 {% endif %}
               </div>
             </div>
 
             <p class="mt-3 text-slate-300 text-sm leading-relaxed">
               {% if lvl == "A0" %}
-                Alifbo, harakatlar, bog‘lanish. O‘qish bazasi va ilk so‘zlar.
+              Alifbo, harakatlar, bog‘lanish. O‘qish bazasi va ilk so‘zlar.
               {% elif lvl == "A1" %}
-                Oddiy so‘zlar, gaplar, basic grammatika. Kundalik mavzular.
+              Oddiy so‘zlar, gaplar, basic grammatika. Kundalik mavzular.
               {% elif lvl == "A2" %}
-                Ko‘proq lug‘at, tinglab tushunish, matn bilan ishlash.
+              Ko‘proq lug‘at, tinglab tushunish, matn bilan ishlash.
+              {% elif lvl == "Quran" %}
+              Qur’on o‘qish, tajvid qoidalari va suralar. Maxsus bo‘lim.
               {% elif lvl == "B1" %}
-                Matnlar, testlar, tez o‘qish va review. Katta practice.
+              Matnlar, testlar, tez o‘qish va review. Katta practice.
               {% endif %}
             </p>
 
             <!-- goals chips -->
             <div class="mt-4 flex flex-wrap gap-2 text-xs">
               {% if lvl == "A0" %}
-                <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-slate-200">28 harf</span>
-                <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-slate-200">Harakatlar</span>
-                <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-slate-200">Yozish</span>
+              <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-slate-200">28 harf</span>
+              <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-slate-200">Harakatlar</span>
+              <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-slate-200">Yozish</span>
               {% elif lvl == "A1" %}
-                <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-slate-200">500 so‘z</span>
-                <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-slate-200">Basic gaplar</span>
-                <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-slate-200">Practice</span>
+              <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-slate-200">500 so‘z</span>
+              <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-slate-200">Basic gaplar</span>
+              <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-slate-200">Practice</span>
+              {% elif lvl == "Quran" %}
+              <span
+                class="rounded-full border border-violet-400/30 bg-violet-500/10 px-3 py-1 text-violet-200">Tajvid</span>
+              <span
+                class="rounded-full border border-violet-400/30 bg-violet-500/10 px-3 py-1 text-violet-200">Suralar</span>
+              <span
+                class="rounded-full border border-violet-400/30 bg-violet-500/10 px-3 py-1 text-violet-200">Tinglash</span>
               {% elif lvl == "A2" %}
-                <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-slate-200">1500+ so‘z</span>
-                <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-slate-200">Grammar</span>
-                <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-slate-200">Listening</span>
+              <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-slate-200">1500+ so‘z</span>
+              <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-slate-200">Grammar</span>
+              <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-slate-200">Listening</span>
               {% else %}
-                <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-slate-200">Qur’on lug‘ati</span>
-                <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-slate-200">Review/Test</span>
-                <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-slate-200">Reading</span>
+              <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-slate-200">Qur’on
+                lug‘ati</span>
+              <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-slate-200">Review/Test</span>
+              <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-slate-200">Reading</span>
               {% endif %}
             </div>
 
@@ -144,17 +169,24 @@
               </div>
 
               {% if lvl == "A0" %}
-                <a href="/alphabet/"
-                   class="inline-flex items-center gap-2 rounded-2xl bg-emerald-400 px-4 py-2 text-sm font-semibold text-slate-950 hover:bg-emerald-300 transition">
-                  Start
-                  <span class="translate-x-0 group-hover:translate-x-1 transition">→</span>
-                </a>
+              <a href="/alphabet/"
+                class="inline-flex items-center gap-2 rounded-2xl bg-emerald-400 px-4 py-2 text-sm font-semibold text-slate-950 hover:bg-emerald-300 transition">
+                Start
+                <span class="translate-x-0 group-hover:translate-x-1 transition">→</span>
+              </a>
+              {% elif lvl == "Quran" %}
+              <a href="/quran/"
+                class="inline-flex items-center gap-2 rounded-2xl bg-violet-400 px-4 py-2 text-sm font-semibold text-slate-950 hover:bg-violet-300 transition">
+                O‘qish
+                <span class="translate-x-0 group-hover:translate-x-1 transition">→</span>
+              </a>
               {% else %}
-                <button disabled
-                        class="inline-flex items-center gap-2 rounded-2xl bg-white/10 px-4 py-2 text-sm font-semibold text-white/50 cursor-not-allowed">
-                  Locked
-                  <span>🔒</span>
-                </button>
+
+              <button disabled
+                class="inline-flex items-center gap-2 rounded-2xl bg-white/10 px-4 py-2 text-sm font-semibold text-white/50 cursor-not-allowed">
+                Locked
+                <span>🔒</span>
+              </button>
               {% endif %}
             </div>
 
@@ -173,11 +205,12 @@
       <div>
         <div class="text-sm font-semibold text-white">Boshlashga tayyormisan?</div>
         <p class="mt-2 text-sm text-slate-400 leading-relaxed">
-          Eng yaxshi start — <span class="text-white/90">A0: Alifbo</span>. Har kuni 20 daqiqa — 1 oyda sezilarli natija.
+          Eng yaxshi start — <span class="text-white/90">A0: Alifbo</span>. Har kuni 20 daqiqa — 1 oyda sezilarli
+          natija.
         </p>
       </div>
       <a href="/alphabet/"
-         class="inline-flex items-center justify-center rounded-2xl bg-emerald-400 text-slate-950 px-6 py-3 text-sm font-semibold hover:bg-emerald-300 transition">
+        class="inline-flex items-center justify-center rounded-2xl bg-emerald-400 text-slate-950 px-6 py-3 text-sm font-semibold hover:bg-emerald-300 transition">
         🚀 A0 dan boshlash
       </a>
     </div>

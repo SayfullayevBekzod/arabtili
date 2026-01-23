@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+{% block title %}Tajvid Logic Tree{% endblock %}
+{% block content %}
+
+<div class="max-w-4xl mx-auto py-10 px-4" x-data="logicTree()">
+    <div class="text-center mb-10">
+        <h1 class="text-4xl font-black">🌲 Tajvid Qoida Topuvchi</h1>
+        <p class="mt-4 text-slate-400">Logika orqali qoidani aniqlashni o'rganing. Savollarga javob bering.</p>
+    </div>
+
+    <div class="relative bg-white/5 border border-white/10 rounded-[3rem] p-8 md:p-12 overflow-hidden shadow-2xl">
+        <!-- Progress Bar -->
+        <div class="absolute top-0 left-0 w-full h-1 bg-white/5">
+            <div class="h-full bg-emerald-500 transition-all duration-500" :style="'width: ' + progress + '%'"></div>
+        </div>
+
+        <!-- QUESTIONS/STEPS -->
+        <div class="relative z-10 min-h-[300px] flex flex-col justify-center">
+            <template x-if="currentStep.type === 'question'">
+                <div x-transition:enter="transition ease-out duration-300 transform opacity-0 scale-95"
+                    x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100">
+                    <div class="text-xs text-emerald-400 font-bold tracking-widest uppercase mb-2"
+                        x-text="'SAVOL #' + (history.length + 1)"></div>
+                    <h2 class="text-2xl md:text-3xl font-bold leading-tight" x-text="currentStep.text"></h2>
+
+                    <div class="mt-8 grid gap-4">
+                        <template x-for="option in currentStep.options" :key="option.next">
+                            <button @click="choose(option.next)"
+                                class="flex items-center justify-between p-5 rounded-3xl border border-white/10 bg-slate-900/50 hover:bg-emerald-500 hover:border-emerald-500 hover:text-slate-950 transition-all group">
+                                <span class="text-lg font-bold" x-text="option.label"></span>
+                                <span class="opacity-0 group-hover:opacity-100 transition">➜</span>
+                            </button>
+                        </template>
+                    </div>
+                </div>
+            </template>
+
+            <template x-if="currentStep.type === 'result'">
+                <div class="text-center"
+                    x-transition:enter="transition ease-out duration-500 transform opacity-0 scale-90">
+                    <div
+                        class="inline-flex h-20 w-20 items-center justify-center rounded-full bg-emerald-500 text-slate-950 text-3xl mb-6">
+                        ✨</div>
+                    <h2 class="text-3xl font-black">Topdik! Bu:</h2>
+                    <div class="mt-4 text-5xl font-black text-emerald-400" x-text="currentStep.title"></div>
+                    <p class="mt-4 text-xl text-slate-300" x-text="currentStep.desc"></p>
+
+                    <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+                        <button @click="reset()"
+                            class="rounded-2xl bg-white text-slate-950 px-8 py-4 font-bold hover:bg-slate-200 transition shadow-lg">Qaytadan
+                            boshlash</button>
+                        <a :href="'/tajweed/' + currentStep.slug + '/'"
+                            class="rounded-2xl border border-white/10 px-8 py-4 font-bold hover:bg-white/10 transition">Batafsil
+                            o'rganish</a>
+                    </div>
+                </div>
+            </template>
+        </div>
+
+        <!-- BACK BUTTON -->
+        <button x-show="history.length > 0" @click="back()"
+            class="absolute bottom-8 left-8 text-xs text-slate-500 hover:text-white transition flex items-center gap-1">
+            ← Orqaga qaytish
+        </button>
+    </div>
+</div>
+
+<script>
+    function logicTree() {
+        const steps = {
+            start: {
+                type: 'question',
+                text: "Matnda Noon Sakinah (نْ) yoki Tanween (ً ٍ ٌ) bormi?",
+                options: [
+                    { label: "Ha, bor", next: 'noon_next_letter' },
+                    { label: "Yo'q, Meem Sakinah (مْ) ni tekshiramiz", next: 'meem_next_letter' }
+                ]
+            },
+            noon_next_letter: {
+                type: 'question',
+                text: "Noon Sakinah yoki Tanween dan keyin qaysi harf kelyapti?",
+                options: [
+                    { label: "Tomoq harflari (ء ه ع ح غ خ)", next: 'izhor' },
+                    { label: "Idgham harflari (ي ر م ل و ن)", next: 'idgham' },
+                    { label: "Ba (ب) harfi", next: 'iqlab' },
+                    { label: "Qolgan 15 ta harf", next: 'ikhfa' }
+                ]
+            },
+            meem_next_letter: {
+                type: 'question',
+                text: "Meem Sakinah (مْ) dan keyin qaysi harf kelyapti?",
+                options: [
+                    { label: "Meem (م) harfi", next: 'idgham_mithlayn' },
+                    { label: "Ba (ب) harfi", next: 'ikhfa_shafawi' },
+                    { label: "Qolgan 26 ta harf", next: 'izhor_shafawi' }
+                ]
+            },
+            // RESULTS
+            izhor: { type: 'result', title: "Izhor", desc: "Noon aniq va tiniq o'qiladi.", slug: 'izhor' },
+            idgham: { type: 'result', title: "Idgham", desc: "Keyingi harfga qo'shib (kirgizib) o'qiladi.", slug: 'idgham' },
+            iqlab: { type: 'result', title: "Iqlab", desc: "Noon harfi Meem'ga aylanib o'qiladi.", slug: 'iqlab' },
+            ikhfa: { type: 'result', title: "Ikhfa", desc: "Noon harfi dimog'da yashirib o'qiladi.", slug: 'ikhfa' },
+            idgham_mithlayn: { type: 'result', title: "Idgham Mithlayn", desc: "Ikki Meem'ni bir-biriga qo'shib o'qish.", slug: 'idgham-mithlayn' },
+            ikhfa_shafawi: { type: 'result', title: "Ikhfa Shafawi", desc: "Meem'ni yashirib o'qish.", slug: 'ikhfa-shafawi' },
+            izhor_shafawi: { type: 'result', title: "Izhor Shafawi", desc: "Meem'ni aniq o'qish.", slug: 'izhor-shafawi' }
+        };
+
+        return {
+            currentKey: 'start',
+            history: [],
+            get currentStep() { return steps[this.currentKey]; },
+            get progress() {
+                if (this.currentStep.type === 'result') return 100;
+                return (this.history.length / 3) * 100;
+            },
+            choose(nextKey) {
+                this.history.push(this.currentKey);
+                this.currentKey = nextKey;
+            },
+            back() {
+                if (this.history.length > 0) {
+                    this.currentKey = this.history.pop();
+                }
+            },
+            reset() {
+                this.currentKey = 'start';
+                this.history = [];
+            }
+        }
+    }
+</script>
+
+{% endblock %}

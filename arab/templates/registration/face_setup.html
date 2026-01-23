@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+
+{% block title %}Face Setup{% endblock %}
+
+{% block content %}
+<div class="min-h-[80vh] flex flex-col items-center justify-center p-4">
+    <div class="w-full max-w-md bg-slate-900 border border-white/10 rounded-3xl p-6 relative overflow-hidden">
+        <!-- Glow effects -->
+        <div class="absolute top-0 left-0 w-32 h-32 bg-emerald-500/20 blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-0 right-0 w-32 h-32 bg-sky-500/20 blur-3xl pointer-events-none"></div>
+
+        <div class="text-center mb-6">
+            <h2 class="text-2xl font-black text-white">Face ID Setup</h2>
+            <p class="text-slate-400 text-sm mt-2">Kameraga qarang va yuzingizni tasdiqlang.</p>
+        </div>
+
+        <!-- Video Preview -->
+        <div
+            class="relative w-full aspect-[3/4] bg-black rounded-2xl overflow-hidden mb-6 border-2 border-dashed border-white/10 group">
+            <video id="video" class="w-full h-full object-cover transform scale-x-[-1]" autoplay playsinline></video>
+            <canvas id="canvas" class="hidden"></canvas>
+
+            <!-- Scan overlay -->
+            <div id="scan-overlay" class="absolute inset-0 pointer-events-none hidden">
+                <div class="absolute inset-0 border-4 border-emerald-400/50 rounded-2xl animate-pulse"></div>
+                <div
+                    class="absolute top-1/2 left-0 w-full h-0.5 bg-emerald-400 shadow-[0_0_15px_rgba(52,211,153,0.8)] animate-[scan_2s_ease-in-out_infinite]">
+                </div>
+            </div>
+
+            <div id="camera-loading" class="absolute inset-0 flex items-center justify-center bg-slate-900/80">
+                <div class="text-slate-400 text-xs">Camera yuklanmoqda...</div>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="space-y-3">
+            <button id="capture-btn" disabled
+                class="w-full py-3.5 rounded-xl bg-white text-slate-950 font-bold hover:bg-slate-200 disabled:opacity-50 disabled:cursor-not-allowed transition-all active:scale-95">
+                Yuzni saqlash
+            </button>
+
+            <a href="/progress/" class="block text-center text-slate-400 text-sm hover:text-white transition">
+                O'tkazib yuborish
+            </a>
+        </div>
+
+        <!-- Status -->
+        <div id="status-msg" class="mt-4 text-center text-xs font-medium min-h-[20px]"></div>
+    </div>
+</div>
+
+<script>
+    const video = document.getElementById('video');
+    const canvas = document.getElementById('canvas');
+    const captureBtn = document.getElementById('capture-btn');
+    const statusMsg = document.getElementById('status-msg');
+    const scanOverlay = document.getElementById('scan-overlay');
+    const loading = document.getElementById('camera-loading');
+
+    // Start Camera
+    async function startCamera() {
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } });
+            video.srcObject = stream;
+            video.onloadedmetadata = () => {
+                loading.style.display = 'none';
+                captureBtn.disabled = false;
+            };
+        } catch (err) {
+            statusMsg.textContent = "Camera ruxsati kerak!";
+            statusMsg.className = "mt-4 text-center text-xs font-medium text-red-500";
+            loading.textContent = "Camera Error 🚫";
+        }
+    }
+
+    // Capture
+    captureBtn.addEventListener('click', async () => {
+        // UI feedback
+        captureBtn.disabled = true;
+        captureBtn.textContent = "Saqlanmoqda...";
+        scanOverlay.classList.remove('hidden');
+
+        // Draw frame to canvas
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+        // Get Base64
+        const imageData = canvas.toDataURL('image/jpeg', 0.8);
+
+        // Send to backend
+        try {
+            const response = await fetch('/face-setup/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify({ image: imageData })
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                statusMsg.textContent = "Muvaffaqiyatli saqlandi! ✅";
+                statusMsg.className = "mt-4 text-center text-xs font-medium text-emerald-400";
+                captureBtn.textContent = "Tugatish";
+                setTimeout(() => window.location.href = '/progress/', 1500);
+            } else {
+                throw new Error(data.error || "Xatolik yuz berdi");
+            }
+        } catch (err) {
+            scanOverlay.classList.add('hidden');
+            captureBtn.disabled = false;
+            captureBtn.textContent = "Qayta urinish";
+            statusMsg.textContent = err.message;
+            statusMsg.className = "mt-4 text-center text-xs font-medium text-red-400";
+        }
+    });
+
+    startCamera();
+</script>
+
+<style>
+    @keyframes scan {
+
+        0%,
+        100% {
+            top: 0%;
+            opacity: 0;
+        }
+
+        10% {
+            opacity: 1;
+        }
+
+        90% {
+            opacity: 1;
+        }
+
+        50% {
+            top: 100%;
+        }
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+
+{% block title %}Face Login{% endblock %}
+
+{% block content %}
+<div class="min-h-[80vh] flex flex-col items-center justify-center p-4">
+    <div class="w-full max-w-md bg-slate-900 border border-white/10 rounded-3xl p-6 relative overflow-hidden">
+
+        <div class="text-center mb-6">
+            <div class="w-16 h-16 mx-auto bg-white/5 rounded-2xl flex items-center justify-center mb-3">
+                <span class="text-3xl">🙂</span>
+            </div>
+            <h2 class="text-2xl font-black text-white">Face Login</h2>
+            <p class="text-slate-400 text-sm mt-2">Tizimga kirish uchun kameraga qarang.</p>
+        </div>
+
+        <!-- Video Preview -->
+        <div
+            class="relative w-full aspect-[3/4] bg-black rounded-2xl overflow-hidden mb-6 border-2 border-dashed border-white/10">
+            <video id="video" class="w-full h-full object-cover transform scale-x-[-1]" autoplay playsinline></video>
+            <canvas id="canvas" class="hidden"></canvas>
+
+            <!-- Searching Line -->
+            <div id="scan-line" class="absolute inset-0 pointer-events-none hidden">
+                <div
+                    class="absolute top-1/2 left-0 w-full h-0.5 bg-sky-400 shadow-[0_0_15px_rgba(56,189,248,0.8)] animate-[scan_1.5s_linear_infinite]">
+                </div>
+            </div>
+        </div>
+
+        <div id="status-msg" class="text-center text-sm font-medium text-slate-300 min-h-[20px] mb-4">
+            Camera yuklanmoqda...
+        </div>
+
+        <div class="space-y-3">
+            <button id="scan-btn" disabled
+                class="w-full py-3.5 rounded-xl bg-sky-500 text-white font-bold hover:bg-sky-400 disabled:opacity-50 disabled:cursor-not-allowed transition-all">
+                Scan Face
+            </button>
+
+            <a href="/accounts/login/" class="block text-center text-slate-400 text-sm hover:text-white transition">
+                Parol bilan kirish
+            </a>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    const video = document.getElementById('video');
+    const canvas = document.getElementById('canvas');
+    const statusMsg = document.getElementById('status-msg');
+    const scanLine = document.getElementById('scan-line');
+    const scanBtn = document.getElementById('scan-btn');
+
+    let isScanning = false;
+
+    async function startCamera() {
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } });
+            video.srcObject = stream;
+            video.onloadedmetadata = () => {
+                statusMsg.textContent = "Tayyor. Scan tugmasini bosing.";
+                scanBtn.disabled = false;
+            };
+        } catch (err) {
+            statusMsg.textContent = "Camera xatosi";
+            statusMsg.classList.add('text-red-400');
+        }
+    }
+
+    scanBtn.addEventListener('click', () => {
+        if (isScanning) return;
+        isScanning = true;
+        scanBtn.disabled = true;
+        scanLine.classList.remove('hidden');
+        statusMsg.textContent = "Tekshirilmoqda...";
+        statusMsg.className = "text-center text-sm font-medium text-sky-400 min-h-[20px] mb-4";
+
+        // Allow visual scan for 1s then capture
+        setTimeout(captureAndLogin, 800);
+    });
+
+    async function captureAndLogin() {
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        const imageData = canvas.toDataURL('image/jpeg', 0.8);
+
+        try {
+            const response = await fetch('/face-login/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify({ image: imageData })
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                statusMsg.textContent = "Muvaffaqiyatli! ✅";
+                statusMsg.className = "text-center text-sm font-medium text-emerald-400 min-h-[20px] mb-4";
+                setTimeout(() => window.location.href = data.redirect, 1000);
+            } else {
+                throw new Error(data.error || "Yuz topilmadi");
+            }
+        } catch (err) {
+            statusMsg.textContent = err.message;
+            statusMsg.className = "text-center text-sm font-medium text-red-400 min-h-[20px] mb-4";
+            isScanning = false;
+            scanBtn.disabled = false;
+            scanLine.classList.add('hidden');
+        }
+    }
+
+    startCamera();
+</script>
+
+<style>
+    @keyframes scan {
+        0% {
+            top: 0%;
+            opacity: 0;
+        }
+
+        10% {
+            opacity: 1;
+        }
+
+        90% {
+            opacity: 1;
+        }
+
+        100% {
+            top: 100%;
+            opacity: 0;
+        }
+    }
+</style>
+{% endblock %}

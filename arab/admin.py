@@ -4,32 +4,19 @@ from .models import (
     Letter, Diacritic,
     Word, WordExample,
     Exercise, Question, Choice,
-    UserLessonProgress, UserWordProgress, UserQuizAttempt
+    UserLessonProgress, UserWordProgress, UserQuizAttempt,
+    LessonVideo, UserVideoProgress, Profile
 )
+
 from .models import TajweedRule, TajweedExample, TajweedTag, TajweedMark, TajweedQuiz, TajweedQuizOption, TajweedQuizAttempt , LetterExample
 
 class TajweedQuizOptionInline(admin.TabularInline):
     model = TajweedQuizOption
     extra = 0
 
-# @admin.register(TajweedQuiz)
-# class TajweedQuizAdmin(admin.ModelAdmin):
-#     list_display = ("id", "rule", "is_active")
-#     list_filter = ("is_active", "rule__level")
-#     search_fields = ("prompt", "rule__title")
-#     inlines = [TajweedQuizOptionInline]
-
-# @admin.register(TajweedQuizAttempt)
-# class TajweedQuizAttemptAdmin(admin.ModelAdmin):
-    list_display = ("id", "user", "quiz", "is_correct", "created_at")
-    list_filter = ("is_correct", "created_at")
-    search_fields = ("user__username", "quiz__rule__title")
-
 class TajweedMarkInline(admin.TabularInline):
     model = TajweedMark
     extra = 0
-
-
 
 @admin.register(TajweedExample)
 class TajweedExampleAdmin(admin.ModelAdmin):
@@ -61,25 +48,19 @@ class TajweedMarkAdmin(admin.ModelAdmin):
     list_display = ("example", "rule", "tag", "start", "end")
     list_filter = ("rule", "tag")
 
-    list_display = ("example", "rule", "tag", "start", "end")
-    list_filter = ("rule", "tag")
-
 
 # ----------------- Inline'lar -----------------
 class UnitInline(admin.TabularInline):
     model = Unit
     extra = 0
-
     
 class LessonInline(admin.TabularInline):
     model = Lesson
     extra = 0
 
-
 class WordExampleInline(admin.TabularInline):
     model = WordExample
     extra = 0
-
 
 class ChoiceInline(admin.TabularInline):
     model = Choice
@@ -115,6 +96,28 @@ class LessonAdmin(admin.ModelAdmin):
     list_filter = ("unit__course", "unit")
     search_fields = ("title", "theory", "unit__title", "unit__course__title")
     ordering = ("unit", "order")
+
+
+@admin.register(LessonVideo)
+class LessonVideoAdmin(admin.ModelAdmin):
+    list_display = ("title", "lesson", "provider", "duration", "is_free", "created_at")
+    list_filter = ("provider", "is_free", "lesson__unit__course")
+    search_fields = ("title", "video_id", "lesson__title")
+    ordering = ("lesson", "order")
+    
+    fieldsets = (
+        ("Asosiy ma'lumotlar", {
+            "fields": ("lesson", "title", "order", "is_free")
+        }),
+        ("Video manbasi", {
+            "fields": ("provider", "video_id", "video_url"),
+            "description": "YouTube uchun: video ID ni kiriting (masalan: dQw4w9WgXcQ). Direct URL uchun: to'liq video linkni kiriting."
+        }),
+        ("Qo'shimcha", {
+            "fields": ("duration",),
+            "description": "Video davomiyligi sekundlarda"
+        }),
+    )
 
 
 # ----------------- Letter / Diacritic -----------------
@@ -175,7 +178,7 @@ class ChoiceAdmin(admin.ModelAdmin):
     ordering = ("question", "-is_correct")
 
 
-# ----------------- Progress (ixtiyoriy) -----------------
+# ----------------- Progress & Stats -----------------
 @admin.register(UserLessonProgress)
 class UserLessonProgressAdmin(admin.ModelAdmin):
     list_display = ("user", "lesson", "percent", "is_completed", "updated_at")
@@ -202,3 +205,8 @@ class UserQuizAttemptAdmin(admin.ModelAdmin):
 @admin.register(LetterExample)
 class UserLetterExampleAdmin(admin.ModelAdmin):
     pass
+
+@admin.register(Profile)
+class ProfileAdmin(admin.ModelAdmin):
+    list_display = ("user", "avatar", "created_at")
+    search_fields = ("user__username", "user__email")

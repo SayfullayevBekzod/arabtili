@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Natija{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto py-12 px-4 text-center">
+    <div class="mb-8">
+        <div
+            class="inline-flex items-center justify-center w-24 h-24 rounded-full bg-gradient-to-br from-emerald-400 to-cyan-500 shadow-lg shadow-emerald-500/30 mb-6">
+            <span class="text-4xl">🎉</span>
+        </div>
+        <h1 class="text-5xl font-black text-white mb-2">Tabriklaymiz!</h1>
+        <p class="text-xl text-slate-300">{{ msg }}</p>
+    </div>
+
+    <div class="grid grid-cols-2 gap-4 mb-10">
+        <div class="p-6 rounded-3xl bg-slate-900/50 border border-white/5">
+            <div class="text-sm text-slate-400 mb-1">To‘g‘ri javoblar</div>
+            <div class="text-4xl font-black text-emerald-400">{{ score }}/5</div>
+        </div>
+        <div class="p-6 rounded-3xl bg-slate-900/50 border border-white/5">
+            <div class="text-sm text-slate-400 mb-1">Sizning darajangiz</div>
+            <div
+                class="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-300 to-orange-500">
+                {% if level == 1 %}A0{% elif level == 2 %}A1{% else %}A2{% endif %}
+            </div>
+        </div>
+    </div>
+
+    <a href="{% url 'arab:progress' %}"
+        class="inline-block py-4 px-12 rounded-2xl bg-white text-slate-900 font-bold text-lg hover:bg-slate-100 transition-colors">
+        Davom etish
+    </a>
+</div>
+{% endblock %}

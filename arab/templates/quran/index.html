@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Qur'on - Arab Academy{% endblock %}
+{% block content %}
+
+<!-- Header -->
+<div class="mb-10 text-center">
+    <h1 class="text-4xl font-black text-white mb-3">Qur'oni Karim</h1>
+    <p class="text-slate-400 text-lg">Surani tanlang va o'qishni boshlang</p>
+</div>
+
+<!-- Surah Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    {% for surah in surahs %}
+    <a href="{% url 'arab:quran_detail' surah.number %}"
+        class="group relative bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 hover:scale-[1.02] transition-all duration-300">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <!-- Number Badge -->
+                <div
+                    class="w-10 h-10 rounded-full border border-emerald-500/30 bg-emerald-500/10 flex items-center justify-center text-emerald-400 font-bold">
+                    {{ surah.number }}
+                </div>
+
+                <!-- Names -->
+                <div>
+                    <h2 class="font-bold text-lg text-white group-hover:text-emerald-400 transition">{{ surah.name }}
+                    </h2>
+                    <p class="text-xs text-slate-400">{{ surah.english_name }}</p>
+                </div>
+            </div>
+
+            <!-- Detail Badge -->
+            <div class="text-right">
+                <div class="arabic-font text-xl text-slate-200 opacity-80 mb-1" dir="rtl">{{ surah.name }}</div>
+                <div class="text-[10px] text-slate-500 uppercase tracking-wider font-bold">
+                    {{ surah.place }} • {{ surah.ayah_count }}
+                </div>
+            </div>
+        </div>
+    </a>
+    {% empty %}
+    <div class="col-span-full text-center py-20 text-slate-500">
+        Hozircha suralar yuklanmagan.
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

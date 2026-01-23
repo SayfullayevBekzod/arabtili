@@ -13,7 +13,8 @@
       <!-- Header -->
       <div class="flex items-start justify-between gap-4">
         <div>
-          <div class="inline-flex items-center gap-2 rounded-2xl border border-white/10 bg-slate-950/40 px-4 py-2 text-xs text-slate-300">
+          <div
+            class="inline-flex items-center gap-2 rounded-2xl border border-white/10 bg-slate-950/40 px-4 py-2 text-xs text-slate-300">
             <span class="h-2 w-2 rounded-full bg-emerald-400"></span>
             Account • Register
           </div>
@@ -24,7 +25,8 @@
           </p>
         </div>
 
-        <div class="h-12 w-12 rounded-2xl bg-gradient-to-br from-emerald-400/20 to-sky-400/20 border border-white/10 grid place-items-center">
+        <div
+          class="h-12 w-12 rounded-2xl bg-gradient-to-br from-emerald-400/20 to-sky-400/20 border border-white/10 grid place-items-center">
           <i class="fa-solid fa-user-plus text-white/90"></i>
         </div>
       </div>
@@ -40,13 +42,12 @@
             <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">
               <i class="fa-regular fa-user"></i>
             </span>
-            <input name="username" value="{{ form.username.value|default:'' }}"
-                   autocomplete="username" placeholder="username"
-                   class="w-full rounded-2xl border border-white/10 bg-black/30 pl-11 pr-4 py-3 outline-none
-                          focus:ring-2 focus:ring-white/20 focus:border-white/20 transition"/>
+            <input name="username" value="{{ form.username.value|default:'' }}" autocomplete="username"
+              placeholder="username" class="w-full rounded-2xl border border-white/10 bg-black/30 pl-11 pr-4 py-3 outline-none
+                          focus:ring-2 focus:ring-white/20 focus:border-white/20 transition" />
           </div>
           {% if form.username.errors %}
-            <div class="mt-2 text-sm text-red-300">{{ form.username.errors }}</div>
+          <div class="mt-2 text-sm text-red-300">{{ form.username.errors }}</div>
           {% endif %}
         </div>
 
@@ -57,13 +58,12 @@
             <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">
               <i class="fa-regular fa-envelope"></i>
             </span>
-            <input name="email" value="{{ form.email.value|default:'' }}"
-                   autocomplete="email" placeholder="name@example.com"
-                   class="w-full rounded-2xl border border-white/10 bg-black/30 pl-11 pr-4 py-3 outline-none
-                          focus:ring-2 focus:ring-white/20 focus:border-white/20 transition"/>
+            <input name="email" value="{{ form.email.value|default:'' }}" autocomplete="email"
+              placeholder="name@example.com" class="w-full rounded-2xl border border-white/10 bg-black/30 pl-11 pr-4 py-3 outline-none
+                          focus:ring-2 focus:ring-white/20 focus:border-white/20 transition" />
           </div>
           {% if form.email.errors %}
-            <div class="mt-2 text-sm text-red-300">{{ form.email.errors }}</div>
+          <div class="mt-2 text-sm text-red-300">{{ form.email.errors }}</div>
           {% endif %}
         </div>
 
@@ -75,13 +75,12 @@
               <i class="fa-solid fa-lock"></i>
             </span>
 
-            <input id="password1" type="password" name="password1"
-                   autocomplete="new-password" placeholder="••••••••"
-                   class="w-full rounded-2xl border border-white/10 bg-black/30 pl-11 pr-12 py-3 outline-none
-                          focus:ring-2 focus:ring-white/20 focus:border-white/20 transition"/>
+            <input id="password1" type="password" name="password1" autocomplete="new-password" placeholder="••••••••"
+              class="w-full rounded-2xl border border-white/10 bg-black/30 pl-11 pr-12 py-3 outline-none
+                          focus:ring-2 focus:ring-white/20 focus:border-white/20 transition" />
 
             <button type="button" id="togglePass1"
-                    class="absolute right-3 top-1/2 -translate-y-1/2 rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-xs text-slate-300 hover:bg-white/10 transition">
+              class="absolute right-3 top-1/2 -translate-y-1/2 rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-xs text-slate-300 hover:bg-white/10 transition">
               Show
             </button>
           </div>
@@ -93,12 +92,13 @@
               <span id="strengthText">—</span>
             </div>
             <div class="mt-2 h-2 rounded-full bg-white/10 overflow-hidden">
-              <div id="strengthBar" class="h-full w-0 bg-gradient-to-r from-emerald-400 to-sky-400 transition-all"></div>
+              <div id="strengthBar" class="h-full w-0 bg-gradient-to-r from-emerald-400 to-sky-400 transition-all">
+              </div>
             </div>
           </div>
 
           {% if form.password1.errors %}
-            <div class="mt-2 text-sm text-red-300">{{ form.password1.errors }}</div>
+          <div class="mt-2 text-sm text-red-300">{{ form.password1.errors }}</div>
           {% endif %}
         </div>
 
@@ -110,18 +110,17 @@
               <i class="fa-solid fa-shield-halved"></i>
             </span>
 
-            <input id="password2" type="password" name="password2"
-                   autocomplete="new-password" placeholder="••••••••"
-                   class="w-full rounded-2xl border border-white/10 bg-black/30 pl-11 pr-12 py-3 outline-none
-                          focus:ring-2 focus:ring-white/20 focus:border-white/20 transition"/>
+            <input id="password2" type="password" name="password2" autocomplete="new-password" placeholder="••••••••"
+              class="w-full rounded-2xl border border-white/10 bg-black/30 pl-11 pr-12 py-3 outline-none
+                          focus:ring-2 focus:ring-white/20 focus:border-white/20 transition" />
 
             <button type="button" id="togglePass2"
-                    class="absolute right-3 top-1/2 -translate-y-1/2 rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-xs text-slate-300 hover:bg-white/10 transition">
+              class="absolute right-3 top-1/2 -translate-y-1/2 rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-xs text-slate-300 hover:bg-white/10 transition">
               Show
             </button>
           </div>
           {% if form.password2.errors %}
-            <div class="mt-2 text-sm text-red-300">{{ form.password2.errors }}</div>
+          <div class="mt-2 text-sm text-red-300">{{ form.password2.errors }}</div>
           {% endif %}
         </div>
 
@@ -134,12 +133,91 @@
           </span>
         </label>
 
+        <!-- Face Capture (Inline) -->
+        <div class="mb-4">
+          <label class="text-sm text-slate-300 mb-2 block">Face ID (Registration)</label>
+          <div class="relative w-full aspect-video bg-black rounded-2xl overflow-hidden border border-white/10 group">
+            <video id="video" class="w-full h-full object-cover transform scale-x-[-1]" autoplay playsinline
+              muted></video>
+            <canvas id="canvas" class="hidden"></canvas>
+
+            <div id="cam-status"
+              class="absolute inset-0 flex items-center justify-center bg-slate-900/80 pointer-events-none">
+              <span class="text-xs text-slate-400">Camera start...</span>
+            </div>
+          </div>
+          <input type="hidden" name="face_data" id="face_data">
+          <p class="text-[10px] text-slate-500 mt-1">* Yuzingizni to'g'irlab turing, registratsiya vaqtida avtomatik
+            saqlanadi.</p>
+        </div>
+
         <!-- Button -->
-        <button class="w-full rounded-2xl bg-white text-slate-950 py-3 font-semibold hover:bg-slate-200 transition flex items-center justify-center gap-2">
+        <button id="reg-btn"
+          class="w-full rounded-2xl bg-white text-slate-950 py-3 font-semibold hover:bg-slate-200 transition flex items-center justify-center gap-2">
           <i class="fa-solid fa-user-plus"></i>
           Register
         </button>
       </form>
+
+      <script>
+        const vid = document.getElementById('video');
+        const canv = document.getElementById('canvas');
+        const inp = document.getElementById('face_data');
+        const stat = document.getElementById('cam-status');
+        const btnReg = document.getElementById('reg-btn');
+        const form = document.querySelector('form');
+
+        // Auto start camera
+        async function startCamera() {
+          try {
+            // Check if mediaDevices is available (requires HTTPS or localhost)
+            if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+              stat.innerHTML = '<span class="text-red-400">Camera API mavjud emas (HTTPS kerak)</span>';
+              return;
+            }
+
+            const stream = await navigator.mediaDevices.getUserMedia({
+              video: { facingMode: 'user', width: { ideal: 640 }, height: { ideal: 480 } }
+            });
+            vid.srcObject = stream;
+            vid.onloadedmetadata = () => {
+              stat.style.display = 'none';
+            };
+          } catch (err) {
+            console.error('Camera Error:', err);
+            if (err.name === 'NotAllowedError') {
+              stat.innerHTML = '<span class="text-red-400">Camera ruxsati berilmadi</span>';
+            } else if (err.name === 'NotFoundError') {
+              stat.innerHTML = '<span class="text-red-400">Camera topilmadi</span>';
+            } else {
+              stat.innerHTML = '<span class="text-red-400">Camera xatosi: ' + err.message + '</span>';
+            }
+          }
+        }
+        startCamera();
+
+        // On submit, capture frame
+        form.addEventListener('submit', (e) => {
+          // Prevent default momentarily to capture
+          if (!inp.value && vid.srcObject) {
+            e.preventDefault();
+            btnReg.textContent = "Processing...";
+            btnReg.disabled = true;
+
+            // Capture
+            canv.width = vid.videoWidth;
+            canv.height = vid.videoHeight;
+            const ctx = canv.getContext('2d');
+            ctx.drawImage(vid, 0, 0, canv.width, canv.height);
+
+            // Set to hidden input
+            inp.value = canv.toDataURL('image/jpeg', 0.8);
+
+            // Submit
+            form.submit();
+          }
+        });
+      </script>
 
       <!-- Footer links -->
       <div class="mt-6 border-t border-white/10 pt-5">
@@ -155,7 +233,7 @@
 
 <script>
   // show/hide
-  function setupToggle(btnId, inputId){
+  function setupToggle(btnId, inputId) {
     const btn = document.getElementById(btnId);
     const input = document.getElementById(inputId);
     if (!btn || !input) return;
@@ -173,7 +251,7 @@
   const bar = document.getElementById("strengthBar");
   const txt = document.getElementById("strengthText");
 
-  function calcStrength(v){
+  function calcStrength(v) {
     let s = 0;
     if (!v) return 0;
     if (v.length >= 8) s += 25;
@@ -184,14 +262,14 @@
     if (/[^A-Za-z0-9]/.test(v)) s += 15;
     return Math.min(100, s);
   }
-  function labelStrength(n){
+  function labelStrength(n) {
     if (n === 0) return "—";
     if (n < 35) return "Weak";
     if (n < 70) return "Good";
     return "Strong";
   }
 
-  if (p1 && bar && txt){
+  if (p1 && bar && txt) {
     p1.addEventListener("input", () => {
       const val = p1.value || "";
       const s = calcStrength(val);

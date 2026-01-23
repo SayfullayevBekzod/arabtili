@@ -19,19 +19,22 @@
       </p>
 
       <div class="mt-5 flex flex-wrap gap-2">
-        <span class="rounded-2xl border border-white/10 bg-slate-950/40 px-3 py-2 text-xs text-slate-300">✅ Shakllar</span>
-        <span class="rounded-2xl border border-white/10 bg-slate-950/40 px-3 py-2 text-xs text-slate-300">✅ Qadamlar</span>
-        <span class="rounded-2xl border border-white/10 bg-slate-950/40 px-3 py-2 text-xs text-slate-300">✅ Mustahkamlash</span>
+        <span class="rounded-2xl border border-white/10 bg-slate-950/40 px-3 py-2 text-xs text-slate-300">✅
+          Shakllar</span>
+        <span class="rounded-2xl border border-white/10 bg-slate-950/40 px-3 py-2 text-xs text-slate-300">✅
+          Qadamlar</span>
+        <span class="rounded-2xl border border-white/10 bg-slate-950/40 px-3 py-2 text-xs text-slate-300">✅
+          Mustahkamlash</span>
       </div>
     </div>
 
     <div class="flex gap-2">
       <a href="/alphabet/"
-         class="rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-sm hover:bg-white/10 transition">
+        class="rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-sm hover:bg-white/10 transition">
         ← Alifboga
       </a>
       <a href="/letters/{{ letter.id }}/"
-         class="rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-sm hover:bg-white/10 transition">
+        class="rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-sm hover:bg-white/10 transition">
         Harf detail
       </a>
     </div>
@@ -61,10 +64,40 @@
         Harfni katta qilib ko‘ring va daftar/planchetda qayta-qayta yozing.
       </div>
 
-      <!-- Placeholder for canvas -->
-      <div class="mt-6 rounded-3xl border border-dashed border-white/15 bg-white/5 p-10">
-        <div class="text-slate-300 text-sm">🖊️ Canvas yozish joyi (JS keyin)</div>
-        <div class="mt-2 text-xs text-slate-500">Bu joyga keyin draw/canvas qo‘shamiz</div>
+      <!-- Functional drawing canvas -->
+      <div
+        class="mt-6 relative bg-white rounded-3xl overflow-hidden shadow-2xl border-4 border-slate-900 mx-auto aspect-square max-w-[500px]">
+        <!-- Reference letter (ghost) -->
+        <div class="absolute inset-0 flex items-center justify-center opacity-[0.03] pointer-events-none select-none">
+          <div class="arabic-font text-[300px] text-slate-950 font-black">{{ letter.arabic }}</div>
+        </div>
+        <canvas id="practiceCanvas" class="relative z-10 w-full h-full cursor-crosshair"></canvas>
+
+        <!-- Validation Overlay -->
+        <div id="checkOverlay"
+          class="absolute inset-0 z-20 flex flex-col items-center justify-center bg-slate-950/80 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-300">
+          <div id="checkSpinner"
+            class="h-16 w-16 border-4 border-emerald-500/20 border-t-emerald-500 rounded-full animate-spin"></div>
+          <div id="checkResult" class="hidden text-center scale-75 opacity-0 transition-all duration-500">
+            <div id="resultIcon" class="text-6xl mb-4">✨</div>
+            <div id="resultText" class="text-2xl font-black text-white">To'g'ri!</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-6 flex justify-center gap-4">
+        <button id="clearCanvas"
+          class="px-6 py-3 rounded-2xl bg-white/5 border border-white/10 text-white font-bold text-sm hover:bg-white/10 transition">
+          Tozalash
+        </button>
+        <button id="undoCanvas"
+          class="px-6 py-3 rounded-2xl bg-white/5 border border-white/10 text-white font-bold text-sm hover:bg-white/10 transition">
+          Ortga qaytarish
+        </button>
+        <button id="savePractice"
+          class="px-8 py-3 rounded-2xl bg-emerald-500 text-slate-950 font-black text-sm hover:bg-emerald-400 transition">
+          Tayyor
+        </button>
       </div>
     </div>
 
@@ -73,7 +106,8 @@
       <div class="rounded-2xl border border-white/10 bg-white/5 p-4 hover:bg-white/10 transition">
         <div class="text-xs text-slate-400">Qadam 1</div>
         <div class="mt-1 text-sm text-white font-semibold">Shaklni ko‘r</div>
-        <div class="mt-1 text-xs text-slate-400 leading-relaxed">Isolated/Initial/Medial/Final ko‘rinishlarini eslab qol.</div>
+        <div class="mt-1 text-xs text-slate-400 leading-relaxed">Isolated/Initial/Medial/Final ko‘rinishlarini eslab
+          qol.</div>
       </div>
       <div class="rounded-2xl border border-white/10 bg-white/5 p-4 hover:bg-white/10 transition">
         <div class="text-xs text-slate-400">Qadam 2</div>
@@ -132,5 +166,150 @@
   </aside>
 
 </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const canvas = document.getElementById('practiceCanvas');
+    const ctx = canvas.getContext('2d');
+    const clearBtn = document.getElementById('clearCanvas');
+    const undoBtn = document.getElementById('undoCanvas');
+    const saveBtn = document.getElementById('savePractice');
+
+    // Resize canvas for high resolution
+    function resize() {
+      const rect = canvas.parentElement.getBoundingClientRect();
+      canvas.width = rect.width * devicePixelRatio;
+      canvas.height = rect.height * devicePixelRatio;
+      canvas.style.width = rect.width + 'px';
+      canvas.style.height = rect.height + 'px';
+      ctx.scale(devicePixelRatio, devicePixelRatio);
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+      ctx.lineWidth = 12;
+      ctx.strokeStyle = '#0f172a'; // Slate 950
+    }
+
+    resize();
+    window.addEventListener('resize', resize);
+
+    let drawing = false;
+    let paths = [];
+    let currentPath = [];
+
+    function startDrawing(e) {
+      drawing = true;
+      currentPath = [];
+      draw(e);
+    }
+
+    function stopDrawing() {
+      if (drawing) {
+        paths.push([...currentPath]);
+      }
+      drawing = false;
+      ctx.beginPath();
+    }
+
+    function draw(e) {
+      if (!drawing) return;
+
+      const rect = canvas.getBoundingClientRect();
+      const x = (e.clientX || e.touches[0].clientX) - rect.left;
+      const y = (e.clientY || e.touches[0].clientY) - rect.top;
+
+      currentPath.push({ x, y });
+
+      ctx.lineTo(x, y);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(x, y);
+    }
+
+    canvas.addEventListener('mousedown', startDrawing);
+    canvas.addEventListener('mousemove', draw);
+    window.addEventListener('mouseup', stopDrawing);
+
+    canvas.addEventListener('touchstart', (e) => { e.preventDefault(); startDrawing(e.touches[0]); });
+    canvas.addEventListener('touchmove', (e) => { e.preventDefault(); draw(e.touches[0]); });
+    canvas.addEventListener('touchend', stopDrawing);
+
+    clearBtn.addEventListener('click', () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      paths = [];
+    });
+
+    undoBtn.addEventListener('click', () => {
+      paths.pop();
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      paths.forEach(path => {
+        if (path.length < 1) return;
+        ctx.beginPath();
+        ctx.moveTo(path[0].x, path[0].y);
+        path.forEach(point => {
+          ctx.lineTo(point.x, point.y);
+          ctx.stroke();
+          ctx.beginPath();
+          ctx.moveTo(point.x, point.y);
+        });
+      });
+    });
+
+    saveBtn.addEventListener('click', () => {
+      const totalPoints = paths.reduce((acc, p) => acc + p.length, 0);
+
+      if (totalPoints < 10) {
+        alert("Iltimos, avval harfni chizing!");
+        return;
+      }
+
+      const overlay = document.getElementById('checkOverlay');
+      const spinner = document.getElementById('checkSpinner');
+      const result = document.getElementById('checkResult');
+      const resultIcon = document.getElementById('resultIcon');
+      const resultText = document.getElementById('resultText');
+
+      // Show overlay
+      overlay.classList.remove('opacity-0', 'pointer-events-none');
+      overlay.classList.add('opacity-100');
+      spinner.classList.remove('hidden');
+      result.classList.add('hidden', 'scale-75', 'opacity-0');
+
+      setTimeout(() => {
+        // Robustness: check point density/count
+        const isSuccess = totalPoints > 30; // Threshold for a real attempt
+
+        spinner.classList.add('hidden');
+        result.classList.remove('hidden');
+
+        if (isSuccess) {
+          resultIcon.innerText = '✨';
+          resultText.innerText = 'Muvaffaqiyatli!';
+          resultText.className = 'text-2xl font-black text-emerald-400';
+
+          setTimeout(() => {
+            window.location.href = "{% url 'arab:alphabet' %}";
+          }, 1500);
+        } else {
+          resultIcon.innerText = '❌';
+          resultText.innerText = 'Xato! Yaxshiroq chizishga harakat qiling';
+          resultText.className = 'text-2xl font-black text-red-400';
+
+          setTimeout(() => {
+            overlay.classList.add('opacity-0', 'pointer-events-none');
+            overlay.classList.remove('opacity-100');
+            // Reset for retry
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            paths = [];
+          }, 2000);
+        }
+
+        requestAnimationFrame(() => {
+          result.classList.remove('scale-75', 'opacity-0');
+          result.classList.add('scale-100', 'opacity-100');
+        });
+      }, 1500);
+    });
+  });
+</script>
 
 {% endblock %}
