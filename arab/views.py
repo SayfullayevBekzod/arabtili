@@ -11,15 +11,7 @@ from django.http import JsonResponse
 from django.utils import timezone
 from django.views.decorators.http import require_http_methods, require_POST
 
-try:
-    import face_recognition
-except ImportError:
-    face_recognition = None
 
-try:
-    import numpy as np
-except ImportError:
-    np = None
 
 import base64
 import json
@@ -1519,134 +1511,7 @@ def quran_detail(request, surah_number):
     })
 
 
-# ----------------------------
-# FACE AUTH (OpenCV-based)
-# ----------------------------
-import cv2
 
-def get_face_data_from_base64(base64_string):
-    """Extract face region and compute histogram for comparison"""
-    if np is None:
-        return None
-        
-    try:
-        if "base64," in base64_string:
-            base64_string = base64_string.split("base64,")[1]
-        
-        image_data = base64.b64decode(base64_string)
-        nparr = np.frombuffer(image_data, np.uint8)
-        img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
-        
-        if img is None:
-            return None
-        
-        # Convert to grayscale for face detection
-        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        
-        # Load Haar Cascade for face detection
-        cascade_path = cv2.data.haarcascades + 'haarcascade_frontalface_default.xml'
-        face_cascade = cv2.CascadeClassifier(cascade_path)
-        
-        faces = face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(80, 80))
-        
-        if len(faces) == 0:
-            return None
-        
-        # Get the largest face
-        x, y, w, h = max(faces, key=lambda f: f[2] * f[3])
-        face_roi = gray[y:y+h, x:x+w]
-        
-        # Resize to standard size for comparison
-        face_resized = cv2.resize(face_roi, (100, 100))
-        
-        # Compute histogram as "encoding"
-        hist = cv2.calcHist([face_resized], [0], None, [256], [0, 256])
-        cv2.normalize(hist, hist)
-        
-        return hist.flatten().tolist()
-        
-    except Exception as e:
-        print(f"Face Error: {e}")
-        return None
-
-def compare_face_histograms(hist1, hist2, threshold=0.7):
-    """Compare two face histograms using correlation"""
-    if np is None:
-        return False
-    try:
-        h1 = np.array(hist1, dtype=np.float32)
-        h2 = np.array(hist2, dtype=np.float32)
-        correlation = cv2.compareHist(h1, h2, cv2.HISTCMP_CORREL)
-        return correlation > threshold
-    except:
-        return False
-
-@login_required
-def face_setup(request):
-    if np is None:
-        return JsonResponse({"success": False, "error": "Numpy kutubxonasi yuklanmadi..."})
-
-    if request.method == "POST":
-        try:
-            data = json.loads(request.body)
-            image_data = data.get("image")
-            
-            face_hist = get_face_data_from_base64(image_data)
-            if face_hist is None:
-                return JsonResponse({"success": False, "error": "Yuz aniqlanmadi. Iltimos yorug'roq joyda urinib ko'ring."})
-                
-            # Save face histogram
-            profile = request.user.profile
-            profile.face_encoding = json.dumps(face_hist)
-            profile.save()
-            
-            return JsonResponse({"success": True})
-        except Exception as e:
-            return JsonResponse({"success": False, "error": str(e)})
-        
-    return render(request, "registration/face_setup.html")
-
-def face_login(request):
-    if request.user.is_authenticated:
-        return redirect("arab:progress")
-    
-    if np is None:
-        if request.method == "POST":
-            return JsonResponse({"success": False, "error": "Tizim hali tayyorlanmoqda..."})
-        return render(request, "registration/face_login.html")
-
-    if request.method == "POST":
-        try:
-            data = json.loads(request.body)
-            image_data = data.get("image")
-            
-            unknown_hist = get_face_data_from_base64(image_data)
-            if unknown_hist is None:
-                return JsonResponse({"success": False, "error": "Yuz aniqlanmadi."})
-                
-            # Check against all users with face_encoding
-            profiles = Profile.objects.exclude(face_encoding__isnull=True).exclude(face_encoding="")
-            
-            found_user = None
-            for p in profiles:
-                try:
-                    known_hist = json.loads(p.face_encoding)
-                    if compare_face_histograms(known_hist, unknown_hist, threshold=0.6):
-                        found_user = p.user
-                        break
-                except:
-                    continue
-            
-            if found_user:
-                login(request, found_user)
-                return JsonResponse({"success": True, "redirect": "/progress/"})
-            else:
-                return JsonResponse({"success": False, "error": "Foydalanuvchi topilmadi."})
-                
-        except Exception as e:
-            return JsonResponse({"success": False, "error": str(e)})
-        
-    return render(request, "registration/face_login.html")
 
 
 # ----------------------------

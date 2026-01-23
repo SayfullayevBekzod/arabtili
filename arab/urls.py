@@ -27,8 +27,7 @@ urlpatterns = [
     path("accounts/login/", views.login_view, name="login"),
     path("login/", views.login_view, name="login_direct"),
     path("accounts/logout/", views.logout_view, name="logout"),
-    path("face-setup/", views.face_setup, name="face_setup"),
-    path("face-login/", views.face_login, name="face_login"),
+
     
     path("exercises/<int:pk>/", views.exercise_run, name="exercise_run"),
     path("exercises/<int:pk>/submit/", views.exercise_submit, name="exercise_submit"),
