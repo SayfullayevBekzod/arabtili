@@ -1,0 +1,256 @@
+[
+    {
+        "model": "arab.vocabularycategory",
+        "pk": 1,
+        "fields": {
+            "name_uz": "Salomlashish",
+            "name_ru": "Приветствие",
+            "icon": "fas fa-handshake",
+            "created_at": "2024-01-01T00:00:00Z",
+            "updated_at": "2024-01-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "arab.vocabularycategory",
+        "pk": 2,
+        "fields": {
+            "name_uz": "Oilaviy",
+            "name_ru": "Семья",
+            "icon": "fas fa-users",
+            "created_at": "2024-01-01T00:00:00Z",
+            "updated_at": "2024-01-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "arab.vocabularycategory",
+        "pk": 3,
+        "fields": {
+            "name_uz": "Uyda",
+            "name_ru": "Дома",
+            "icon": "fas fa-home",
+            "created_at": "2024-01-01T00:00:00Z",
+            "updated_at": "2024-01-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "arab.word",
+        "pk": 1,
+        "fields": {
+            "arabic": "مَرْحَبًا",
+            "transliteration": "Marhaban",
+            "translation_uz": "Salom",
+            "translation_ru": "Привет",
+            "category": 1,
+            "created_at": "2024-01-01T00:00:00Z",
+            "updated_at": "2024-01-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "arab.word",
+        "pk": 2,
+        "fields": {
+            "arabic": "السَّلَامُ عَلَيْكُمْ",
+            "transliteration": "Assalomu alaykum",
+            "translation_uz": "Sizga tinchlik bo‘lsin",
+            "translation_ru": "Мир вам",
+            "category": 1,
+            "created_at": "2024-01-01T00:00:00Z",
+            "updated_at": "2024-01-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "arab.word",
+        "pk": 3,
+        "fields": {
+            "arabic": "وَعَلَيْكُمُ السَّلَامُ",
+            "transliteration": "Va alaykum assalom",
+            "translation_uz": "Sizga ham tinchlik bo‘lsin",
+            "translation_ru": "И вам мир",
+            "category": 1,
+            "created_at": "2024-01-01T00:00:00Z",
+            "updated_at": "2024-01-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "arab.word",
+        "pk": 4,
+        "fields": {
+            "arabic": "كَيْفَ حَالُكَ؟",
+            "transliteration": "Kayfa haluka?",
+            "translation_uz": "Ahvolingiz qanday? (erkakka)",
+            "translation_ru": "Как дела? (мужчина)",
+            "category": 1,
+            "created_at": "2024-01-01T00:00:00Z",
+            "updated_at": "2024-01-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "arab.word",
+        "pk": 5,
+        "fields": {
+            "arabic": "أَنَا بِخَيْرٍ",
+            "transliteration": "Ana bixayr",
+            "translation_uz": "Men yaxshiman",
+            "translation_ru": "Я в порядке",
+            "category": 1,
+            "created_at": "2024-01-01T00:00:00Z",
+            "updated_at": "2024-01-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "arab.word",
+        "pk": 6,
+        "fields": {
+            "arabic": "شُكْرًا",
+            "transliteration": "Shukran",
+            "translation_uz": "Rahmat",
+            "translation_ru": "Спасибо",
+            "category": 1,
+            "created_at": "2024-01-01T00:00:00Z",
+            "updated_at": "2024-01-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "arab.word",
+        "pk": 7,
+        "fields": {
+            "arabic": "أَبٌ",
+            "transliteration": "Abun",
+            "translation_uz": "Ota",
+            "translation_ru": "Отец",
+            "category": 2,
+            "created_at": "2024-01-01T00:00:00Z",
+            "updated_at": "2024-01-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "arab.word",
+        "pk": 8,
+        "fields": {
+            "arabic": "أُمٌّ",
+            "transliteration": "Ummun",
+            "translation_uz": "Ona",
+            "translation_ru": "Мать",
+            "category": 2,
+            "created_at": "2024-01-01T00:00:00Z",
+            "updated_at": "2024-01-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "arab.word",
+        "pk": 9,
+        "fields": {
+            "arabic": "أَخٌ",
+            "transliteration": "Axun",
+            "translation_uz": "Aka/Uka",
+            "translation_ru": "Брат",
+            "category": 2,
+            "created_at": "2024-01-01T00:00:00Z",
+            "updated_at": "2024-01-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "arab.word",
+        "pk": 10,
+        "fields": {
+            "arabic": "أُخْتٌ",
+            "transliteration": "Uxtun",
+            "translation_uz": "Opa/Singil",
+            "translation_ru": "Сестра",
+            "category": 2,
+            "created_at": "2024-01-01T00:00:00Z",
+            "updated_at": "2024-01-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "arab.word",
+        "pk": 11,
+        "fields": {
+            "arabic": "بَيْتٌ",
+            "transliteration": "Baytun",
+            "translation_uz": "Uy",
+            "translation_ru": "Дом",
+            "category": 3,
+            "created_at": "2024-01-01T00:00:00Z",
+            "updated_at": "2024-01-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "arab.word",
+        "pk": 12,
+        "fields": {
+            "arabic": "بَابٌ",
+            "transliteration": "Babun",
+            "translation_uz": "Eshik",
+            "translation_ru": "Дверь",
+            "category": 3,
+            "created_at": "2024-01-01T00:00:00Z",
+            "updated_at": "2024-01-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "arab.word",
+        "pk": 13,
+        "fields": {
+            "arabic": "نَافِذَةٌ",
+            "transliteration": "Nafizatun",
+            "translation_uz": "Deraza",
+            "translation_ru": "Окно",
+            "category": 3,
+            "created_at": "2024-01-01T00:00:00Z",
+            "updated_at": "2024-01-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "arab.word",
+        "pk": 14,
+        "fields": {
+            "arabic": "غُرْفَةٌ",
+            "transliteration": "G'urfatun",
+            "translation_uz": "Xona",
+            "translation_ru": "Комната",
+            "category": 3,
+            "created_at": "2024-01-01T00:00:00Z",
+            "updated_at": "2024-01-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "arab.word",
+        "pk": 15,
+        "fields": {
+            "arabic": "مَطْبَخٌ",
+            "transliteration": "Matbaxun",
+            "translation_uz": "Oshxona",
+            "translation_ru": "Кухня",
+            "category": 3,
+            "created_at": "2024-01-01T00:00:00Z",
+            "updated_at": "2024-01-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "arab.word",
+        "pk": 16,
+        "fields": {
+            "arabic": "كِتَابٌ",
+            "transliteration": "Kitabun",
+            "translation_uz": "Kitob",
+            "translation_ru": "Книга",
+            "category": 3,
+            "created_at": "2024-01-01T00:00:00Z",
+            "updated_at": "2024-01-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "arab.word",
+        "pk": 17,
+        "fields": {
+            "arabic": "قَلَمٌ",
+            "transliteration": "Qalamun",
+            "translation_uz": "Qalam",
+            "translation_ru": "Карандаш",
+            "category": 3,
+            "created_at": "2024-01-01T00:00:00Z",
+            "updated_at": "2024-01-01T00:00:00Z"
+        }
+    }
+]
