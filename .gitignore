@@ -18,3 +18,4 @@ media/
 .vscode/
 .idea/
 words*.json
+migrate_to_postgres.py

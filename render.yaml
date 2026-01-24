@@ -7,8 +7,8 @@ services:
   - type: web
     name: arabtili
     env: python
-    buildCommand: pip install -r requirements.txt && python manage.py collectstatic --noinput && python manage.py migrate
-    startCommand: gunicorn config.wsgi:application
+    buildCommand: bash build.sh
+    startCommand: gunicorn config.wsgi:application --workers 3
     envVars:
       - key: DJANGO_SECRET_KEY
         generateValue: true
