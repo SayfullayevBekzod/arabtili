@@ -909,12 +909,29 @@ def get_live_stats(request):
     AJAX: Get latest XP and Level
     """
     g, _ = UserGamification.objects.get_or_create(user=request.user)
-    next_xp = xp_for_next_level(g.level)
+    
+    current_level = g.level
+    xp_total = g.xp_total
+
+    # Calculate thresholds
+    # Previous level max XP (start of current level)
+    prev_threshold = xp_for_next_level(current_level - 1) if current_level > 1 else 0
+    # Next level max XP (end of current level)
+    next_threshold = xp_for_next_level(current_level)
+
+    # Progress with in level
+    level_xp_gained = max(0, xp_total - prev_threshold)
+    level_width = max(1, next_threshold - prev_threshold) # Prevent div by zero
+    
+    xp_pct = min(100, int((level_xp_gained / level_width) * 100))
+
     return JsonResponse({
-        "xp": g.xp_total,
-        "level": g.level,
-        "next_level_xp": next_xp,
-        "xp_pct": int((g.xp_total % next_xp / next_xp) * 100) if next_xp else 0
+        "xp": xp_total,
+        "level": current_level,
+        "next_level_xp": next_threshold,
+        "xp_pct": xp_pct,
+        "level_xp_current": level_xp_gained, # Optional: display 500/1000
+        "level_xp_max": level_width
     })
 
 
@@ -1089,6 +1106,7 @@ def dictionary(request):
         words = words.filter(
             Q(arabic__icontains=q) |
             Q(transliteration__icontains=q) |
+            Q(pronunciation__icontains=q) |
             Q(translation_uz__icontains=q) |
             Q(translation_ru__icontains=q)
         )
@@ -1097,10 +1115,11 @@ def dictionary(request):
         words = words.filter(category__name__iexact=cat)
         
     if alpha:
-        if alpha.isalpha(): # Latin or generic alpha
-            words = words.filter(transliteration__istartswith=alpha)
-        else: # Likely Arabic
+        # Detect if it's an Arabic character (roughly 0x0600 to 0x06FF range)
+        if any('\u0600' <= char <= '\u06FF' for char in alpha):
             words = words.filter(arabic__startswith=alpha)
+        else:
+            words = words.filter(transliteration__istartswith=alpha)
 
     # Order by arabic by default, or translit if requested
     words = words.order_by("arabic")
@@ -1124,10 +1143,32 @@ def dictionary_add_card(request, word_id):
     if request.method == "POST":
         word = get_object_or_404(Word, id=word_id)
         # Create a card if it doesn't exist
-        card, created = UserWordProgress.objects.get_or_create(
+        # NOTE: UserWordProgress fields are 'strength', 'last_seen'. 
+        # But 'dictionary_add_card' likely implies adding to 'UserCard' (Review list) as well?
+        # If we want to add to REVIEW list, we should create a UserCard.
+        # But the existing code was creating UserWordProgress. 
+        # Let's create UserWordProgress with valid defaults.
+        # AND also create UserCard if needed?
+        # Based on naming 'add_card', it implies UserCard.
+        # Check models: UserCard links to Word.
+        
+        # 1. Ensure UserWordProgress exists (for stats)
+        prog, _ = UserWordProgress.objects.get_or_create(
             user=request.user,
             word=word,
-            defaults={'level': 0, 'next_review': timezone.now()}
+            defaults={'strength': 0, 'last_seen': timezone.now()}
+        )
+        
+        # 2. Ensure UserCard exists (for review)
+        card, created = UserCard.objects.get_or_create(
+            user=request.user,
+            word=word,
+            defaults={
+                'repetitions': 0, 
+                'interval_days': 1, 
+                'ease_factor': 2.5,
+                'due_at': timezone.now()
+            }
         )
         if created:
             # Award some XP for saving a word
@@ -1522,3 +1563,70 @@ def custom_404(request, exception):
 
 def custom_500(request):
     return render(request, "500.html", status=500)
+
+# ----------------------------
+# MATCH GAME
+# ----------------------------
+@login_required
+def practice_match_game(request):
+    # Fetch random 6 words that have translations AND are not marked [EN]
+    words = list(Word.objects.filter(translation_uz__isnull=False).exclude(translation_uz="").exclude(translation_uz__startswith="[EN]").order_by("?")[:6])
+    
+    # Fallback if not enough translated words
+    if len(words) < 6:
+        defaults = list(Word.objects.filter(translation_uz__isnull=False).exclude(translation_uz="").order_by("?")[:(6 - len(words))])
+        words.extend(defaults)
+
+    # Prepare data for frontend
+    game_data = []
+    for w in words:
+        # Strip [EN] just in case we used fallback
+        clean_gloss = w.translation_uz.replace("[EN]", "").strip()
+        game_data.append({
+            "id": w.id,
+            "arabic": w.arabic,
+            "translation": clean_gloss
+        })
+    
+    return render(request, "practice/match_game.html", {"game_data": json.dumps(game_data)})
+
+@login_required
+@require_POST
+def api_match_reward(request):
+    try:
+        data = json.loads(request.body)
+        matches_count = data.get("matches", 0)
+        
+        if matches_count > 0:
+            # +10 XP per match
+            xp = matches_count * 10
+            
+            # Update stats
+            today = timezone.localdate()
+            s, _ = UserDailyStat.objects.get_or_create(user=request.user, day=today)
+            s.xp_earned += xp
+            s.save()
+            
+            # Update gamification profile
+            g, _ = UserGamification.objects.get_or_create(user=request.user)
+            # FIX: Ensure we use usage correct field (xp_total vs total_xp)
+            # Assuming xp_total based on previous context 
+            if hasattr(g, 'xp_total'):
+                 g.xp_total += xp
+                 current_xp = g.xp_total
+            else:
+                 g.total_xp += xp
+                 current_xp = g.total_xp
+                 
+            g.save()
+            
+            # Check level up
+            if current_xp >= xp_for_next_level(g.level):
+                 g.level += 1
+                 g.save()
+                 
+            return JsonResponse({"status": "ok", "xp_gained": xp, "new_total": current_xp})
+            
+        return JsonResponse({"status": "ok", "xp_gained": 0})
+    except Exception as e:
+        return JsonResponse({"status": "error", "message": str(e)}, status=400)

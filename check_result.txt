@@ -1,0 +1,5 @@
+Checking bad entries...
+Bad entries count: 12
+Deleted 12 bad entries.
+Checking specific translations:
+Total Words: 1988

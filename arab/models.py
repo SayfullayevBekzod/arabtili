@@ -214,8 +214,11 @@ class Word(TimeStamped):
     lesson = models.ForeignKey(Lesson, on_delete=models.SET_NULL, null=True, blank=True, related_name="words")
     arabic = models.CharField(max_length=100)
     transliteration = models.CharField(max_length=150, blank=True)
+    pronunciation = models.CharField(max_length=200, blank=True, help_text="O'qilishi (O'zbek lofida)")
+    makhraj = models.TextField(blank=True, help_text="Talaffuz o'rni (maxraj)")
     translation_uz = models.CharField(max_length=200, blank=True)
     translation_ru = models.CharField(max_length=200, blank=True)
+    word_type = models.CharField(max_length=50, blank=True, help_text="So'z turkumi (Ot, Sifat, va h.k.)")
 
     category = models.ForeignKey(
         VocabularyCategory,

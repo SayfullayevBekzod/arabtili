@@ -1,0 +1,217 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="min-h-screen bg-slate-900 py-8 px-4 font-inter text-slate-100 relative overflow-hidden">
+    <!-- Background Decor -->
+    <div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
+        <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-emerald-500/10 rounded-full blur-[120px]"></div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-blue-500/10 rounded-full blur-[120px]"></div>
+    </div>
+
+    <div class="relative z-10 max-w-4xl mx-auto">
+        <!-- Header -->
+        <div class="flex items-center justify-between mb-8">
+            <h1 class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-cyan-400">
+                Match Game
+            </h1>
+            <div class="flex items-center gap-4">
+                <div class="px-4 py-1.5 rounded-full bg-slate-800 border border-slate-700 font-mono text-emerald-400"
+                    id="timer">
+                    00:00
+                </div>
+                <div class="px-4 py-1.5 rounded-full bg-slate-800 border border-slate-700 text-amber-400" id="score">
+                    0 XP
+                </div>
+            </div>
+        </div>
+
+        <!-- Game Board -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="game-board">
+            <!-- Cards injected by JS -->
+        </div>
+
+        <!-- Win Overlay (Hidden) -->
+        <div id="win-overlay"
+            class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-900/90 backdrop-blur-sm">
+            <div
+                class="bg-slate-800 border-2 border-emerald-500/50 rounded-2xl p-8 max-w-sm w-full text-center shadow-2xl shadow-emerald-500/20 transform scale-100 transition-all">
+                <div
+                    class="w-16 h-16 bg-emerald-500/20 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl">
+                    🏆
+                </div>
+                <h2 class="text-2xl font-bold text-white mb-2">Ajoyib!</h2>
+                <p class="text-slate-400 mb-6">Siz barcha so'zlarni <span id="final-time"
+                        class="text-emerald-400 font-mono"></span> ichida topdingiz!</p>
+                <div class="text-4xl font-black text-amber-400 mb-8" id="xp-gain">+60 XP</div>
+                <button onclick="location.reload()"
+                    class="w-full py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 font-bold hover:shadow-lg hover:shadow-emerald-500/25 transition-all">
+                    Qayta o'ynash
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const rawData = JSON.parse('{{ game_data|escapejs }}');
+    const board = document.getElementById('game-board');
+    let cards = [];
+    let selectedFirst = null;
+    let lockBoard = false;
+    let matchesFound = 0;
+    let timerInterval;
+    let startTime;
+    let totalXP = 0;
+
+    function initGame() {
+        // Prepare pairs: (id, text, type)
+        let pairs = [];
+        rawData.forEach(item => {
+            pairs.push({ id: item.id, text: item.arabic, type: 'arabic' });
+            pairs.push({ id: item.id, text: item.translation, type: 'translation' });
+        });
+
+        // Shuffle
+        pairs.sort(() => Math.random() - 0.5);
+
+        // Render
+        board.innerHTML = '';
+        pairs.forEach(p => {
+            const card = document.createElement('div');
+            card.className = `
+                relative h-24 md:h-32 cursor-pointer 
+                bg-slate-800 border-2 border-slate-700 rounded-xl 
+                flex items-center justify-center text-center p-2
+                transition-all duration-300 hover:border-slate-500 hover:shadow-lg
+                select-none active:scale-95
+            `;
+            if (p.type === 'arabic') {
+                card.classList.add('font-amiri', 'text-2xl', 'md:text-3xl');
+            } else {
+                card.classList.add('font-medium', 'text-sm', 'md:text-base', 'text-slate-300');
+            }
+
+            card.innerText = p.text;
+            card.dataset.id = p.id;
+            card.onclick = () => handleCardClick(card);
+            board.appendChild(card);
+        });
+
+        startTimer();
+    }
+
+    function handleCardClick(card) {
+        if (lockBoard || card === selectedFirst || card.classList.contains('opacity-0')) return;
+
+        card.classList.add('border-emerald-500', 'bg-emerald-500/10', 'text-emerald-400');
+
+        if (!selectedFirst) {
+            selectedFirst = card;
+        } else {
+            checkForMatch(selectedFirst, card);
+        }
+    }
+
+    function checkForMatch(card1, card2) {
+        lockBoard = true;
+        const isMatch = card1.dataset.id === card2.dataset.id;
+
+        if (isMatch) {
+            disableCards(card1, card2);
+        } else {
+            unflipCards(card1, card2);
+        }
+    }
+
+    function disableCards(card1, card2) {
+        setTimeout(() => {
+            card1.classList.add('opacity-0', 'pointer-events-none', 'scale-0');
+            card2.classList.add('opacity-0', 'pointer-events-none', 'scale-0');
+            resetBoard();
+            matchesFound++;
+            totalXP += 10;
+            updateScore();
+
+            if (matchesFound === rawData.length) {
+                endGame();
+            }
+        }, 500);
+    }
+
+    function unflipCards(card1, card2) {
+        card1.classList.add('animate-shake', 'border-rose-500', 'bg-rose-500/10', 'text-rose-400');
+        card2.classList.add('animate-shake', 'border-rose-500', 'bg-rose-500/10', 'text-rose-400');
+
+        setTimeout(() => {
+            card1.classList.remove('border-emerald-500', 'bg-emerald-500/10', 'border-rose-500', 'bg-rose-500/10', 'animate-shake', 'text-emerald-400', 'text-rose-400');
+            card2.classList.remove('border-emerald-500', 'bg-emerald-500/10', 'border-rose-500', 'bg-rose-500/10', 'animate-shake', 'text-emerald-400', 'text-rose-400');
+            resetBoard();
+        }, 800);
+    }
+
+    function resetBoard() {
+        [selectedFirst, lockBoard] = [null, false];
+    }
+
+    function startTimer() {
+        startTime = Date.now();
+        timerInterval = setInterval(() => {
+            const delta = Math.floor((Date.now() - startTime) / 1000);
+            const m = String(Math.floor(delta / 60)).padStart(2, '0');
+            const s = String(delta % 60).padStart(2, '0');
+            document.getElementById('timer').innerText = `${m}:${s}`;
+        }, 1000);
+    }
+
+    function updateScore() {
+        document.getElementById('score').innerText = `${totalXP} XP`;
+    }
+
+    function endGame() {
+        clearInterval(timerInterval);
+        const timeStr = document.getElementById('timer').innerText;
+        document.getElementById('final-time').innerText = timeStr;
+        document.getElementById('xp-gain').innerText = `+${totalXP} XP`;
+        document.getElementById('win-overlay').classList.remove('hidden');
+
+        // Send API request
+        fetch("{% url 'arab:api_match_reward' %}", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": "{{ csrf_token }}"
+            },
+            body: JSON.stringify({ matches: matchesFound })
+        }).catch(err => console.error(err));
+    }
+
+    initGame();
+</script>
+
+<style>
+    .font-amiri {
+        font-family: 'Amiri', serif;
+    }
+
+    @keyframes shake {
+
+        0%,
+        100% {
+            transform: translateX(0);
+        }
+
+        25% {
+            transform: translateX(-5px);
+        }
+
+        75% {
+            transform: translateX(5px);
+        }
+    }
+
+    .animate-shake {
+        animation: shake 0.3s ease-in-out;
+    }
+</style>
+{% endblock %}

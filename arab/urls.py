@@ -22,6 +22,8 @@ urlpatterns = [
     path("progress/", views.progress, name="progress"),
     path("api/stats/live/", views.get_live_stats, name="api_live_stats"),
     path("api/study-time/update/", views.update_study_time, name="api_study_time_update"),
+    path("practice/match/", views.practice_match_game, name="practice_match_game"),
+    path("api/match/reward/", views.api_match_reward, name="api_match_reward"),
 
     path("accounts/register/", views.register, name="register"),
     path("accounts/login/", views.login_view, name="login"),

@@ -9,13 +9,13 @@
 
   <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
     <div>
-      <div class="text-xs text-slate-400">Practice • Writing</div>
+      <div class="text-xs text-slate-400">Mashq • Yozish</div>
       <h1 class="mt-1 text-3xl md:text-5xl font-black">
         ✍️ {{ letter.name }} yozish
       </h1>
       <p class="mt-2 text-slate-300 text-sm max-w-2xl leading-relaxed">
-        Harfni yozishni mustahkamlash uchun mashq sahifasi. Hozircha canvas JS keyin qo‘shiladi.
-        Hozir esa shakllarini ko‘rib, yozishni ketma-ket bajarib boring.
+        Harfni chiroyli va to'g'ri yozishni o'rganish uchun ushbu interaktiv doskadan foydalaning.
+        Harfning turli shakllarini (bosh, o'rta, oxirgi) ketma-ket mashq qiling.
       </p>
 
       <div class="mt-5 flex flex-wrap gap-2">
@@ -47,12 +47,12 @@
   <section class="lg:col-span-2 rounded-3xl border border-white/10 bg-white/5 p-6">
     <div class="flex items-center justify-between">
       <div>
-        <div class="text-sm font-semibold text-white">Canvas mashq</div>
-        <div class="text-xs text-slate-400 mt-1">JS keyin qo‘shiladi (hozir preview + yo‘l-yo‘riq)</div>
+        <div class="text-sm font-semibold text-white">Yozish doskasi</div>
+        <div class="text-xs text-slate-400 mt-1">Sichqoncha yoki sensorli ekran orqali chizing</div>
       </div>
 
       <div class="rounded-2xl border border-white/10 bg-slate-950/40 px-3 py-2 text-xs text-slate-300">
-        Practice Mode
+        Mashq rejimi
       </div>
     </div>
 
@@ -126,30 +126,30 @@
   <aside class="rounded-3xl border border-white/10 bg-white/5 p-6" dir="rtl">
     <div class="[direction:ltr]">
       <div class="text-sm font-semibold text-white">Harf shakllari</div>
-      <div class="text-xs text-slate-400 mt-1">Yozishda ketma-ket: Isolated → Initial → Medial → Final</div>
+      <div class="text-xs text-slate-400 mt-1">Yozish tartibi: Alohida → Bosh → O'rta → Oxirgi</div>
     </div>
 
     <div class="mt-5 grid grid-cols-2 gap-3">
       <div class="group rounded-2xl border border-white/10 bg-slate-950/40 p-4 text-center hover:bg-white/5 transition">
-        <div class="text-xs text-slate-400 [direction:ltr]">Isolated</div>
+        <div class="text-xs text-slate-400 [direction:ltr]">Alohida (Isolated)</div>
         <div class="arabic-font text-4xl font-black mt-1 text-white group-hover:scale-110 transition">
           {{ letter.isolated|default:letter.arabic }}
         </div>
       </div>
       <div class="group rounded-2xl border border-white/10 bg-slate-950/40 p-4 text-center hover:bg-white/5 transition">
-        <div class="text-xs text-slate-400 [direction:ltr]">Final</div>
+        <div class="text-xs text-slate-400 [direction:ltr]">Oxirgi (Final)</div>
         <div class="arabic-font text-4xl font-black mt-1 text-white group-hover:scale-110 transition">
           {{ letter.final|default:letter.arabic }}
         </div>
       </div>
       <div class="group rounded-2xl border border-white/10 bg-slate-950/40 p-4 text-center hover:bg-white/5 transition">
-        <div class="text-xs text-slate-400 [direction:ltr]">Initial</div>
+        <div class="text-xs text-slate-400 [direction:ltr]">Boshida (Initial)</div>
         <div class="arabic-font text-4xl font-black mt-1 text-white group-hover:scale-110 transition">
           {{ letter.initial|default:letter.arabic }}
         </div>
       </div>
       <div class="group rounded-2xl border border-white/10 bg-slate-950/40 p-4 text-center hover:bg-white/5 transition">
-        <div class="text-xs text-slate-400 [direction:ltr]">Medial</div>
+        <div class="text-xs text-slate-400 [direction:ltr]">O'rtada (Medial)</div>
         <div class="arabic-font text-4xl font-black mt-1 text-white group-hover:scale-110 transition">
           {{ letter.medial|default:letter.arabic }}
         </div>

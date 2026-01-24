@@ -32,7 +32,7 @@
       <div class="space-y-4">
         <div class="flex flex-wrap gap-1.5">
           <a href="?alpha="
-            class="px-3 py-1.5 rounded-lg text-xs font-bold transition {% if not alpha %}bg-emerald-500 text-slate-950{% else %}bg-white/5 text-slate-400 hover:bg-white/10{% endif %}">ALL</a>
+            class="px-3 py-1.5 rounded-lg text-xs font-bold transition {% if not alpha %}bg-emerald-500 text-slate-950{% else %}bg-white/5 text-slate-400 hover:bg-white/10{% endif %}">HAMMASI</a>
           {% for char in "ABCÇDEFGHIİJKLMNOPQRSTUVYZ"|make_list %}
           <a href="?alpha={{ char }}&q={{ q }}&cat={{ cat }}"
             class="px-3 py-1.5 rounded-lg text-xs font-bold transition {% if alpha == char %}bg-emerald-500 text-slate-950{% else %}bg-white/5 text-slate-400 hover:bg-white/10{% endif %}">
@@ -149,10 +149,23 @@
         </div>
       </div>
 
-      <div class="mb-4">
-        <div class="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">Transliteratsiya</div>
-        <div class="text-sky-400 font-bold tracking-wide">{{ w.transliteration|default:"—" }}</div>
+      <div class="grid grid-cols-2 gap-4 mb-4">
+        <div>
+          <div class="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">Transliteratsiya</div>
+          <div class="text-sky-400 font-bold tracking-wide text-xs">{{ w.transliteration|default:"—" }}</div>
+        </div>
+        <div>
+          <div class="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">O‘qilishi</div>
+          <div class="text-emerald-400 font-bold tracking-wide text-xs">{{ w.pronunciation|default:"—" }}</div>
+        </div>
       </div>
+
+      {% if w.makhraj %}
+      <div class="mb-4 p-3 rounded-2xl bg-amber-500/5 border border-amber-500/10">
+        <div class="text-[9px] font-black text-amber-500/60 uppercase tracking-widest mb-1">Maxraj</div>
+        <div class="text-[11px] text-amber-200/80 leading-relaxed italic">{{ w.makhraj }}</div>
+      </div>
+      {% endif %}
 
       <div class="mt-auto space-y-3">
         <div
@@ -170,10 +183,37 @@
           </div>
         </div>
 
-        {% if w.category %}
-        <div class="flex items-center gap-2">
-          <div class="h-1.5 w-1.5 rounded-full bg-emerald-500"></div>
-          <div class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">{{ w.category.name }}</div>
+        {% if w.category or w.word_type %}
+        <div class="flex items-center gap-2 flex-wrap mb-3">
+          {% if w.category %}
+          <div class="flex items-center gap-2">
+            <div class="h-1.5 w-1.5 rounded-full bg-emerald-500"></div>
+            <div class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">{{ w.category.name }}</div>
+          </div>
+          {% endif %}
+
+          {% if w.word_type %}
+          <div
+            class="px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-[9px] font-black text-slate-400 uppercase tracking-tighter">
+            {{ w.word_type }}
+          </div>
+          {% endif %}
+        </div>
+        {% endif %}
+
+        {% if w.makhraj %}
+        <div class="pt-2 border-t border-white/5">
+          <div class="flex items-start gap-2">
+            <div class="mt-1">
+              <svg class="w-2.5 h-2.5 text-amber-500/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
+                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </div>
+            <p class="text-[10px] text-slate-500 leading-relaxed font-medium">
+              <span class="text-slate-400">Maxraj:</span> {{ w.makhraj }}
+            </p>
+          </div>
         </div>
         {% endif %}
       </div>

@@ -20,7 +20,7 @@
         </div>
         <div
           class="absolute -bottom-2 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-white text-slate-950 text-[10px] font-black tracking-widest uppercase">
-          DARAXA
+          DARAJA
         </div>
       </div>
 
@@ -34,7 +34,7 @@
         <div class="space-y-2">
           <div class="flex justify-between text-xs font-bold uppercase tracking-widest">
             <span class="text-sky-400">Tajriba (XP)</span>
-            <span class="text-slate-500"><span x-text="xp"></span> / <span x-text="nextLevelXp"></span></span>
+            <span class="text-slate-500"><span x-text="levelXp"></span> / <span x-text="levelMax"></span> XP</span>
           </div>
           <div class="h-3 w-full bg-white/5 rounded-full overflow-hidden border border-white/5">
             <div class="h-full bg-gradient-to-r from-sky-500 to-emerald-500 transition-all duration-1000"
@@ -81,77 +81,122 @@
 </section>
 
 <!-- PRACTICE MODULES GRID -->
-<div class="space-y-8">
-  <div class="flex items-center justify-between border-b border-white/5 pb-4">
-    <h2 class="text-xl font-black text-slate-200 uppercase tracking-widest text-center md:text-left w-full">Mashq
-      Rejimlari</h2>
+<div class="space-y-12">
+
+  <!-- LEVEL A0 -->
+  <div>
+    <div class="flex items-center gap-3 mb-6">
+      <div
+        class="px-3 py-1 rounded bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 text-xs font-black tracking-widest uppercase">
+        A0</div>
+      <h2 class="text-xl font-black text-slate-200">Boshlang'ich Bosqich</h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Alphabet Explorer -->
+      <a href="/alphabet/"
+        class="group relative bg-slate-900/40 border border-white/10 rounded-[2.5rem] p-8 transition-all duration-500 hover:bg-slate-800/50 hover:border-orange-500/30 hover:-translate-y-2 shadow-xl flex flex-col">
+        <div class="text-3xl mb-6 group-hover:scale-110 transition-transform">🔡</div>
+        <h3 class="text-xl font-black text-white mb-2">Alifbo Sirlari</h3>
+        <p class="text-xs text-slate-400 leading-relaxed mb-6">28 ta harfning maxraji va yozilish shakllari bilan
+          batafsil
+          tanishish.</p>
+        <div class="mt-auto pt-6 border-t border-white/5 flex items-center justify-between">
+          <span class="text-[10px] font-bold text-orange-400 uppercase tracking-widest">Noldan</span>
+          <span class="text-white group-hover:translate-x-2 transition-transform">→</span>
+        </div>
+      </a>
+
+      <!-- Dictionary Explorer -->
+      <a href="/dictionary/"
+        class="group relative bg-slate-900/40 border border-white/10 rounded-[2.5rem] p-8 transition-all duration-500 hover:bg-slate-800/50 hover:border-purple-500/30 hover:-translate-y-2 shadow-xl flex flex-col">
+        <div class="text-3xl mb-6 group-hover:scale-110 transition-transform">📚</div>
+        <h3 class="text-xl font-black text-white mb-2">Lug'at Boyligi</h3>
+        <p class="text-xs text-slate-400 leading-relaxed mb-6">So'zlar ma'nosini o'rganing va ularni o'zingizning review
+          kartangizga qo'shing.</p>
+        <div class="mt-auto pt-6 border-t border-white/5 flex items-center justify-between">
+          <span class="text-[10px] font-bold text-purple-400 uppercase tracking-widest">1000+ so'z</span>
+          <span class="text-white group-hover:translate-x-2 transition-transform">→</span>
+        </div>
+      </a>
+    </div>
   </div>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-    <!-- Spaced Review -->
-    <a href="/review/"
-      class="group relative bg-slate-900/40 border border-white/10 rounded-[2.5rem] p-8 transition-all duration-500 hover:bg-slate-800/50 hover:border-emerald-500/30 hover:-translate-y-2 shadow-xl flex flex-col">
-      <div class="text-3xl mb-6 group-hover:scale-110 transition-transform">🧠</div>
-      <h3 class="text-xl font-black text-white mb-2">Smart Takrorlash</h3>
-      <p class="text-xs text-slate-400 leading-relaxed mb-6">Spaced repetition algoritmi asosida faqat kerakli so'zlarni
-        takrorlang.</p>
-      <div class="mt-auto pt-6 border-t border-white/5 flex items-center justify-between">
-        <span class="text-[10px] font-bold text-emerald-400 uppercase tracking-widest">Tavsiya etiladi</span>
-        <span class="text-white group-hover:translate-x-2 transition-transform">→</span>
-      </div>
-    </a>
+  <!-- LEVEL A1-A2 -->
+  <div>
+    <div class="flex items-center gap-3 mb-6">
+      <div
+        class="px-3 py-1 rounded bg-sky-500/20 border border-sky-500/30 text-sky-400 text-xs font-black tracking-widest uppercase">
+        A1-A2</div>
+      <h2 class="text-xl font-black text-slate-200">Elementar Bosqich</h2>
+    </div>
 
-    <!-- Weak Words -->
-    <a href="{% url 'arab:practice_weak_words' %}"
-      class="group relative bg-slate-900/40 border border-white/10 rounded-[2.5rem] p-8 transition-all duration-500 hover:bg-slate-800/50 hover:border-red-500/30 hover:-translate-y-2 shadow-xl flex flex-col">
-      <div class="text-3xl mb-6 group-hover:scale-110 transition-transform">🩸</div>
-      <h3 class="text-xl font-black text-white mb-2">Kunchsiz So'zlar</h3>
-      <p class="text-xs text-slate-400 leading-relaxed mb-6">Siz eng ko'p xato qiladigan va mustahkamlash kerak bo'lgan
-        so'zlar to'plami.</p>
-      <div class="mt-auto pt-6 border-t border-white/5 flex items-center justify-between">
-        <span class="text-[10px] font-bold text-red-400 uppercase tracking-widest">Diqqat Qiling</span>
-        <span class="text-white group-hover:translate-x-2 transition-transform">→</span>
-      </div>
-    </a>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Match Game -->
+      <a href="{% url 'arab:practice_match_game' %}"
+        class="group relative bg-slate-900/40 border border-white/10 rounded-[2.5rem] p-8 transition-all duration-500 hover:bg-slate-800/50 hover:border-emerald-500/30 hover:-translate-y-2 shadow-xl flex flex-col">
+        <div class="text-3xl mb-6 group-hover:scale-110 transition-transform">🧩</div>
+        <h3 class="text-xl font-black text-white mb-2">Match Game</h3>
+        <p class="text-xs text-slate-400 leading-relaxed mb-6">So'zlarni moslashtirib xotirani mustahkamlang.</p>
+        <div class="mt-auto pt-6 border-t border-white/5 flex items-center justify-between">
+          <span class="text-[10px] font-bold text-emerald-400 uppercase tracking-widest">+10 XP</span>
+          <span class="text-white group-hover:translate-x-2 transition-transform">→</span>
+        </div>
+      </a>
 
-    <!-- Time Attack (Oq doska) -->
-    <a href="{% url 'arab:tajweed_whiteboard' %}"
-      class="group relative bg-slate-900/40 border border-white/10 rounded-[2.5rem] p-8 transition-all duration-500 hover:bg-slate-800/50 hover:border-sky-500/30 hover:-translate-y-2 shadow-xl flex flex-col">
-      <div class="text-3xl mb-6 group-hover:scale-110 transition-transform">✍️</div>
-      <h3 class="text-xl font-black text-white mb-2">Xattotlik & Doska</h3>
-      <p class="text-xs text-slate-400 leading-relaxed mb-6">Harflarni yozishni mashq qiling va xattotlik sirlarini
-        o'rganing.</p>
-      <div class="mt-auto pt-6 border-t border-white/5 flex items-center justify-between">
-        <span class="text-[10px] font-bold text-sky-400 uppercase tracking-widest">Interaktiv</span>
-        <span class="text-white group-hover:translate-x-2 transition-transform">→</span>
-      </div>
-    </a>
+      <!-- Weak Words -->
+      <a href="{% url 'arab:practice_weak_words' %}"
+        class="group relative bg-slate-900/40 border border-white/10 rounded-[2.5rem] p-8 transition-all duration-500 hover:bg-slate-800/50 hover:border-red-500/30 hover:-translate-y-2 shadow-xl flex flex-col">
+        <div class="text-3xl mb-6 group-hover:scale-110 transition-transform">🩸</div>
+        <h3 class="text-xl font-black text-white mb-2">Kuchsiz So'zlar</h3>
+        <p class="text-xs text-slate-400 leading-relaxed mb-6">Siz eng ko'p xato qiladigan va mustahkamlash kerak
+          bo'lgan
+          so'zlar to'plami.</p>
+        <div class="mt-auto pt-6 border-t border-white/5 flex items-center justify-between">
+          <span class="text-[10px] font-bold text-red-400 uppercase tracking-widest">Diqqat Qiling</span>
+          <span class="text-white group-hover:translate-x-2 transition-transform">→</span>
+        </div>
+      </a>
+    </div>
+  </div>
 
-    <!-- Alphabet Explorer -->
-    <a href="/alphabet/"
-      class="group relative bg-slate-900/40 border border-white/10 rounded-[2.5rem] p-8 transition-all duration-500 hover:bg-slate-800/50 hover:border-orange-500/30 hover:-translate-y-2 shadow-xl flex flex-col">
-      <div class="text-3xl mb-6 group-hover:scale-110 transition-transform">🔡</div>
-      <h3 class="text-xl font-black text-white mb-2">Alifbo Sirlari</h3>
-      <p class="text-xs text-slate-400 leading-relaxed mb-6">28 ta harfning maxraji va yozilish shakllari bilan batafsil
-        tanishish.</p>
-      <div class="mt-auto pt-6 border-t border-white/5 flex items-center justify-between">
-        <span class="text-[10px] font-bold text-orange-400 uppercase tracking-widest">Noldan</span>
-        <span class="text-white group-hover:translate-x-2 transition-transform">→</span>
-      </div>
-    </a>
+  <!-- LEVEL B1+ -->
+  <div>
+    <div class="flex items-center gap-3 mb-6">
+      <div
+        class="px-3 py-1 rounded bg-fuchsia-500/20 border border-fuchsia-500/30 text-fuchsia-400 text-xs font-black tracking-widest uppercase">
+        B1+</div>
+      <h2 class="text-xl font-black text-slate-200">Mustaqil O'rganuvchi</h2>
+    </div>
 
-    <!-- Dictionary Explorer -->
-    <a href="/dictionary/"
-      class="group relative bg-slate-900/40 border border-white/10 rounded-[2.5rem] p-8 transition-all duration-500 hover:bg-slate-800/50 hover:border-purple-500/30 hover:-translate-y-2 shadow-xl flex flex-col">
-      <div class="text-3xl mb-6 group-hover:scale-110 transition-transform">📚</div>
-      <h3 class="text-xl font-black text-white mb-2">Lug'at Boyligi</h3>
-      <p class="text-xs text-slate-400 leading-relaxed mb-6">So'zlar ma'nosini o'rganing va ularni o'zingizning review
-        kartangizga qo'shing.</p>
-      <div class="mt-auto pt-6 border-t border-white/5 flex items-center justify-between">
-        <span class="text-[10px] font-bold text-purple-400 uppercase tracking-widest">1000+ so'z</span>
-        <span class="text-white group-hover:translate-x-2 transition-transform">→</span>
-      </div>
-    </a>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Spaced Review -->
+      <a href="/review/"
+        class="group relative bg-slate-900/40 border border-white/10 rounded-[2.5rem] p-8 transition-all duration-500 hover:bg-slate-800/50 hover:border-emerald-500/30 hover:-translate-y-2 shadow-xl flex flex-col">
+        <div class="text-3xl mb-6 group-hover:scale-110 transition-transform">🧠</div>
+        <h3 class="text-xl font-black text-white mb-2">Smart Takrorlash</h3>
+        <p class="text-xs text-slate-400 leading-relaxed mb-6">Spaced repetition algoritmi asosida faqat kerakli
+          so'zlarni
+          takrorlang.</p>
+        <div class="mt-auto pt-6 border-t border-white/5 flex items-center justify-between">
+          <span class="text-[10px] font-bold text-emerald-400 uppercase tracking-widest">Tavsiya etiladi</span>
+          <span class="text-white group-hover:translate-x-2 transition-transform">→</span>
+        </div>
+      </a>
+
+      <!-- Time Attack (Oq doska) -->
+      <a href="{% url 'arab:tajweed_whiteboard' %}"
+        class="group relative bg-slate-900/40 border border-white/10 rounded-[2.5rem] p-8 transition-all duration-500 hover:bg-slate-800/50 hover:border-sky-500/30 hover:-translate-y-2 shadow-xl flex flex-col">
+        <div class="text-3xl mb-6 group-hover:scale-110 transition-transform">✍️</div>
+        <h3 class="text-xl font-black text-white mb-2">Xattotlik & Doska</h3>
+        <p class="text-xs text-slate-400 leading-relaxed mb-6">Harflarni yozishni mashq qiling va xattotlik sirlarini
+          o'rganing.</p>
+        <div class="mt-auto pt-6 border-t border-white/5 flex items-center justify-between">
+          <span class="text-[10px] font-bold text-sky-400 uppercase tracking-widest">Interaktiv</span>
+          <span class="text-white group-hover:translate-x-2 transition-transform">→</span>
+        </div>
+      </a>
+    </div>
   </div>
 </div>
 
@@ -161,9 +206,10 @@
       xp: {{ game.xp_total |default: 0 }
   },
   level: { { game.level |default: 1 } },
-  nextLevelXp: 1000,
-    xp_pct: 0,
-      init() {
+  levelXp: 0,
+    levelMax: 100,
+      xp_pct: 0,
+        init() {
     this.updateData();
   },
       async updateData() {
@@ -172,7 +218,8 @@
       const data = await response.json();
       this.xp = data.xp;
       this.level = data.level;
-      this.nextLevelXp = data.next_level_xp;
+      this.levelXp = data.level_xp_current;
+      this.levelMax = data.level_xp_max;
       this.xp_pct = data.xp_pct;
     } catch (e) {
       console.error("Live stats fetch error:", e);

@@ -7,6 +7,10 @@ pip install -r requirements.txt
 python manage.py collectstatic --no-input
 python manage.py migrate
 
+# Sync dictionary from JSON
+echo "Syncing dictionary from dictionary.json..."
+python manage.py sync_dictionary
+
 # Load fixtures if they exist
 # Load ALL JSON fixtures automatically
 echo "Loading all fixtures..."
