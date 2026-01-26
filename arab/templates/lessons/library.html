@@ -1,65 +1,153 @@
 {% extends "base.html" %}
-{% block title %}Video Darsliklar{% endblock %}
+{% block title %}Video Darsliklar - AlifPro Academy{% endblock %}
 {% block content %}
 
-<!-- HEADER -->
-<div class="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-6">
-    <div>
-        <h1 class="text-3xl font-black">🎥 Video Darsliklar</h1>
-        <p class="mt-2 text-slate-300 text-sm max-w-lg">
-            Barcha video darslar bir joyda. O‘zingizga kerakli mavzuni qidiring va o‘rganishni boshlang.
-        </p>
+<!-- HERO HEADER -->
+<section
+    class="relative overflow-hidden rounded-[3rem] border border-white/10 bg-slate-900/40 backdrop-blur-md p-10 md:p-16 mb-12 shadow-2xl">
+    <div
+        class="pointer-events-none absolute -top-40 -left-40 h-96 w-96 rounded-full bg-emerald-500/10 blur-[120px] animate-pulse">
     </div>
+    <div class="pointer-events-none absolute -bottom-40 -right-40 h-96 w-96 rounded-full bg-sky-500/10 blur-[120px] animate-pulse"
+        style="animation-delay: 2s"></div>
 
-    <form method="get" class="w-full md:w-auto relative">
-        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">🔍</span>
-        <input type="text" name="q" value="{{ q|default:'' }}" placeholder="Video nomi..."
-            class="w-full md:w-64 rounded-2xl border border-white/10 bg-slate-950/50 pl-11 pr-4 py-3 text-sm text-white focus:outline-none focus:border-emerald-500/50 transition">
-    </form>
+    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-12 relative z-10">
+        <div class="space-y-6">
+            <div
+                class="inline-flex items-center gap-3 px-4 py-2 rounded-2xl bg-white/5 border border-white/10 text-[10px] font-black uppercase tracking-[0.3em] text-slate-400">
+                <span class="flex h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)]"></span>
+                Kutubxona
+            </div>
+            <h1 class="text-5xl md:text-7xl font-black text-white leading-[0.9] tracking-tighter">
+                Video <span
+                    class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-sky-400">Darslar</span>
+            </h1>
+            <p class="text-slate-400 text-lg max-w-xl leading-relaxed font-medium">
+                Akademiya media kutubxonasi. Barcha darajalar uchun saralangan amaliy va nazariy video darsliklar
+                to'plami.
+            </p>
+        </div>
+
+        <!-- Search Form -->
+        <form method="get" class="w-full lg:w-[450px] relative group">
+            <input type="hidden" name="level" value="{{ level }}">
+            <span
+                class="absolute left-6 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-emerald-400 transition-colors">
+                <i class="fas fa-search text-xl"></i>
+            </span>
+            <input type="text" name="q" value="{{ q|default:'' }}" placeholder="Darslik qidirish..."
+                class="w-full h-20 rounded-[2rem] border-2 border-white/5 bg-slate-950/80 pl-16 pr-8 text-lg text-white font-black placeholder-slate-600 focus:outline-none focus:border-emerald-500/30 focus:ring-[15px] focus:ring-emerald-500/5 transition-all shadow-2xl">
+        </form>
+    </div>
+</section>
+
+<!-- FILTER SECTION -->
+<div class="mb-12 relative z-10">
+    <div
+        class="flex flex-col md:flex-row md:items-center justify-between gap-8 pb-8 border-b border-white/5 overflow-x-auto custom-scrollbar">
+        <div class="flex gap-4 min-w-max">
+            <a href="?q={{ q }}"
+                class="h-12 px-8 rounded-2xl flex items-center justify-center text-[10px] font-black tracking-[0.2em] transition-all uppercase {% if not level %}bg-white text-slate-950 shadow-2xl shadow-white/5{% else %}bg-white/5 text-slate-500 hover:bg-white/10 hover:text-white border border-white/5{% endif %}">
+                Barchasi
+            </a>
+            {% for l_code in levels %}
+            <a href="?level={{ l_code }}&q={{ q }}"
+                class="h-12 px-8 rounded-2xl flex items-center justify-center text-[10px] font-black tracking-[0.2em] transition-all uppercase {% if level == l_code %}bg-emerald-500 text-slate-950 shadow-2xl shadow-emerald-500/20{% else %}bg-white/5 text-slate-500 hover:bg-white/10 hover:text-white border border-white/5{% endif %}">
+                {{ l_code }}
+            </a>
+            {% endfor %}
+        </div>
+
+        <div
+            class="px-6 py-3 rounded-2xl bg-white/5 border border-white/5 text-[10px] font-black text-slate-500 uppercase tracking-widest whitespace-nowrap">
+            Natijalar: <span class="text-white ml-2">{{ videos|length }} ta video</span>
+        </div>
+    </div>
 </div>
 
 <!-- VIDEOS GRID -->
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 relative z-10">
     {% for v in videos %}
     <a href="{% url 'arab:video_detail' v.id %}"
-        class="group relative rounded-3xl border border-white/10 bg-white/5 overflow-hidden hover:bg-white/10 transition-all hover:-translate-y-1">
+        class="group relative flex flex-col rounded-[3rem] border border-white/10 bg-slate-900/40 backdrop-blur-md overflow-hidden hover:bg-slate-900/60 transition-all duration-700 hover:-translate-y-3 shadow-2xl hover:border-emerald-500/30">
 
-        <!-- Thumbnail Placeholder -->
-        <div class="h-40 w-full bg-slate-900/50 flex items-center justify-center relative">
+        <!-- Thumbnail Area -->
+        <div class="aspect-video w-full bg-slate-950 flex items-center justify-center relative overflow-hidden">
+            <!-- Animation Backdrop -->
+            <div
+                class="absolute inset-0 bg-gradient-to-br from-emerald-500/10 to-sky-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+            </div>
+
             <!-- Play Icon -->
             <div
-                class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center group-hover:scale-110 transition">
-                <span class="text-2xl text-white">▶</span>
+                class="relative z-10 w-20 h-20 rounded-[2rem] bg-white/5 backdrop-blur-xl border border-white/10 flex items-center justify-center group-hover:scale-110 group-hover:bg-white group-hover:border-white transition-all duration-500 shadow-3xl">
+                <i class="fas fa-play text-white text-2xl group-hover:text-slate-950 transition-colors ml-1"></i>
             </div>
-            <div class="absolute bottom-2 right-2 bg-black/80 text-xs px-2 py-1 rounded-lg text-white">
-                {{ v.duration }}s
+
+            <!-- Labels -->
+            <div class="absolute top-6 left-6 flex gap-3">
+                <div
+                    class="px-4 py-2 rounded-xl text-[9px] font-black uppercase tracking-[0.2em] {% if v.is_free %} bg-emerald-500 text-slate-950 {% else %} bg-amber-500 text-slate-950 {% endif %} shadow-2xl">
+                    {% if v.is_free %}BEPUL{% else %}PREMIUM{% endif %}
+                </div>
             </div>
 
             <div
-                class="absolute top-2 left-2 px-2 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider
-            {% if v.is_free %} bg-emerald-500/20 text-emerald-300 {% else %} bg-amber-500/20 text-amber-300 {% endif %}">
-                {% if v.is_free %}Free{% else %}Premium{% endif %}
+                class="absolute bottom-6 right-6 px-4 py-2 rounded-xl bg-black/60 backdrop-blur-xl text-white text-[10px] font-black tracking-widest border border-white/5 shadow-2xl">
+                <i class="far fa-clock mr-2 text-sky-400"></i> {{ v.duration }}s
             </div>
         </div>
 
-        <div class="p-5">
-            <h3 class="font-bold text-lg leading-tight group-hover:text-emerald-300 transition line-clamp-2">
-                {{ v.title }}
-            </h3>
+        <!-- Content Area -->
+        <div class="p-10 flex-1 flex flex-col">
+            <div class="flex-1">
+                <div class="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em] mb-3">
+                    {{ v.lesson.unit.course.level }} • {{ v.lesson.unit.course.title }}
+                </div>
+                <h3
+                    class="font-black text-2xl leading-tight text-white group-hover:text-emerald-400 transition-colors duration-500 line-clamp-2 tracking-tight">
+                    {{ v.title }}
+                </h3>
+            </div>
 
-            <div class="mt-3 flex items-center gap-2 text-xs text-slate-400">
-                <span class="truncate max-w-[150px]">{{ v.lesson.unit.course.title }}</span>
-                <span>•</span>
-                <span>{{ v.created_at|date:"d M" }}</span>
+            <div
+                class="mt-8 pt-6 border-t border-white/5 flex items-center justify-between group-hover:border-emerald-500/20 transition-all">
+                <span class="text-[10px] font-black text-slate-600 uppercase tracking-widest">{{ v.created_at|date:"d M,
+                    Y" }}</span>
+                <div
+                    class="h-10 px-6 rounded-xl bg-white/5 border border-white/5 flex items-center justify-center text-[9px] font-black text-emerald-400 uppercase tracking-[0.2em] group-hover:bg-emerald-500 group-hover:text-slate-950 transition-all">
+                    KO'RISH
+                </div>
             </div>
         </div>
     </a>
     {% empty %}
-    <div class="col-span-full py-12 text-center text-slate-400">
-        <div class="text-4xl mb-3">📭</div>
-        Video topilmadi.
+    <div class="col-span-full py-32 text-center bg-slate-900/20 rounded-[3rem] border border-dashed border-white/10">
+        <div
+            class="h-24 w-24 mx-auto rounded-[2rem] bg-slate-950 flex items-center justify-center text-5xl mb-8 shadow-inner">
+            📭
+        </div>
+        <h3 class="text-3xl font-black text-white uppercase tracking-tight">Darslik topilmadi</h3>
+        <p class="mt-4 text-slate-500 font-medium text-lg max-w-sm mx-auto leading-relaxed">
+            Qidiruv natijalariga mos videolar topilmadi. Iltimos, boshqa kalit so'z yoki darajani tanlab ko'ring.
+        </p>
+        <a href="?"
+            class="mt-10 inline-flex h-14 px-10 rounded-2xl bg-white text-slate-950 items-center justify-center text-[10px] font-black uppercase tracking-[0.2em] shadow-2xl hover:scale-105 transition-all">
+            HAMMASINI KO'RSATISH
+        </a>
     </div>
     {% endfor %}
 </div>
+
+<style>
+    .custom-scrollbar::-webkit-scrollbar {
+        height: 4px;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 10px;
+    }
+</style>
 
 {% endblock %}

@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load account socialaccount %}
+
+{% block title %}{% trans "Sign In" %} - AlifPro Academy{% endblock %}
+
+{% block content %}
+<section class="relative min-h-[80vh] flex items-center justify-center py-20">
+    <div
+        class="pointer-events-none absolute -top-24 -left-24 h-[500px] w-[500px] rounded-full bg-emerald-500/10 blur-[120px] animate-pulse">
+    </div>
+    <div class="mx-auto max-w-xl w-full px-4 relative z-10">
+        <div
+            class="rounded-[3.5rem] border border-white/10 bg-slate-900/40 backdrop-blur-3xl shadow-[0_40px_100px_-20px_rgba(0,0,0,0.8)] overflow-hidden">
+            <div class="h-2 bg-gradient-to-r from-emerald-500 via-sky-500 to-indigo-500"></div>
+
+            <div class="p-8 sm:p-12 text-center">
+                <div
+                    class="inline-flex items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-emerald-400 mb-6">
+                    Tasdiqlash
+                </div>
+                <h1 class="text-3xl font-black text-white tracking-tight mb-4">
+                    {% blocktrans with provider_name=provider.name %}Sign In via {{ provider_name }}{% endblocktrans %}
+                </h1>
+                <p class="text-slate-400 font-medium mb-10">
+                    {% blocktrans with provider_name=provider.name %}Siz {{ provider_name }} hisobi orqali
+                    kirmoqchisiz. Davom etishni tasdiqlang.{% endblocktrans %}
+                </p>
+
+                <form method="post">
+                    {% csrf_token %}
+                    <button type="submit"
+                        class="group relative w-full overflow-hidden rounded-2xl bg-emerald-500 py-5 font-black uppercase tracking-[0.2em] text-sm text-slate-950 transition-all hover:bg-emerald-400 hover:scale-[1.02] active:scale-[0.98] shadow-2xl shadow-emerald-500/20">
+                        <span class="relative z-10">{% trans "Continue" %}</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

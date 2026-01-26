@@ -2,11 +2,31 @@ from django.contrib import admin
 from .models import (
     Course, Unit, Lesson,
     Letter, Diacritic,
-    Word, WordExample,
+    Word, WordExample, VocabularyCategory,
     Exercise, Question, Choice,
     UserLessonProgress, UserWordProgress, UserQuizAttempt,
-    LessonVideo, UserVideoProgress, Profile
+    LessonVideo, UserVideoProgress, Profile,
+    ScenarioCategory, Scenario, DialogLine, PhrasebookEntry
 )
+
+@admin.register(ScenarioCategory)
+class ScenarioCategoryAdmin(admin.ModelAdmin):
+    list_display = ("name", "order")
+
+class DialogLineInline(admin.TabularInline):
+    model = DialogLine
+    extra = 3
+
+@admin.register(Scenario)
+class ScenarioAdmin(admin.ModelAdmin):
+    list_display = ("title", "category", "difficulty", "is_published")
+    list_filter = ("category", "difficulty", "is_published")
+    inlines = [DialogLineInline]
+
+@admin.register(PhrasebookEntry)
+class PhrasebookEntryAdmin(admin.ModelAdmin):
+    list_display = ("text_arabic", "text_uz", "category", "scenario")
+    search_fields = ("text_arabic", "text_uz", "text_ru")
 
 from .models import TajweedRule, TajweedExample, TajweedTag, TajweedMark, TajweedQuiz, TajweedQuizOption, TajweedQuizAttempt , LetterExample
 
@@ -139,10 +159,15 @@ class DiacriticAdmin(admin.ModelAdmin):
 
 
 # ----------------- Word -----------------
+@admin.register(VocabularyCategory)
+class VocabularyCategoryAdmin(admin.ModelAdmin):
+    list_display = ("name", "description")
+    search_fields = ("name",)
+
 @admin.register(Word)
 class WordAdmin(admin.ModelAdmin):
-    list_display = ("arabic", "lesson", "translation_uz", "translation_ru", "created_at")
-    list_filter = ("lesson__unit__course", "lesson")
+    list_display = ("arabic", "translation_uz") # DEBUG: removed lesson, category, translation_ru, created_at
+    list_filter = ("category", "lesson__unit__course", "lesson")
     search_fields = ("arabic", "transliteration", "translation_uz", "translation_ru")
     ordering = ("arabic",)
     filter_horizontal = ("diacritics",)

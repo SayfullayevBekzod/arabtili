@@ -8,9 +8,9 @@
     "orientation": "portrait-primary",
     "icons": [
         {
-            "src": "/static/img/favicon.svg",
-            "sizes": "any",
-            "type": "image/svg+xml",
+            "src": "/static/img/favicon.png",
+            "sizes": "192x192 512x512",
+            "type": "image/png",
             "purpose": "any maskable"
         }
     ]

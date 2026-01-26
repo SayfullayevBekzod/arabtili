@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Sign Out" %} - AlifPro Academy{% endblock %}
+
+{% block content %}
+<section class="relative min-h-[60vh] flex items-center justify-center">
+    <!-- Immersive Glows -->
+    <div
+        class="pointer-events-none absolute -top-24 -left-24 h-96 w-96 rounded-full bg-rose-500/10 blur-[120px] animate-pulse">
+    </div>
+    <div class="pointer-events-none absolute -bottom-24 -right-24 h-96 w-96 rounded-full bg-sky-500/10 blur-[120px] animate-pulse"
+        style="animation-delay: 2s"></div>
+
+    <div class="mx-auto max-w-lg w-full px-4 relative z-10">
+        <div
+            class="rounded-[3rem] border border-white/10 bg-slate-900/40 backdrop-blur-3xl shadow-[0_40px_100px_-20px_rgba(0,0,0,0.8)] overflow-hidden">
+            <!-- Decorative Header -->
+            <div class="h-2 bg-gradient-to-r from-rose-500 via-sky-500 to-emerald-500"></div>
+
+            <div class="p-10 sm:p-14 text-center">
+                <!-- Icon -->
+                <div class="mb-8 relative inline-block">
+                    <div
+                        class="h-24 w-24 rounded-[2rem] bg-rose-500/10 flex items-center justify-center text-4xl text-rose-400 border border-rose-500/20 shadow-2xl shadow-rose-500/10">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </div>
+                </div>
+
+                <!-- Text -->
+                <h1 class="text-4xl font-black text-white tracking-tight mb-4">Chiqish 🚩</h1>
+                <p class="text-slate-400 text-lg font-medium leading-relaxed mb-10">
+                    Haqiqatan ham tizimdan chiqmoqchimisiz? Biz sizni yangi darslar bilan kutib qolamiz.
+                </p>
+
+                <form method="post" action="{% url 'account_logout' %}" class="grid gap-4">
+                    {% csrf_token %}
+                    {% if redirect_field_value %}
+                    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                    {% endif %}
+
+                    <button type="submit"
+                        class="group relative w-full overflow-hidden rounded-2xl bg-white py-5 font-black uppercase tracking-[0.2em] text-sm text-slate-950 transition-all hover:bg-rose-500 hover:text-white hover:scale-[1.02] active:scale-[0.98] shadow-2xl">
+                        <span class="relative z-10">{% trans "Sign Out" %}</span>
+                        <div class="absolute inset-0 bg-rose-600 opacity-0 group-hover:opacity-100 transition-opacity">
+                        </div>
+                    </button>
+
+                    <a href="/"
+                        class="block w-full py-5 text-center rounded-2xl border border-white/10 bg-white/5 text-slate-400 font-black uppercase tracking-widest text-xs hover:bg-white/10 hover:text-white transition-all">
+                        Bekor qilish
+                    </a>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

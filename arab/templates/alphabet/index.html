@@ -74,8 +74,8 @@
   <!-- ALPHABET GRID -->
   <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6" dir="rtl">
     {% for l in letters %}
-    <a href="{% url 'arab:letter_detail' l.id %}"
-      x-show="filter === 'all' || (filter === 'connect' && '{{ l.joins_to_next }}' === 'True') || (filter === 'non-connect' && '{{ l.joins_to_next }}' === 'False')"
+    <a href="{% url 'arab:letter_detail' l.id %}" data-joins="{{ l.joins_to_next|yesno:'true,false' }}"
+      x-show="filter === 'all' || (filter === 'connect' && $el.dataset.joins === 'true') || (filter === 'non-connect' && $el.dataset.joins === 'false')"
       class="group relative bg-slate-900/40 border border-white/10 rounded-[2.5rem] p-8 transition-all duration-500 hover:bg-slate-800/50 hover:border-sky-500/30 hover:-translate-y-2 shadow-xl hover:shadow-sky-500/5 overflow-hidden text-center"
       x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 scale-90"
       x-transition:enter-end="opacity-100 scale-100">

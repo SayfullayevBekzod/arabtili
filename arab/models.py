@@ -56,6 +56,7 @@ class Course(TimeStamped):
     title = models.CharField(max_length=200)
     description = models.TextField(blank=True)
     level = models.CharField(max_length=30, choices=LEVEL_CHOICES, default="A0")
+    image = models.ImageField(upload_to="courses/", blank=True, null=True)
     is_published = models.BooleanField(default=False)
 
     class Meta:
@@ -86,6 +87,10 @@ class Lesson(TimeStamped):
     theory = models.TextField(blank=True)
     order = models.PositiveIntegerField(default=1)
     estimated_minutes = models.PositiveIntegerField(default=10)
+    
+    # Advanced: Sequence of mini-blocks
+    # [ {"type": "intro", "content": "..."}, {"type": "vocabulary", "word_ids": [1,2,3]}, ... ]
+    blocks = models.JSONField(default=list, blank=True, help_text="Lesson mini-bloklar ketma-ketligi")
 
     class Meta:
         ordering = ["order"]
@@ -133,6 +138,10 @@ class Letter(TimeStamped):
     # Makhraj info
     makhraj_image = models.ImageField(upload_to="makhraj/", blank=True, null=True, help_text="Image showing articulation point")
     makhraj_description = models.TextField(blank=True, help_text="Description of articulation mechanism")
+
+    # Animation
+    svg_path = models.TextField(blank=True, help_text="SVG d atributi (stroke animatsiyasi uchun)")
+    viewbox = models.CharField(max_length=50, default="0 0 100 100", help_text="SVG viewbox o'lchami")
 
     class Meta:
         ordering = ["order"]
@@ -347,23 +356,30 @@ class UserCard(TimeStamped):
         constraints = [
             models.CheckConstraint(
                 condition=(
-                    (Q(word__isnull=False) & Q(letter__isnull=True)) |
-                    (Q(word__isnull=True) & Q(letter__isnull=False))
+                    (models.Q(word__isnull=False) & models.Q(letter__isnull=True)) |
+                    (models.Q(word__isnull=True) & models.Q(letter__isnull=False))
                 ),
                 name="usercard_exactly_one_target"
             ),
-            models.UniqueConstraint(fields=["user", "word"], name="uniq_user_word_card"),
-            models.UniqueConstraint(fields=["user", "letter"], name="uniq_user_letter_card"),
+            models.UniqueConstraint(fields=["user", "word"], name="uniq_user_word_card", condition=models.Q(word__isnull=False)),
+            models.UniqueConstraint(fields=["user", "letter"], name="uniq_user_letter_card", condition=models.Q(letter__isnull=False)),
         ]
 
-    def clean(self):
-        super().clean()
-        if (self.word_id and self.letter_id) or (not self.word_id and not self.letter_id):
-            raise ValidationError("UserCard: faqat word yoki letter dan bittasi tanlanishi kerak.")
+# ----------------------------
+# PLACEMENT TEST
+# ----------------------------
+class PlacementQuestion(models.Model):
+    text = models.TextField()
+    audio = models.FileField(upload_to="audio/placement/", blank=True, null=True)
+    level_tag = models.CharField(max_length=20, default="A0") # Recommended level if passed
+    
+class PlacementOption(models.Model):
+    question = models.ForeignKey(PlacementQuestion, on_delete=models.CASCADE, related_name="options")
+    text = models.CharField(max_length=200)
+    is_correct = models.BooleanField(default=False)
 
     def __str__(self):
-        target = self.word.arabic if self.word_id else self.letter.arabic
-        return f"{self.user} -> {target}"
+        return self.text
 
 
 # ----------------------------
@@ -576,6 +592,8 @@ class Mission(TimeStamped):
     ]
     title = models.CharField(max_length=200)
     description = models.CharField(max_length=255, blank=True)
+    points = models.PositiveIntegerField(default=10)
+    is_active = models.BooleanField(default=True)
     mission_type = models.CharField(max_length=20, choices=MISSION_TYPES)
     required_count = models.PositiveIntegerField(default=1)  # e.g. 10 reviews
     xp_reward = models.PositiveIntegerField(default=10)
@@ -585,6 +603,80 @@ class Mission(TimeStamped):
 
     def __str__(self):
         return f"{self.title} ({self.required_count} {self.mission_type})"
+
+
+# ----------------------------
+# CONVERSATIONAL SCENARIOS
+# ----------------------------
+
+class ScenarioCategory(TimeStamped):
+    name = models.CharField(max_length=100)
+    icon = models.CharField(max_length=50, default="fas fa-comments", help_text="FontAwesome icon class")
+    description = models.TextField(blank=True)
+    order = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        verbose_name_plural = "Scenario Categories"
+        ordering = ["order", "id"]
+
+    def __str__(self):
+        return self.name
+
+
+class Scenario(TimeStamped):
+    DIFFICULTY_CHOICES = [
+        ("beginner", "Beginner"),
+        ("intermediate", "Intermediate"),
+        ("advanced", "Advanced"),
+    ]
+    category = models.ForeignKey(ScenarioCategory, on_delete=models.CASCADE, related_name="scenarios")
+    title = models.CharField(max_length=200)
+    description = models.TextField(blank=True)
+    image = models.ImageField(upload_to="scenarios/", blank=True, null=True)
+    difficulty = models.CharField(max_length=20, choices=DIFFICULTY_CHOICES, default="beginner")
+    xp_reward = models.PositiveIntegerField(default=100)
+    is_published = models.BooleanField(default=True)
+    order = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ["order", "id"]
+
+    def __str__(self):
+        return self.title
+
+
+class DialogLine(models.Model):
+    scenario = models.ForeignKey(Scenario, on_delete=models.CASCADE, related_name="dialog_lines")
+    character_name = models.CharField(max_length=100, help_text="Character name (e.g. Ahmad, Seller)")
+    text_arabic = models.TextField()
+    text_uz = models.TextField()
+    text_ru = models.TextField(blank=True)
+    transliteration = models.TextField(blank=True)
+    audio = models.FileField(upload_to="audio/dialogs/", blank=True, null=True)
+    order = models.PositiveIntegerField(default=0)
+    is_user_line = models.BooleanField(default=False, help_text="Should the user answer this?")
+
+    class Meta:
+        ordering = ["order"]
+
+    def __str__(self):
+        return f"{self.character_name}: {self.text_arabic[:30]}..."
+
+
+class PhrasebookEntry(TimeStamped):
+    category = models.ForeignKey(ScenarioCategory, on_delete=models.SET_NULL, null=True, blank=True, related_name="phrases")
+    scenario = models.ForeignKey(Scenario, on_delete=models.SET_NULL, null=True, blank=True, related_name="phrases")
+    text_arabic = models.CharField(max_length=255)
+    text_uz = models.CharField(max_length=255)
+    text_ru = models.CharField(max_length=255, blank=True)
+    transliteration = models.CharField(max_length=255, blank=True)
+    audio = models.FileField(upload_to="audio/phrases/", blank=True, null=True)
+
+    class Meta:
+        verbose_name_plural = "Phrasebook Entries"
+
+    def __str__(self):
+        return self.text_arabic
 
 
 class UserMissionProgress(TimeStamped):
@@ -634,9 +726,27 @@ class UserGamification(models.Model):
     """
     User umumiy XP/Level.
     """
+    LEAGUE_CHOICES = [
+        ("BRONZE", "Bronze"),
+        ("SILVER", "Silver"),
+        ("GOLD", "Gold"),
+        ("EMERALD", "Emerald"),
+        ("DIAMOND", "Diamond"),
+    ]
+
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="gamification")
     xp_total = models.PositiveIntegerField(default=0)
     level = models.PositiveIntegerField(default=1)
+    
+    # Streak Logic
+    current_streak = models.PositiveIntegerField(default=0)
+    longest_streak = models.PositiveIntegerField(default=0)
+    last_study_date = models.DateField(null=True, blank=True)
+    streak_freeze_count = models.PositiveIntegerField(default=0)
+
+    # League Logic
+    current_league = models.CharField(max_length=20, choices=LEAGUE_CHOICES, default="BRONZE")
+    league_xp = models.PositiveIntegerField(default=0, help_text="Weekly XP for league ranking")
     
     # Hearts system
     hearts = models.PositiveIntegerField(default=5)
@@ -646,7 +756,49 @@ class UserGamification(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"{self.user_id} L{self.level} XP{self.xp_total}"
+        return f"{self.user_id} L{self.level} XP{self.xp_total} {self.current_league}"
+
+
+class DailyQuest(models.Model):
+    """
+    Kunlik missiya shablonlari (Admin tomonidan qo'shiladi).
+    Masalan: "50 XP yig'ish", "3 ta dars o'tish".
+    """
+    TYPE_CHOICES = [
+        ("XP", "Gain XP"),
+        ("LESSON", "Complete Lessons"),
+        ("REVIEW", "Review Cards"),
+        ("PERFECT", "Perfect Lesson (No mistakes)"),
+    ]
+    
+    title = models.CharField(max_length=200)
+    description = models.CharField(max_length=300)
+    quest_type = models.CharField(max_length=20, choices=TYPE_CHOICES)
+    target_amount = models.PositiveIntegerField(default=1)
+    reward_xp = models.PositiveIntegerField(default=20)
+    
+    def __str__(self):
+        return f"{self.title} ({self.target_amount})"
+
+
+class UserQuestProgress(models.Model):
+    """
+    Foydalanuvchining bugungi missiyasi holati.
+    Har kuni soat 00:00 da regeneratsiya qilinadi.
+    """
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="quests")
+    quest = models.ForeignKey(DailyQuest, on_delete=models.CASCADE)
+    day = models.DateField(default=timezone.now)
+    
+    progress = models.PositiveIntegerField(default=0)
+    is_completed = models.BooleanField(default=False)
+    is_claimed = models.BooleanField(default=False)
+
+    class Meta:
+        unique_together = ("user", "quest", "day")
+
+    def __str__(self):
+        return f"{self.user} - {self.quest.title}"
 
 
 class UserWeakArea(models.Model):
@@ -760,6 +912,7 @@ class Profile(TimeStamped):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="profile")
     avatar = models.ImageField(upload_to="avatars/", blank=True, null=True)
     bio = models.TextField(max_length=500, blank=True)
+    current_course = models.ForeignKey("Course", on_delete=models.SET_NULL, null=True, blank=True, related_name="students")
 
     def __str__(self):
         return f"{self.user.username}'s profile"

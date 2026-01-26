@@ -62,7 +62,7 @@
 
             <div class="h-px w-full bg-white/10 my-2"></div>
 
-            <div class="grid grid-cols-3 gap-2 w-full">
+            <div class="grid grid-cols-4 gap-2 w-full">
                 <button @click="setEraser()"
                     class="p-4 rounded-2xl border-2 transition-all flex items-center justify-center"
                     :class="isEraser ? 'border-purple-500 bg-purple-500/20 text-white' : 'border-transparent bg-white/10 text-slate-300'"
@@ -80,6 +80,12 @@
                     class="p-4 rounded-2xl bg-white/10 border-2 border-transparent hover:bg-emerald-500/20 text-slate-300 hover:text-emerald-400 transition flex items-center justify-center"
                     title="Saqlash">
                     💾
+                </button>
+
+                <button @click="toggleFullscreen()"
+                    class="p-4 rounded-2xl bg-white/10 border-2 border-transparent hover:bg-sky-500/20 text-slate-300 hover:text-sky-400 transition flex items-center justify-center"
+                    title="Kattalashtirish">
+                    ⛶
                 </button>
             </div>
         </div>
@@ -117,6 +123,14 @@
     </div>
 </div>
 
+<script id="letters-data" type="application/json">
+    [
+        {% for letter in letters %}
+        { "word": "{{ letter.arabic }}", "name": "{{ letter.name }}", "svgPath": "{{ letter.svg_path }}" }{% if not forloop.last %},{% endif %}
+        {% endfor %}
+    ]
+</script>
+
 <script>
     function whiteboard() {
         return {
@@ -126,15 +140,7 @@
                 { name: 'Zumrad', hex: '#10b981' }, { name: 'Sariq', hex: '#ffb822' },
                 { name: 'Pushti', hex: '#f472b6' }, { name: 'Qora', hex: '#000000' }
             ],
-            templates: [
-                { word: 'ا', name: 'Alif' }, { word: 'ب', name: 'Ba' }, { word: 'ت', name: 'Ta' },
-                { word: 'ث', name: 'Tha' }, { word: 'ج', name: 'Jim' }, { word: 'س', name: 'Seen' },
-                { word: 'ص', name: 'Sod' }, { word: 'ط', name: 'To' }, { word: 'ع', name: 'Ayn' },
-                { word: 'ف', name: 'Fe' }, { word: 'ق', name: 'Qof' }, { word: 'ك', name: 'Kaf' },
-                { word: 'م', name: 'Meem' }, { word: 'ن', name: 'Noon' }, { word: 'هـ', name: 'Ha' },
-                { word: 'و', name: 'Wov' }, { word: 'ي', name: 'Ya' }, { word: 'الله', name: 'Allah' },
-                { word: 'مُحَمَّد', name: 'Muhammad' }, { word: 'سَلَام', name: 'Salom' }
-            ],
+            templates: JSON.parse(document.getElementById('letters-data').textContent),
             currentColor: '#ffffff',
             currentTemplate: null,
             isEraser: false,
@@ -158,14 +164,12 @@
                     this.resize();
                     this.loadFromLocal();
 
-                    // Efficiency: Resize observer or debounced resize
                     let resizeTimer;
                     window.addEventListener('resize', () => {
                         clearTimeout(resizeTimer);
                         resizeTimer = setTimeout(() => this.resize(), 150);
                     });
 
-                    // Auto-save debouncer (every 3 seconds if needed)
                     setInterval(() => {
                         if (this.needsSave) { this.saveToLocal(); this.needsSave = false; }
                     }, 3000);
@@ -181,19 +185,16 @@
             resize() {
                 const rect = this.canvas.parentElement.getBoundingClientRect();
                 const temp = this.canvas.toDataURL();
-
                 this.canvas.width = rect.width;
                 this.canvas.height = this.canvas.offsetHeight || 650;
                 this.guideCanvas.width = this.canvas.width;
                 this.guideCanvas.height = this.canvas.height;
-
                 const img = new Image();
                 img.src = temp;
                 img.onload = () => {
                     this.ctx.drawImage(img, 0, 0);
                     this.setCtxStyles();
                 };
-
                 this.setCtxStyles();
                 this.drawGuides();
             },
@@ -204,11 +205,9 @@
                 const h = this.guideCanvas.height;
                 g.clearRect(0, 0, w, h);
                 if (!this.showGuides) return;
-
                 const cy = h / 2;
                 g.strokeStyle = 'rgba(255, 255, 255, 0.04)';
                 g.lineWidth = 1;
-
                 if (this.mode === 'calligraphy') {
                     const space = 80;
                     g.beginPath(); g.moveTo(50, cy); g.lineTo(w - 50, cy); g.stroke();
@@ -224,6 +223,28 @@
             },
 
             toggleGuideline() { this.showGuides = !this.showGuides; this.drawGuides(); },
+
+            async playAnimation() {
+                if (!this.currentTemplate || !this.currentTemplate.svgPath) return;
+                this.clear();
+                const path = new Path2D(this.currentTemplate.svgPath);
+                let progress = 0;
+                const animate = () => {
+                    if (progress > 1) return;
+                    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                    this.ctx.setLineDash([1000, 1000]);
+                    this.ctx.lineDashOffset = 1000 * (1 - progress);
+                    const rect = this.canvas.getBoundingClientRect();
+                    this.ctx.save();
+                    this.ctx.translate(rect.width / 2 - 50, rect.height / 2 - 50);
+                    this.ctx.scale(2, 2);
+                    this.ctx.stroke(path);
+                    this.ctx.restore();
+                    progress += 0.01;
+                    if (this.ctx && progress <= 1) requestAnimationFrame(animate);
+                };
+                animate();
+            },
 
             setCtxStyles() {
                 this.ctx.lineCap = 'round';
@@ -254,7 +275,6 @@
 
             handleMove(e) {
                 if (!this.isDrawing) return;
-                // FPS optimization: use requestAnimationFrame if many events
                 window.requestAnimationFrame(() => this.draw(this.getPos(e)));
             },
 
@@ -262,7 +282,7 @@
                 if (!this.isDrawing) return;
                 if (this.mode === 'calligraphy' && !this.isEraser) {
                     const dist = Math.hypot(pos.x - this.lastPos.x, pos.y - this.lastPos.y);
-                    const steps = Math.min(Math.ceil(dist / 2), 20); // Cap steps for perf
+                    const steps = Math.min(Math.ceil(dist / 2), 20);
                     for (let i = 0; i < steps; i++) {
                         const x = this.lastPos.x + (pos.x - this.lastPos.x) * (i / steps);
                         const y = this.lastPos.y + (pos.y - this.lastPos.y) * (i / steps);
@@ -282,7 +302,7 @@
                 const h = w / 4;
                 this.ctx.save();
                 this.ctx.translate(x, y);
-                this.ctx.rotate(0.7); // ~40 deg
+                this.ctx.rotate(0.7);
                 this.ctx.fillStyle = this.currentColor;
                 this.ctx.fillRect(-w / 2, -h / 2, w, h);
                 this.ctx.restore();
@@ -296,7 +316,6 @@
             },
 
             saveToLocal() {
-                // Memory efficient saving
                 try { localStorage.setItem('whiteboard_cache', this.canvas.toDataURL('image/png', 0.5)); } catch (e) { }
             },
 
@@ -312,12 +331,28 @@
             setColor(hex) { this.isEraser = false; this.currentColor = hex; this.setCtxStyles(); },
             setEraser() { this.isEraser = true; this.setCtxStyles(); },
             setTemplate(t) { this.currentTemplate = t; this.clear(); },
-            clear() { this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); this.saveToLocal(); },
+            clear() { if (this.ctx) this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); this.saveToLocal(); },
             download() {
                 const link = document.createElement('a');
                 link.download = `arab-lesson-${Date.now()}.png`;
                 link.href = this.canvas.toDataURL();
                 link.click();
+            },
+            toggleFullscreen() {
+                const container = this.canvas.parentElement;
+                if (!document.fullscreenElement) {
+                    container.requestFullscreen().then(() => {
+                        this.canvas.classList.remove('h-[500px]', 'md:h-[650px]');
+                        this.canvas.classList.add('h-screen');
+                        this.resize();
+                    }).catch(err => console.log(err));
+                } else {
+                    document.exitFullscreen().then(() => {
+                        this.canvas.classList.add('h-[500px]', 'md:h-[650px]');
+                        this.canvas.classList.remove('h-screen');
+                        this.resize();
+                    });
+                }
             }
         }
     }

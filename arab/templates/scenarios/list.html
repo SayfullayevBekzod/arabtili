@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block title %}Suhbatlar - AlifPro Academy{% endblock %}
+{% block content %}
+
+<div class="max-w-6xl mx-auto py-12 px-4">
+    <div class="mb-12 space-y-4">
+        <div
+            class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-[10px] font-black uppercase tracking-widest text-emerald-400">
+            MULOQOT REJIMI
+        </div>
+        <h1 class="text-4xl md:text-6xl font-black text-white">Muloqot <span class="text-emerald-400">Markazi</span>
+        </h1>
+        <p class="text-slate-400 max-w-2xl text-lg leading-relaxed">
+            Real hayotiy vaziyatlarda arab tilida muloqot qilishni o'rganing.
+            Do'kon, aeroport va kundalik vaziyatlar uchun maxsus ssenariylar.
+        </p>
+    </div>
+
+    <!-- Categories -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {% for cat in categories %}
+        <div class="space-y-6">
+            <div class="flex items-center gap-3">
+                <div
+                    class="h-10 w-10 rounded-xl bg-emerald-500 text-slate-950 grid place-items-center shadow-lg shadow-emerald-500/20">
+                    <i class="{{ cat.icon }}"></i>
+                </div>
+                <h2 class="text-xl font-black text-white uppercase tracking-tight">{{ cat.name }}</h2>
+            </div>
+
+            <div class="grid gap-4">
+                {% for scenario in cat.scenarios.all %}
+                <a href="{% url 'arab:scenario_detail' scenario.id %}"
+                    class="group relative block p-7 rounded-[2.5rem] bg-slate-900/60 border border-white/10 transition-all duration-500 hover:bg-slate-800/80 hover:border-emerald-500/50 hover:-translate-y-1 shadow-xl">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <div
+                                class="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2 group-hover:text-emerald-400 transition-colors">
+                                {{ scenario.get_difficulty_display }}</div>
+                            <h3 class="text-xl font-bold text-white leading-tight mb-2">{{ scenario.title }}</h3>
+                            <p class="text-sm text-slate-400 line-clamp-2 leading-relaxed opacity-70">{{ scenario.description }}</p>
+                        </div>
+                        <div
+                            class="h-10 w-10 rounded-2xl bg-white/5 text-slate-500 grid place-items-center group-hover:bg-emerald-500 group-hover:text-slate-950 transition-all duration-500 shadow-inner">
+                            <i class="fas fa-play text-xs"></i>
+                        </div>
+                    </div>
+
+                    <div
+                        class="mt-6 flex items-center gap-5 text-[10px] font-black uppercase tracking-widest text-slate-500">
+                        <span class="flex items-center gap-2"><i class="far fa-clock text-sky-400"></i> 5-10
+                            daqiqa</span>
+                        <span class="flex items-center gap-2"><i class="fas fa-bolt text-amber-400"></i> +{{ scenario.xp_reward }} XP</span>
+                    </div>
+                </a>
+                {% empty %}
+                <div class="p-8 rounded-[2rem] border border-dashed border-white/5 text-center">
+                    <p class="text-sm text-slate-600 italic">Hozircha bu kategoriya bo'sh...</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Phrasebook CTA -->
+    <div
+        class="mt-24 relative overflow-hidden rounded-[3.5rem] border border-white/10 bg-slate-900 p-10 md:p-16 shadow-2xl">
+        <div
+            class="pointer-events-none absolute -right-32 -top-32 h-96 w-96 rounded-full bg-emerald-500/10 blur-[100px]">
+        </div>
+        <div class="relative z-10 flex flex-col md:flex-row items-center gap-10 md:justify-between">
+            <div class="space-y-5 text-center md:text-left">
+                <h2 class="text-3xl md:text-4xl font-black text-white">Iboralar to'plami</h2>
+                <p class="text-slate-400 text-lg max-w-md leading-relaxed">
+                    Kundalik hayotda eng ko'p ishlatiladigan tayyor iboralarni o'rganing va lug'atingizni boyiting.
+                </p>
+            </div>
+            <a href="{% url 'arab:phrasebook' %}"
+                class="px-12 py-5 rounded-2xl bg-emerald-500 text-slate-950 font-black tracking-widest hover:bg-emerald-400 transition-all shadow-xl shadow-emerald-500/20 uppercase text-sm">
+                Lug'atni ko'rish
+            </a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

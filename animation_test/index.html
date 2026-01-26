@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arabic Letter Animation Demo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #0f172a;
+            color: white;
+            font-family: sans-serif;
+        }
+
+        .canvas-container {
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col items-center justify-center p-4">
+
+    <div class="max-w-md w-full space-y-8">
+        <div class="text-center space-y-2">
+            <h1 class="text-3xl font-black text-emerald-400">Xattot Animatsiyasi</h1>
+            <p class="text-slate-400">SVG Stroke + Tracer Dot Logic</p>
+        </div>
+
+        <!-- Canvas Area -->
+        <div class="relative bg-slate-900 border border-white/10 rounded-3xl p-8 shadow-2xl canvas-container">
+            <svg id="svgBoard" viewBox="0 0 100 100" class="w-full h-full drop-shadow-[0_0_15px_rgba(16,185,129,0.3)]">
+                <!-- 1. Background Trace (Ghost) -->
+                <path id="ghostPath" d="" fill="none" stroke="#1e293b" stroke-width="8" stroke-linecap="round"
+                    stroke-linejoin="round" />
+
+                <!-- 2. Animated Stroke (The Ink) -->
+                <path id="animPath" d="" fill="none" stroke="#34d399" stroke-width="8" stroke-linecap="round"
+                    stroke-linejoin="round" />
+
+                <!-- 3. Tracer Dot (The Pen Tip) -->
+                <circle id="tracer" r="4" fill="#10b981" class="drop-shadow-[0_0_5px_white]" cx="0" cy="0"
+                    style="opacity: 0;" />
+            </svg>
+
+            <!-- Debug info -->
+            <div class="absolute top-2 left-4 text-[10px] font-mono text-slate-500">
+                Progress: <span id="progressDisplay">0%</span>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="bg-white/5 rounded-2xl p-4 border border-white/10 space-y-4">
+
+            <!-- Playback Controls -->
+            <div class="flex items-center justify-center gap-4">
+                <button onclick="togglePlay()" id="playBtn"
+                    class="h-12 w-12 rounded-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 flex items-center justify-center transition shadow-lg shadow-emerald-500/20">
+                    <svg id="iconPlay" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <svg id="iconPause" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </button>
+
+                <button onclick="resetAnim()"
+                    class="h-10 w-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Speed Control -->
+            <div class="space-y-1">
+                <div class="flex justify-between text-xs text-slate-400 font-bold uppercase tracking-wider">
+                    <span>Speed</span>
+                    <span id="speedValue">1x</span>
+                </div>
+                <input type="range" id="speedRange" min="0.5" max="3" step="0.5" value="1"
+                    class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-emerald-500">
+            </div>
+
+            <!-- Path Selector -->
+            <div class="grid grid-cols-4 gap-2">
+                <button onclick="changeLetter('Alif')"
+                    class="p-2 rounded bg-white/5 hover:bg-white/10 text-xs tex-slate-300">Alif</button>
+                <button onclick="changeLetter('Ba')"
+                    class="p-2 rounded bg-white/5 hover:bg-white/10 text-xs tex-slate-300">Ba</button>
+                <button onclick="changeLetter('Jim')"
+                    class="p-2 rounded bg-white/5 hover:bg-white/10 text-xs tex-slate-300">Jim</button>
+                <button onclick="changeLetter('Sin')"
+                    class="p-2 rounded bg-white/5 hover:bg-white/10 text-xs tex-slate-300">Sin</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- V3 PATHS DATA ---
+        const LETTERS = {
+            'Alif': "M50,15 C50,15 50,40 50,60 C50,75 52,80 48,85",
+            'Ba': "M85,55 Q50,55 15,55 Q10,55 10,45 M50,80 q0,5 0,5",
+            'Jim': "M35,35 Q50,30 60,30 L85,30 Q65,55 50,60 Q20,80 60,95 M50,70 q0.1,0.1 0,0",
+            'Sin': "M90,45 Q85,45 80,45 L80,55 M80,45 Q75,45 70,45 L70,55 M70,45 Q65,45 60,45 Q60,85 25,85"
+        };
+
+        // --- CONFIG & STATE ---
+        let currentPathStr = LETTERS['Jim'];
+        let isPlaying = false;
+        let progress = 0; // 0 to 1
+        let speed = 1;
+        let animationId = null;
+        let pathLength = 0;
+
+        // DOM Elements
+        const ghostPath = document.getElementById('ghostPath');
+        const animPath = document.getElementById('animPath');
+        const tracer = document.getElementById('tracer');
+        const playBtn = document.getElementById('playBtn');
+        const iconPlay = document.getElementById('iconPlay');
+        const iconPause = document.getElementById('iconPause');
+        const progressDisplay = document.getElementById('progressDisplay');
+
+        // --- INITIALIZATION ---
+        function init(pathStr) {
+            currentPathStr = pathStr;
+            ghostPath.setAttribute('d', pathStr);
+            animPath.setAttribute('d', pathStr);
+
+            // Calculate length
+            pathLength = animPath.getTotalLength();
+
+            // Reset state
+            animPath.style.strokeDasharray = pathLength;
+            animPath.style.strokeDashoffset = pathLength; // Hidden initially
+            tracer.style.opacity = 0;
+
+            progress = 0;
+            updateUI();
+        }
+
+        // --- ANIMATION ENGINE ---
+        function loop() {
+            if (!isPlaying) return;
+
+            // Increment progress (adjusted by speed)
+            // Base speed: cover full length in approx 2 seconds (at 60fps)
+            const step = (1 / (120 / speed)); // 120 frames at 60fps = 2s
+            progress += step;
+
+            if (progress >= 1) {
+                progress = 1;
+                pause();
+                setTimeout(() => {
+                    // Auto replay after delay? Or just stop.
+                    // resetAnim(); togglePlay(); // Loop?
+                }, 1000);
+            }
+
+            render();
+            animationId = requestAnimationFrame(loop);
+        }
+
+        function render() {
+            // 1. Update Stroke
+            const drawLength = pathLength * progress;
+            animPath.style.strokeDashoffset = pathLength - drawLength;
+
+            // 2. Update Tracer Dot
+            // getPointAtLength(length) returns {x, y}
+            const point = animPath.getPointAtLength(drawLength);
+            tracer.setAttribute('cx', point.x);
+            tracer.setAttribute('cy', point.y);
+
+            // Show tracer only if started and not finished
+            tracer.style.opacity = (progress > 0 && progress < 1) ? 1 : 0;
+            // Optional: keep tracer visible at start? No, hide it.
+
+            // 3. UI
+            progressDisplay.innerText = Math.round(progress * 100) + '%';
+        }
+
+        // --- CONTROLS ---
+        function togglePlay() {
+            isPlaying = !isPlaying;
+            if (isPlaying) {
+                if (progress >= 1) progress = 0; // Restart if finished
+                iconPlay.classList.add('hidden');
+                iconPause.classList.remove('hidden');
+                loop();
+            } else {
+                iconPlay.classList.remove('hidden');
+                iconPause.classList.add('hidden');
+                cancelAnimationFrame(animationId);
+            }
+        }
+
+        function resetAnim() {
+            isPlaying = false;
+            cancelAnimationFrame(animationId);
+            progress = 0;
+            render();
+            iconPlay.classList.remove('hidden');
+            iconPause.classList.add('hidden');
+            // Reset stroke
+            animPath.style.strokeDashoffset = pathLength;
+        }
+
+        function pause() {
+            isPlaying = false;
+            cancelAnimationFrame(animationId);
+            iconPlay.classList.remove('hidden');
+            iconPause.classList.add('hidden');
+        }
+
+        function changeLetter(key) {
+            resetAnim();
+            init(LETTERS[key]);
+            togglePlay();
+        }
+
+        // Event Listeners
+        document.getElementById('speedRange').addEventListener('input', (e) => {
+            speed = parseFloat(e.target.value);
+            document.getElementById('speedValue').innerText = speed + 'x';
+        });
+
+        // Start
+        init(LETTERS['Jim']);
+
+    </script>
+</body>
+
+</html>

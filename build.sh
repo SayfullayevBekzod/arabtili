@@ -17,20 +17,17 @@ python manage.py collectstatic --noinput
 echo "🔄 Running database migrations..."
 python manage.py migrate --noinput
 
-# Import initial data (if database is empty)
-echo "📥 Checking for initial data..."
-WORD_COUNT=$(python manage.py shell -c "from arab.models import Word; print(Word.objects.count())" 2>/dev/null || echo "0")
+# Import initial data
+echo "📥 Initializing data..."
+python manage.py seed_all
 
-if [ "$WORD_COUNT" -eq "0" ]; then
-    echo "📚 Database is empty. Importing initial data..."
-    if [ -f "database_export.json" ]; then
+# Extra: Import from database_export.json if exists and needed
+if [ -f "database_export.json" ]; then
+    echo "📦 database_export.json topildi. Import qilinmoqdami? (Word count checking...)"
+    WORD_COUNT=$(python manage.py shell -c "from arab.models import Word; print(Word.objects.count())" 2>/dev/null || echo "0")
+    if [ "$WORD_COUNT" -lt "200" ]; then
         python migrate_to_postgres.py import database_export.json
-        echo "✅ Initial data imported successfully!"
-    else
-        echo "⚠️  database_export.json not found. Skipping data import."
     fi
-else
-    echo "✅ Database already has $WORD_COUNT words. Skipping import."
 fi
 
 echo "✅ Build completed successfully!"

@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Login{% endblock %}
+{% block title %}Kirish - AlifPro Academy{% endblock %}
 {% block content %}
 
 <section class="relative">
@@ -8,102 +8,128 @@
   <div class="pointer-events-none absolute -bottom-24 -right-24 h-72 w-72 rounded-full bg-sky-400/15 blur-3xl"></div>
 
   <div class="mx-auto max-w-lg">
-    <div class="rounded-3xl border border-white/10 bg-white/5 p-7 sm:p-9 shadow-[0_20px_80px_-60px_rgba(0,0,0,0.9)]">
+    <div
+      class="rounded-3xl border border-white/10 bg-slate-900 shadow-[0_20px_80px_-60px_rgba(0,0,0,0.9)] overflow-hidden">
 
-      <!-- Header -->
-      <div class="flex items-start justify-between gap-4">
-        <div>
-          <div
-            class="inline-flex items-center gap-2 rounded-2xl border border-white/10 bg-slate-950/40 px-4 py-2 text-xs text-slate-300">
-            <span class="h-2 w-2 rounded-full bg-emerald-400"></span>
-            Account • Login
+      <!-- Top Accent Bar -->
+      <div class="h-2 bg-gradient-to-r from-emerald-500 via-sky-500 to-emerald-500"></div>
+
+      <div class="p-8 sm:p-10">
+        <!-- Header -->
+        <div class="flex items-start justify-between gap-4">
+          <div>
+            <div
+              class="inline-flex items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-[10px] font-black uppercase tracking-widest text-slate-400">
+              <span class="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              Akkaunt • Kirish
+            </div>
+            <h1 class="mt-4 text-3xl sm:text-4xl font-black text-white">Xush kelibsiz 👋</h1>
+            <p class="mt-2 text-slate-400 text-sm leading-relaxed">
+              AlifPro Academy platformasiga kirish uchun ma’lumotlaringizni kiriting.
+            </p>
+          </div>
+        </div>
+
+        {% if error %}
+        <div class="mt-6 rounded-2xl border border-red-400/30 bg-red-500/10 px-4 py-3 text-sm text-red-200">
+          {{ error }}
+        </div>
+        {% endif %}
+
+        <!-- Form -->
+        <form method="post" class="mt-8 space-y-6">
+          {% csrf_token %}
+
+          <!-- Username -->
+          <div class="space-y-2">
+            <label class="text-xs font-black text-slate-500 uppercase tracking-[0.2em] ml-1">Foydalanuvchi nomi</label>
+            <div class="relative group">
+              <div
+                class="absolute inset-0 bg-emerald-500/10 rounded-2xl blur-md opacity-0 group-focus-within:opacity-100 transition-opacity">
+              </div>
+              <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500">
+                <i class="fa-regular fa-user"></i>
+              </span>
+              <input name="username" autocomplete="username" placeholder="Username"
+                class="relative w-full rounded-2xl border border-white/10 bg-slate-800/50 backdrop-blur-sm pl-11 pr-4 py-4 text-white outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500/50 transition-all" />
+            </div>
           </div>
 
-          <h1 class="mt-4 text-3xl sm:text-4xl font-black">Xush kelibsiz 👋</h1>
-          <p class="mt-2 text-slate-300 text-sm">
-            AlifPro Academy ga kirish uchun ma’lumotlaringizni kiriting.
+          <!-- Password -->
+          <div class="space-y-2">
+            <label class="text-xs font-black text-slate-500 uppercase tracking-[0.2em] ml-1">Parol</label>
+            <div class="relative group">
+              <div
+                class="absolute inset-0 bg-sky-500/10 rounded-2xl blur-md opacity-0 group-focus-within:opacity-100 transition-opacity">
+              </div>
+              <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500">
+                <i class="fa-solid fa-lock"></i>
+              </span>
+              <input id="password" type="password" name="password" autocomplete="current-password"
+                placeholder="••••••••"
+                class="relative w-full rounded-2xl border border-white/10 bg-slate-800/50 backdrop-blur-sm pl-11 pr-24 py-4 text-white outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500/50 transition-all" />
+              <button type="button" id="togglePass"
+                class="absolute right-3 top-1/2 -translate-y-1/2 rounded-xl bg-white/5 px-4 py-2 text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-white hover:bg-white/10 transition">
+                Ko'rish
+              </button>
+            </div>
+
+            <div class="mt-4 flex items-center justify-between text-xs font-bold">
+              <label
+                class="inline-flex items-center gap-2 cursor-pointer select-none text-slate-500 hover:text-white transition">
+                <input type="checkbox" class="accent-emerald-500 h-4 w-4 rounded border-white/10 bg-white/5">
+                Eslab qolish
+              </label>
+              <a href="{% url 'account_reset_password' %}"
+                class="text-emerald-500/80 hover:text-emerald-400 transition">Parolni
+                unutdingizmi?</a>
+            </div>
+          </div>
+
+          <!-- Button -->
+          <button
+            class="group relative w-full overflow-hidden rounded-2xl bg-emerald-500 py-4 font-black uppercase tracking-[0.2em] text-sm text-slate-950 transition-all hover:scale-[1.02] active:scale-[0.98] shadow-2xl shadow-emerald-500/20">
+            <div
+              class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000">
+            </div>
+            Platformaga kirish
+          </button>
+        </form>
+
+        <!-- Social Login -->
+        {% load socialaccount %}
+        <div class="mt-8 flex flex-col gap-4">
+          <div class="relative flex items-center py-2">
+            <div class="flex-grow border-t border-white/5"></div>
+            <span class="flex-shrink mx-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">Yoki</span>
+            <div class="flex-grow border-t border-white/5"></div>
+          </div>
+
+          <a href="{% provider_login_url 'google' %}"
+            class="group relative w-full overflow-hidden rounded-2xl p-[1px] transition-all hover:scale-[1.02] active:scale-[0.98]">
+            <div
+              class="absolute inset-0 bg-gradient-to-r from-sky-500 via-emerald-500 to-sky-500 group-hover:animate-pulse">
+            </div>
+            <div class="relative flex items-center justify-center gap-3 rounded-[15px] bg-slate-900 py-4 text-white">
+              <div class="h-6 w-6 bg-white rounded-full flex items-center justify-center p-1.5">
+                <img src="https://www.gstatic.com/images/branding/product/1x/gsa_512dp.png" class="h-full w-auto"
+                  alt="G">
+              </div>
+              <span class="font-black text-sm uppercase tracking-widest">Google orqali kirish</span>
+            </div>
+          </a>
+        </div>
+
+        <!-- Footer links -->
+        <div class="mt-10 border-t border-white/5 pt-8 text-center">
+          <p class="text-sm text-slate-500">
+            Akkauntingiz yo'qmi?
+            <a href="/accounts/register/"
+              class="text-emerald-400 hover:text-emerald-300 font-black ml-1 border-b border-emerald-400/30">Ro'yxatdan
+              o'tish</a>
           </p>
         </div>
-
-        <div
-          class="h-12 w-12 rounded-2xl bg-gradient-to-br from-emerald-400/20 to-sky-400/20 border border-white/10 grid place-items-center">
-          <i class="fa-solid fa-right-to-bracket text-white/90"></i>
-        </div>
       </div>
-
-      {% if error %}
-      <div class="mt-5 rounded-2xl border border-red-400/30 bg-red-500/10 px-4 py-3 text-sm text-red-200">
-        {{ error }}
-      </div>
-      {% endif %}
-
-      <!-- Form -->
-      <form method="post" class="mt-7 space-y-4">
-        {% csrf_token %}
-
-        <!-- Username -->
-        <div>
-          <label class="text-sm text-slate-300">Username</label>
-          <div class="mt-2 relative">
-            <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">
-              <i class="fa-regular fa-user"></i>
-            </span>
-            <input name="username" autocomplete="username" placeholder="username" class="w-full rounded-2xl border border-white/10 bg-black/30 pl-11 pr-4 py-3 outline-none
-                          focus:ring-2 focus:ring-white/20 focus:border-white/20 transition" />
-          </div>
-        </div>
-
-        <!-- Password -->
-        <div>
-          <label class="text-sm text-slate-300">Password</label>
-          <div class="mt-2 relative">
-            <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">
-              <i class="fa-solid fa-lock"></i>
-            </span>
-
-            <input id="password" type="password" name="password" autocomplete="current-password" placeholder="••••••••"
-              class="w-full rounded-2xl border border-white/10 bg-black/30 pl-11 pr-12 py-3 outline-none
-                          focus:ring-2 focus:ring-white/20 focus:border-white/20 transition" />
-
-            <button type="button" id="togglePass"
-              class="absolute right-3 top-1/2 -translate-y-1/2 rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-xs text-slate-300 hover:bg-white/10 transition">
-              Show
-            </button>
-          </div>
-
-          <div class="mt-3 flex items-center justify-between text-xs text-slate-400">
-            <label class="inline-flex items-center gap-2 cursor-pointer select-none">
-              <input type="checkbox" class="accent-emerald-400">
-              Remember me
-            </label>
-            <a href="/accounts/forgot/" class="hover:text-white transition">Parolni unutdingmi?</a>
-          </div>
-        </div>
-
-        <!-- Button -->
-        <button
-          class="w-full rounded-2xl bg-white text-slate-950 py-3 font-semibold hover:bg-slate-200 transition flex items-center justify-center gap-2">
-          <i class="fa-solid fa-arrow-right-to-bracket"></i>
-          Login
-        </button>
-
-        <!-- Face Login -->
-
-      </form>
-
-      <!-- Footer links -->
-      <div class="mt-6 border-t border-white/10 pt-5">
-        <p class="text-sm text-slate-300">
-          Akkaunting yo‘qmi?
-          <a href="/accounts/register/" class="text-emerald-300 hover:text-emerald-200 font-semibold">Register</a>
-        </p>
-
-        <div class="mt-3 text-xs text-slate-500">
-          Kirish orqali siz <a href="/terms/" class="text-slate-300 hover:text-white">Shartlar</a> va
-          <a href="/privacy/" class="text-slate-300 hover:text-white">Maxfiylik</a> siyosatiga rozilik bildirasiz.
-        </div>
-      </div>
-
     </div>
   </div>
 </section>
@@ -115,7 +141,7 @@
     btn.addEventListener("click", () => {
       const isPassword = input.type === "password";
       input.type = isPassword ? "text" : "password";
-      btn.textContent = isPassword ? "Hide" : "Show";
+      btn.textContent = isPassword ? "Yashirish" : "Ko'rish";
     });
   }
 </script>

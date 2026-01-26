@@ -1,4 +1,4 @@
-const CACHE_NAME = 'alifpro-v1';
+const CACHE_NAME = 'alifpro-v2';
 const ASSETS = [
   '/',
   '/static/manifest.json',

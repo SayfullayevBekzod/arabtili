@@ -3,181 +3,253 @@
 {% block content %}
 
 <!-- HERO SECTION -->
-<section class="relative overflow-hidden rounded-[3.5rem] border border-white/10 bg-slate-900/40 mb-10 shadow-2xl">
-  <!-- Immersive Background Elements -->
+<section
+  class="relative rounded-[2.5rem] border border-white/10 bg-slate-900/40 backdrop-blur-md mb-12 overflow-hidden">
+  <!-- Decorative Background Glows -->
   <div
     class="pointer-events-none absolute -top-40 -left-40 h-[500px] w-[500px] rounded-full bg-emerald-500/10 blur-[120px]">
   </div>
   <div
     class="pointer-events-none absolute -bottom-40 -right-40 h-[500px] w-[500px] rounded-full bg-sky-500/10 blur-[120px]">
   </div>
-  <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/dark-matter.png')] opacity-10">
-  </div>
 
-  <div class="relative z-10 p-10 md:p-20">
-    <div class="grid lg:grid-cols-2 gap-16 items-center">
+  <div class="relative grid lg:grid-cols-2 gap-12 items-center p-8 md:p-16">
 
-      <!-- Hero Left (Content) -->
-      <div class="space-y-10">
-        <div
-          class="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-white/5 border border-white/10 text-[10px] font-black tracking-[0.2em] text-emerald-400 uppercase">
-          <span class="relative flex h-2 w-2">
-            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-          </span>
-          Professional Arab Tili Platformasi
+    <!-- Hero Left -->
+    <div class="space-y-8">
+      <div
+        class="inline-flex items-center gap-3 px-4 py-2 rounded-2xl bg-white/5 border border-white/10 text-[10px] font-black uppercase tracking-[0.3em] text-emerald-400">
+        <span class="relative flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+        </span>
+        Arab Tili Akademiyasi
+      </div>
+
+      <h1 class="text-4xl md:text-6xl font-black text-white leading-[1.1] tracking-tight">
+        Arab Tilini <br />
+        <span
+          class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-sky-400 to-emerald-400">Professional</span>
+        <br />
+        Darajada O'rgan
+      </h1>
+
+      <p class="text-slate-400 text-lg md:text-xl max-w-lg leading-relaxed font-medium">
+        Alifbodan mukammal lug'atgacha. Interaktiv va premium tizim bilan til o'rganishni san'atga aylantiring.
+      </p>
+
+      <div class="flex flex-wrap gap-4 pt-4">
+        {% if user.is_authenticated %}
+        <a href="/courses/"
+          class="group relative px-8 py-4 rounded-2xl bg-emerald-500 text-slate-950 font-black uppercase tracking-widest text-sm hover:scale-[1.05] active:scale-[0.95] transition-all shadow-2xl shadow-emerald-500/20">
+          O'qishni davom ettirish
+          <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+        </a>
+        <a href="/practice/"
+          class="px-8 py-4 rounded-2xl bg-white/5 border border-white/10 text-white font-black uppercase tracking-widest text-sm hover:bg-white/10 transition-all">
+          Mashq qilish
+        </a>
+        {% else %}
+        <a href="/accounts/register/"
+          class="group relative px-8 py-4 rounded-2xl bg-emerald-500 text-slate-950 font-black uppercase tracking-widest text-sm hover:scale-[1.05] active:scale-[0.95] transition-all shadow-2xl shadow-emerald-500/20">
+          Hoziroq boshlash
+          <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+        </a>
+        <a href="/courses/"
+          class="px-8 py-4 rounded-2xl bg-white/5 border border-white/10 text-white font-black uppercase tracking-widest text-sm hover:bg-white/10 transition-all">
+          Kurslarni ko'rish
+        </a>
+        {% endif %}
+      </div>
+
+      <!-- Stats -->
+      <div class="pt-10 flex gap-12 border-t border-white/5">
+        <div class="group">
+          <div class="text-3xl font-black text-white group-hover:text-emerald-400 transition-colors">{{total_words|default:"528" }}</div>
+          <div class="text-[10px] font-black text-slate-500 uppercase tracking-widest mt-1">Lug'at</div>
         </div>
+        <div class="group">
+          <div class="text-3xl font-black text-white group-hover:text-sky-400 transition-colors">{{active_users|default:"13" }}</div>
+          <div class="text-[10px] font-black text-slate-500 uppercase tracking-widest mt-1">O'quvchilar</div>
+        </div>
+        <div class="group">
+          <div class="text-3xl font-black text-white group-hover:text-amber-400 transition-colors">{{total_letters|default:"28" }}</div>
+          <div class="text-[10px] font-black text-slate-500 uppercase tracking-widest mt-1">Darslar</div>
+        </div>
+      </div>
+    </div>
 
+    <!-- Hero Right - Visual Card -->
+    <div class="relative group">
+      <div
+        class="absolute -inset-1 bg-gradient-to-r from-emerald-500 to-sky-500 rounded-[2.5rem] blur opacity-25 group-hover:opacity-40 transition duration-1000">
+      </div>
+      <div class="relative bg-slate-900/80 backdrop-blur-2xl rounded-[2.2rem] border border-white/10 p-8 shadow-2xl">
+        {% if user.is_authenticated %}
         <div class="space-y-6">
-          <h1 class="text-6xl md:text-8xl font-black leading-[0.95] tracking-tighter text-white">
-            Arab Tilini <br />
-            <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-sky-400">Professional</span>
-            <br />
-            Darajada O'rgan.
-          </h1>
-          <p class="text-slate-400 text-lg md:text-xl max-w-lg leading-relaxed font-medium">
-            Alifbodan Mukammal lug'atgacha bo'lgan to'liq kurslar. <br />
-            Interaktiv tizim bilan til o'rganishni san'atga aylantiring.
-          </p>
-        </div>
+          <div class="flex items-center justify-between">
+            <div>
+              <h3 class="text-xl font-black text-white">Salom, {{ user.username }}! 👋</h3>
+              <p class="text-xs text-slate-500 font-bold uppercase tracking-widest mt-1">Sizning natijalaringiz</p>
+            </div>
+            <div
+              class="h-14 w-14 rounded-2xl bg-gradient-to-br from-emerald-400/20 to-sky-400/20 border border-white/10 grid place-items-center">
+              <span class="text-xl font-black text-emerald-400">{{ game.level|default:"1" }}</span>
+            </div>
+          </div>
 
-        <div class="flex flex-wrap gap-4 pt-4">
-          {% if user.is_authenticated %}
-          <a href="{% if next_lesson %}{% url 'arab:lesson_detail' next_lesson.id %}{% else %}/practice/{% endif %}"
-            class="px-10 py-5 rounded-[2rem] bg-emerald-500 text-slate-950 font-black text-sm tracking-widest hover:scale-105 transition-all shadow-[0_20px_50px_rgba(16,185,129,0.3)]">
-            {% if next_lesson %}
-            DAVOM ETISH: {{ next_lesson.title|truncatechars:15 }}
-            {% else %}
-            O'QISHNI DAVOM ETTIRISH →
-            {% endif %}
-          </a>
-          {% else %}
-          <a href="/accounts/register/"
-            class="px-10 py-5 rounded-[2rem] bg-white text-slate-950 font-black text-sm tracking-widest hover:scale-105 transition-all shadow-[0_20px_50px_rgba(255,255,255,0.1)]">
-            HOZIRROQ BOSHLASH →
-          </a>
-          <a href="/courses/"
-            class="px-10 py-5 rounded-[2rem] bg-white/5 border border-white/10 text-white font-bold text-sm hover:bg-white/10 transition-all">
-            Kurslarni Ko'rish
-          </a>
-          {% endif %}
-        </div>
+          <div class="grid grid-cols-2 gap-4">
+            <div class="bg-white/5 rounded-2xl p-5 border border-white/5 hover:border-white/10 transition">
+              <div class="h-10 w-10 rounded-xl bg-orange-500/10 grid place-items-center text-xl mb-3">🔥</div>
+              <div class="text-2xl font-black text-white">{{ game.current_streak|default:"0" }}</div>
+              <div class="text-[10px] font-black text-slate-500 uppercase tracking-widest">Kunlik</div>
+            </div>
+            <div class="bg-white/5 rounded-2xl p-5 border border-white/5 hover:border-white/10 transition">
+              <div class="h-10 w-10 rounded-xl bg-blue-500/10 grid place-items-center text-xl mb-3">⭐</div>
+              <div class="text-2xl font-black text-white">{{ game.xp_total|default:"0" }}</div>
+              <div class="text-[10px] font-black text-slate-500 uppercase tracking-widest">XP</div>
+            </div>
+            <div class="bg-white/5 rounded-2xl p-5 border border-white/5 hover:border-white/10 transition">
+              <div class="h-10 w-10 rounded-xl bg-yellow-500/10 grid place-items-center text-xl mb-3">🏆</div>
+              <div class="text-2xl font-black text-white line-clamp-1 text-sm">{{game.get_current_league_display|default:"Bronze" }}</div>
+              <div class="text-[10px] font-black text-slate-500 uppercase tracking-widest">Liga</div>
+            </div>
+            <div class="bg-white/5 rounded-2xl p-5 border border-white/5 hover:border-white/10 transition">
+              <div class="h-10 w-10 rounded-xl bg-red-500/10 grid place-items-center text-xl mb-3">❤️</div>
+              <div class="text-2xl font-black text-white">{{ game.hearts|default:"5" }}</div>
+              <div class="text-[10px] font-black text-slate-500 uppercase tracking-widest">Yuraklar</div>
+            </div>
+          </div>
 
-        <!-- Live Social Proof Stats -->
-        <div class="pt-10 flex gap-12 border-t border-white/5">
-          <div>
-            <div class="text-3xl font-black text-white">{{ total_words }}</div>
-            <div class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-1">LUG'ATDAGI SO'ZLAR</div>
-          </div>
-          <div>
-            <div class="text-3xl font-black text-white">{{ active_users }}</div>
-            <div class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-1">AKTIV O'QUVCHILAR</div>
-          </div>
-          <div>
-            <div class="text-3xl font-black text-white">{{ total_letters }}/28</div>
-            <div class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-1">ALIFBO DARSLARI</div>
-          </div>
+          <a href="/progress/"
+            class="flex items-center justify-center gap-2 w-full py-4 rounded-2xl bg-white/5 border border-emerald-500/20 hover:bg-emerald-500/10 transition-all group/btn">
+            <span class="text-sm font-black uppercase tracking-widest text-emerald-400">Batafsil statistika</span>
+            <i
+              class="fas fa-chevron-right text-xs text-emerald-400 group-hover/btn:translate-x-1 transition-transform"></i>
+          </a>
         </div>
+        {% else %}
+        <div class="text-center py-6 space-y-6">
+          <div class="relative inline-block">
+            <div
+              class="text-7xl mb-4 text-transparent bg-clip-text bg-gradient-to-b from-white to-white/20 select-none animate-float"
+              dir="rtl">ا ب ت</div>
+          </div>
+          <div>
+            <h3 class="text-2xl font-black text-white mb-2">Arab Alifbosi</h3>
+            <p class="text-slate-400 text-sm leading-relaxed max-w-[240px] mx-auto">28 ta harf, harakatlar va tajvid
+              qoidalari - hammasi bitta joyda.</p>
+          </div>
+          <a href="/alphabet/"
+            class="inline-flex px-8 py-3 rounded-2xl bg-white text-slate-950 text-sm font-black uppercase tracking-widest hover:scale-105 transition-transform shadow-xl">
+            Alifboni ko'rish
+          </a>
+        </div>
+        {% endif %}
       </div>
+    </div>
 
-      <!-- Hero Right (Interactive Visual) -->
-      <div class="relative group">
-        <div
-          class="absolute -inset-1 bg-gradient-to-r from-emerald-500 to-sky-500 rounded-[3.5rem] blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200">
-        </div>
-        <div class="relative p-10 md:p-14 rounded-[3.5rem] bg-slate-950 border border-white/10 space-y-12">
+  </div>
+</section>
 
-          {% if user.is_authenticated %}
-          <div class="space-y-6">
-            <div class="flex items-center justify-between">
-              <h3 class="text-xl font-black text-white">Sizning Progressingiz</h3>
-              <div
-                class="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[9px] font-black uppercase tracking-widest">
-                L{{ game.level }} DARAXA
-              </div>
-            </div>
-            <!-- Mini Progress Visuals -->
-            <div class="grid grid-cols-2 gap-4">
-              <div class="p-6 rounded-[2rem] bg-white/5 border border-white/5 space-y-2">
-                <div class="text-2xl">🔥</div>
-                <div class="text-lg font-black">{{ streak.current_streak }} Kun</div>
-                <div class="text-[8px] font-bold text-slate-500 uppercase">STREAK</div>
-              </div>
-              <div class="p-6 rounded-[2rem] bg-white/5 border border-white/5 space-y-2">
-                <div class="text-2xl">🧩</div>
-                <div class="text-lg font-black">{{ game.xp_total }}</div>
-                <div class="text-[8px] font-bold text-slate-500 uppercase">UMUMIY XP</div>
-              </div>
-            </div>
-            <a href="/progress/"
-              class="block w-full py-4 text-center rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 transition text-xs font-bold text-slate-400">
-              Barcha Statistikani Ko'rish
-            </a>
-          </div>
-          {% else %}
-          <!-- Interactive Preview for Guests -->
-          <div class="space-y-8">
-            <h3 class="text-2xl font-black text-white text-center">Interaktiv Tajriba</h3>
-            <div class="p-8 rounded-[2rem] bg-white/5 border border-white/5 text-center space-y-6" dir="rtl">
-              <div class="arabic-font text-8xl text-white font-black animate-pulse">ا ب ت</div>
-              <div class="grid grid-cols-3 gap-3 [direction:ltr]">
-                <div class="p-4 rounded-xl bg-slate-950 border border-white/5 text-xs">
-                  <div class="text-emerald-400 font-bold mb-1">Tajvid</div>
-                  <div class="text-slate-500 font-medium">Qoidalari</div>
-                </div>
-                <div class="p-4 rounded-xl bg-slate-950 border border-white/5 text-xs">
-                  <div class="text-sky-400 font-bold mb-1">So'zlar</div>
-                  <div class="text-slate-500 font-medium">Lug'ati</div>
-                </div>
-                <div class="p-4 rounded-xl bg-slate-950 border border-white/5 text-xs">
-                  <div class="text-fuchsia-400 font-bold mb-1">Mashq</div>
-                  <div class="text-slate-500 font-medium">Tizimi</div>
-                </div>
-              </div>
-            </div>
-            <p class="text-center text-xs text-slate-500 italic font-medium">
-              "Sizning kelajagingiz bugungi qadamingizdan boshlanadi."
-            </p>
-          </div>
-          {% endif %}
-        </div>
-      </div>
+<!-- Quick Actions -->
+<section class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+  <a href="/alphabet/"
+    class="group relative p-6 rounded-[2rem] bg-slate-900/60 border border-white/10 hover:border-emerald-500/50 transition-all overflow-hidden">
+    <div class="absolute inset-0 bg-emerald-500/0 group-hover:bg-emerald-500/5 transition-colors"></div>
+    <div
+      class="h-12 w-12 rounded-2xl bg-emerald-500/10 grid place-items-center text-2xl mb-4 group-hover:scale-110 transition-transform">
+      🔤</div>
+    <h4 class="font-black text-white text-lg tracking-tight">Alifbo</h4>
+    <p class="text-[10px] font-black text-slate-500 uppercase tracking-widest mt-1">Darslar</p>
+  </a>
 
+  <a href="/dictionary/"
+    class="group relative p-6 rounded-[2rem] bg-slate-900/60 border border-white/10 hover:border-sky-500/50 transition-all overflow-hidden">
+    <div class="absolute inset-0 bg-sky-500/0 group-hover:bg-sky-500/5 transition-colors"></div>
+    <div
+      class="h-12 w-12 rounded-2xl bg-sky-500/10 grid place-items-center text-2xl mb-4 group-hover:scale-110 transition-transform">
+      📚</div>
+    <h4 class="font-black text-white text-lg tracking-tight">Lug'at</h4>
+    <p class="text-[10px] font-black text-slate-500 uppercase tracking-widest mt-1">So'zlar</p>
+  </a>
+
+  <a href="/courses/"
+    class="group relative p-6 rounded-[2rem] bg-slate-900/60 border border-white/10 hover:border-amber-500/50 transition-all overflow-hidden">
+    <div class="absolute inset-0 bg-amber-500/0 group-hover:bg-amber-500/5 transition-colors"></div>
+    <div
+      class="h-12 w-12 rounded-2xl bg-amber-500/10 grid place-items-center text-2xl mb-4 group-hover:scale-110 transition-transform">
+      🎓</div>
+    <h4 class="font-black text-white text-lg tracking-tight">Kurslar</h4>
+    <p class="text-[10px] font-black text-slate-500 uppercase tracking-widest mt-1">Bosqichlar</p>
+  </a>
+
+  <a href="/placement/"
+    class="group relative p-6 rounded-[2rem] bg-slate-900/60 border border-white/10 hover:border-fuchsia-500/50 transition-all overflow-hidden">
+    <div class="absolute inset-0 bg-fuchsia-500/0 group-hover:bg-fuchsia-500/5 transition-colors"></div>
+    <div
+      class="h-12 w-12 rounded-2xl bg-fuchsia-500/10 grid place-items-center text-2xl mb-4 group-hover:scale-110 transition-transform">
+      📋</div>
+    <h4 class="font-black text-white text-lg tracking-tight">Sinov</h4>
+    <p class="text-[10px] font-black text-slate-500 uppercase tracking-widest mt-1">Darajangiz</p>
+  </a>
+</section>
+
+{% if user.is_authenticated and daily_quests %}
+<!-- Daily Missions -->
+<section
+  class="relative rounded-[2.5rem] border border-white/10 bg-slate-900/40 backdrop-blur-md p-8 md:p-10 mb-12 overflow-hidden">
+  <div class="flex items-center justify-between mb-8">
+    <div>
+      <h2 class="text-2xl font-black text-white flex items-center gap-3">
+        <span class="text-yellow-500"><i class="fas fa-scroll"></i></span>
+        Kunlik Missiyalar
+      </h2>
+      <p class="text-xs text-slate-500 font-bold uppercase tracking-widest mt-1">Har 24 soatda yangilanadi</p>
+    </div>
+    <div
+      class="px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-[10px] font-black text-slate-400 uppercase tracking-widest">
+      Keyingi: 14:20:01
     </div>
   </div>
-</section>
 
-<!-- FEATURES GRID -->
-<section class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
-  <div class="p-8 rounded-[2.5rem] bg-slate-800/10 border border-white/5 hover:bg-slate-800/20 transition-all group">
+  <div class="grid md:grid-cols-2 gap-6">
+    {% for mp in daily_quests %}
     <div
-      class="h-12 w-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 grid place-items-center text-xl mb-6 group-hover:scale-110 transition-transform">
-      🔤</div>
-    <h4 class="font-black text-lg text-white mb-2">Interaktiv Alifbo</h4>
-    <p class="text-sm text-slate-400 leading-relaxed">Har bir harfning maxraji, yozilish shakllari va audio talaffuzi.
-    </p>
-  </div>
-  <div class="p-8 rounded-[2.5rem] bg-slate-800/10 border border-white/5 hover:bg-slate-800/20 transition-all group">
-    <div
-      class="h-12 w-12 rounded-2xl bg-sky-500/10 border border-sky-500/20 grid place-items-center text-xl mb-6 group-hover:scale-110 transition-transform">
-      🧠</div>
-    <h4 class="font-black text-lg text-white mb-2">Smart Takrorlash</h4>
-    <p class="text-sm text-slate-400 leading-relaxed">Unutish egri chizig'iga asoslangan aqlli takrorlash algoritmi.</p>
-  </div>
-  <div class="p-8 rounded-[2.5rem] bg-slate-800/10 border border-white/5 hover:bg-slate-800/20 transition-all group">
-    <div
-      class="h-12 w-12 rounded-2xl bg-fuchsia-500/10 border border-fuchsia-500/20 grid place-items-center text-xl mb-6 group-hover:scale-110 transition-transform">
-      📚</div>
-    <h4 class="font-black text-lg text-white mb-2">Boy Lug'at</h4>
-    <p class="text-sm text-slate-400 leading-relaxed">Qur'oniy va zamonaviy arab tili so'zlarining 1000+ bazasi.</p>
-  </div>
-  <div class="p-8 rounded-[2.5rem] bg-slate-800/10 border border-white/5 hover:bg-slate-800/20 transition-all group">
-    <div
-      class="h-12 w-12 rounded-2xl bg-orange-500/10 border border-orange-500/20 grid place-items-center text-xl mb-6 group-hover:scale-110 transition-transform">
-      🎓</div>
-    <h4 class="font-black text-lg text-white mb-2">Tizimli Kurslar</h4>
-    <p class="text-sm text-slate-400 leading-relaxed">Noldan professional darajagacha bo'lgan darsliklar.</p>
+      class="group flex items-center gap-6 p-6 rounded-3xl bg-slate-800/40 border border-white/5 hover:border-emerald-500/30 transition-all">
+      <div class="relative">
+        <div
+          class="absolute inset-0 bg-emerald-500/20 rounded-2xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity">
+        </div>
+        <div
+          class="relative w-14 h-14 rounded-2xl bg-slate-950 border border-white/10 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+          {% if mp.mission.mission_type == 'review' %}📚{% elif mp.mission.mission_type == 'lesson' %}🎓{% elif
+          mp.mission.mission_type == 'word' %}🧩{% else %}⏱{% endif %}
+        </div>
+      </div>
+      <div class="flex-1 space-y-3">
+        <div class="flex items-center justify-between">
+          <div class="text-sm font-black text-white tracking-tight">{{ mp.mission.title }}</div>
+          <div class="text-[10px] font-black text-emerald-400 uppercase tracking-widest">+{{ mp.mission.xp_reward }} XP
+          </div>
+        </div>
+        <div class="relative h-2 w-full bg-slate-950 rounded-full overflow-hidden border border-white/5">
+          <div class="h-full bg-gradient-to-r from-emerald-500 to-sky-500 rounded-full transition-all duration-1000"
+            style="width: {{ mp.progress_percent }}%"></div>
+        </div>
+        <div class="flex items-center justify-between text-[10px] font-black uppercase tracking-widest">
+          <span class="text-slate-500">{{ mp.current_progress }} / {{ mp.mission.required_count }}</span>
+          {% if mp.is_completed %}
+          <span class="text-emerald-400">✓ Bajarildi</span>
+          {% else %}
+          <span class="text-slate-400">Ishlamoqda...</span>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {% endfor %}
   </div>
 </section>
+{% endif %}
 
 {% endblock %}

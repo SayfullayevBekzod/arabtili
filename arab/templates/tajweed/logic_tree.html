@@ -70,13 +70,16 @@
         const steps = {
             start: {
                 type: 'question',
-                text: "Matnda Noon Sakinah (نْ) yoki Tanween (ً ٍ ٌ) bormi?",
+                text: "Qaysi turdagi qoidani qidiryapsiz?",
                 options: [
-                    { label: "Ha, bor", next: 'noon_next_letter' },
-                    { label: "Yo'q, Meem Sakinah (مْ) ni tekshiramiz", next: 'meem_next_letter' }
+                    { label: "Noon Sakinah (نْ) yoki Tanween (ً ٍ ٌ)", next: 'noon_check' },
+                    { label: "Meem Sakinah (مْ)", next: 'meem_check' },
+                    { label: "Muddood (Cho'ziqlar)", next: 'madd_check' }
                 ]
             },
-            noon_next_letter: {
+
+            // --- NOON SAKINAH ---
+            noon_check: {
                 type: 'question',
                 text: "Noon Sakinah yoki Tanween dan keyin qaysi harf kelyapti?",
                 options: [
@@ -86,7 +89,9 @@
                     { label: "Qolgan 15 ta harf", next: 'ikhfa' }
                 ]
             },
-            meem_next_letter: {
+
+            // --- MEEM SAKINAH ---
+            meem_check: {
                 type: 'question',
                 text: "Meem Sakinah (مْ) dan keyin qaysi harf kelyapti?",
                 options: [
@@ -95,14 +100,51 @@
                     { label: "Qolgan 26 ta harf", next: 'izhor_shafawi' }
                 ]
             },
-            // RESULTS
+
+            // --- MUDDOOD (Yangi) ---
+            madd_check: {
+                type: 'question',
+                text: "Madd harfidan (ا و ي) keyin nima kelyapti?",
+                options: [
+                    { label: "Hech narsa (na Hamza, na Sukun)", next: 'madd_tabii' },
+                    { label: "Hamza (ء) kelyapti", next: 'madd_hamza' },
+                    { label: "Sukun (ْ) yoki Shadda (ّ) kelyapti", next: 'madd_sukun' }
+                ]
+            },
+            madd_hamza: {
+                type: 'question',
+                text: "Hamza qayerda joylashgan?",
+                options: [
+                    { label: "Madd harfi bilan BITTA so'zda", next: 'madd_muttasil' },
+                    { label: "Madd harfi so'z oxirida, Hamza keyingi so'z boshida", next: 'madd_munfasil' },
+                    { label: "Madd harfidan OLDIN kelgan", next: 'madd_badal' }
+                ]
+            },
+            madd_sukun: {
+                type: 'question',
+                text: "Sukun qanday turda?",
+                options: [
+                    { label: "Asliy sukun (doimiy)", next: 'madd_lazim' },
+                    { label: "Vaqf qilingani uchun paydo bo'lgan sukun", next: 'madd_arid' }
+                ]
+            },
+
+            // --- RESULTS ---
             izhor: { type: 'result', title: "Izhor", desc: "Noon aniq va tiniq o'qiladi.", slug: 'izhor' },
             idgham: { type: 'result', title: "Idgham", desc: "Keyingi harfga qo'shib (kirgizib) o'qiladi.", slug: 'idgham' },
             iqlab: { type: 'result', title: "Iqlab", desc: "Noon harfi Meem'ga aylanib o'qiladi.", slug: 'iqlab' },
             ikhfa: { type: 'result', title: "Ikhfa", desc: "Noon harfi dimog'da yashirib o'qiladi.", slug: 'ikhfa' },
+
             idgham_mithlayn: { type: 'result', title: "Idgham Mithlayn", desc: "Ikki Meem'ni bir-biriga qo'shib o'qish.", slug: 'idgham-mithlayn' },
             ikhfa_shafawi: { type: 'result', title: "Ikhfa Shafawi", desc: "Meem'ni yashirib o'qish.", slug: 'ikhfa-shafawi' },
-            izhor_shafawi: { type: 'result', title: "Izhor Shafawi", desc: "Meem'ni aniq o'qish.", slug: 'izhor-shafawi' }
+            izhor_shafawi: { type: 'result', title: "Izhor Shafawi", desc: "Meem'ni aniq o'qish.", slug: 'izhor-shafawi' },
+
+            madd_tabii: { type: 'result', title: "Madd Tabii", desc: "Asl cho'ziq. 2 harakat miqdorida cho'ziladi.", slug: 'madd-tabii' },
+            madd_muttasil: { type: 'result', title: "Madd Muttasil", desc: "Hamza bilan bir so'zda. 4-5 harakat cho'ziladi (Vojib).", slug: 'madd-muttasil' },
+            madd_munfasil: { type: 'result', title: "Madd Munfasil", desc: "Hamza keyingi so'zda. 4-5 harakat cho'ziladi (Joiz).", slug: 'madd-munfasil' },
+            madd_badal: { type: 'result', title: "Madd Badal", desc: "Hamza Madd harfidan oldin kelsa (iymon, ootuu). 2 harakat.", slug: 'madd-badal' },
+            madd_lazim: { type: 'result', title: "Madd Lazim", desc: "Sukun asliy bo'lsa. 6 harakat cho'zilishi shart.", slug: 'madd-lazim' },
+            madd_arid: { type: 'result', title: "Madd Arid li-Sukun", desc: "To'xtaganda (vaqf) sukun paydo bo'lsa. 2, 4 yoki 6 harakat.", slug: 'madd-arid' }
         };
 
         return {

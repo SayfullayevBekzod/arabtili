@@ -2,69 +2,163 @@
 {% block title %}{{ lesson.title }}{% endblock %}
 {% block content %}
 
-<section class="rounded-3xl border border-white/10 bg-white/5 p-6">
-  <div class="flex items-start justify-between gap-4">
-    <div>
-      <div class="text-xs text-slate-400">Lesson • {{ lesson.estimated_minutes }} min</div>
-      <h1 class="mt-1 text-3xl font-black">{{ lesson.title }}</h1>
-      <div class="mt-2 text-slate-300 text-sm">{{ lesson.unit.title }} • {{ lesson.unit.course.title }}</div>
+<!-- HERO -->
+<section
+  class="relative overflow-hidden rounded-[2.5rem] border border-white/10 bg-slate-900/40 backdrop-blur-md p-8 md:p-12 mb-8 shadow-2xl">
+  <div class="pointer-events-none absolute -top-40 -left-40 h-80 w-80 rounded-full bg-emerald-500/10 blur-[100px]">
+  </div>
+  <div class="pointer-events-none absolute -bottom-40 -right-40 h-80 w-80 rounded-full bg-sky-500/10 blur-[100px]">
+  </div>
+
+  <div class="relative flex flex-col md:flex-row md:items-start md:justify-between gap-8">
+    <div class="space-y-4">
+      <div
+        class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] font-black uppercase tracking-widest text-slate-400">
+        Dars • {{ lesson.estimated_minutes }} min
+      </div>
+      <h1 class="text-4xl md:text-5xl font-black text-white leading-tight tracking-tight">{{ lesson.title }}</h1>
+      <div class="flex items-center gap-3 text-sm font-medium text-slate-400">
+        <span class="px-2 py-1 rounded-lg bg-white/5 border border-white/5">{{ lesson.unit.title }}</span>
+        <i class="fas fa-chevron-right text-[10px]"></i>
+        <span class="text-emerald-400">{{ lesson.unit.course.title }}</span>
+      </div>
     </div>
-    <a href="/courses/{{ lesson.unit.course.id }}/" class="text-sm text-slate-300 hover:text-white">← Kursga qaytish</a>
+
+    <div class="flex flex-col gap-3">
+      <a href="/courses/{{ lesson.unit.course.id }}/"
+        class="h-12 flex items-center px-6 rounded-2xl border border-white/10 bg-white/5 text-[10px] font-black uppercase tracking-widest text-slate-400 hover:bg-white/10 transition">
+        ← Kursga qaytish
+      </a>
+      {% if lesson.blocks %}
+      <a href="{% url 'arab:lesson_run' lesson.id %}"
+        class="h-12 flex items-center px-8 rounded-2xl bg-white text-slate-950 text-[10px] font-black uppercase tracking-widest hover:scale-105 active:scale-95 transition-all shadow-xl shadow-white/5">
+        DARSNI BOSHLASH
+      </a>
+      {% endif %}
+    </div>
   </div>
 </section>
 
-<div class="mt-6 grid lg:grid-cols-3 gap-4">
+<div class="mt-8 grid lg:grid-cols-3 gap-8">
 
   <!-- LEFT: Theory + Sections -->
-  <div class="lg:col-span-2 space-y-4">
+  <div class="lg:col-span-2 space-y-8">
 
-    <section class="rounded-3xl border border-white/10 bg-white/5 p-6">
-      <div class="flex items-center justify-between">
-        <h2 class="text-lg font-bold">🎥 Video Dars</h2>
-        <span class="text-xs text-slate-400">{{ lesson.videos.count }} ta</span>
+    <!-- Video Lessons -->
+    <section
+      class="group relative overflow-hidden rounded-[2.5rem] border border-white/10 bg-slate-900/40 backdrop-blur-md p-8 transition-all hover:bg-slate-900/60 shadow-xl">
+      <div class="flex items-center justify-between mb-8">
+        <h2 class="text-xl font-black text-white uppercase tracking-tight flex items-center gap-3">
+          <i class="fas fa-play-circle text-sky-400"></i> Video Darslar
+        </h2>
+        <span
+          class="px-3 py-1 rounded-xl bg-sky-500/10 border border-sky-500/20 text-[10px] font-black text-sky-400 uppercase tracking-widest">{{
+          lesson.videos.count }} ta</span>
       </div>
 
-      <div class="mt-4 space-y-3">
+      <div class="grid sm:grid-cols-2 gap-4">
         {% for v in lesson.videos.all %}
         <a href="{% url 'arab:video_detail' v.id %}"
-          class="block rounded-2xl border border-white/10 bg-black/20 p-4 hover:bg-white/10 transition group">
-          <div class="flex items-center justify-between">
-            <div class="font-semibold text-white group-hover:text-emerald-300 transition">{{ v.title }}</div>
-            <div class="text-xs text-slate-400">⏱ {{ v.duration }}s</div>
+          class="relative p-5 rounded-[1.8rem] border border-white/5 bg-slate-950/40 hover:bg-slate-950/60 hover:border-sky-500/30 transition-all group/v shadow-inner">
+          <div class="flex items-center justify-between mb-3">
+            <div class="h-8 w-8 rounded-xl bg-sky-500/10 flex items-center justify-center text-sky-400 text-xs">
+              <i class="fas fa-play"></i>
+            </div>
+            <div class="text-[9px] font-black text-slate-500 uppercase tracking-widest">⏱ {{ v.duration }}s</div>
           </div>
-          <div class="mt-1 text-xs text-slate-400">
-            {% if v.is_free %}Free{% else %}Premium{% endif %}
+          <div class="font-black text-white group-hover/v:text-sky-400 transition text-sm leading-snug">{{ v.title }}
+          </div>
+          <div class="mt-3 flex items-center gap-2">
+            {% if v.is_free %}
+            <span
+              class="px-2 py-0.5 rounded-md bg-emerald-500/10 text-[8px] font-black text-emerald-400 uppercase">Bepul</span>
+            {% else %}
+            <span
+              class="px-2 py-0.5 rounded-md bg-amber-500/10 text-[8px] font-black text-amber-400 uppercase">Premium</span>
+            {% endif %}
           </div>
         </a>
         {% empty %}
-        <div class="text-sm text-slate-400">Video dars yo‘q.</div>
+        <div
+          class="col-span-full py-8 text-center bg-white/5 rounded-[1.8rem] border border-white/5 text-slate-500 font-medium text-sm">
+          Video darslar hozircha yo‘q.</div>
         {% endfor %}
       </div>
     </section>
 
-    <section class="rounded-3xl border border-white/10 bg-white/5 p-6">
-      <h2 class="text-lg font-bold">📘 Theory</h2>
+    <!-- Theory Card -->
+    <section
+      class="group relative overflow-hidden rounded-[2.5rem] border border-white/10 bg-slate-900/40 backdrop-blur-md p-8 transition-all shadow-xl">
+      <h2 class="text-xl font-black text-white uppercase tracking-tight mb-6 flex items-center gap-3">
+        <i class="fas fa-book-open text-emerald-400"></i> Nazariya (Theory)
+      </h2>
       {% if lesson.theory %}
-      <div class="mt-3 text-slate-200 leading-relaxed whitespace-pre-line">{{ lesson.theory }}</div>
+      <div
+        class="prose prose-invert max-w-none text-slate-300 leading-relaxed font-medium whitespace-pre-line text-base">
+        {{ lesson.theory }}
+      </div>
       {% else %}
-      <div class="mt-3 text-slate-400 text-sm">Hali theory qo‘shilmagan.</div>
+      <div class="py-6 text-center bg-white/5 rounded-[1.8rem] border border-dashed border-white/10 text-slate-500">
+        Hozircha nazariy qism qo‘shilmagan.</div>
       {% endif %}
     </section>
 
-    <section class="rounded-3xl border border-white/10 bg-white/5 p-6">
-      <div class="flex items-center justify-between">
-        <h2 class="text-lg font-bold">🧩 Sections</h2>
-        <span class="text-xs text-slate-400">{{ lesson.sections.count }} ta</span>
+    <!-- Content Breakdown -->
+    {% if lesson.blocks %}
+    <section
+      class="group relative overflow-hidden rounded-[2.5rem] border border-white/10 bg-slate-900/40 backdrop-blur-md p-8 transition-all shadow-xl">
+      <h2 class="text-xl font-black text-white uppercase tracking-tight mb-8 flex items-center gap-3">
+        <i class="fas fa-layer-group text-violet-400"></i> Dars tarkibi
+      </h2>
+      <div class="grid gap-3">
+        {% for block in lesson.blocks %}
+        <div
+          class="flex items-center gap-5 p-5 rounded-2xl bg-white/[0.02] border border-white/5 hover:bg-white/5 transition-colors">
+          <div
+            class="h-11 w-11 shrink-0 rounded-2xl bg-slate-950 border border-white/10 flex items-center justify-center font-black text-xs text-slate-400 shadow-inner">
+            {{ forloop.counter }}
+          </div>
+          <div class="flex-1">
+            <div class="text-[10px] font-black text-violet-400 uppercase tracking-widest mb-1">{{ block.type }}</div>
+            <div class="text-sm font-black text-white tracking-tight">{{ block.content|default:"Interaktiv mashq" }}
+            </div>
+          </div>
+          <div class="h-8 w-8 rounded-lg bg-white/5 flex items-center justify-center text-slate-600">
+            <i class="fas fa-chevron-right text-[10px]"></i>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </section>
+    {% endif %}
+
+    <!-- Vertical Sections -->
+    <section
+      class="group relative overflow-hidden rounded-[2.5rem] border border-white/10 bg-slate-900/40 backdrop-blur-md p-8 transition-all shadow-xl">
+      <div class="flex items-center justify-between mb-8">
+        <h2 class="text-xl font-black text-white uppercase tracking-tight flex items-center gap-3">
+          <i class="fas fa-list-ol text-amber-400"></i> Bo'limlar
+        </h2>
+        <span
+          class="px-3 py-1 rounded-xl bg-amber-500/10 border border-amber-500/20 text-[10px] font-black text-amber-400 uppercase tracking-widest">{{
+          lesson.sections.count }} ta</span>
       </div>
 
-      <div class="mt-4 space-y-3">
+      <div class="space-y-6">
         {% for s in lesson.sections.all %}
-        <div class="rounded-2xl border border-white/10 bg-black/20 p-4">
-          <div class="font-semibold">{{ s.order }}. {{ s.title }}</div>
-          <div class="mt-2 text-slate-200 text-sm whitespace-pre-line">{{ s.content }}</div>
+        <div
+          class="relative p-6 rounded-[2rem] border border-white/5 bg-slate-950/20 group/s hover:border-amber-500/20 transition-all">
+          <div class="flex items-center gap-3 mb-4">
+            <div
+              class="h-8 w-8 rounded-xl bg-amber-500/10 flex items-center justify-center text-[10px] font-black text-amber-500">
+              {{ s.order }}</div>
+            <h4 class="font-black text-white text-lg tracking-tight">{{ s.title }}</h4>
+          </div>
+          <div class="text-slate-400 text-base leading-relaxed font-medium whitespace-pre-line px-2">{{ s.content }}
+          </div>
         </div>
         {% empty %}
-        <div class="text-slate-400 text-sm">Section yo‘q.</div>
+        <div class="py-8 text-center text-slate-500">Bo'limlar mavjud emas.</div>
         {% endfor %}
       </div>
     </section>
@@ -72,60 +166,90 @@
   </div>
 
   <!-- RIGHT: Words + Exercises -->
-  <div class="space-y-4">
+  <div class="space-y-8">
 
-    <section class="rounded-3xl border border-white/10 bg-white/5 p-6">
-      <div class="flex items-center justify-between">
-        <h2 class="text-lg font-bold">📚 Words</h2>
-        <span class="text-xs text-slate-400">{{ lesson.words.count }}</span>
+    <!-- Vocabulary Card -->
+    <section
+      class="group relative overflow-hidden rounded-[2.5rem] border border-white/10 bg-slate-900/40 backdrop-blur-md p-8 transition-all shadow-xl">
+      <div class="flex items-center justify-between mb-8">
+        <h2 class="text-xl font-black text-white uppercase tracking-tight flex items-center gap-3">
+          <i class="fas fa-language text-sky-400"></i> Lug'at
+        </h2>
+        <span
+          class="px-3 py-1 rounded-xl bg-sky-500/10 border border-sky-500/20 text-[10px] font-black text-sky-400 uppercase tracking-widest">{{
+          lesson.words.count }}</span>
       </div>
 
-      <div class="mt-4 space-y-2">
+      <div class="space-y-3">
         {% for w in lesson.words.all|slice:":12" %}
-        <div class="rounded-2xl border border-white/10 bg-black/20 p-3">
-          <div class="arabic-font text-2xl font-black" dir="rtl">{{ w.arabic }}</div>
-          <div class="text-xs text-slate-300 mt-1">
-            {% if w.translation_uz %}UZ: <span class="text-white font-semibold">{{ w.translation_uz }}</span>{% endif %}
-            {% if w.translation_ru %}<span class="text-slate-500"> • </span>RU: <span
-              class="text-slate-100 font-semibold">{{ w.translation_ru }}</span>{% endif %}
+        <div
+          class="group/w relative p-5 rounded-[2rem] border border-white/5 bg-slate-950/40 hover:bg-slate-950/60 hover:border-sky-500/20 transition-all">
+          <div
+            class="arabic-font text-3xl font-black text-white mb-3 group-hover/w:scale-[1.05] transition-transform origin-right"
+            dir="rtl">{{ w.arabic }}</div>
+
+          <div class="space-y-1.5 border-t border-white/5 pt-3">
+            {% if w.translation_uz %}
+            <div class="flex items-center gap-3">
+              <span class="text-[8px] font-black text-emerald-500/60 uppercase">UZ</span>
+              <span class="text-xs text-white font-black tracking-tight">{{ w.translation_uz }}</span>
+            </div>
+            {% endif %}
+
+            {% if w.transliteration %}
+            <div class="flex items-center gap-3">
+              <span class="text-[8px] font-black text-sky-500/60 uppercase">PH</span>
+              <span class="text-[10px] text-sky-400 font-black tracking-widest italic">{{ w.transliteration }}</span>
+            </div>
+            {% endif %}
           </div>
-          {% if w.transliteration %}
-          <div class="text-xs text-slate-400 mt-1">{{ w.transliteration }}</div>
-          {% endif %}
         </div>
         {% empty %}
-        <div class="text-slate-400 text-sm">Bu darsga so‘z qo‘shilmagan.</div>
+        <div class="py-8 text-center bg-white/5 rounded-2xl text-slate-500 text-sm">Hali so'zlar yo'q.</div>
         {% endfor %}
       </div>
 
       {% if lesson.words.count > 12 %}
-      <div class="mt-3 text-xs text-slate-400">Yana so‘zlar lug‘atda.</div>
+      <a href="/dictionary/"
+        class="mt-6 block w-full py-4 text-center rounded-2xl bg-white/5 border border-white/5 text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-white hover:bg-white/10 transition">
+        Barcha so‘zlar lug‘atda
+      </a>
       {% endif %}
     </section>
 
-    <section class="rounded-3xl border border-white/10 bg-white/5 p-6">
-      <div class="flex items-center justify-between">
-        <h2 class="text-lg font-bold">🧠 Exercises</h2>
-        <span class="text-xs text-slate-400">{{ lesson.exercises.count }}</span>
+    <!-- Exercises Card -->
+    <section
+      class="group relative overflow-hidden rounded-[2.5rem] border border-white/10 bg-slate-900/40 backdrop-blur-md p-8 transition-all shadow-xl">
+      <div class="flex items-center justify-between mb-8">
+        <h2 class="text-xl font-black text-white uppercase tracking-tight flex items-center gap-3">
+          <i class="fas fa-brain text-amber-400"></i> Mashqlar
+        </h2>
+        <span
+          class="px-3 py-1 rounded-xl bg-amber-500/10 border border-amber-500/20 text-[10px] font-black text-amber-400 uppercase tracking-widest">{{
+          lesson.exercises.count }}</span>
       </div>
 
-      <div class="mt-4 space-y-2">
+      <div class="space-y-4">
         {% for e in lesson.exercises.all %}
-        <div class="rounded-2xl border border-white/10 bg-black/20 p-4">
-          <div class="font-semibold">{{ e.title }}</div>
-          <div class="mt-1 text-xs text-slate-400">{{ e.get_type_display }}</div>
-          {% if e.instruction %}
-          <div class="mt-2 text-sm text-slate-200">{{ e.instruction }}</div>
-          {% endif %}
-          <div class="mt-3">
-            <a href="{% url 'arab:exercise_run' e.id %}"
-              class="inline-flex rounded-2xl bg-white text-slate-950 px-6 py-2 text-sm font-semibold hover:bg-slate-200 transition">
-              Start
-            </a>
+        <div
+          class="relative p-6 rounded-[2rem] border border-white/5 bg-slate-950/40 group/e hover:border-amber-500/30 transition-all shadow-inner">
+          <div class="flex items-center justify-between mb-4">
+            <h4 class="font-black text-white text-base tracking-tight leading-tight">{{ e.title }}</h4>
+            <span class="px-2 py-0.5 rounded-lg bg-amber-500/10 text-[8px] font-black text-amber-500 uppercase">{{
+              e.get_type_display }}</span>
           </div>
+
+          {% if e.instruction %}
+          <p class="text-slate-400 text-xs font-medium leading-relaxed mb-6">{{ e.instruction }}</p>
+          {% endif %}
+
+          <a href="{% url 'arab:exercise_run' e.id %}"
+            class="flex items-center justify-center w-full py-3.5 rounded-2xl bg-white text-slate-950 text-[10px] font-black uppercase tracking-widest hover:scale-[1.02] active:scale-95 transition-all shadow-lg">
+            BOSHLASH
+          </a>
         </div>
         {% empty %}
-        <div class="text-slate-400 text-sm">Exercise yo‘q.</div>
+        <div class="py-8 text-center text-slate-500 text-sm">Mashqlar topilmadi.</div>
         {% endfor %}
       </div>
     </section>

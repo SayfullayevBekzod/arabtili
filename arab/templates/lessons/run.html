@@ -1,0 +1,161 @@
+{% extends 'base.html' %}
+{% block title %}{{ lesson.title }} - Mashq{% endblock %}
+{% block content %}
+
+<div class="max-w-4xl mx-auto py-8 px-4 h-screen flex flex-col relative overflow-hidden">
+    <!-- Background glows -->
+    <div class="pointer-events-none absolute -top-40 -left-40 h-80 w-80 rounded-full bg-emerald-500/10 blur-[100px]">
+    </div>
+    <div class="pointer-events-none absolute -bottom-40 -right-40 h-80 w-80 rounded-full bg-sky-500/10 blur-[100px]">
+    </div>
+
+    <!-- Progress Header -->
+    <div class="relative z-10 mb-10 space-y-4">
+        <div
+            class="flex items-center justify-between text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] ml-1">
+            <span class="flex items-center gap-2">
+                <i class="fas fa-book-reader text-emerald-400"></i>
+                {{ lesson.title }}
+            </span>
+            <span class="bg-white/5 px-3 py-1 rounded-lg border border-white/5">{{ block_index | add:1 }} / {{
+                total_blocks }}</span>
+        </div>
+        <div class="h-3 w-full bg-slate-950 rounded-full overflow-hidden border border-white/5 p-0.5 shadow-2xl">
+            <div class="h-full bg-gradient-to-r from-emerald-500 via-sky-500 to-emerald-500 rounded-full transition-all duration-700 bubble-progress shadow-[0_0_20px_rgba(16,185,129,0.3)]"
+                style="width: {{ progress_pct }}%"></div>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT AREA -->
+    <div class="relative z-10 flex-1 overflow-y-auto scrollbar-hide py-10">
+        <div class="animate-in fade-in zoom-in-95 duration-700 h-full">
+
+            {% if block.type == 'intro' %}
+            <div class="h-full flex flex-col items-center justify-center text-center space-y-10">
+                <div class="relative group">
+                    <div
+                        class="absolute -inset-4 bg-emerald-500/20 rounded-[3rem] blur-2xl group-hover:bg-emerald-500/30 transition-all duration-700">
+                    </div>
+                    <div
+                        class="relative h-40 w-40 rounded-[3rem] bg-slate-950 border border-white/10 flex items-center justify-center text-7xl shadow-2xl group-hover:scale-110 group-hover:rotate-3 transition-all duration-500">
+                        <span class="animate-float">📖</span>
+                    </div>
+                </div>
+                <div class="space-y-6 max-w-2xl px-4">
+                    <h2 class="text-5xl font-black text-white leading-tight tracking-tight uppercase">Kirish</h2>
+                    <p
+                        class="text-xl text-slate-300 leading-relaxed font-medium bg-white/5 p-8 rounded-[2.5rem] border border-white/5 backdrop-blur-md shadow-inner">
+                        {{ block.content }}
+                    </p>
+                </div>
+            </div>
+
+            {% elif block.type == 'vocabulary' %}
+            <div class="space-y-10">
+                <div class="text-center mb-16 space-y-4">
+                    <h2 class="text-4xl font-black text-white uppercase tracking-tight">Yangi so'zlar</h2>
+                    <p class="text-slate-500 font-medium text-lg">Har bir so'zni tinglang va yodda saqlashga harakat
+                        qiling.</p>
+                </div>
+                <div class="grid gap-6">
+                    {% for w in words %}
+                    <div
+                        class="group relative p-8 rounded-[2.5rem] bg-slate-900/40 border border-white/10 hover:bg-slate-900/60 hover:border-emerald-500/30 transition-all duration-500 flex items-center justify-between shadow-2xl overflow-hidden">
+                        <div
+                            class="absolute -right-24 -top-24 h-48 w-48 bg-emerald-500/0 group-hover:bg-emerald-500/5 rounded-full blur-3xl transition-all duration-700">
+                        </div>
+
+                        <div class="relative flex items-center gap-8">
+                            <button onclick="new Audio('{{ w.audio.url }}').play()"
+                                class="h-16 w-16 rounded-[1.5rem] bg-white text-slate-950 flex items-center justify-center hover:scale-110 active:scale-90 transition-all shadow-xl shadow-white/5 group/btn">
+                                <i class="fas fa-volume-up text-xl group-hover/btn:animate-pulse"></i>
+                            </button>
+                            <div>
+                                <div
+                                    class="arabic-font text-4xl text-white group-hover:scale-[1.05] transition-transform origin-left">
+                                    {{ w.arabic }}</div>
+                                <div
+                                    class="text-[10px] font-black text-emerald-500 uppercase tracking-[0.3em] mt-2 italic">
+                                    {{ w.transliteration }}</div>
+                            </div>
+                        </div>
+                        <div
+                            class="relative text-2xl font-black text-white tracking-tight group-hover:text-emerald-400 transition-colors">
+                            {{ w.translation_uz }}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            {% else %}
+            <div class="h-full flex flex-col items-center justify-center text-center space-y-8">
+                <div
+                    class="h-32 w-32 rounded-[2.5rem] bg-slate-950 border border-white/10 flex items-center justify-center text-6xl shadow-2xl">
+                    <span class="animate-spin-slow">⚙️</span>
+                </div>
+                <div class="space-y-2">
+                    <h2 class="text-3xl font-black text-white uppercase tracking-widest">{{ block.type }} block</h2>
+                    <p class="text-slate-500 font-medium">Bu blok turi ({{ block.type }}) yaqin orada to'liq ishga
+                        tushadi.</p>
+                </div>
+            </div>
+            {% endif %}
+
+        </div>
+    </div>
+
+    <!-- Footer Controls -->
+    <div
+        class="relative z-10 py-10 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-6">
+        <div class="text-[10px] font-black text-slate-600 uppercase tracking-[0.3em] flex items-center gap-2">
+            <span class="h-1.5 w-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)]"></span>
+            AlifPro Immersive Learning
+        </div>
+
+        <a href="?block={{ next_block_index }}"
+            class="group relative h-16 px-12 rounded-[2rem] bg-white text-slate-950 flex items-center justify-center font-black uppercase tracking-widest text-sm hover:scale-[1.05] active:scale-95 transition-all shadow-2xl shadow-white/5">
+            <span class="relative z-10">DAVOM ETISH <i
+                    class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i></span>
+            <div
+                class="absolute inset-0 bg-emerald-400 opacity-0 group-hover:opacity-10 rounded-[2rem] transition-opacity">
+            </div>
+        </a>
+    </div>
+</div>
+
+<style>
+    .bubble-progress {
+        box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+    }
+
+    .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+    }
+
+    @keyframes spin-slow {
+        from {
+            transform: rotate(0deg);
+        }
+
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    .animate-spin-slow {
+        animation: spin-slow 8s linear infinite;
+    }
+</style>
+
+<style>
+    .bubble-progress {
+        box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+    }
+
+    .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+    }
+</style>
+
+{% endblock %}

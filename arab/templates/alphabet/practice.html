@@ -1,315 +1,180 @@
 {% extends "base.html" %}
-{% block title %}Writing{% endblock %}
+{% load static %}
+
 {% block content %}
+<div class="min-h-screen flex items-center justify-center bg-gray-900 text-white relative overflow-hidden">
+    <input type="hidden" id="letter-id" value="{{ letter.id }}">
+    {% csrf_token %}
 
-<!-- Header -->
-<section class="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-6 md:p-10">
-  <div class="pointer-events-none absolute -top-32 -left-32 h-80 w-80 rounded-full bg-emerald-400/15 blur-3xl"></div>
-  <div class="pointer-events-none absolute -bottom-32 -right-32 h-80 w-80 rounded-full bg-sky-400/15 blur-3xl"></div>
+    <!-- Audio Source -->
+    {% if letter.pronunciations.first.audio %}
+    <audio id="audio-player" src="{{ letter.pronunciations.first.audio.url }}"></audio>
+    {% endif %}
 
-  <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
-    <div>
-      <div class="text-xs text-slate-400">Mashq • Yozish</div>
-      <h1 class="mt-1 text-3xl md:text-5xl font-black">
-        ✍️ {{ letter.name }} yozish
-      </h1>
-      <p class="mt-2 text-slate-300 text-sm max-w-2xl leading-relaxed">
-        Harfni chiroyli va to'g'ri yozishni o'rganish uchun ushbu interaktiv doskadan foydalaning.
-        Harfning turli shakllarini (bosh, o'rta, oxirgi) ketma-ket mashq qiling.
-      </p>
+    <div class="w-full max-w-md p-6 bg-gray-800 rounded-2xl shadow-2xl border border-gray-700 relative z-10">
 
-      <div class="mt-5 flex flex-wrap gap-2">
-        <span class="rounded-2xl border border-white/10 bg-slate-950/40 px-3 py-2 text-xs text-slate-300">✅
-          Shakllar</span>
-        <span class="rounded-2xl border border-white/10 bg-slate-950/40 px-3 py-2 text-xs text-slate-300">✅
-          Qadamlar</span>
-        <span class="rounded-2xl border border-white/10 bg-slate-950/40 px-3 py-2 text-xs text-slate-300">✅
-          Mustahkamlash</span>
-      </div>
-    </div>
-
-    <div class="flex gap-2">
-      <a href="/alphabet/"
-        class="rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-sm hover:bg-white/10 transition">
-        ← Alifboga
-      </a>
-      <a href="/letters/{{ letter.id }}/"
-        class="rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-sm hover:bg-white/10 transition">
-        Harf detail
-      </a>
-    </div>
-  </div>
-</section>
-
-<div class="mt-6 grid lg:grid-cols-3 gap-4">
-
-  <!-- MAIN PRACTICE PANEL -->
-  <section class="lg:col-span-2 rounded-3xl border border-white/10 bg-white/5 p-6">
-    <div class="flex items-center justify-between">
-      <div>
-        <div class="text-sm font-semibold text-white">Yozish doskasi</div>
-        <div class="text-xs text-slate-400 mt-1">Sichqoncha yoki sensorli ekran orqali chizing</div>
-      </div>
-
-      <div class="rounded-2xl border border-white/10 bg-slate-950/40 px-3 py-2 text-xs text-slate-300">
-        Mashq rejimi
-      </div>
-    </div>
-
-    <div class="mt-5 rounded-3xl border border-white/10 bg-slate-950/40 p-8 text-center" dir="rtl">
-      <div class="arabic-font text-[110px] md:text-[140px] font-black leading-none text-white">
-        {{ letter.arabic }}
-      </div>
-      <div class="mt-3 text-xs text-slate-400 [direction:ltr]">
-        Harfni katta qilib ko‘ring va daftar/planchetda qayta-qayta yozing.
-      </div>
-
-      <!-- Functional drawing canvas -->
-      <div
-        class="mt-6 relative bg-white rounded-3xl overflow-hidden shadow-2xl border-4 border-slate-900 mx-auto aspect-square max-w-[500px]">
-        <!-- Reference letter (ghost) -->
-        <div class="absolute inset-0 flex items-center justify-center opacity-[0.03] pointer-events-none select-none">
-          <div class="arabic-font text-[300px] text-slate-950 font-black">{{ letter.arabic }}</div>
+        <!-- Step 1: Intro (Tanishish) -->
+        <div id="view-intro" class="text-center space-y-8">
+            <h2 class="text-2xl font-bold text-cyan-400">1. Tanishish</h2>
+            <div class="text-9xl font-mono text-cyan-500 animate-pulse">
+                {{ letter.arabic }}
+            </div>
+            <p class="text-xl">{{ letter.name }}</p>
+            <button id="btn-intro-next"
+                class="w-full py-4 bg-cyan-600 hover:bg-cyan-500 rounded-xl text-xl font-bold transition">
+                Boshlash <i class="fas fa-arrow-right ml-2"></i>
+            </button>
         </div>
-        <canvas id="practiceCanvas" class="relative z-10 w-full h-full cursor-crosshair"></canvas>
 
-        <!-- Validation Overlay -->
-        <div id="checkOverlay"
-          class="absolute inset-0 z-20 flex flex-col items-center justify-center bg-slate-950/80 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-300">
-          <div id="checkSpinner"
-            class="h-16 w-16 border-4 border-emerald-500/20 border-t-emerald-500 rounded-full animate-spin"></div>
-          <div id="checkResult" class="hidden text-center scale-75 opacity-0 transition-all duration-500">
-            <div id="resultIcon" class="text-6xl mb-4">✨</div>
-            <div id="resultText" class="text-2xl font-black text-white">To'g'ri!</div>
-          </div>
+        <!-- Step 2: Listen (Tinglash) -->
+        <div id="view-listen" class="hidden text-center space-y-8">
+            <h2 class="text-2xl font-bold text-purple-400">2. Tinglash</h2>
+            <div class="p-10 bg-gray-700 rounded-full inline-block cursor-pointer hover:bg-gray-600 transition"
+                id="btn-listen-play">
+                <i class="fas fa-volume-up text-6xl text-purple-300"></i>
+            </div>
+            <p class="text-gray-400">Tovushni diqqat bilan tinglang</p>
+            <button id="btn-listen-next"
+                class="w-full py-4 bg-purple-600 hover:bg-purple-500 rounded-xl text-xl font-bold transition">
+                Tushundim <i class="fas fa-check ml-2"></i>
+            </button>
         </div>
-      </div>
 
-      <div class="mt-6 flex justify-center gap-4">
-        <button id="clearCanvas"
-          class="px-6 py-3 rounded-2xl bg-white/5 border border-white/10 text-white font-bold text-sm hover:bg-white/10 transition">
-          Tozalash
-        </button>
-        <button id="undoCanvas"
-          class="px-6 py-3 rounded-2xl bg-white/5 border border-white/10 text-white font-bold text-sm hover:bg-white/10 transition">
-          Ortga qaytarish
-        </button>
-        <button id="savePractice"
-          class="px-8 py-3 rounded-2xl bg-emerald-500 text-slate-950 font-black text-sm hover:bg-emerald-400 transition">
-          Tayyor
-        </button>
-      </div>
-    </div>
+        <script>
+            // TTS Fallback for letter pronunciation
+            (function () {
+                const letterArabic = "{{ letter.arabic }}";
+                const letterName = "{{ letter.name }}";
+                const audioPlayer = document.getElementById('audio-player');
+                const listenBtn = document.getElementById('btn-listen-play');
 
-    <!-- Quick tips -->
-    <div class="mt-5 grid sm:grid-cols-3 gap-3">
-      <div class="rounded-2xl border border-white/10 bg-white/5 p-4 hover:bg-white/10 transition">
-        <div class="text-xs text-slate-400">Qadam 1</div>
-        <div class="mt-1 text-sm text-white font-semibold">Shaklni ko‘r</div>
-        <div class="mt-1 text-xs text-slate-400 leading-relaxed">Isolated/Initial/Medial/Final ko‘rinishlarini eslab
-          qol.</div>
-      </div>
-      <div class="rounded-2xl border border-white/10 bg-white/5 p-4 hover:bg-white/10 transition">
-        <div class="text-xs text-slate-400">Qadam 2</div>
-        <div class="mt-1 text-sm text-white font-semibold">Sekin yoz</div>
-        <div class="mt-1 text-xs text-slate-400 leading-relaxed">Avval sekin, keyin tezlikni oshir.</div>
-      </div>
-      <div class="rounded-2xl border border-white/10 bg-white/5 p-4 hover:bg-white/10 transition">
-        <div class="text-xs text-slate-400">Qadam 3</div>
-        <div class="mt-1 text-sm text-white font-semibold">Takrorla</div>
-        <div class="mt-1 text-xs text-slate-400 leading-relaxed">10–20 marta yozib, keyin misolda ishlat.</div>
-      </div>
-    </div>
-  </section>
+                function playLetterSound() {
+                    // Try audio file first
+                    if (audioPlayer && audioPlayer.src && !audioPlayer.src.endsWith('/')) {
+                        audioPlayer.play().catch(() => useTTS());
+                    } else {
+                        useTTS();
+                    }
+                }
 
-  <!-- RIGHT SIDEBAR -->
-  <aside class="rounded-3xl border border-white/10 bg-white/5 p-6" dir="rtl">
-    <div class="[direction:ltr]">
-      <div class="text-sm font-semibold text-white">Harf shakllari</div>
-      <div class="text-xs text-slate-400 mt-1">Yozish tartibi: Alohida → Bosh → O'rta → Oxirgi</div>
-    </div>
+                function useTTS() {
+                    // Web Speech API TTS - Arabic voice
+                    if ('speechSynthesis' in window) {
+                        const utterance = new SpeechSynthesisUtterance(letterArabic);
+                        utterance.lang = 'ar-SA';
+                        utterance.rate = 0.7;
+                        utterance.pitch = 1;
+                        speechSynthesis.speak(utterance);
+                    } else {
+                        alert('Brauzeringiz tovush sintezini qo\'llab-quvvatlamaydi.');
+                    }
+                }
 
-    <div class="mt-5 grid grid-cols-2 gap-3">
-      <div class="group rounded-2xl border border-white/10 bg-slate-950/40 p-4 text-center hover:bg-white/5 transition">
-        <div class="text-xs text-slate-400 [direction:ltr]">Alohida (Isolated)</div>
-        <div class="arabic-font text-4xl font-black mt-1 text-white group-hover:scale-110 transition">
-          {{ letter.isolated|default:letter.arabic }}
+                if (listenBtn) {
+                    listenBtn.addEventListener('click', playLetterSound);
+                }
+            })();
+        </script>
+
+        <!-- Step 3: Select (Tanlash) -->
+        <div id="view-select" class="hidden text-center space-y-8">
+            <h2 class="text-2xl font-bold text-yellow-400">3. Tanlash</h2>
+            <p class="text-lg">Qaysi biri "{{ letter.name }}"?</p>
+            <div class="grid grid-cols-2 gap-4">
+                {% for opt in options %}
+                <div class="option-btn p-6 bg-gray-700 rounded-xl text-6xl cursor-pointer hover:bg-gray-600 transition flex items-center justify-center border-2 border-transparent hover:border-yellow-500"
+                    data-correct="{% if opt.id == letter.id %}true{% else %}false{% endif %}">
+                    {{ opt.arabic }}
+                </div>
+                {% endfor %}
+            </div>
         </div>
-      </div>
-      <div class="group rounded-2xl border border-white/10 bg-slate-950/40 p-4 text-center hover:bg-white/5 transition">
-        <div class="text-xs text-slate-400 [direction:ltr]">Oxirgi (Final)</div>
-        <div class="arabic-font text-4xl font-black mt-1 text-white group-hover:scale-110 transition">
-          {{ letter.final|default:letter.arabic }}
-        </div>
-      </div>
-      <div class="group rounded-2xl border border-white/10 bg-slate-950/40 p-4 text-center hover:bg-white/5 transition">
-        <div class="text-xs text-slate-400 [direction:ltr]">Boshida (Initial)</div>
-        <div class="arabic-font text-4xl font-black mt-1 text-white group-hover:scale-110 transition">
-          {{ letter.initial|default:letter.arabic }}
-        </div>
-      </div>
-      <div class="group rounded-2xl border border-white/10 bg-slate-950/40 p-4 text-center hover:bg-white/5 transition">
-        <div class="text-xs text-slate-400 [direction:ltr]">O'rtada (Medial)</div>
-        <div class="arabic-font text-4xl font-black mt-1 text-white group-hover:scale-110 transition">
-          {{ letter.medial|default:letter.arabic }}
-        </div>
-      </div>
-    </div>
 
-    <div class="mt-5 rounded-2xl border border-white/10 bg-white/5 p-4 [direction:ltr]">
-      <div class="text-xs text-slate-400">Maslahat</div>
-      <div class="mt-2 text-sm text-slate-200 leading-relaxed">
-        Harfni yozganda <span class="text-white font-semibold">qalam bosimini</span> bir xil ushlang.
-        Har bir shaklni alohida 5 marta yozib chiqing.
-      </div>
-    </div>
-  </aside>
+        <!-- Step 4: Write (Yozish) -->
+        <div id="view-write" class="hidden text-center space-y-6">
+            <h2 class="text-3xl font-black bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-teal-300">
+                4. Yozish
+            </h2>
+            <p class="text-sm font-medium text-slate-400 uppercase tracking-widest">
+                Harf ustidan barmoq bilan yuriting
+            </p>
 
+            <div
+                class="relative w-72 h-72 mx-auto rounded-3xl bg-slate-900/50 border border-white/10 shadow-2xl backdrop-blur-sm flex items-center justify-center overflow-hidden group">
+                <!-- Grid background for precision feel -->
+                <div class="absolute inset-0 opacity-20"
+                    style="background-image: linear-gradient(#ffffff 1px, transparent 1px), linear-gradient(90deg, #ffffff 1px, transparent 1px); background-size: 20px 20px; background-position: center;">
+                </div>
+
+                <svg viewBox="{{ letter.viewbox }}" class="relative z-10 w-full h-full p-6 overflow-visible">
+                    <defs>
+                        <marker id="arrow-guide" markerWidth="4" markerHeight="4" refX="2" refY="2" orient="auto">
+                            <path d="M0,0 L4,2 L0,4 L1.5,2 z" fill="#94a3b8" />
+                        </marker>
+                    </defs>
+
+                    <!-- LAYER 1: Main Letter (Real Calligraphic Font) -->
+                    <!-- Used as the "under-layer" visual -->
+                    <text x="50" y="75" text-anchor="middle" font-family="'Noto Naskh Arabic', serif" font-size="80"
+                        fill="#e2e8f0" class="select-none pointer-events-none opacity-30 font-bold">
+                        {{ letter.arabic }}
+                    </text>
+
+                    <!-- LAYER 2: Writing Guide (The Path Logic) -->
+                    <path d="{{ letter.svg_path }}" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="8, 6"
+                        stroke-linecap="round" stroke-linejoin="round" fill="none" marker-end="url(#arrow-guide)"
+                        class="opacity-60" />
+
+                    <!-- LAYER 3: Active Fill Path (Progress) -->
+                    <path id="letter-path" d="{{ letter.svg_path }}" stroke="#475569" stroke-width="16" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round" stroke-opacity="0.9"
+                        style="stroke-dasharray: 1000; stroke-dashoffset: 1000;">
+                    </path>
+
+                    <!-- Handle -->
+                    <circle id="drag-handle" cx="0" cy="0" r="12" fill="#7c3aed"
+                        class="cursor-pointer shadow-xl active:scale-125 transition-transform"
+                        style="display: none; stroke: white; stroke-width: 3px; box-shadow: 0 0 15px rgba(124, 58, 237, 0.5);">
+                        <animate attributeName="r" values="12;13;12" dur="2s" repeatCount="indefinite" />
+                    </circle>
+                </svg>
+
+                <!-- Hand hint animation -->
+                <div class="absolute bottom-4 right-4 pointer-events-none opacity-50 animate-bounce">
+                    <i class="fas fa-hand-pointer text-2xl text-emerald-400"></i>
+                </div>
+            </div>
+
+            <div id="trace-feedback" class="h-6 text-sm font-bold text-emerald-400 opacity-0 transition-opacity">
+                Ajoyib! Davom eting...
+            </div>
+        </div>
+
+        <!-- Step 5: Review (Tugadi) -->
+        <div id="view-review" class="hidden text-center space-y-8">
+            <div class="text-8xl text-green-400 animate-bounce">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h2 class="text-3xl font-bold">Ajoyib!</h2>
+            <p class="text-gray-300">Siz <span class="text-cyan-400">{{ letter.name }}</span> harfini o'rgandingiz.</p>
+
+            <div class="bg-gray-900 p-4 rounded-xl border border-gray-700 inline-block">
+                <span id="xp-badge" class="text-yellow-400 font-bold text-xl">+10 XP</span>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+                <a href="{% url 'arab:alphabet' %}" class="py-3 px-6 bg-gray-700 rounded-lg hover:bg-gray-600">
+                    Bosh menyu
+                </a>
+                <a href="{% url 'arab:letter_detail' pk=letter.id %}"
+                    class="py-3 px-6 bg-cyan-600 rounded-lg hover:bg-cyan-500">
+                    Qayta ko'rish
+                </a>
+            </div>
+        </div>
+
+    </div>
 </div>
 
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const canvas = document.getElementById('practiceCanvas');
-    const ctx = canvas.getContext('2d');
-    const clearBtn = document.getElementById('clearCanvas');
-    const undoBtn = document.getElementById('undoCanvas');
-    const saveBtn = document.getElementById('savePractice');
-
-    // Resize canvas for high resolution
-    function resize() {
-      const rect = canvas.parentElement.getBoundingClientRect();
-      canvas.width = rect.width * devicePixelRatio;
-      canvas.height = rect.height * devicePixelRatio;
-      canvas.style.width = rect.width + 'px';
-      canvas.style.height = rect.height + 'px';
-      ctx.scale(devicePixelRatio, devicePixelRatio);
-      ctx.lineCap = 'round';
-      ctx.lineJoin = 'round';
-      ctx.lineWidth = 12;
-      ctx.strokeStyle = '#0f172a'; // Slate 950
-    }
-
-    resize();
-    window.addEventListener('resize', resize);
-
-    let drawing = false;
-    let paths = [];
-    let currentPath = [];
-
-    function startDrawing(e) {
-      drawing = true;
-      currentPath = [];
-      draw(e);
-    }
-
-    function stopDrawing() {
-      if (drawing) {
-        paths.push([...currentPath]);
-      }
-      drawing = false;
-      ctx.beginPath();
-    }
-
-    function draw(e) {
-      if (!drawing) return;
-
-      const rect = canvas.getBoundingClientRect();
-      const x = (e.clientX || e.touches[0].clientX) - rect.left;
-      const y = (e.clientY || e.touches[0].clientY) - rect.top;
-
-      currentPath.push({ x, y });
-
-      ctx.lineTo(x, y);
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.moveTo(x, y);
-    }
-
-    canvas.addEventListener('mousedown', startDrawing);
-    canvas.addEventListener('mousemove', draw);
-    window.addEventListener('mouseup', stopDrawing);
-
-    canvas.addEventListener('touchstart', (e) => { e.preventDefault(); startDrawing(e.touches[0]); });
-    canvas.addEventListener('touchmove', (e) => { e.preventDefault(); draw(e.touches[0]); });
-    canvas.addEventListener('touchend', stopDrawing);
-
-    clearBtn.addEventListener('click', () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      paths = [];
-    });
-
-    undoBtn.addEventListener('click', () => {
-      paths.pop();
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      paths.forEach(path => {
-        if (path.length < 1) return;
-        ctx.beginPath();
-        ctx.moveTo(path[0].x, path[0].y);
-        path.forEach(point => {
-          ctx.lineTo(point.x, point.y);
-          ctx.stroke();
-          ctx.beginPath();
-          ctx.moveTo(point.x, point.y);
-        });
-      });
-    });
-
-    saveBtn.addEventListener('click', () => {
-      const totalPoints = paths.reduce((acc, p) => acc + p.length, 0);
-
-      if (totalPoints < 10) {
-        alert("Iltimos, avval harfni chizing!");
-        return;
-      }
-
-      const overlay = document.getElementById('checkOverlay');
-      const spinner = document.getElementById('checkSpinner');
-      const result = document.getElementById('checkResult');
-      const resultIcon = document.getElementById('resultIcon');
-      const resultText = document.getElementById('resultText');
-
-      // Show overlay
-      overlay.classList.remove('opacity-0', 'pointer-events-none');
-      overlay.classList.add('opacity-100');
-      spinner.classList.remove('hidden');
-      result.classList.add('hidden', 'scale-75', 'opacity-0');
-
-      setTimeout(() => {
-        // Robustness: check point density/count
-        const isSuccess = totalPoints > 30; // Threshold for a real attempt
-
-        spinner.classList.add('hidden');
-        result.classList.remove('hidden');
-
-        if (isSuccess) {
-          resultIcon.innerText = '✨';
-          resultText.innerText = 'Muvaffaqiyatli!';
-          resultText.className = 'text-2xl font-black text-emerald-400';
-
-          setTimeout(() => {
-            window.location.href = "{% url 'arab:alphabet' %}";
-          }, 1500);
-        } else {
-          resultIcon.innerText = '❌';
-          resultText.innerText = 'Xato! Yaxshiroq chizishga harakat qiling';
-          resultText.className = 'text-2xl font-black text-red-400';
-
-          setTimeout(() => {
-            overlay.classList.add('opacity-0', 'pointer-events-none');
-            overlay.classList.remove('opacity-100');
-            // Reset for retry
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            paths = [];
-          }, 2000);
-        }
-
-        requestAnimationFrame(() => {
-          result.classList.remove('scale-75', 'opacity-0');
-          result.classList.add('scale-100', 'opacity-100');
-        });
-      }, 1500);
-    });
-  });
-</script>
-
+<script src="{% static 'js/spiral_practice.js' %}"></script>
 {% endblock %}

@@ -3,31 +3,37 @@
 {% block content %}
 
 <!-- HERO -->
-<section class="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-6 md:p-10">
-  <div class="pointer-events-none absolute -top-32 -left-32 h-80 w-80 rounded-full bg-emerald-400/15 blur-3xl"></div>
-  <div class="pointer-events-none absolute -bottom-32 -right-32 h-80 w-80 rounded-full bg-sky-400/15 blur-3xl"></div>
+<section
+  class="relative overflow-hidden rounded-[2.5rem] border border-white/10 bg-slate-900/40 backdrop-blur-md p-8 md:p-12 mb-8 shadow-2xl">
+  <div class="pointer-events-none absolute -top-40 -left-40 h-96 w-96 rounded-full bg-emerald-500/10 blur-[100px]">
+  </div>
+  <div class="pointer-events-none absolute -bottom-40 -right-40 h-96 w-96 rounded-full bg-sky-500/10 blur-[100px]">
+  </div>
 
-  <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-5">
-    <div class="max-w-3xl">
-      <div class="text-xs text-slate-400">Courses • 0 → PRO</div>
-      <h1 class="mt-1 text-3xl md:text-5xl font-black leading-tight">{{ course.title }}</h1>
-      <p class="mt-3 text-slate-300 text-sm leading-relaxed">
+  <div class="relative flex flex-col md:flex-row md:items-start md:justify-between gap-8">
+    <div class="max-w-3xl space-y-4">
+      <div
+        class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] font-black uppercase tracking-widest text-slate-400">
+        Kurs • 0 → PRO
+      </div>
+      <h1 class="text-4xl md:text-6xl font-black leading-tight tracking-tight text-white">{{ course.title }}</h1>
+      <p class="text-slate-400 text-base md:text-lg leading-relaxed font-medium">
         {{ course.description }}
       </p>
 
       <!-- Chips -->
-      <div class="mt-5 flex flex-wrap items-center gap-2 text-xs">
-        <span class="rounded-full border border-white/10 bg-slate-950/40 px-3 py-1">
-          Level: <span class="text-slate-200 font-semibold">{{ course.level }}</span>
+      <div class="pt-4 flex flex-wrap items-center gap-3 text-[10px] font-black uppercase tracking-widest">
+        <span class="rounded-2xl border border-white/10 bg-slate-950/40 px-4 py-2 hover:bg-slate-950 transition">
+          Level: <span class="text-emerald-400">{{ course.level }}</span>
         </span>
 
-        <span class="rounded-full border border-white/10 bg-slate-950/40 px-3 py-1">
-          Units: <span class="text-slate-200 font-semibold">{{ units|length }}</span>
+        <span class="rounded-2xl border border-white/10 bg-slate-950/40 px-4 py-2 hover:bg-slate-950 transition">
+          Bo'limlar: <span class="text-sky-400">{{ units|length }}</span>
         </span>
 
-        <span class="rounded-full border border-white/10 bg-slate-950/40 px-3 py-1">
-          Total lessons:
-          <span class="text-slate-200 font-semibold">
+        <span class="rounded-2xl border border-white/10 bg-slate-950/40 px-4 py-2 hover:bg-slate-950 transition">
+          Darslar:
+          <span class="text-amber-400">
             {% with total=0 %}
             {% for u in units %}{% with total=total|add:u.lessons.count %}{% endwith %}{% endfor %}
             {{ total }}
@@ -36,102 +42,123 @@
         </span>
 
         {% if course.is_published %}
-        <span class="rounded-full border border-emerald-400/30 bg-emerald-500/15 px-3 py-1 text-emerald-200">
+        <span class="rounded-2xl border border-emerald-500/30 bg-emerald-500/10 px-4 py-2 text-emerald-400">
           Published
         </span>
         {% else %}
-        <span class="rounded-full border border-yellow-400/30 bg-yellow-500/15 px-3 py-1 text-yellow-200">
+        <span class="rounded-2xl border border-yellow-500/30 bg-yellow-500/10 px-4 py-2 text-yellow-400">
           Draft
         </span>
         {% endif %}
       </div>
     </div>
 
-    <div class="flex items-center gap-2">
+    <div class="flex items-center gap-3">
       <a href="/courses/"
-        class="rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-sm hover:bg-white/10 transition">
+        class="h-12 flex items-center px-6 rounded-2xl border border-white/10 bg-white/5 text-sm font-black uppercase tracking-widest hover:bg-white/10 transition">
         ← Kurslar
       </a>
       <a href="/practice/"
-        class="rounded-2xl bg-white text-slate-950 px-4 py-2 text-sm font-semibold hover:bg-slate-200 transition">
-        🚀 Practice
+        class="h-12 flex items-center px-6 rounded-2xl bg-white text-slate-950 text-sm font-black uppercase tracking-widest hover:scale-105 active:scale-95 transition-all shadow-xl">
+        🚀 Mashq
       </a>
     </div>
   </div>
 </section>
 
 <!-- UNITS -->
-<div class="mt-6 space-y-4">
+<div class="mt-10 space-y-6">
   {% for u in units %}
-  <section class="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-6
-                    transition-all duration-300 hover:bg-white/10 hover:border-white/20">
+  <section
+    class="group relative overflow-hidden rounded-[2.5rem] border border-white/10 bg-slate-900/40 backdrop-blur-md p-8 md:p-10 transition-all duration-500 hover:border-emerald-500/30">
 
-    <span class="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition
-                   bg-gradient-to-tr from-transparent via-white/10 to-transparent"></span>
+    <div
+      class="absolute -top-24 -right-24 h-48 w-48 bg-emerald-500/0 group-hover:bg-emerald-500/5 rounded-full blur-3xl transition-all duration-700">
+    </div>
 
-    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-      <div>
-        <div class="text-xs text-slate-400">Unit {{ u.order }}</div>
-        <h2 class="text-xl md:text-2xl font-black text-white">{{ u.title }}</h2>
+    <div class="relative flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 mb-12">
+      <div class="space-y-1">
+        <div class="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">{{ u.order }}-Bo'lim</div>
+        <h2 class="text-2xl md:text-3xl font-black text-white group-hover:text-emerald-400 transition-colors">{{ u.title
+          }}</h2>
       </div>
 
-      <div class="flex items-center gap-2 text-xs">
-        <span class="rounded-full border border-white/10 bg-slate-950/40 px-3 py-1 text-slate-300">
+      <div class="flex items-center gap-3">
+        <span
+          class="px-4 py-2 rounded-2xl bg-white/5 border border-white/10 text-[10px] font-black uppercase tracking-widest text-slate-400">
           {{ u.lessons.count }} ta dars
         </span>
-        <span class="rounded-full border border-white/10 bg-slate-950/40 px-3 py-1 text-slate-300">
-          Unit
+        <span class="px-3 py-3 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs">
+          <i class="fas fa-layer-group"></i>
         </span>
       </div>
     </div>
 
     <!-- Lessons Tree -->
-    <div class="mt-8 relative max-w-lg mx-auto">
-      <!-- Vertical Line -->
-      <div class="absolute left-1/2 top-4 bottom-4 w-1 bg-white/10 -ml-0.5 rounded-full"></div>
+    <div class="relative max-w-lg mx-auto py-4">
+      <!-- Vertical path Line -->
+      <div
+        class="absolute left-1/2 top-0 bottom-0 w-1.5 bg-slate-950/60 -ml-0.75 rounded-full shadow-inner overflow-hidden">
+        <div class="h-full w-full bg-gradient-to-b from-emerald-500 via-sky-500 to-emerald-500 opacity-20"></div>
+      </div>
 
-      <div class="space-y-8">
+      <div class="space-y-16">
         {% for l in u.lessons.all %}
-        <div class="relative flex flex-col items-center group/lesson hover:scale-105 transition-transform duration-300">
+        <div class="relative flex flex-col items-center group/lesson">
 
-          <!-- Node -->
+          <!-- Lesson Node -->
           <a href="{% url 'arab:lesson_detail' l.id %}"
-            class="z-10 w-24 h-24 rounded-full border-4 border-slate-900 bg-gradient-to-br 
-                      {% if l.user_prog and l.user_prog.is_completed %}from-emerald-500 to-emerald-600 shadow-emerald-500/40{% else %}from-slate-700 to-slate-800 shadow-slate-900/40{% endif %}
-                      flex items-center justify-center shadow-lg ring-4 ring-transparent hover:ring-white/20 transition-all relative">
-            <span class="text-3xl">{% if l.user_prog and l.user_prog.is_completed %}✅{% else %}📚{% endif %}</span>
+            class="z-10 w-24 h-24 rounded-[2rem] border-4 border-slate-950 bg-slate-900 
+                      flex items-center justify-center shadow-2xl transition-all duration-500
+                      hover:scale-110 active:scale-95 ring-4 ring-transparent hover:ring-white/10
+                      {% if l.user_prog and l.user_prog.is_completed %}border-emerald-500/50 shadow-emerald-500/20{% endif %}">
+
+            <div
+              class="absolute inset-0 rounded-[1.8rem] bg-gradient-to-br transition-opacity
+                      {% if l.user_prog and l.user_prog.is_completed %}from-emerald-400 to-emerald-600 opacity-100{% else %}from-slate-700 to-slate-800 opacity-50{% endif %}">
+            </div>
+
+            <span class="relative text-3xl drop-shadow-lg">{% if l.user_prog and l.user_prog.is_completed %}✅{% else
+              %}📚{% endif %}</span>
 
             {% if l.user_prog and not l.user_prog.is_completed and l.user_prog.percent > 0 %}
-            <!-- Small Progress ring or text -->
             <div
-              class="absolute -bottom-1 -right-1 bg-sky-500 text-[10px] font-bold px-2 py-0.5 rounded-full border-2 border-slate-900">
+              class="absolute -bottom-2 -right-2 bg-sky-500 text-[10px] font-black px-2.5 py-1 rounded-xl border-4 border-slate-900 shadow-xl">
               {{ l.user_prog.percent }}%
             </div>
             {% endif %}
           </a>
 
-          <!-- Popover / Label -->
-          <div
-            class="mt-3 text-center bg-slate-900/80 backdrop-blur-md px-4 py-2 rounded-xl border border-white/10 shadow-xl">
-            <h3 class="text-white font-bold text-sm">
+          <!-- Connecting line glow for completed -->
+          {% if l.user_prog and l.user_prog.is_completed %}
+          <div class="absolute top-1/2 -z-0 h-24 w-1 bg-emerald-500/30 blur-sm rounded-full pointer-events-none"></div>
+          {% endif %}
+
+          <!-- Label -->
+          <div class="mt-6 flex flex-col items-center gap-2 group/label">
+            <h3
+              class="text-white font-black text-sm tracking-tight text-center group-hover/lesson:text-emerald-400 transition-colors">
               {{ l.order }}. {{ l.title }}
               {% if l.videos.all %}
-              <span title="Video dars" class="ml-1 text-sky-400">🎥</span>
+              <i class="fas fa-play-circle ml-1 text-sky-400"></i>
               {% endif %}
             </h3>
-            <div class="text-xs text-slate-400 mt-1">
+            <div class="flex items-center gap-2">
               {% if l.user_prog and l.user_prog.is_completed %}
-              <span class="text-emerald-400 font-bold uppercase tracking-wider">Tugallandi</span>
+              <span
+                class="px-2 py-0.5 rounded-lg bg-emerald-500/10 text-[9px] font-black text-emerald-400 uppercase tracking-widest border border-emerald-500/20">Bajarildi</span>
               {% else %}
-              ⏱ {{ l.estimated_minutes }} min
+              <span
+                class="px-2 py-0.5 rounded-lg bg-white/5 text-[9px] font-black text-slate-500 uppercase tracking-widest border border-white/5">⏱
+                {{ l.estimated_minutes }} min</span>
               {% endif %}
             </div>
           </div>
 
         </div>
         {% empty %}
-        <div class="text-center py-6 text-slate-400 text-sm">
-          Hali darslar yo‘q.
+        <div class="text-center py-10 bg-white/5 rounded-3xl border border-white/5 text-slate-500 text-sm font-medium">
+          Hali darslar qo‘shilmagan.
         </div>
         {% endfor %}
       </div>
@@ -139,19 +166,28 @@
 
   </section>
   {% empty %}
-  <div class="rounded-3xl border border-white/10 bg-white/5 p-6 text-slate-300">
-    Bu kursda unit yo‘q.
+  <div class="rounded-[2.5rem] border border-white/10 bg-slate-900/40 p-12 text-center text-slate-500 font-medium">
+    Bu kursda hozircha bo'limlar yo‘q.
   </div>
   {% endfor %}
 </div>
 
-<!-- Bottom hint -->
-<div class="mt-8 rounded-3xl border border-white/10 bg-white/5 p-6">
-  <div class="text-sm font-semibold text-white">Maslahat</div>
-  <p class="mt-2 text-sm text-slate-400 leading-relaxed">
-    Har bir unit bo‘yicha: <span class="text-slate-200">lesson → practice → review</span>.
-    Kichik qadam bilan har kuni davom eting.
-  </p>
+<!-- Bottom Info -->
+<div class="mt-12 group relative rounded-[2.5rem] p-[1px] overflow-hidden transition-all hover:translate-y-[-2px]">
+  <div class="absolute inset-0 bg-gradient-to-r from-emerald-500/20 to-sky-500/20"></div>
+  <div
+    class="relative bg-slate-900/80 backdrop-blur-xl p-8 rounded-[2.4rem] border border-white/5 flex items-start gap-6">
+    <div class="h-12 w-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-2xl">💡
+    </div>
+    <div class="space-y-2">
+      <div class="text-lg font-black text-white">O'quv maslahati</div>
+      <p class="text-base text-slate-400 leading-relaxed font-medium">
+        Har bir bo‘limni tizimli ravishda: <span class="text-emerald-400">dars</span> → <span
+          class="text-sky-400">mashq</span> → <span class="text-amber-400">takrorlash</span> ketma-ketligida o'rganing.
+        Katta natijalarga har kungi kichik qadamlar bilan erishiladi!
+      </p>
+    </div>
+  </div>
 </div>
 
 {% endblock %}

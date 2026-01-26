@@ -6,14 +6,19 @@ app_name = "arab"
 urlpatterns = [
     path("", views.home, name="home"),
     path("roadmap/", views.roadmap, name="roadmap"),
+    path("placement/", views.placement_test, name="placement"),
 
     path("alphabet/", views.alphabet, name="alphabet"),
     path("letters/<int:pk>/", views.letter_detail, name="letter_detail"),
     path("letters/<int:pk>/practice/", views.letter_practice, name="letter_practice"),
+    path("api/letter/<int:pk>/finish/", views.api_letter_finish, name="api_letter_finish"),
 
     path("courses/", views.course_list, name="course_list"),
+    path("courses/select/", views.course_selection, name="course_selection"),
     path("courses/<int:pk>/", views.course_detail, name="course_detail"),
     path("lessons/<int:pk>/", views.lesson_detail, name="lesson_detail"),
+    path("lessons/<int:pk>/run/", views.lesson_run, name="lesson_run"),
+    path("api/lessons/<int:pk>/submit/", views.api_lesson_submit, name="api_lesson_submit"),
 
     path("practice/", views.practice_hub, name="practice"),
     path("practice/weak/", views.practice_weak_words, name="practice_weak_words"),
@@ -24,6 +29,7 @@ urlpatterns = [
     path("api/study-time/update/", views.update_study_time, name="api_study_time_update"),
     path("practice/match/", views.practice_match_game, name="practice_match_game"),
     path("api/match/reward/", views.api_match_reward, name="api_match_reward"),
+    path("api/user/stats/", views.api_user_stats, name="api_user_stats"),
 
     path("accounts/register/", views.register, name="register"),
     path("accounts/login/", views.login_view, name="login"),
@@ -51,8 +57,17 @@ urlpatterns = [
     path("quran/<int:surah_number>/", views.quran_detail, name="quran_detail"),
 
     path("placement/", views.placement_test, name="placement"),
-
     path("dictionary/add/<int:word_id>/", views.dictionary_add_card, name="dictionary_add_card"),
     path("settings/profile/", views.settings_profile, name="settings_profile"),
     path("settings/password/", views.settings_password, name="settings_password"),
+
+    # Conversational
+    path("scenarios/", views.scenario_list, name="scenario_list"),
+    path("scenarios/<int:pk>/", views.scenario_detail, name="scenario_detail"),
+    path("phrasebook/", views.phrasebook, name="phrasebook"),
+    
+    # Gamification
+    path("leagues/", views.leagues_list, name="leagues_list"),
+    path("shop/", views.shop_index, name="shop_index"),
+    path("shop/buy/<str:item>/", views.shop_purchase, name="shop_purchase"),
 ]

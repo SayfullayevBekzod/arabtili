@@ -203,9 +203,8 @@
 <script>
   function liveStats() {
     return {
-      xp: {{ game.xp_total |default: 0 }
-  },
-  level: { { game.level |default: 1 } },
+      xp: {{ game.xp_total |default: 0 }},
+  level: {{ game.level |default: 1 }},
   levelXp: 0,
     levelMax: 100,
       xp_pct: 0,
@@ -223,10 +222,8 @@
       this.xp_pct = data.xp_pct;
     } catch (e) {
       console.error("Live stats fetch error:", e);
-    }
-  }
-    }
-  }
+    }}
+    }}
 </script>
 
 {% endblock %}

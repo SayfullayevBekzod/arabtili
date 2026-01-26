@@ -51,7 +51,13 @@ from .models import (
     QuranSurah,
     QuranAyah,
     Mission,
-    UserMissionProgress
+    UserMissionProgress,
+    PlacementQuestion,
+    PlacementOption,
+    ScenarioCategory,
+    Scenario,
+    DialogLine,
+    PhrasebookEntry
 )
 from .progress_tracking import xp_for_next_level
 
@@ -98,11 +104,18 @@ def _calc_streak(user) -> dict:
         prev = d
     best = max(best, run)
     
-    # Save to DB
+    # Save to DB (Legacy UserStreak)
     UserStreak.objects.update_or_create(
         user=user, 
         defaults={"current_streak": cur, "best_streak": best}
     )
+
+    # Sync with UserGamification (New System)
+    g, _ = UserGamification.objects.get_or_create(user=user)
+    g.current_streak = cur
+    if best > g.longest_streak:
+        g.longest_streak = best
+    g.save(update_fields=['current_streak', 'longest_streak'])
 
     return {"current_streak": cur, "best_streak": best}
 
@@ -283,8 +296,11 @@ def _update_weak_areas(user):
     for cat, count in sorted_cats:
         # Pct can be just mapped to count for now (e.g. 1 word = 10% urgency, cap at 100%)
         pct = min(100, count * 20) 
+        # Ensure key is set
+        safe_key = f"cat_{cat.replace(' ', '_').lower()}"[:60]
         UserWeakArea.objects.create(
             user=user,
+            key=safe_key,
             title=f"{cat} ({count} words)",
             pct=pct,
             url="/practice/weak/"
@@ -527,7 +543,8 @@ def tajweed_whiteboard(request):
     """
     Whiteboard (Oq doska) for practice.
     """
-    return render(request, "tajweed/whiteboard.html")
+    letters = Letter.objects.filter(svg_path__isnull=False).exclude(svg_path='').order_by('order')
+    return render(request, "tajweed/whiteboard.html", {"letters": letters})
 
 
 def tajweed_detail(request, slug):
@@ -688,33 +705,30 @@ def home(request):
         "active_users": active_users,
     }
     
+    today = timezone.localdate()
+    
     if request.user.is_authenticated:
         g, _ = UserGamification.objects.get_or_create(user=request.user)
         context["game"] = g
         context["streak"] = _calc_streak(request.user)
         
-        # Next Lesson logic
-        from .models import UserLessonProgress, Lesson
-        last_progress = UserLessonProgress.objects.filter(user=request.user).order_by("-updated_at").first()
-        if last_progress:
-            # Simple logic: next lesson in the same unit or next unit
-            next_lesson = Lesson.objects.filter(
-                unit=last_progress.lesson.unit, 
-                order__gt=last_progress.lesson.order
-            ).order_by("order").first()
-            
-            if not next_lesson:
-                # Try next unit
-                next_unit = last_progress.lesson.unit.course.units.filter(
-                    order__gt=last_progress.lesson.unit.order
-                ).order_by("order").first()
-                if next_unit:
-                    next_lesson = next_unit.lessons.order_by("order").first()
-            
-            context["next_lesson"] = next_lesson
+        # Daily Missions
+        missions = _get_daily_missions(request.user)
+        for m in missions:
+            # Calculate percent for the UI
+            m.progress_percent = int((m.current_progress / m.mission.required_count) * 100) if m.mission.required_count > 0 else 0
+        context["daily_quests"] = missions # Rename key to match template
+        
+        # Add Courses - filter by user's current course level
+        user_course = request.user.profile.current_course if hasattr(request.user, 'profile') and request.user.profile.current_course else None
+        if user_course:
+            # Show only the user's current course level
+            context["courses"] = Course.objects.filter(is_published=True, level=user_course.level).order_by("id")
         else:
-            # Pick first lesson of first course
-            context["next_lesson"] = Lesson.objects.filter(unit__course__is_published=True).order_by("unit__course__level", "unit__order", "order").first()
+            # Show all courses if no selection
+            context["courses"] = Course.objects.filter(is_published=True).order_by("id")
+
+        return render(request, "dashboard.html", context) # Use new dashboard
 
     return render(request, "pages/home.html", context)
 
@@ -751,7 +765,72 @@ def letter_detail(request, pk):
 @login_required
 def letter_practice(request, pk):
     letter = get_object_or_404(Letter, pk=pk)
-    return render(request, "alphabet/practice.html", {"letter": letter})
+    
+    # 3 ta chalg'ituvchi variant (distractors)
+    distractors = list(Letter.objects.exclude(id=letter.id).order_by("?")[:3])
+    options = [letter] + distractors
+    random.shuffle(options)
+    
+    return render(request, "alphabet/practice.html", {
+        "letter": letter,
+        "options": options, 
+    })
+
+
+@require_POST
+@login_required
+def api_letter_finish(request, pk):
+    """
+    Spiral learning tugagach chaqiriladi (Review fazasi).
+    SM-2 bo'yicha keyingi qaytarish vaqtini belgilaymiz.
+    """
+    letter = get_object_or_404(Letter, pk=pk)
+    
+    # 1. UserCard topish yoki yaratish
+    card, created = UserCard.objects.get_or_create(
+        user=request.user,
+        letter=letter,
+        defaults={
+            "repetitions": 0,
+            "interval_days": 0,
+            "ease_factor": 2.5,
+            "due_at": timezone.now()
+        }
+    )
+    
+    # 2. SM-2 Logic (Simplified)
+    # 1-marta o'rgandi -> ertaga qaytaradi
+    # Agar review bo'lsa -> interval oshadi
+    
+    if created or card.repetitions == 0:
+        card.interval_days = 1
+        card.repetitions = 1
+    else:
+        # Spiral learningda user "Review" qismi uchun qaytgan bo'lsa:
+        # Easy (4) deb hisoblaymiz (chunki bu dars, quiz emas)
+        grade = 4 
+        card.ease_factor = max(1.3, card.ease_factor + (0.1 - (5 - grade) * (0.08 + (5 - grade) * 0.02)))
+        
+        if card.repetitions == 1:
+            card.interval_days = 6
+        else:
+            card.interval_days = int(card.interval_days * card.ease_factor)
+            
+        card.repetitions += 1
+
+    card.due_at = timezone.now() + timedelta(days=card.interval_days)
+    card.save()
+
+    # 3. XP berish (Optional)
+    g, _ = UserGamification.objects.get_or_create(user=request.user)
+    g.xp_total += 10
+    g.save()
+
+    return JsonResponse({
+        "status": "ok", 
+        "next_review": card.due_at.strftime("%Y-%m-%d"),
+        "xp_added": 10
+    })
 
 
 # ----------------------------
@@ -783,7 +862,24 @@ def course_detail(request, pk):
         for l in u.lessons.all():
             l.user_prog = progress_map.get(l.id)
 
-    return render(request, "courses/detail.html", {"course": course, "units": units})
+    return render(request, "courses/detail.html", {
+        "course": course,
+        "units": units
+    })
+
+@login_required
+def api_user_stats(request):
+    """
+    Real-time XP updates via polling.
+    """
+    g, _ = UserGamification.objects.get_or_create(user=request.user)
+    streak = _calc_streak(request.user)
+    return JsonResponse({
+        "xp": g.xp_total,
+        "level": g.level,
+        "hearts": g.hearts,
+        "streak": streak["current_streak"]
+    })
 
 
 @login_required
@@ -796,7 +892,42 @@ def lesson_detail(request, pk):
         if not UserLessonProgress.objects.filter(user=request.user, lesson=prev, is_completed=True).exists():
              return render(request, "pages/locked.html")
 
+    # If the lesson has blocks, we might want to redirect to the first block/exercise
+    if lesson.blocks:
+        # For now, let's just render the detail which will have a "Start" button
+        pass
+
     return render(request, "lessons/detail.html", {"lesson": lesson})
+
+# ----------------------------
+# COURSE SELECTION
+# ----------------------------
+@login_required
+def course_selection(request):
+    # Ensure profile exists safely
+    profile, created = Profile.objects.get_or_create(user=request.user)
+    
+    if request.method == "POST":
+        course_id = request.POST.get("course_id")
+        if not course_id:
+            messages.error(request, "Iltimos, avval kursni tanlang!")
+            return redirect("arab:course_selection")
+
+        course = get_object_or_404(Course, id=course_id)
+        
+        profile.current_course = course
+        profile.save()
+        
+        messages.success(request, f"{course.title} kursi tanlandi!")
+        return redirect("arab:home")
+        
+    courses = Course.objects.filter(is_published=True).order_by("id")
+    current_course = profile.current_course
+    
+    return render(request, "courses/selection.html", {
+        "courses": courses,
+        "current_course": current_course
+    })
 
 
 @login_required
@@ -806,9 +937,20 @@ def video_detail(request, pk):
     # Progress check
     prog, _ = UserVideoProgress.objects.get_or_create(user=request.user, video=video)
     
-    # Prev/Next logic could be added here
+    # Prev/Next logic
+    next_video = LessonVideo.objects.filter(lesson=video.lesson, order__gt=video.order).order_by("order").first()
+    prev_video = LessonVideo.objects.filter(lesson=video.lesson, order__lt=video.order).order_by("-order").first()
     
-    return render(request, "lessons/video.html", {"video": video, "progress": prog})
+    # Related (Same unit)
+    related_videos = LessonVideo.objects.filter(lesson__unit=video.lesson.unit).exclude(id=video.id).order_by("?")[:4]
+
+    return render(request, "lessons/video.html", {
+        "video": video, 
+        "progress": prog,
+        "next_video": next_video,
+        "prev_video": prev_video,
+        "related_videos": related_videos
+    })
 
 
 @require_POST
@@ -849,12 +991,24 @@ def video_library(request):
     """
     videos = LessonVideo.objects.select_related("lesson", "lesson__unit", "lesson__unit__course").order_by("-created_at")
     
-    # Filter
+    # Filter by q
     q = request.GET.get("q", "")
     if q:
         videos = videos.filter(title__icontains=q)
+    
+    # Filter by level
+    level = request.GET.get("level", "")
+    if level:
+        videos = videos.filter(lesson__unit__course__level=level)
         
-    return render(request, "lessons/library.html", {"videos": videos, "q": q})
+    levels = [l[0] for l in Course.LEVEL_CHOICES]
+    
+    return render(request, "lessons/library.html", {
+        "videos": videos, 
+        "q": q, 
+        "level": level,
+        "levels": levels
+    })
 
 
 # ----------------------------
@@ -1019,75 +1173,10 @@ def review_grade(request, card_id, grade):
     return redirect("arab:review")
 
 
-# ----------------------------
-# PLACEMENT TEST
-# ----------------------------
-@login_required
-def placement_test(request):
-    if request.method == "POST":
-        # Simple scoring logic for demo purposes
-        score = 0
-        # Answers key: q_id -> correct_option_index
-        answers = {
-            "1": "0", # Alif
-            "2": "1", # 28
-            "3": "0", # Right to Left
-            "4": "2", # Salam
-            "5": "0", # Kitab
-        }
-        
-        for q_id, correct_val in answers.items():
-            if request.POST.get(f"q_{q_id}") == correct_val:
-                score += 1
-                
-        # Determine level
-        if score <= 2:
-            level = 1 # A0
-            msg = "Boshlang‘ich daraja (A0). Alifbodan boshlaymiz!"
-        elif score <= 4:
-            level = 2 # A1
-            msg = "Yaxshi natija! (A1). So‘zlarni o‘rganishga o‘tamiz."
-        else:
-            level = 3 # A2
-            msg = "Ajoyib! (A2). Grammatika va o‘qishni davom ettiramiz."
-            
-        g, _ = UserGamification.objects.get_or_create(user=request.user)
-        g.level = level
-        g.xp_total += score * 50 # Bonus XP
-        g.save()
-        
-        # Unlock logic could go here (e.g. mark previous lessons as done)
-        
-        return render(request, "pages/placement_result.html", {"score": score, "level": level, "msg": msg})
-
-    questions = [
-        {
-            "id": 1, 
-            "text": "Arab alifbosidagi birinchi harf qaysi?", 
-            "options": ["Alif (ا)", "Ba (ب)", "Jim (ج)"]
-        },
-        {
-            "id": 2, 
-            "text": "Arab alifbosida nechta harf bor?", 
-            "options": ["26", "28", "32"]
-        },
-        {
-            "id": 3, 
-            "text": "Arab yozuvi qaysi tomondan yoziladi?", 
-            "options": ["O‘ngdan chapga", "Chapdan o‘ngga", "Tepadan pastga"]
-        },
-        {
-            "id": 4, 
-            "text": "'Salom' arab tilida qanday aytiladi?", 
-            "options": ["Marhaban", "Shukran", "Assalamu alaykum"]
-        },
-        {
-            "id": 5, 
-            "text": "'Kitob' so‘zining arabchasi?", 
-            "options": ["Kitab (كتاب)", "Qalam (قلم)", "Bab (باب)"]
-        },
-    ]
-    return render(request, "pages/placement.html", {"questions": questions})
+# (Legacy placement_test removed to avoid conflict)
+def legacy_placement_test_cleanup():
+    pass
+# (Cleanup complete)
 
 
 # ----------------------------
@@ -1609,15 +1698,8 @@ def api_match_reward(request):
             
             # Update gamification profile
             g, _ = UserGamification.objects.get_or_create(user=request.user)
-            # FIX: Ensure we use usage correct field (xp_total vs total_xp)
-            # Assuming xp_total based on previous context 
-            if hasattr(g, 'xp_total'):
-                 g.xp_total += xp
-                 current_xp = g.xp_total
-            else:
-                 g.total_xp += xp
-                 current_xp = g.total_xp
-                 
+            g.xp_total += xp
+            current_xp = g.xp_total
             g.save()
             
             # Check level up
@@ -1630,3 +1712,181 @@ def api_match_reward(request):
         return JsonResponse({"status": "ok", "xp_gained": 0})
     except Exception as e:
         return JsonResponse({"status": "error", "message": str(e)}, status=400)
+
+
+@login_required
+def placement_test(request):
+    if request.method == "POST":
+        correct_count = 0
+        total_questions = PlacementQuestion.objects.count()
+        for key, value in request.POST.items():
+            if key.startswith("q_"):
+                q_id = key.split("_")[1]
+                if PlacementOption.objects.filter(id=value, question_id=q_id, is_correct=True).exists():
+                    correct_count += 1
+        if total_questions > 0:
+            percentage = (correct_count / total_questions) * 100
+            if percentage < 30: level = "A0"
+            elif percentage < 60: level = "A1"
+            elif percentage < 85: level = "A2"
+            else: level = "B1"
+        else:
+            level = "A0"
+        profile, _ = Profile.objects.get_or_create(user=request.user)
+        suggested_course = Course.objects.filter(level=level).first()
+        if suggested_course:
+            profile.current_course = suggested_course
+            profile.save()
+            messages.success(request, f"Sizning darajangiz: {level}. {suggested_course.title} tavsiya etiladi!")
+        else:
+            messages.success(request, f"Sizning darajangiz: {level}.")
+        return redirect("arab:home")
+    questions = PlacementQuestion.objects.prefetch_related("options").all()
+    if not questions.exists():
+        messages.info(request, "Hozircha placement test savollari yo'q. A0 darajadan boshlang.")
+        return redirect("arab:home")
+    return render(request, "pages/placement.html", {"questions": questions})
+
+
+@login_required
+def lesson_run(request, pk):
+    lesson = get_object_or_404(Lesson, pk=pk)
+    block_index = int(request.GET.get("block", 0))
+    if not lesson.blocks or block_index >= len(lesson.blocks):
+        _update_lesson_progress(request.user, lesson)
+        g, _ = UserGamification.objects.get_or_create(user=request.user)
+        g.xp_total += 50
+        g.save()
+        messages.success(request, f"{lesson.title} muvaffaqiyatli tugatildi! +50 XP")
+        return redirect("arab:home")
+    current_block = lesson.blocks[block_index]
+    total_blocks = len(lesson.blocks)
+    progress_pct = int(((block_index) / total_blocks) * 100)
+    context = {
+        "lesson": lesson,
+        "block": current_block,
+        "block_index": block_index,
+        "next_block_index": block_index + 1,
+        "total_blocks": total_blocks,
+        "progress_pct": progress_pct,
+    }
+    if current_block["type"] == "vocabulary":
+        word_ids = current_block.get("word_ids", [])
+        context["words"] = Word.objects.filter(id__in=word_ids)
+    return render(request, "lessons/run.html", context)
+
+
+@login_required
+@require_POST
+def api_lesson_submit(request, pk):
+    return JsonResponse({"status": "ok", "xp_gained": 10})
+
+# ----------------------------
+# SCENARIOS / CONVERSATIONAL
+# ----------------------------
+
+@login_required
+def scenario_list(request):
+    categories = ScenarioCategory.objects.prefetch_related("scenarios").all()
+    recent_scenarios = Scenario.objects.filter(is_published=True).order_by("-created_at")[:5]
+    return render(request, "scenarios/list.html", {
+        "categories": categories,
+        "recent_scenarios": recent_scenarios
+    })
+
+
+@login_required
+def scenario_detail(request, pk):
+    scenario = get_object_or_404(Scenario.objects.prefetch_related("dialog_lines"), pk=pk)
+    return render(request, "scenarios/detail.html", {
+        "scenario": scenario,
+        "dialog_lines": scenario.dialog_lines.all()
+    })
+
+
+@login_required
+def phrasebook(request):
+    category_id = request.GET.get("category")
+    scenario_id = request.GET.get("scenario")
+    
+    phrases = PhrasebookEntry.objects.all()
+    
+    if category_id:
+        phrases = phrases.filter(category_id=category_id)
+    if scenario_id:
+        phrases = phrases.filter(scenario_id=scenario_id)
+        
+    categories = ScenarioCategory.objects.all()
+    
+    return render(request, "scenarios/phrasebook.html", {
+        "phrases": phrases,
+        "categories": categories,
+        "current_category": category_id,
+        "current_scenario": scenario_id
+    })
+
+
+@login_required
+def leagues_list(request):
+    """
+    Shows leaderboard for current week.
+    Simple version: Shows top 20 users by League XP.
+    """
+    g, _ = UserGamification.objects.get_or_create(user=request.user)
+    
+    # Filter users in same league
+    # In real app, we would group by 'cohort' (random 30 users).
+    # For now, global leaderboard per league tier.
+    leaderboard = UserGamification.objects.filter(
+        current_league=g.current_league
+    ).select_related('user', 'user__profile').order_by('-league_xp')[:50]
+    print(f"DEBUG: Rendering leagues.html with leaderboard len: {len(leaderboard)}")
+    return render(request, "pages/leagues.html", {
+        "leaderboard": leaderboard,
+        "my_league": g.get_current_league_display()
+    })
+
+
+@login_required
+def shop_index(request):
+    """
+    Item shop (Streak Freeze, Heart Refill, etc)
+    """
+    g, _ = UserGamification.objects.get_or_create(user=request.user)
+    return render(request, "pages/shop.html", {"game": g})
+
+
+@login_required
+def shop_purchase(request, item):
+    """
+    Handle shop purchases:
+    - streak_freeze: 200 XP
+    - hearts: 300 XP
+    """
+    g, _ = UserGamification.objects.get_or_create(user=request.user)
+    
+    if request.method == "POST":
+        if item == "streak_freeze":
+            cost = 200
+            if g.xp_total >= cost and g.streak_freeze_count == 0:
+                g.xp_total -= cost
+                g.streak_freeze_count += 1
+                g.save()
+                messages.success(request, "Streak Freeze sotib olindi! 🎉")
+            elif g.streak_freeze_count > 0:
+                messages.warning(request, "Sizda allaqachon Streak Freeze bor.")
+            else:
+                messages.error(request, f"Yetarli XP yo'q. Kerak: {cost} XP")
+                
+        elif item == "hearts":
+            cost = 300
+            if g.xp_total >= cost:
+                g.xp_total -= cost
+                g.hearts = 5  # Full refill
+                g.save()
+                messages.success(request, "Jonlar to'ldirildi! ❤️")
+            else:
+                messages.error(request, f"Yetarli XP yo'q. Kerak: {cost} XP")
+    
+    return redirect("arab:shop_index")
+

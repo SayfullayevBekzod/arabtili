@@ -1,15 +1,14 @@
 {% extends "base.html" %}
-{% block title %}Tajvid Testi{% endblock %}
+{% block title %}Tajvid Testi - AlifPro Academy{% endblock %}
 {% block content %}
 
 <div class="max-w-3xl mx-auto py-12 px-4">
   <div class="text-center mb-10">
     <div
-      class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-bold tracking-widest uppercase mb-4">
-      🎓 Tajvid Bilimi
-    </div>
+      class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-black tracking-widest uppercase mb-4">
+      🎓 Tajvid Bilimi</div>
     <h1 class="text-4xl font-black text-white">{{ quiz.prompt }}</h1>
-    <p class="mt-4 text-slate-400">To‘g‘ri javobni tanlang va bilimingizni tekshiring.</p>
+    <p class="mt-4 text-slate-400 text-lg">To‘g‘ri javobni tanlang va bilimingizni tekshiring.</p>
   </div>
 
   <form method="post" class="space-y-6">
@@ -18,34 +17,36 @@
     <div class="grid gap-4">
       {% for opt in options %}
       <label
-        class="relative flex items-center p-6 rounded-3xl bg-slate-900/40 border border-white/10 hover:border-emerald-500/50 hover:bg-slate-800/50 cursor-pointer transition-all group overflow-hidden">
+        class="relative flex items-center p-7 rounded-[2rem] bg-slate-900/60 border border-white/10 hover:border-emerald-500/50 hover:bg-slate-800/80 cursor-pointer transition-all duration-300 group overflow-hidden">
         <input type="radio" name="option" value="{{ opt.id }}" class="peer sr-only" required>
 
         <!-- Radio circle -->
         <div
-          class="w-6 h-6 rounded-full border-2 border-slate-600 peer-checked:border-emerald-500 peer-checked:bg-emerald-500 transition-all mr-4 flex-shrink-0">
+          class="w-6 h-6 rounded-full border-2 border-slate-700 peer-checked:border-emerald-500 peer-checked:bg-emerald-500 transition-all mr-5 flex-shrink-0 shadow-inner">
+          <div class="w-2 h-2 m-auto bg-slate-950 rounded-full opacity-0 peer-checked:opacity-100 transition-opacity">
+          </div>
         </div>
 
-        <span class="text-lg text-slate-200 peer-checked:text-white font-bold">{{ opt.text }}</span>
+        <span class="text-xl text-slate-300 peer-checked:text-white font-bold transition-colors">{{ opt.text }}</span>
 
         <!-- Subtle glow on check -->
         <div
-          class="absolute inset-0 rounded-3xl ring-2 ring-emerald-500 ring-opacity-0 peer-checked:ring-opacity-100 transition-all pointer-events-none">
+          class="absolute inset-0 rounded-[2rem] ring-2 ring-emerald-500 ring-opacity-0 peer-checked:ring-opacity-100 transition-all pointer-events-none">
         </div>
       </label>
       {% endfor %}
     </div>
 
-    <div class="pt-8">
+    <div class="pt-10">
       <button type="submit"
-        class="w-full py-5 rounded-[2rem] bg-emerald-500 text-slate-950 font-black text-xl shadow-xl shadow-emerald-500/20 hover:scale-[1.02] active:scale-[0.98] transition-all">
-        TEKSHIRISH
+        class="w-full py-6 rounded-3xl bg-emerald-500 text-slate-950 font-black text-xl shadow-2xl shadow-emerald-500/20 hover:bg-emerald-400 hover:scale-[1.02] active:scale-[0.98] transition-all uppercase tracking-widest">
+        TEKSHIRISH 🚀
       </button>
     </div>
   </form>
 
-  <div class="mt-10 text-center text-xs text-slate-500 uppercase tracking-widest">
-    Keyingi savolga o‘tish uchun javobni belgilang
+  <div class="mt-12 text-center text-[10px] text-slate-500 uppercase tracking-[0.3em] font-black">
+    Javobni belgilab keyingi bosqichga o'ting
   </div>
 </div>
 

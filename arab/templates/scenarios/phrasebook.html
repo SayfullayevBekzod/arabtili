@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block title %}Phrasebook - Kundalik Iboralar{% endblock %}
+{% block content %}
+
+<div class="max-w-6xl mx-auto py-12 px-4">
+    <div class="mb-12 flex flex-col md:flex-row justify-between items-end gap-6">
+        <div class="space-y-4">
+            <h1 class="text-3xl md:text-5xl font-black text-white">Suhbat <span
+                    class="text-emerald-400">Iboralari</span></h1>
+            <p class="text-slate-400 max-w-xl">
+                Eng ko'p ishlatiladigan tayyor iboralar to'plami.
+                Vaziyatga qarab kerakli jumlani tezda toping.
+            </p>
+        </div>
+
+        <!-- Filter Placeholder -->
+        <div class="flex gap-2">
+            {% for cat in categories %}
+            <a href="?category={{ cat.id }}"
+                class="px-4 py-2 rounded-xl border border-white/10 {% if current_category == cat.id|stringformat:'s' %}bg-emerald-500 text-slate-950 font-bold{% else %}bg-white/5 text-slate-400 hover:text-white{% endif %} transition text-sm">
+                {{ cat.name }}
+            </a>
+            {% endfor %}
+            {% if current_category %}
+            <a href="{% url 'arab:phrasebook' %}"
+                class="px-4 py-2 rounded-xl bg-white/5 text-slate-500 hover:text-white transition text-sm">X</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- PHRASES GRID -->
+    <div class="grid md:grid-cols-2 gap-4">
+        {% for phrase in phrases %}
+        <div
+            class="group relative overflow-hidden rounded-3xl bg-slate-900/50 border border-white/10 p-6 flex items-center justify-between transition-all hover:border-emerald-500/30 hover:bg-slate-900/80">
+            <div class="space-y-3 flex-1">
+                <div class="arabic-font text-2xl text-white font-bold text-right mb-2" dir="rtl">{{ phrase.text_arabic }}</div>
+                <div class="text-xs text-slate-500 italic">{{ phrase.transliteration }}</div>
+                <div class="text-white font-bold">
+                    {{ phrase.text_uz }}
+                    {% if phrase.text_ru %}
+                    <span class="text-slate-500 font-normal mx-2">|</span>
+                    <span class="text-slate-400 font-medium text-sm">{{ phrase.text_ru }}</span>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="pl-6 border-l border-white/5">
+                {% if phrase.audio %}
+                <button onclick="document.getElementById('p_audio_{{ phrase.id }}').play()"
+                    class="h-14 w-14 rounded-full bg-emerald-500 text-slate-950 grid place-items-center hover:scale-110 active:scale-95 transition shadow-lg shadow-emerald-500/20">
+                    <i class="fas fa-volume-up text-xl"></i>
+                </button>
+                <audio id="p_audio_{{ phrase.id }}" src="{{ phrase.audio.url }}"></audio>
+                {% else %}
+                <div class="h-14 w-14 rounded-full bg-white/5 text-slate-600 grid place-items-center">
+                    <i class="fas fa-volume-mute"></i>
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Decorative corner accent -->
+            <div
+                class="absolute -right-2 -bottom-2 h-10 w-10 bg-emerald-500/10 rounded-tl-3xl opacity-0 group-hover:opacity-100 transition-opacity">
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-span-full py-20 text-center space-y-4">
+            <div class="text-5xl text-slate-800">📭</div>
+            <h3 class="text-xl font-bold text-slate-600">Bu bo'limda hozircha iboralar mavjud emas</h3>
+            <p class="text-slate-700">Tez orada yangi muloqotlar qo'shiladi!</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

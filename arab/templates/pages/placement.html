@@ -1,51 +1,194 @@
-{% extends "base.html" %}
-
-{% block title %}Placement Test{% endblock %}
-
+{% extends 'base.html' %}
+{% block title %}Darajangizni Aniqlang | AlifPro{% endblock %}
 {% block content %}
-<div class="max-w-2xl mx-auto py-12 px-4">
-    <div class="text-center mb-10">
-        <h1 class="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">
-            Darajani aniqlash
-        </h1>
-        <p class="mt-4 text-lg text-slate-400">
-            Ushbu qisqa test orqali sizning darajangizni (A0, A1, A2) aniqlaymiz.
-        </p>
+
+<div class="max-w-4xl mx-auto py-12 px-4 relative overflow-hidden">
+    <!-- Background glows -->
+    <div class="pointer-events-none absolute -top-40 -left-40 h-80 w-80 rounded-full bg-emerald-500/10 blur-[100px]">
+    </div>
+    <div class="pointer-events-none absolute -bottom-40 -right-40 h-80 w-80 rounded-full bg-sky-500/10 blur-[100px]">
     </div>
 
-    <form method="post" class="space-y-8">
+    <!-- Header -->
+    <div class="relative z-10 mb-12 text-center space-y-4">
+        <div
+            class="inline-flex items-center gap-3 px-4 py-2 rounded-2xl bg-white/5 border border-white/10 text-emerald-400 text-[10px] font-black uppercase tracking-[0.3em]">
+            <span class="flex h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)]"></span>
+            Darajani aniqlash
+        </div>
+        <h1 class="text-5xl md:text-6xl font-black text-white leading-tight tracking-tight">Bilimingizni sinang</h1>
+        <p class="text-slate-400 max-w-lg mx-auto font-medium">Savollarga javob bering va tizim sizga eng mos keladigan
+            kursni avtomatik tavsiya etadi</p>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="relative z-10 mb-12 group">
+        <div class="flex justify-between text-[10px] font-black uppercase tracking-widest text-slate-500 mb-3 ml-1">
+            <span>Savol: <span id="currentQ" class="text-white">1</span> <span class="mx-1">/</span> <span id="totalQ"
+                    class="text-slate-600">{{ questions|length }}</span></span>
+            <span id="progressPercent" class="text-emerald-400">0%</span>
+        </div>
+        <div class="h-3 w-full bg-slate-950 rounded-full overflow-hidden border border-white/5 p-0.5">
+            <div id="progressBar"
+                class="h-full bg-gradient-to-r from-emerald-500 via-sky-500 to-emerald-500 rounded-full transition-all duration-700 shadow-[0_0_15px_rgba(16,185,129,0.3)]"
+                style="width: 0%"></div>
+        </div>
+    </div>
+
+    <form method="POST" id="placementForm" class="relative z-10">
         {% csrf_token %}
 
-        {% for q in questions %}
-        <div class="p-6 rounded-3xl bg-slate-900/50 border border-white/5 shadow-xl backdrop-blur-sm">
-            <h3 class="text-xl font-bold text-white mb-4">
-                <span class="text-emerald-500 mr-2">{{ q.id }}.</span> {{ q.text }}
-            </h3>
+        <div class="grid grid-cols-1 min-h-[450px]">
+            {% for q in questions %}
+            <div class="question-slide col-start-1 row-start-1 transition-all duration-700 ease-out"
+                style="{% if not forloop.first %}opacity: 0; pointer-events: none; transform: translateX(40px);{% endif %}"
+                data-index="{{ forloop.counter0 }}">
 
-            <div class="grid gap-3">
-                {% for opt in q.options %}
-                <label
-                    class="relative flex items-center p-4 rounded-xl border border-white/10 hover:border-emerald-500/50 hover:bg-emerald-500/10 cursor-pointer transition-all group">
-                    <input type="radio" name="q_{{ q.id }}" value="{{ forloop.counter0 }}" class="peer sr-only">
+                <div
+                    class="bg-slate-900/40 p-8 md:p-12 rounded-[3rem] border border-white/10 backdrop-blur-xl shadow-2xl relative overflow-hidden group">
                     <div
-                        class="w-5 h-5 rounded-full border-2 border-slate-500 peer-checked:border-emerald-500 peer-checked:bg-emerald-500 transition-all mr-3">
+                        class="absolute -top-24 -right-24 h-48 w-48 bg-emerald-500/5 rounded-full blur-3xl group-hover:bg-emerald-500/10 transition-all">
                     </div>
-                    <span class="text-slate-300 peer-checked:text-white font-medium">{{ opt }}</span>
-                    <div
-                        class="absolute inset-0 rounded-xl ring-2 ring-emerald-500 ring-opacity-0 peer-checked:ring-opacity-100 transition-all">
+
+                    <div class="text-center mb-10">
+                        <div
+                            class="inline-flex items-center justify-center w-16 h-16 rounded-[2rem] bg-slate-950 border border-white/10 text-emerald-400 font-black text-2xl mb-6 shadow-xl relative overflow-hidden">
+                            <div class="absolute inset-0 bg-emerald-500/5"></div>
+                            <span class="relative">{{ forloop.counter }}</span>
+                        </div>
+                        <h3 class="text-2xl md:text-3xl text-white font-black leading-snug tracking-tight">{{ q.text }}
+                        </h3>
                     </div>
-                </label>
-                {% endfor %}
+
+                    <div class="grid gap-4">
+                        {% for obj in q.options.all %}
+                        <label
+                            class="option-label flex items-center gap-5 p-6 rounded-[2rem] border-2 border-white/5 bg-white/[0.02] cursor-pointer hover:bg-white/5 hover:border-emerald-500/30 transition-all group/opt">
+                            <input type="radio" name="q_{{ q.id }}" value="{{ obj.id }}" class="hidden peer" required
+                                onchange="handleOptionSelect({{ forloop.parentloop.counter0 }})">
+                            <div
+                                class="w-8 h-8 rounded-2xl border-2 border-slate-700 flex items-center justify-center group-hover/opt:border-emerald-500/50 peer-checked:border-emerald-500 peer-checked:bg-emerald-500 transition-all shadow-lg">
+                                <i class="fas fa-check text-xs text-slate-900 opacity-0 peer-checked:opacity-100"></i>
+                            </div>
+                            <span class="text-white text-lg font-black tracking-tight flex-1">{{ obj.text }}</span>
+                        </label>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Controls -->
+        <div class="mt-10 flex justify-between items-center px-4">
+            <button type="button" id="prevBtn" onclick="prevQuestion()"
+                class="flex items-center gap-3 text-slate-500 hover:text-white transition-all font-black text-xs uppercase tracking-widest px-6 py-3 rounded-2xl bg-white/5 border border-transparent hover:border-white/10">
+                <i class="fas fa-arrow-left"></i> Ortga
+            </button>
+            <div class="flex gap-4">
+                <button type="button" id="nextBtn" onclick="nextQuestion()"
+                    class="group relative px-10 py-4 rounded-2xl bg-emerald-500 text-slate-950 font-black uppercase tracking-widest text-xs hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-emerald-500/20 flex items-center gap-3">
+                    Keyingisi <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                </button>
+                <button type="submit" id="submitBtn"
+                    class="hidden px-10 py-4 rounded-2xl bg-white text-slate-950 font-black uppercase tracking-widest text-xs hover:scale-105 active:scale-95 transition-all shadow-2xl flex items-center gap-3">
+                    <i class="fas fa-check-double"></i> Yakunlash
+                </button>
             </div>
         </div>
-        {% endfor %}
 
-        <div class="pt-6">
-            <button type="submit"
-                class="w-full py-4 rounded-2xl bg-gradient-to-r from-emerald-500 to-cyan-600 text-white font-bold text-lg shadow-lg shadow-emerald-500/20 hover:scale-[1.02] active:scale-[0.98] transition-transform">
-                Natijani ko‘rish
-            </button>
-        </div>
     </form>
 </div>
+
+<script>
+    let currentStep = 0;
+    const slides = document.querySelectorAll('.question-slide');
+    const totalSteps = slides.length;
+    const nextBtn = document.getElementById('nextBtn');
+    const submitBtn = document.getElementById('submitBtn');
+    const progressBar = document.getElementById('progressBar');
+    const progressPercent = document.getElementById('progressPercent');
+    const currentQEl = document.getElementById('currentQ');
+
+    function updateProgress() {
+        const percent = Math.round(((currentStep + 1) / totalSteps) * 100);
+        progressBar.style.width = percent + '%';
+        progressPercent.textContent = percent + '%';
+        currentQEl.textContent = currentStep + 1;
+    }
+
+    function updateView() {
+        slides.forEach((slide, index) => {
+            if (index === currentStep) {
+                slide.style.opacity = '1';
+                slide.style.pointerEvents = 'auto';
+                slide.style.transform = 'translateX(0)';
+            } else if (index < currentStep) {
+                slide.style.opacity = '0';
+                slide.style.pointerEvents = 'none';
+                slide.style.transform = 'translateX(-40px)';
+            } else {
+                slide.style.opacity = '0';
+                slide.style.pointerEvents = 'none';
+                slide.style.transform = 'translateX(40px)';
+            }
+        });
+
+        if (currentStep === totalSteps - 1) {
+            nextBtn.classList.add('hidden');
+            submitBtn.classList.remove('hidden');
+        } else {
+            nextBtn.classList.remove('hidden');
+            submitBtn.classList.add('hidden');
+        }
+
+        updateProgress();
+    }
+
+    function nextQuestion() {
+        if (currentStep < totalSteps - 1) {
+            currentStep++;
+            updateView();
+        }
+    }
+
+    function prevQuestion() {
+        if (currentStep > 0) {
+            currentStep--;
+            updateView();
+        }
+    }
+
+    function handleOptionSelect(idx) {
+        const slide = slides[idx];
+        const labels = slide.querySelectorAll('.option-label');
+        labels.forEach(l => {
+            if (l.querySelector('input:checked')) {
+                l.classList.add('border-emerald-500', 'bg-emerald-500/10');
+            } else {
+                l.classList.remove('border-emerald-500', 'bg-emerald-500/10');
+            }
+        });
+
+        setTimeout(() => {
+            if (currentStep < totalSteps - 1) {
+                nextQuestion();
+            }
+        }, 600);
+    }
+    updateProgress();
+</script>
+
+<style>
+    .option-label:has(input:checked) {
+        border-color: rgba(16, 185, 129, 0.5);
+        background: rgba(16, 185, 129, 0.1);
+        box-shadow: 0 10px 30px -10px rgba(16, 185, 129, 0.2);
+    }
+
+    .option-label:has(input:checked) .fa-check {
+        opacity: 1;
+    }
+</style>
+
 {% endblock %}

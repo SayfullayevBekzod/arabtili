@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto px-4 py-8 pb-32">
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-8">
+        <div>
+            <h1 class="text-3xl font-bold text-white mb-2">{{ scenario.title }}</h1>
+            <p class="text-gray-400">{{ scenario.description }}</p>
+        </div>
+        <div class="px-4 py-2 bg-purple-900/50 rounded-lg text-purple-300 border border-purple-500/30">
+            {{ scenario.get_difficulty_display }}
+        </div>
+    </div>
+
+    <!-- Chat Interface -->
+    <div class="space-y-6">
+        {% for line in dialog_lines %}
+        {% if line.is_user_line %}
+        <!-- USER LINE (Right) -->
+        <div class="flex flex-col items-end animate-slide-in-right opacity-0"
+            style="animation-delay: {{ forloop.counter0 }}00ms;">
+            <div class="flex items-end gap-3 max-w-[85%] flex-row-reverse">
+                <div
+                    class="w-10 h-10 rounded-full bg-cyan-600 flex items-center justify-center text-white font-bold text-sm shrink-0 border border-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.3)]">
+                    ME
+                </div>
+                <div
+                    class="bg-gradient-to-br from-cyan-900/80 to-blue-900/80 p-5 rounded-2xl rounded-br-none border border-cyan-500/30 shadow-lg relative group transition hover:scale-[1.01]">
+                    <!-- Audio btn -->
+                    {% if line.audio %}
+                    <button onclick="playAudio('{{ line.audio.url }}')"
+                        class="absolute -left-3 -top-3 bg-cyan-500 hover:bg-cyan-400 text-white w-8 h-8 rounded-full flex items-center justify-center shadow-lg transition">
+                        <i class="fas fa-play text-xs"></i>
+                    </button>
+                    {% endif %}
+
+                    <p class="text-2xl font-arabic text-right mb-2 leading-relaxed" dir="rtl">{{ line.text_arabic }}</p>
+                    <p class="text-sm text-cyan-200/70 mb-1 italic text-right">{{ line.transliteration }}</p>
+                    <p class="text-base text-gray-100 text-right">{{ line.text_uz }}</p>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <!-- PARTNER LINE (Left) -->
+        <div class="flex flex-col items-start animate-slide-in-left opacity-0"
+            style="animation-delay: {{ forloop.counter0 }}00ms;">
+            <div class="flex items-end gap-3 max-w-[85%]">
+                <div
+                    class="w-10 h-10 rounded-full bg-purple-600 flex items-center justify-center text-white font-bold text-xs shrink-0 border border-purple-400 shadow-[0_0_10px_rgba(192,132,252,0.3)]">
+                    {{ line.character_name|slice:":2"|upper }}
+                </div>
+                <div
+                    class="bg-gray-800/80 p-5 rounded-2xl rounded-bl-none border border-gray-600/50 shadow-lg relative group transition hover:scale-[1.01]">
+                    <!-- Audio btn -->
+                    {% if line.audio %}
+                    <button onclick="playAudio('{{ line.audio.url }}')"
+                        class="absolute -right-3 -top-3 bg-purple-500 hover:bg-purple-400 text-white w-8 h-8 rounded-full flex items-center justify-center shadow-lg transition">
+                        <i class="fas fa-play text-xs"></i>
+                    </button>
+                    {% endif %}
+
+                    <div class="text-xs text-purple-400 font-bold mb-1">{{ line.character_name }}</div>
+                    <p class="text-2xl font-arabic mb-2 leading-relaxed text-gray-100" dir="rtl">{{ line.text_arabic }}
+                    </p>
+                    <p class="text-sm text-gray-500 mb-1 italic">{{ line.transliteration }}</p>
+                    <p class="text-base text-gray-300">{{ line.text_uz }}</p>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+
+    <!-- Finish Action -->
+    <div class="mt-12 text-center">
+        <button
+            class="px-8 py-3 bg-gradient-to-r from-green-500 to-emerald-600 rounded-full font-bold text-white shadow-lg shadow-green-500/30 hover:shadow-green-500/50 transition transform hover:-translate-y-1">
+            <i class="fas fa-check-circle mr-2"></i> Yakunlash (+{{ scenario.xp_reward }} XP)
+        </button>
+    </div>
+</div>
+
+<audio id="main-audio"></audio>
+
+<script>
+    function playAudio(url) {
+        const audio = document.getElementById('main-audio');
+        audio.src = url;
+        audio.play();
+    }
+
+    // Simple animation trigger
+    document.addEventListener("DOMContentLoaded", () => {
+        const lines = document.querySelectorAll('.animate-slide-in-left, .animate-slide-in-right');
+        lines.forEach(line => {
+            // Delay is inline style
+            setTimeout(() => {
+                line.classList.remove('opacity-0');
+                line.classList.add('animate-entered');
+            }, parseInt(line.style.animationDelay) || 0);
+        });
+    });
+</script>
+
+<style>
+    @keyframes slideInLeft {
+        from {
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    @keyframes slideInRight {
+        from {
+            opacity: 0;
+            transform: translateX(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    .animate-entered.animate-slide-in-left {
+        animation: slideInLeft 0.5s ease-out forwards;
+    }
+
+    .animate-entered.animate-slide-in-right {
+        animation: slideInRight 0.5s ease-out forwards;
+    }
+</style>
+{% endblock %}

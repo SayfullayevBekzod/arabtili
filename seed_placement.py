@@ -1,0 +1,136 @@
+import os
+import django
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
+django.setup()
+
+from arab.models import PlacementQuestion, PlacementOption
+
+def seed():
+    # Clear existing to avoid duplicates or confusion
+    PlacementQuestion.objects.all().delete()
+    print("Cleared existing questions.")
+
+    questions = [
+        {
+            "text": "Arab tilida nechta harf bor?",
+            "options": [
+                ("28 ta", True),
+                ("29 ta", False),
+                ("26 ta", False),
+                ("32 ta", False)
+            ]
+        },
+        {
+            "text": "Qaysi so'z 'Salom' degan ma'noni bildiradi?",
+            "options": [
+                ("Assalomu alaykum", True),
+                ("Marhaban", False),
+                ("Shukran", False),
+                ("Kayfa haluk", False)
+            ]
+        },
+        {
+            "text": "Qaysi harf 'B' (Ba) harfi?",
+            "options": [
+                ("ب", True),
+                ("ت", False),
+                ("ث", False),
+                ("ن", False)
+            ]
+        },
+        {
+            "text": "'Kitob' so'zining arabcha tarjimasi nima?",
+            "options": [
+                ("Kitabun (كِتَابٌ)", True),
+                ("Qalamun (قَلَمٌ)", False),
+                ("Maktabun (مَكْتَبٌ)", False),
+                ("Babun (بَابٌ)", False)
+            ]
+        },
+        {
+            "text": "Arab yozuvi qaysi tomondan yoziladi?",
+            "options": [
+                ("O'ngdan chapga", True),
+                ("Chapdan o'ngga", False),
+                ("Tepadan pastga", False),
+                ("Farqi yo'q", False)
+            ]
+        },
+        {
+            "text": "Qaysi so'z muzakkar (erkak) jinsida?",
+            "options": [
+                ("Qalamun (قَلَمٌ)", True),
+                ("Sayyaratun (سَيَّارَةٌ)", False),
+                ("Madrasatun (مَدْرَسَةٌ)", False),
+                ("Bintun (بِنْتٌ)", False)
+            ]
+        },
+        {
+            "text": "'Ana' (أَنَا) olmoshi nimani bildiradi?",
+            "options": [
+                ("Men", True),
+                ("Sen", False),
+                ("U", False),
+                ("Biz", False)
+            ]
+        },
+        {
+            "text": "'Haza' (هَذَا) so'zining ma'nosi?",
+            "options": [
+                ("Bu (muzakkar)", True),
+                ("Bu (muannas)", False),
+                ("Ular", False),
+                ("Ana u", False)
+            ]
+        },
+        {
+            "text": "Qaysi jumla to'g'ri (Ismiy jumla)?",
+            "options": [
+                ("Al-qalamu jadidun (Qalam yangidir)", True),
+                ("Jadidun al-qalamu", False),
+                ("Al-qalamu jadidan", False),
+                ("Qalamun al-jadidu", False)
+            ]
+        },
+        {
+            "text": "Fe'lning o'tgan zamon shaklini toping (U yozdi):",
+            "options": [
+                ("Kataba (كَتَبَ)", True),
+                ("Yaktubu (يَكْتُبُ)", False),
+                ("Uktub (اُكْتُبْ)", False),
+                ("Katibun (كَاتِبٌ)", False)
+            ]
+        },
+        {
+            "text": "'Man' (مَنْ) so'roq yuklamasi nima uchun ishlatiladi?",
+            "options": [
+                ("Odamlar (kim?) uchun", True),
+                ("Narsalar (nima?) uchun", False),
+                ("Vaqt (qachon?) uchun", False),
+                ("Joy (qayer?) uchun", False)
+            ]
+        },
+        {
+            "text": "Izofa (qaratqich kelishigi) qaysi misolda to'g'ri berilgan?",
+            "options": [
+                ("Kitabu Zaydin (Zaydning kitobi)", True),
+                ("Kitabun Zaydun", False),
+                ("Al-kitabu Zaydin", False),
+                ("Kitabu Zaydan", False)
+            ]
+        }
+    ]
+
+    count = 0
+    for q_data in questions:
+        q = PlacementQuestion.objects.create(text=q_data["text"])
+        for opt_text, is_correct in q_data["options"]:
+            PlacementOption.objects.create(question=q, text=opt_text, is_correct=is_correct)
+        count += 1
+        print(f"Added question: {q.text}")
+
+    print(f"Successfully seeded {count} questions.")
+
+if __name__ == '__main__':
+    seed()

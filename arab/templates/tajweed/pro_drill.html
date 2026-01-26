@@ -103,9 +103,9 @@
         const rawExamples = [
             {% for ex in examples %}
     {
-        id: { { ex.id } },
+        id: {{ ex.id }},
         arabic: "{{ ex.arabic_text|escapejs }}",
-            ruleId: { { ex.rule.id } },
+            ruleId: {{ ex.rule.id }},
         ruleTitle: "{{ ex.rule.title|escapejs }}"
     },
     {% endfor %}
@@ -113,7 +113,7 @@
 
     const allRules = [
         {% for r in rules_list %}
-    { id: { { r.id } }, title: "{{ r.title|escapejs }}" },
+    { id: {{ r.id }}, title: "{{ r.title|escapejs }}" },
     {% endfor %}
         ];
 
@@ -162,8 +162,7 @@
                 this.timer--;
                 if (this.timer <= 0) {
                     this.submitAnswer(null); // Time out
-                }
-            }, 1000);
+                }}, 1000);
         },
 
         submitAnswer(ruleId) {
@@ -197,8 +196,7 @@
             this.score = 0;
             // Shuffle rawExamples for next run
             rawExamples.sort(() => 0.5 - Math.random());
-        }
-    }
+        }}
 }
 </script>
 
