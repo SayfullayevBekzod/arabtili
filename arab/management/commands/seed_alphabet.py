@@ -38,9 +38,9 @@ class Command(BaseCommand):
 
         for data in ALPHABET:
             letter, created = Letter.objects.update_or_create(
-                name=data["name"],
+                arabic=data["arabic"],
                 defaults={
-                    "arabic": data["arabic"],
+                    "name": data["name"],
                     "isolated": data["isolated"],
                     "initial": data["initial"],
                     "medial": data["medial"],

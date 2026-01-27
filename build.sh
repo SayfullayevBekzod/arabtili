@@ -24,7 +24,10 @@ python manage.py seed_all
 # Extra: Import from database_export.json if exists and needed
 if [ -f "database_export.json" ]; then
     echo "📦 database_export.json topildi. Import qilinmoqdami? (Word count checking...)"
-    WORD_COUNT=$(python manage.py shell -c "from arab.models import Word; print(Word.objects.count())" 2>/dev/null || echo "0")
+    # Use tail and grep to extract only the last numeric output (handles potential debug logs)
+    WORD_COUNT=$(python manage.py shell -c "from arab.models import Word; print(Word.objects.count())" 2>/dev/null | tail -n 1 | grep -o '[0-9]\+')
+    if [[ -z "$WORD_COUNT" ]]; then WORD_COUNT=0; fi
+    
     if [ "$WORD_COUNT" -lt "200" ]; then
         python migrate_to_postgres.py import database_export.json
     fi

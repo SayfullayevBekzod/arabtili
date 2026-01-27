@@ -1,0 +1,142 @@
+[
+  {
+    "arabic": "قَمَرٌ",
+    "transliteration": "qamarun",
+    "translation_uz": "oy (osmondagi)",
+    "translation_ru": "луна",
+    "category": "Nature"
+  },
+  {
+    "arabic": "شَمْسٌ",
+    "transliteration": "shamsun",
+    "translation_uz": "quyosh",
+    "translation_ru": "солнце",
+    "category": "Nature"
+  },
+  {
+    "arabic": "نَجْمٌ",
+    "transliteration": "najmun",
+    "translation_uz": "yulduz",
+    "translation_ru": "звезда",
+    "category": "Nature"
+  },
+  {
+    "arabic": "أَرْضٌ",
+    "transliteration": "arḍun",
+    "translation_uz": "yer",
+    "translation_ru": "земля",
+    "category": "Nature"
+  },
+  {
+    "arabic": "سَمَاءٌ",
+    "transliteration": "samā'un",
+    "translation_uz": "osmon",
+    "translation_ru": "небо",
+    "category": "Nature"
+  },
+  {
+    "arabic": "مَاءٌ",
+    "transliteration": "mā'un",
+    "translation_uz": "suv",
+    "translation_ru": "вода",
+    "category": "Nature"
+  },
+  {
+    "arabic": "نَارٌ",
+    "transliteration": "nārun",
+    "translation_uz": "olov",
+    "translation_ru": "огонь",
+    "category": "Nature"
+  },
+  {
+    "arabic": "هَوَاءٌ",
+    "transliteration": "hawā'un",
+    "translation_uz": "havo",
+    "translation_ru": "воздух",
+    "category": "Nature"
+  },
+  {
+    "arabic": "جَبَلٌ",
+    "transliteration": "jabalun",
+    "translation_uz": "tog'",
+    "translation_ru": "гора",
+    "category": "Nature"
+  },
+  {
+    "arabic": "نَهْرٌ",
+    "transliteration": "nahrun",
+    "translation_uz": "daryo",
+    "translation_ru": "река",
+    "category": "Nature"
+  },
+  {
+    "arabic": "كِتَابٌ",
+    "transliteration": "kitābun",
+    "translation_uz": "kitob",
+    "translation_ru": "книга",
+    "category": "School"
+  },
+  {
+    "arabic": "قَلَمٌ",
+    "transliteration": "qalamun",
+    "translation_uz": "qalam",
+    "translation_ru": "ручка",
+    "category": "School"
+  },
+  {
+    "arabic": "مَدْرَسَةٌ",
+    "transliteration": "madrasatun",
+    "translation_uz": "maktab",
+    "translation_ru": "школа",
+    "category": "School"
+  },
+  {
+    "arabic": "تِلْمِيذٌ",
+    "transliteration": "tilmīdhun",
+    "translation_uz": "o'quvchi",
+    "translation_ru": "ученик",
+    "category": "School"
+  },
+  {
+    "arabic": "مُعَلِّمٌ",
+    "transliteration": "mu‘allimun",
+    "translation_uz": "o'qituvchi",
+    "translation_ru": "учитель",
+    "category": "School"
+  },
+  {
+    "arabic": "طَبِيبٌ",
+    "transliteration": "ṭabībun",
+    "translation_uz": "shifokor",
+    "translation_ru": "врач",
+    "category": "Professions"
+  },
+  {
+    "arabic": "مُهَنْدِسٌ",
+    "transliteration": "muhandisun",
+    "translation_uz": "muhandis",
+    "translation_ru": "инженер",
+    "category": "Professions"
+  },
+  {
+    "arabic": "تَاجِرٌ",
+    "transliteration": "tājirun",
+    "translation_uz": "savdogar",
+    "translation_ru": "торговец",
+    "category": "Professions"
+  },
+  {
+    "arabic": "سَيَّارَةٌ",
+    "transliteration": "sayyāratun",
+    "translation_uz": "mashina",
+    "translation_ru": "машина",
+    "category": "Transport"
+  },
+  {
+    "arabic": "طَائِرَةٌ",
+    "transliteration": "ṭā'iratun",
+    "translation_uz": "samolyot",
+    "translation_ru": "самолет",
+    "category": "Transport"
+  }
+]

@@ -20,19 +20,7 @@ class Command(BaseCommand):
             'seed_tajweed_pro',
             'seed_tajweed_quiz',
             
-            # Scenarios & Conversations
-            'seed_scenarios',
-            'seed_scenarios_v2',
-            'seed_conversations',
-            
-            # Gamification
-            'seed_placement',
-            
-            # Static Assets
-            'seed_svg',
-            'seed_svg_v3',
-            'seed_svg_final',
-            'update_svgs',
+            # Additional content can be added here once commands are created
         ]
 
         for cmd in commands:

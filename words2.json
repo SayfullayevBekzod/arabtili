@@ -1,0 +1,1017 @@
+[
+    {
+        "arabic": "قِطَّةٌ",
+        "transliteration": "qiṭṭatun",
+        "translation_uz": "mushuk",
+        "translation_ru": "кошка",
+        "category": "Daily"
+    },
+    {
+        "arabic": "كَلْبٌ",
+        "transliteration": "kalbun",
+        "translation_uz": "it",
+        "translation_ru": "собака",
+        "category": "Daily"
+    },
+    {
+        "arabic": "رَبٌّ",
+        "transliteration": "rabbun",
+        "translation_uz": "Robb / Parvardigor",
+        "translation_ru": "Господь",
+        "category": "Quran"
+    },
+    {
+        "arabic": "عَبْدٌ",
+        "transliteration": "‘abdun",
+        "translation_uz": "banda / qul",
+        "translation_ru": "раб / слуга",
+        "category": "Quran"
+    },
+    {
+        "arabic": "حِصَانٌ",
+        "transliteration": "ḥiṣānun",
+        "translation_uz": "ot",
+        "translation_ru": "лошадь",
+        "category": "Daily"
+    },
+    {
+        "arabic": "جَمَلٌ",
+        "transliteration": "jamalun",
+        "translation_uz": "tuya",
+        "translation_ru": "верблюд",
+        "category": "Quran"
+    },
+    {
+        "arabic": "عِبَادَةٌ",
+        "transliteration": "‘ibādatun",
+        "translation_uz": "ibodat",
+        "translation_ru": "поклонение",
+        "category": "Islam"
+    },
+    {
+        "arabic": "آخِرَةٌ",
+        "transliteration": "ākhiratun",
+        "translation_uz": "oxirat",
+        "translation_ru": "загробная жизнь",
+        "category": "Quran"
+    },
+    {
+        "arabic": "طَائِرٌ",
+        "transliteration": "ṭā’irun",
+        "translation_uz": "qush",
+        "translation_ru": "птица",
+        "category": "Daily"
+    },
+    {
+        "arabic": "سَمَكَةٌ",
+        "transliteration": "samakatun",
+        "translation_uz": "baliq",
+        "translation_ru": "рыба",
+        "category": "Daily"
+    },
+    {
+        "arabic": "نَفْسٌ",
+        "transliteration": "nafsun",
+        "translation_uz": "nafs / jon",
+        "translation_ru": "душа / эго",
+        "category": "Quran"
+    },
+    {
+        "arabic": "ظُلُمَاتٌ",
+        "transliteration": "ẓulumātun",
+        "translation_uz": "zulmatlar",
+        "translation_ru": "мрак / тьма",
+        "category": "Quran"
+    },
+    {
+        "arabic": "مَطَرٌ",
+        "transliteration": "maṭarun",
+        "translation_uz": "yomg‘ir",
+        "translation_ru": "дождь",
+        "category": "Daily"
+    },
+    {
+        "arabic": "سَحَابٌ",
+        "transliteration": "saḥābun",
+        "translation_uz": "bulut",
+        "translation_ru": "облако",
+        "category": "Quran"
+    },
+    {
+        "arabic": "حَسَنَةٌ",
+        "transliteration": "ḥasanatun",
+        "translation_uz": "yaxshilik / savob",
+        "translation_ru": "доброе дело",
+        "category": "Islam"
+    },
+    {
+        "arabic": "سَيِّئَةٌ",
+        "transliteration": "sayyi’atun",
+        "translation_uz": "yomonlik / gunoh",
+        "translation_ru": "плохое дело",
+        "category": "Islam"
+    },
+    {
+        "arabic": "حَدِيقَةٌ",
+        "transliteration": "ḥadīqatun",
+        "translation_uz": "bog‘",
+        "translation_ru": "сад",
+        "category": "Daily"
+    },
+    {
+        "arabic": "زَهْرَةٌ",
+        "transliteration": "zahratun",
+        "translation_uz": "gul",
+        "translation_ru": "цветок",
+        "category": "Daily"
+    },
+    {
+        "arabic": "إِمَامٌ",
+        "transliteration": "imāmun",
+        "translation_uz": "imom / yetakchi",
+        "translation_ru": "имам / предводитель",
+        "category": "Islam"
+    },
+    {
+        "arabic": "جُمُعَةٌ",
+        "transliteration": "jumu‘atun",
+        "translation_uz": "juma",
+        "translation_ru": "пятница",
+        "category": "Islam"
+    },
+    {
+        "arabic": "مِرْآةٌ",
+        "transliteration": "mir’ātun",
+        "translation_uz": "ko‘zgu",
+        "translation_ru": "зеркало",
+        "category": "Daily"
+    },
+    {
+        "arabic": "كُوبٌ",
+        "transliteration": "kūbun",
+        "translation_uz": "krujka / stakan",
+        "translation_ru": "кружка / стакан",
+        "category": "Daily"
+    },
+    {
+        "arabic": "مِنْبَرٌ",
+        "transliteration": "minbarun",
+        "translation_uz": "minbar",
+        "translation_ru": "минбар (кафедра)",
+        "category": "Islam"
+    },
+    {
+        "arabic": "خَلْقٌ",
+        "transliteration": "khalqun",
+        "translation_uz": "yaratish / xalq",
+        "translation_ru": "творение / создание",
+        "category": "Quran"
+    },
+    {
+        "arabic": "مِلْعَقَةٌ",
+        "transliteration": "mil‘aqatun",
+        "translation_uz": "qoshiq",
+        "translation_ru": "ложка",
+        "category": "Daily"
+    },
+    {
+        "arabic": "شَوْكَةٌ",
+        "transliteration": "shawkatun",
+        "translation_uz": "sanchqi",
+        "translation_ru": "вилка",
+        "category": "Daily"
+    },
+    {
+        "arabic": "بَعْثٌ",
+        "transliteration": "ba‘thun",
+        "translation_uz": "qayta tirilish",
+        "translation_ru": "воскрешение",
+        "category": "Quran"
+    },
+    {
+        "arabic": "حِسَابٌ",
+        "transliteration": "ḥisābun",
+        "translation_uz": "hisob-kitob",
+        "translation_ru": "расчет",
+        "category": "Quran"
+    },
+    {
+        "arabic": "سِكِّينٌ",
+        "transliteration": "sikkīnun",
+        "translation_uz": "pichoq",
+        "translation_ru": "нож",
+        "category": "Daily"
+    },
+    {
+        "arabic": "أَرُزٌّ",
+        "transliteration": "aruzzun",
+        "translation_uz": "guruch",
+        "translation_ru": "рис",
+        "category": "Daily"
+    },
+    {
+        "arabic": "قَضَاءٌ",
+        "transliteration": "qaḍā’un",
+        "translation_uz": "qazo / hukm",
+        "translation_ru": "решение / судьба",
+        "category": "Islam"
+    },
+    {
+        "arabic": "قَدَرٌ",
+        "transliteration": "qadarun",
+        "translation_uz": "taqdir",
+        "translation_ru": "предопределение",
+        "category": "Islam"
+    },
+    {
+        "arabic": "سُكَّرٌ",
+        "transliteration": "sukkarun",
+        "translation_uz": "shakar",
+        "translation_ru": "сахар",
+        "category": "Daily"
+    },
+    {
+        "arabic": "مِلْحٌ",
+        "transliteration": "milḥun",
+        "translation_uz": "tuz",
+        "translation_ru": "соль",
+        "category": "Daily"
+    },
+    {
+        "arabic": "فِقْهٌ",
+        "transliteration": "fiqhun",
+        "translation_uz": "fiqh (islom huquqi)",
+        "translation_ru": "фикх (право)",
+        "category": "Islam"
+    },
+    {
+        "arabic": "حَدِيثٌ",
+        "transliteration": "ḥadīthun",
+        "translation_uz": "hadis / so‘z",
+        "translation_ru": "хадис / речь",
+        "category": "Islam"
+    },
+    {
+        "arabic": "شَايٌ",
+        "transliteration": "shāyun",
+        "translation_uz": "choy",
+        "translation_ru": "чай",
+        "category": "Daily"
+    },
+    {
+        "arabic": "قَهْوَةٌ",
+        "transliteration": "qahwatun",
+        "translation_uz": "qahva",
+        "translation_ru": "кофе",
+        "category": "Daily"
+    },
+    {
+        "arabic": "وَحْيٌ",
+        "transliteration": "waḥyun",
+        "translation_uz": "vahiy",
+        "translation_ru": "откровение",
+        "category": "Quran"
+    },
+    {
+        "arabic": "غَيْبٌ",
+        "transliteration": "ghaybun",
+        "translation_uz": "g‘ayb (yashirin narsa)",
+        "translation_ru": "сокровенное / невидимое",
+        "category": "Quran"
+    },
+    {
+        "arabic": "رَأْسٌ",
+        "transliteration": "ra’sun",
+        "translation_uz": "bosh",
+        "translation_ru": "голова",
+        "category": "Daily"
+    },
+    {
+        "arabic": "شَعْرٌ",
+        "transliteration": "sha‘run",
+        "translation_uz": "soch",
+        "translation_ru": "волосы",
+        "category": "Daily"
+    },
+    {
+        "arabic": "سُورَةٌ",
+        "transliteration": "sūratun",
+        "translation_uz": "sura",
+        "translation_ru": "сура",
+        "category": "Islam"
+    },
+    {
+        "arabic": "آيَةٌ",
+        "transliteration": "āyatun",
+        "translation_uz": "oyat / belgi",
+        "translation_ru": "аят / знамение",
+        "category": "Quran"
+    },
+    {
+        "arabic": "أُذُنٌ",
+        "transliteration": "udhunun",
+        "translation_uz": "quloq",
+        "translation_ru": "ухо",
+        "category": "Quran"
+    },
+    {
+        "arabic": "أَنْفٌ",
+        "transliteration": "anfun",
+        "translation_uz": "burun",
+        "translation_ru": "нос",
+        "category": "Daily"
+    },
+    {
+        "arabic": "مُنَافِقُونَ",
+        "transliteration": "munāfiqūna",
+        "translation_uz": "munofiqlar",
+        "translation_ru": "лицемеры",
+        "category": "Quran"
+    },
+    {
+        "arabic": "مُؤْمِنُونَ",
+        "transliteration": "mu’minūna",
+        "translation_uz": "mo‘minlar",
+        "translation_ru": "верующие",
+        "category": "Quran"
+    },
+    {
+        "arabic": "فَمٌ",
+        "transliteration": "famun",
+        "translation_uz": "og‘iz",
+        "translation_ru": "рот",
+        "category": "Daily"
+    },
+    {
+        "arabic": "سِنٌّ",
+        "transliteration": "sinnun",
+        "translation_uz": "tish",
+        "translation_ru": "зуб",
+        "category": "Daily"
+    },
+    {
+        "arabic": "نَحْوٌ",
+        "transliteration": "naḥwun",
+        "translation_uz": "nahv (grammatika)",
+        "translation_ru": "грамматика (синтаксис)",
+        "category": "Advanced"
+    },
+    {
+        "arabic": "بَلاغَةٌ",
+        "transliteration": "balāghatun",
+        "translation_uz": "balog‘at / notiqlik",
+        "translation_ru": "риторика",
+        "category": "Advanced"
+    },
+    {
+        "arabic": "رِجْلٌ",
+        "transliteration": "rijlun",
+        "translation_uz": "oyoq",
+        "translation_ru": "нога",
+        "category": "Daily"
+    },
+    {
+        "arabic": "دَمٌ",
+        "transliteration": "damun",
+        "translation_uz": "qon",
+        "translation_ru": "кровь",
+        "category": "Daily"
+    },
+    {
+        "arabic": "مُسَافِرٌ",
+        "transliteration": "musāfirun",
+        "translation_uz": "musofir / yo‘lovchi",
+        "translation_ru": "путешественник",
+        "category": "Daily"
+    },
+    {
+        "arabic": "جَوَازُ السَّفَرِ",
+        "transliteration": "jawāzu al-safari",
+        "translation_uz": "pasport",
+        "translation_ru": "паспорт",
+        "category": "Daily"
+    },
+    {
+        "arabic": "تَذْكِرَةٌ",
+        "transliteration": "tadhkiratun",
+        "translation_uz": "chipta / eslatma",
+        "translation_ru": "билет / напоминание",
+        "category": "Daily"
+    },
+    {
+        "arabic": "طَالِبٌ",
+        "transliteration": "ṭālibun",
+        "translation_uz": "talaba",
+        "translation_ru": "студент",
+        "category": "Daily"
+    },
+    {
+        "arabic": "جَارٌ",
+        "transliteration": "jārun",
+        "translation_uz": "qo‘shni",
+        "translation_ru": "сосед",
+        "category": "Daily"
+    },
+    {
+        "arabic": "سُؤَالٌ",
+        "transliteration": "su’ālun",
+        "translation_uz": "savol",
+        "translation_ru": "вопрос",
+        "category": "Daily"
+    },
+    {
+        "arabic": "جَوَابٌ",
+        "transliteration": "jawābun",
+        "translation_uz": "javob",
+        "translation_ru": "ответ",
+        "category": "Daily"
+    },
+    {
+        "arabic": "وَرَقَةٌ",
+        "transliteration": "waraqatun",
+        "translation_uz": "qog‘oz / varaq",
+        "translation_ru": "бумага / лист",
+        "category": "Daily"
+    },
+    {
+        "arabic": "قَامُوسٌ",
+        "transliteration": "qāmūsun",
+        "translation_uz": "lug‘at",
+        "translation_ru": "словарь",
+        "category": "Daily"
+    },
+    {
+        "arabic": "تَوْحِيدٌ",
+        "transliteration": "tawḥīdun",
+        "translation_uz": "tavhid (yakkaxudolik)",
+        "translation_ru": "единобожие",
+        "category": "Islam"
+    },
+    {
+        "arabic": "شِرْكٌ",
+        "transliteration": "shirkun",
+        "translation_uz": "shirk (Allohga sherik keltirish)",
+        "translation_ru": "многобожие",
+        "category": "Islam"
+    },
+    {
+        "arabic": "مَدِينَةٌ",
+        "transliteration": "madīnatun",
+        "translation_uz": "shahar",
+        "translation_ru": "город",
+        "category": "Daily"
+    },
+    {
+        "arabic": "قَرْيَةٌ",
+        "transliteration": "qaryatun",
+        "translation_uz": "qishloq",
+        "translation_ru": "деревня",
+        "category": "Quran"
+    },
+    {
+        "arabic": "نَصْرٌ",
+        "transliteration": "naṣrun",
+        "translation_uz": "g‘alaba / yordam",
+        "translation_ru": "победа / помощь",
+        "category": "Quran"
+    },
+    {
+        "arabic": "فَتْحٌ",
+        "transliteration": "fatḥun",
+        "translation_uz": "ochish / g‘alaba",
+        "translation_ru": "открытие / победа",
+        "category": "Quran"
+    },
+    {
+        "arabic": "حَقِيبَةٌ",
+        "transliteration": "ḥaqībatun",
+        "translation_uz": "sumka",
+        "translation_ru": "сумка",
+        "category": "Daily"
+    },
+    {
+        "arabic": "نُقُودٌ",
+        "transliteration": "nuqūdun",
+        "translation_uz": "pullar",
+        "translation_ru": "деньги",
+        "category": "Daily"
+    },
+    {
+        "arabic": "يَقِينٌ",
+        "transliteration": "yaqīnun",
+        "translation_uz": "ishonch (shubhasiz)",
+        "translation_ru": "убежденность",
+        "category": "Islam"
+    },
+    {
+        "arabic": "شَكٌّ",
+        "transliteration": "shakkun",
+        "translation_uz": "shubha",
+        "translation_ru": "сомнение",
+        "category": "Islam"
+    },
+    {
+        "arabic": "ذَهَبٌ",
+        "transliteration": "dhahabun",
+        "translation_uz": "oltin",
+        "translation_ru": "золото",
+        "category": "Daily"
+    },
+    {
+        "arabic": "فِضَّةٌ",
+        "transliteration": "fiḍḍatun",
+        "translation_uz": "kumush",
+        "translation_ru": "серебро",
+        "category": "Daily"
+    },
+    {
+        "arabic": "حَدِيدٌ",
+        "transliteration": "ḥadīdun",
+        "translation_uz": "temir",
+        "translation_ru": "железо",
+        "category": "Quran"
+    },
+    {
+        "arabic": "نُحَاسٌ",
+        "transliteration": "nuḥāsun",
+        "translation_uz": "mis",
+        "translation_ru": "медь",
+        "category": "Quran"
+    },
+    {
+        "arabic": "مَكْتَبٌ",
+        "transliteration": "maktabun",
+        "translation_uz": "parta / ofis",
+        "translation_ru": "письменный стол / офис",
+        "category": "Daily"
+    },
+    {
+        "arabic": "سَبُّورَةٌ",
+        "transliteration": "sabbūratun",
+        "translation_uz": "doska (yozuv taxtasi)",
+        "translation_ru": "доска",
+        "category": "Daily"
+    },
+    {
+        "arabic": "عَسَلٌ",
+        "transliteration": "‘asalun",
+        "translation_uz": "asal",
+        "translation_ru": "мед",
+        "category": "Quran"
+    },
+    {
+        "arabic": "تَمْرٌ",
+        "transliteration": "tamrun",
+        "translation_uz": "xurmo (quritilgan)",
+        "translation_ru": "финики",
+        "category": "Daily"
+    },
+    {
+        "arabic": "زَيْتٌ",
+        "transliteration": "zaytun",
+        "translation_uz": "yog‘ (o‘simlik yog‘i)",
+        "translation_ru": "масло (растительное)",
+        "category": "Daily"
+    },
+    {
+        "arabic": "زَيْتُونٌ",
+        "transliteration": "zaytūnun",
+        "translation_uz": "zaytun",
+        "translation_ru": "оливки",
+        "category": "Quran"
+    },
+    {
+        "arabic": "تَوَكُّلٌ",
+        "transliteration": "tawakkulun",
+        "translation_uz": "tavakkul (Allohga suyanish)",
+        "translation_ru": "упование на Бога",
+        "category": "Islam"
+    },
+    {
+        "arabic": "نِيَّةٌ",
+        "transliteration": "niyyatun",
+        "translation_uz": "niyat",
+        "translation_ru": "намерение",
+        "category": "Islam"
+    },
+    {
+        "arabic": "شَارِعٌ",
+        "transliteration": "shāri‘un",
+        "translation_uz": "ko‘cha",
+        "translation_ru": "улица",
+        "category": "Daily"
+    },
+    {
+        "arabic": "طَرِيقٌ",
+        "transliteration": "ṭarīqun",
+        "translation_uz": "yo‘l",
+        "translation_ru": "дорога",
+        "category": "Daily"
+    },
+    {
+        "arabic": "أَسَدٌ",
+        "transliteration": "asadun",
+        "translation_uz": "sher / arslon",
+        "translation_ru": "лев",
+        "category": "Daily"
+    },
+    {
+        "arabic": "بَقَرَةٌ",
+        "transliteration": "baqaratun",
+        "translation_uz": "sigir",
+        "translation_ru": "корова",
+        "category": "Quran"
+    },
+    {
+        "arabic": "غَنَمٌ",
+        "transliteration": "ghanamun",
+        "translation_uz": "qo‘y (suruv)",
+        "translation_ru": "овцы / мелкий скот",
+        "category": "Daily"
+    },
+    {
+        "arabic": "ذِئْبٌ",
+        "transliteration": "dhi’bun",
+        "translation_uz": "bo‘ri",
+        "translation_ru": "волк",
+        "category": "Quran"
+    },
+    {
+        "arabic": "فَاكِهَةٌ",
+        "transliteration": "fākihatun",
+        "translation_uz": "meva",
+        "translation_ru": "фрукт",
+        "category": "Quran"
+    },
+    {
+        "arabic": "عِنَبٌ",
+        "transliteration": "‘inabun",
+        "translation_uz": "uzum",
+        "translation_ru": "виноград",
+        "category": "Quran"
+    },
+    {
+        "arabic": "صَابُونٌ",
+        "transliteration": "ṣābūnun",
+        "translation_uz": "sovun",
+        "translation_ru": "мыло",
+        "category": "Daily"
+    },
+    {
+        "arabic": "مِنْشَفَةٌ",
+        "transliteration": "minshafatun",
+        "translation_uz": "sochiq",
+        "translation_ru": "полотенце",
+        "category": "Daily"
+    },
+    {
+        "arabic": "خُطْبَةٌ",
+        "transliteration": "khuṭbatun",
+        "translation_uz": "xutba (ma’ruza)",
+        "translation_ru": "проповедь",
+        "category": "Islam"
+    },
+    {
+        "arabic": "جَنَازَةٌ",
+        "transliteration": "janāzatun",
+        "translation_uz": "janoza",
+        "translation_ru": "похороны",
+        "category": "Islam"
+    },
+    {
+        "arabic": "حَيَاةٌ",
+        "transliteration": "ḥayātun",
+        "translation_uz": "hayot",
+        "translation_ru": "жизнь",
+        "category": "Quran"
+    },
+    {
+        "arabic": "مَوْتٌ",
+        "transliteration": "mawtun",
+        "translation_uz": "o‘lim",
+        "translation_ru": "смерть",
+        "category": "Quran"
+    },
+    {
+        "arabic": "قَلْبٌ",
+        "transliteration": "qalbun",
+        "translation_uz": "yurak / qalb",
+        "translation_ru": "сердце",
+        "category": "Quran"
+    },
+    {
+        "arabic": "فُؤَادٌ",
+        "transliteration": "fu’ādun",
+        "translation_uz": "qalb / ko‘ngil",
+        "translation_ru": "сердце (внутреннее)",
+        "category": "Advanced"
+    },
+    {
+        "arabic": "دَجَاجَةٌ",
+        "transliteration": "dajājatun",
+        "translation_uz": "tovuq",
+        "translation_ru": "курица",
+        "category": "Daily"
+    },
+    {
+        "arabic": "بَيْضَةٌ",
+        "transliteration": "bayḍatun",
+        "translation_uz": "tuxum",
+        "translation_ru": "яйцо",
+        "category": "Daily"
+    },
+    {
+        "arabic": "جُبْنٌ",
+        "transliteration": "jubnun",
+        "translation_uz": "pishloq",
+        "translation_ru": "сыр",
+        "category": "Daily"
+    },
+    {
+        "arabic": "رُمَّانٌ",
+        "transliteration": "rummānun",
+        "translation_uz": "anor",
+        "translation_ru": "гранат",
+        "category": "Quran"
+    },
+    {
+        "arabic": "مُدِيرٌ",
+        "transliteration": "mudīrun",
+        "translation_uz": "direktor / boshqaruvchi",
+        "translation_ru": "директор",
+        "category": "Daily"
+    },
+    {
+        "arabic": "شَرِكَةٌ",
+        "transliteration": "sharikatun",
+        "translation_uz": "kompaniya / shirkat",
+        "translation_ru": "компания",
+        "category": "Daily"
+    },
+    {
+        "arabic": "صَدَقَةٌ",
+        "transliteration": "ṣadaqatun",
+        "translation_uz": "sadaqa",
+        "translation_ru": "милостыня",
+        "category": "Islam"
+    },
+    {
+        "arabic": "وَصِيَّةٌ",
+        "transliteration": "waṣiyyatun",
+        "translation_uz": "vasiyat",
+        "translation_ru": "завещание",
+        "category": "Islam"
+    },
+    {
+        "arabic": "نَمْلَةٌ",
+        "transliteration": "namlatun",
+        "translation_uz": "chumoli",
+        "translation_ru": "муравей",
+        "category": "Quran"
+    },
+    {
+        "arabic": "نَحْلَةٌ",
+        "transliteration": "naḥlatun",
+        "translation_uz": "asalari",
+        "translation_ru": "пчела",
+        "category": "Quran"
+    },
+    {
+        "arabic": "عَنْكَبُوتٌ",
+        "transliteration": "‘ankabūtun",
+        "translation_uz": "o‘rgimchak",
+        "translation_ru": "паук",
+        "category": "Quran"
+    },
+    {
+        "arabic": "خِنْزِيرٌ",
+        "transliteration": "khinzīrun",
+        "translation_uz": "cho‘chqa",
+        "translation_ru": "свинья",
+        "category": "Quran"
+    },
+    {
+        "arabic": "مِهْنَةٌ",
+        "transliteration": "mihnatun",
+        "translation_uz": "kasb-hunar",
+        "translation_ru": "профессия",
+        "category": "Daily"
+    },
+    {
+        "arabic": "عَمَلٌ",
+        "transliteration": "‘amalun",
+        "translation_uz": "ish / amal",
+        "translation_ru": "работа / дело",
+        "category": "Daily"
+    },
+    {
+        "arabic": "فَلَّاحٌ",
+        "transliteration": "fallāḥun",
+        "translation_uz": "dehqon",
+        "translation_ru": "крестьянин / фермер",
+        "category": "Daily"
+    },
+    {
+        "arabic": "تَاجِرٌ",
+        "transliteration": "tājirun",
+        "translation_uz": "savdogar",
+        "translation_ru": "торговец",
+        "category": "Daily"
+    },
+    {
+        "arabic": "جِهَادٌ",
+        "transliteration": "jihādun",
+        "translation_uz": "jihod / g‘ayrat qilish",
+        "translation_ru": "джихад / усердие",
+        "category": "Islam"
+    },
+    {
+        "arabic": "شَهَادَةٌ",
+        "transliteration": "shahādatun",
+        "translation_uz": "guvohlik / shahodat",
+        "translation_ru": "свидетельство",
+        "category": "Islam"
+    },
+    {
+        "arabic": "وِسَادَةٌ",
+        "transliteration": "wisādatun",
+        "translation_uz": "yostiq",
+        "translation_ru": "подушка",
+        "category": "Daily"
+    },
+    {
+        "arabic": "بَطَّانِيَّةٌ",
+        "transliteration": "baṭṭāniyyatun",
+        "translation_uz": "ko‘rpa / adyol",
+        "translation_ru": "одеяло",
+        "category": "Daily"
+    },
+    {
+        "arabic": "غَضَبٌ",
+        "transliteration": "ghaḍabun",
+        "translation_uz": "g‘azab",
+        "translation_ru": "гнев",
+        "category": "Quran"
+    },
+    {
+        "arabic": "فَرَحٌ",
+        "transliteration": "faraḥun",
+        "translation_uz": "quvonch / xursandchilik",
+        "translation_ru": "радость",
+        "category": "Quran"
+    },
+    {
+        "arabic": "حُزْنٌ",
+        "transliteration": "ḥuznun",
+        "translation_uz": "qayg‘u / mahzunlik",
+        "translation_ru": "грусть / печаль",
+        "category": "Quran"
+    },
+    {
+        "arabic": "خَوْفٌ",
+        "transliteration": "khawfun",
+        "translation_uz": "qo‘rquv",
+        "translation_ru": "страх",
+        "category": "Quran"
+    },
+    {
+        "arabic": "جِسْمٌ",
+        "transliteration": "jismun",
+        "translation_uz": "tana / jism",
+        "translation_ru": "тело",
+        "category": "Daily"
+    },
+    {
+        "arabic": "بَطْنٌ",
+        "transliteration": "baṭnun",
+        "translation_uz": "qorin",
+        "translation_ru": "живот",
+        "category": "Daily"
+    },
+    {
+        "arabic": "ظَهْرٌ",
+        "transliteration": "ẓahrun",
+        "translation_uz": "bel / orqa",
+        "translation_ru": "спина",
+        "category": "Daily"
+    },
+    {
+        "arabic": "عُنُقٌ",
+        "transliteration": "‘unuqun",
+        "translation_uz": "bo‘yin",
+        "translation_ru": "шея",
+        "category": "Daily"
+    },
+    {
+        "arabic": "تِلاوَةٌ",
+        "transliteration": "tilāwatun",
+        "translation_uz": "tilovat (o‘qish)",
+        "translation_ru": "чтение (Корана)",
+        "category": "Islam"
+    },
+    {
+        "arabic": "دَعْوَةٌ",
+        "transliteration": "da‘watun",
+        "translation_uz": "da’vat / chaqiriq",
+        "translation_ru": "призыв",
+        "category": "Islam"
+    },
+    {
+        "arabic": "خَرِيطَةٌ",
+        "transliteration": "kharīṭatun",
+        "translation_uz": "xarita",
+        "translation_ru": "карта",
+        "category": "Daily"
+    },
+    {
+        "arabic": "طَبَاشِيرُ",
+        "transliteration": "ṭabāshīru",
+        "translation_uz": "bo‘r",
+        "translation_ru": "мел",
+        "category": "Daily"
+    },
+    {
+        "arabic": "لَوْحٌ",
+        "transliteration": "lawḥun",
+        "translation_uz": "lavh / taxta",
+        "translation_ru": "скрижаль / доска",
+        "category": "Quran"
+    },
+    {
+        "arabic": "حِبْرٌ",
+        "transliteration": "ḥibrun",
+        "translation_uz": "siyoh",
+        "translation_ru": "чернила",
+        "category": "Daily"
+    },
+    {
+        "arabic": "إِثْمٌ",
+        "transliteration": "ithmun",
+        "translation_uz": "gunoh / jinoyat",
+        "translation_ru": "грех",
+        "category": "Quran"
+    },
+    {
+        "arabic": "عَدَاوَةٌ",
+        "transliteration": "‘adāwatun",
+        "translation_uz": "adovat / dushmanlik",
+        "translation_ru": "вражда",
+        "category": "Quran"
+    },
+    {
+        "arabic": "بَصَلٌ",
+        "transliteration": "baṣalun",
+        "translation_uz": "piyoz",
+        "translation_ru": "лук",
+        "category": "Quran"
+    },
+    {
+        "arabic": "ثُومٌ",
+        "transliteration": "thūmun",
+        "translation_uz": "sarimsoq",
+        "translation_ru": "чеснок",
+        "category": "Quran"
+    },
+    {
+        "arabic": "خِيَارٌ",
+        "transliteration": "khiyārun",
+        "translation_uz": "bodring",
+        "translation_ru": "огурец",
+        "category": "Daily"
+    },
+    {
+        "arabic": "طَمَاطِمُ",
+        "transliteration": "ṭamāṭimu",
+        "translation_uz": "pomidor",
+        "translation_ru": "помидор",
+        "category": "Daily"
+    },
+    {
+        "arabic": "فِتْنَةٌ",
+        "transliteration": "fitnatun",
+        "translation_uz": "fitna / sinov",
+        "translation_ru": "смута / испытание",
+        "category": "Quran"
+    },
+    {
+        "arabic": "بُهْتَانٌ",
+        "transliteration": "buhtānun",
+        "translation_uz": "bo‘hton",
+        "translation_ru": "клевета",
+        "category": "Quran"
+    },
+    {
+        "arabic": "غِيبَةٌ",
+        "transliteration": "ghībatun",
+        "translation_uz": "g‘iybat",
+        "translation_ru": "злословие",
+        "category": "Islam"
+    },
+    {
+        "arabic": "نَمِيمَةٌ",
+        "transliteration": "namīmatun",
+        "translation_uz": "chaqimchilik",
+        "translation_ru": "сплетни",
+        "category": "Islam"
+    }
+]

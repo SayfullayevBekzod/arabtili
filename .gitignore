@@ -17,4 +17,4 @@ media/
 *~
 .vscode/
 .idea/
-words*.json
+# words*.json (Allowing data files for seeding)
