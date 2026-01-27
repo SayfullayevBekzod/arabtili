@@ -211,7 +211,7 @@
       currentIndex: 0,
       totalCards: {{ cards | length }
   },
-        get progress() {
+      get progress() {
     return this.totalCards > 0 ? (this.currentIndex / this.totalCards) * 100 : 0;
   }
     }

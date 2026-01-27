@@ -917,16 +917,29 @@ class Profile(TimeStamped):
     def __str__(self):
         return f"{self.user.username}'s profile"
 
-# Signals to auto-create/save Profile
+class UserReminder(TimeStamped):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="reminder_settings")
+    reminder_time = models.TimeField(null=True, blank=True, help_text="Daily reminder time")
+    is_enabled = models.BooleanField(default=False)
+    notes = models.TextField(blank=True, help_text="User notes / eslatmalar")
+    push_subscription = models.JSONField(null=True, blank=True, help_text="Browser push subscription data")
+
+    def __str__(self):
+        return f"Reminder for {self.user.username} at {self.reminder_time}"
+
+# Signals to auto-create/save Profile and Reminder
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
-def create_user_profile(sender, instance, created, **kwargs):
+def create_user_related_objects(sender, instance, created, **kwargs):
     if created:
         Profile.objects.get_or_create(user=instance)
+        UserReminder.objects.get_or_create(user=instance)
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
-def save_user_profile(sender, instance, **kwargs):
+def save_user_related_objects(sender, instance, **kwargs):
     if hasattr(instance, 'profile'):
         instance.profile.save()
+    if hasattr(instance, 'reminder_settings'):
+        instance.reminder_settings.save()

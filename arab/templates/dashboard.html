@@ -9,21 +9,36 @@
     <!-- Welcome Header -->
     <div class="flex items-center justify-between">
         <div>
+            {% if user.username %}
             <h1 class="text-2xl font-bold text-white">Salom, {{ user.username }}!</h1>
+            {% else %}
+            <h1 class="text-2xl font-bold text-white">Salom, O'quvchi!</h1>
+            {% endif %}
             <p class="text-slate-400 text-sm">Bugun nimani o'rganamiz?</p>
         </div>
+
+        {% if game %}
         <div class="flex items-center gap-4">
             <!-- Streak -->
             <div class="flex items-center gap-2 px-3 py-2 bg-orange-500/10 rounded-lg border border-orange-500/20">
                 <span class="text-xl">🔥</span>
-                <span class="font-bold text-orange-400">{{ game.current_streak|default:"0" }} kun</span>
+                {% if game.current_streak %}
+                <span class="font-bold text-orange-400">{{ game.current_streak }} kun</span>
+                {% else %}
+                <span class="font-bold text-orange-400">0 kun</span>
+                {% endif %}
             </div>
             <!-- XP -->
             <div class="flex items-center gap-2 px-3 py-2 bg-emerald-500/10 rounded-lg border border-emerald-500/20">
                 <span class="text-xl">⭐</span>
-                <span class="font-bold text-emerald-400">{{ game.xp_total|default:"0" }} XP</span>
+                {% if game.xp_total %}
+                <span class="font-bold text-emerald-400">{{ game.xp_total }} XP</span>
+                {% else %}
+                <span class="font-bold text-emerald-400">0 XP</span>
+                {% endif %}
             </div>
         </div>
+        {% endif %}
     </div>
 
     <!-- Main Grid -->
@@ -101,7 +116,11 @@
                 <div class="space-y-3">
                     <div class="flex justify-between items-center">
                         <span class="text-slate-400">Level</span>
-                        <span class="font-bold text-white">{{ game.level|default:"1" }}</span>
+                        {% if game.level %}
+                        <span class="font-bold text-white">{{ game.level }}</span>
+                        {% else %}
+                        <span class="font-bold text-white">1</span>
+                        {% endif %}
                     </div>
                     <div class="flex justify-between items-center">
                         <span class="text-slate-400">Liga</span>
@@ -109,11 +128,19 @@
                     </div>
                     <div class="flex justify-between items-center">
                         <span class="text-slate-400">Yuraklar</span>
-                        <span class="font-bold text-red-400">❤️ {{ game.hearts|default:"5" }}</span>
+                        {% if game.hearts %}
+                        <span class="font-bold text-red-400">❤️ {{ game.hearts }}</span>
+                        {% else %}
+                        <span class="font-bold text-red-400">❤️ 5</span>
+                        {% endif %}
                     </div>
                     <div class="flex justify-between items-center">
                         <span class="text-slate-400">Liga XP</span>
-                        <span class="font-bold text-emerald-400">{{ game.league_xp|default:"0" }}</span>
+                        {% if game.league_xp %}
+                        <span class="font-bold text-emerald-400">{{ game.league_xp }}</span>
+                        {% else %}
+                        <span class="font-bold text-emerald-400">0</span>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -134,8 +161,13 @@
                             <span class="text-xs text-emerald-400">+{{ uq.mission.xp_reward }} XP</span>
                         </div>
                         <div class="h-1.5 bg-slate-900 rounded-full">
+                            {% if uq.progress_percent %}
                             <div class="h-full bg-emerald-500 rounded-full" style="width: {{ uq.progress_percent }}%">
                             </div>
+                            {% else %}
+                            <div class="h-full bg-emerald-500 rounded-full" style="width: 0%">
+                            </div>
+                            {% endif %}
                         </div>
                         <div class="text-xs text-slate-500 mt-1">{{ uq.current_progress }}/{{ uq.mission.required_count }}</div>
                     </div>

@@ -97,7 +97,7 @@
       <div class="flex items-center justify-between mb-8">
         <div
           class="px-4 py-1.5 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] font-black uppercase tracking-widest">
-          {{ c.level|default:"A0" }} DARAJA
+          {% if c.level %}{{ c.level }}{% else %}A0{% endif %} DARAJA
         </div>
         <div
           class="h-12 w-12 rounded-2xl bg-white/5 border border-white/10 grid place-items-center text-slate-400 group-hover:bg-emerald-500 group-hover:text-slate-950 group-hover:scale-110 transition-all duration-500 shadow-xl">

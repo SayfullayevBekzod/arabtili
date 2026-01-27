@@ -79,8 +79,7 @@
                 </button>
                 {% else %}
                 <button type="submit"
-                    class="group/btn w-full py-4 rounded-2xl bg-sky-500 text-slate-950 font-black uppercase tracking-widest text-xs transition-all hover:scale-[1.02] active:scale-95 shadow-xl shadow-sky-500/20 flex items-center justify-center gap-2 {% if game.xp_total < 200 %}opacity-50 cursor-not-allowed grayscale{% endif %}"
-                    {% if game.xp_total < 200 %}disabled{% endif %}>
+                    class="group/btn w-full py-4 rounded-2xl bg-sky-500 text-slate-950 font-black uppercase tracking-widest text-xs transition-all hover:scale-[1.02] active:scale-95 shadow-xl shadow-sky-500/20 flex items-center justify-center gap-2 {% if game.xp_total < 200 %}opacity-50 cursor-not-allowed grayscale{% endif %}" {% if game.xp_total < 200 %}disabled{% endif %}>
                     <i class="fas fa-bolt group-hover/btn:animate-pulse"></i> 200 XP
                 </button>
                 {% endif %}
@@ -112,8 +111,7 @@
             <form method="POST" action="{% url 'arab:shop_purchase' item='hearts' %}" class="mt-auto">
                 {% csrf_token %}
                 <button type="submit"
-                    class="group/btn w-full py-4 rounded-2xl bg-red-500 text-slate-950 font-black uppercase tracking-widest text-xs transition-all hover:scale-[1.02] active:scale-95 shadow-xl shadow-red-500/20 flex items-center justify-center gap-2 {% if game.xp_total < 300 %}opacity-50 cursor-not-allowed grayscale{% endif %}"
-                    {% if game.xp_total < 300 %}disabled{% endif %}>
+                    class="group/btn w-full py-4 rounded-2xl bg-red-500 text-slate-950 font-black uppercase tracking-widest text-xs transition-all hover:scale-[1.02] active:scale-95 shadow-xl shadow-red-500/20 flex items-center justify-center gap-2 {% if game.xp_total < 300 %}opacity-50 cursor-not-allowed grayscale{% endif %}" {% if game.xp_total < 300 %}disabled{% endif %}>
                     <i class="fas fa-bolt group-hover/btn:animate-pulse"></i> 300 XP
                 </button>
             </form>

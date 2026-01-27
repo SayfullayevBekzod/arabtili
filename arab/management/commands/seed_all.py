@@ -13,8 +13,12 @@ class Command(BaseCommand):
             'init_data',
             
             # Content
-            'populate_alphabet',
+            'seed_alphabet',
             'import_new_words',
+            
+            # Tajweed Pro
+            'seed_tajweed_pro',
+            'seed_tajweed_quiz',
             
             # Scenarios & Conversations
             'seed_scenarios',

@@ -17,8 +17,7 @@
                 <i class="fas fa-book-reader text-emerald-400"></i>
                 {{ lesson.title }}
             </span>
-            <span class="bg-white/5 px-3 py-1 rounded-lg border border-white/5">{{ block_index | add:1 }} / {{
-                total_blocks }}</span>
+            <span class="bg-white/5 px-3 py-1 rounded-lg border border-white/5">{{ block_index | add:1 }} / {{ total_blocks  }}</span>
         </div>
         <div class="h-3 w-full bg-slate-950 rounded-full overflow-hidden border border-white/5 p-0.5 shadow-2xl">
             <div class="h-full bg-gradient-to-r from-emerald-500 via-sky-500 to-emerald-500 rounded-full transition-all duration-700 bubble-progress shadow-[0_0_20px_rgba(16,185,129,0.3)]"
@@ -79,10 +78,12 @@
                                     {{ w.transliteration }}</div>
                             </div>
                         </div>
+                        {% if w.translation_uz %}
                         <div
                             class="relative text-2xl font-black text-white tracking-tight group-hover:text-emerald-400 transition-colors">
                             {{ w.translation_uz }}
                         </div>
+                        {% endif %}
                     </div>
                     {% endfor %}
                 </div>

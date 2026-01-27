@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load tajweed_tags %}
-{% block title %}{{ rule.title }}{% endblock %}
+{% load sanitize %}
+{% block title %}{{ rule.title|safe_text }}{% endblock %}
 {% block content %}
 
 <!-- BACK BUTTON -->
@@ -21,11 +22,11 @@
       </div>
       <div
         class="inline-block rounded-xl border border-white/10 bg-sky-500/10 px-3 py-1 text-xs font-semibold text-sky-300">
-        {{ rule.get_category_display }}
+        {{ rule.get_category_display|safe_text }}
       </div>
     </div>
     <h1 class="mt-4 text-4xl md:text-5xl font-black text-white leading-tight">
-      {{ rule.title }}
+      {{ rule.title|safe_text }}
     </h1>
 
     <!-- LOGIC PATH -->
@@ -43,8 +44,14 @@
     </div>
 
     <div class="mt-6 text-lg text-slate-200 leading-relaxed max-w-3xl whitespace-pre-line">
-      {{ rule.explanation }}
+      {{ rule.explanation|safe_text }}
     </div>
+    ...
+    {% if ex.transliteration %}
+    <div class="mt-4 text-lg text-emerald-300 font-medium font-serif italic opacity-90">
+      / {{ ex.transliteration|safe_text }} /
+    </div>
+    {% endif %}
 
     <!-- COLOR LEGEND -->
     <div class="mt-8 border-t border-white/10 pt-6">

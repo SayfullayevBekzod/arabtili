@@ -87,8 +87,7 @@
             <!-- Labels -->
             <div class="absolute top-6 left-6 flex gap-3">
                 <div
-                    class="px-4 py-2 rounded-xl text-[9px] font-black uppercase tracking-[0.2em] {% if v.is_free %} bg-emerald-500 text-slate-950 {% else %} bg-amber-500 text-slate-950 {% endif %} shadow-2xl">
-                    {% if v.is_free %}BEPUL{% else %}PREMIUM{% endif %}
+                    class="px-4 py-2 rounded-xl text-[9px] font-black uppercase tracking-[0.2em] {% if v.is_free %} bg-emerald-500 text-slate-950 {% else %} bg-amber-500 text-slate-950 {% endif %} shadow-2xl"> {% if v.is_free %}BEPUL{% else %}PREMIUM{% endif %}
                 </div>
             </div>
 
@@ -112,8 +111,7 @@
 
             <div
                 class="mt-8 pt-6 border-t border-white/5 flex items-center justify-between group-hover:border-emerald-500/20 transition-all">
-                <span class="text-[10px] font-black text-slate-600 uppercase tracking-widest">{{ v.created_at|date:"d M,
-                    Y" }}</span>
+                <span class="text-[10px] font-black text-slate-600 uppercase tracking-widest">{{ v.created_at|date:"d M, Y"  }}</span>
                 <div
                     class="h-10 px-6 rounded-xl bg-white/5 border border-white/5 flex items-center justify-center text-[9px] font-black text-emerald-400 uppercase tracking-[0.2em] group-hover:bg-emerald-500 group-hover:text-slate-950 transition-all">
                     KO'RISH

@@ -70,4 +70,5 @@ urlpatterns = [
     path("leagues/", views.leagues_list, name="leagues_list"),
     path("shop/", views.shop_index, name="shop_index"),
     path("shop/buy/<str:item>/", views.shop_purchase, name="shop_purchase"),
+    path("api/push/subscribe/", views.save_push_subscription, name="api_save_push_subscription"),
 ]

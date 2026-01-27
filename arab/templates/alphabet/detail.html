@@ -1,5 +1,6 @@
 {% extends "base.html" %}
-{% block title %}{{ letter.name }}{% endblock %}
+{% load sanitize %}
+{% block title %}{{ letter.name|safe_text }}{% endblock %}
 {% block content %}
 
 <!-- HERO -->
@@ -108,32 +109,39 @@
       <div class="group rounded-2xl border border-white/10 bg-slate-950/40 p-4 text-center hover:bg-white/5 transition">
         <div class="text-xs text-slate-400 [direction:ltr]">Final</div>
         <div class="arabic-font text-5xl font-black mt-1 text-white group-hover:scale-110 transition">
-          {{ letter.final|default:"—" }}
+          <div class="arabic-font text-5xl font-black mt-1 text-white group-hover:scale-110 transition">
+            {% if letter.final %}
+            {{ letter.final|safe_text }}
+            {% else %}
+            —
+            {% endif %}
+          </div>
+        </div>
+
+        <div
+          class="group rounded-2xl border border-white/10 bg-slate-950/40 p-4 text-center hover:bg-white/5 transition">
+          <div class="text-xs text-slate-400 [direction:ltr]">Initial</div>
+          <div class="arabic-font text-5xl font-black mt-1 text-white group-hover:scale-110 transition">
+            {{ letter.initial|default:"—" }}
+          </div>
+        </div>
+
+        <div
+          class="group rounded-2xl border border-white/10 bg-slate-950/40 p-4 text-center hover:bg-white/5 transition">
+          <div class="text-xs text-slate-400 [direction:ltr]">Medial</div>
+          <div class="arabic-font text-5xl font-black mt-1 text-white group-hover:scale-110 transition">
+            {{ letter.medial|default:"—" }}
+          </div>
         </div>
       </div>
 
-      <div class="group rounded-2xl border border-white/10 bg-slate-950/40 p-4 text-center hover:bg-white/5 transition">
-        <div class="text-xs text-slate-400 [direction:ltr]">Initial</div>
-        <div class="arabic-font text-5xl font-black mt-1 text-white group-hover:scale-110 transition">
-          {{ letter.initial|default:"—" }}
+      <div class="mt-5 rounded-2xl border border-white/10 bg-white/5 p-4 [direction:ltr]">
+        <div class="text-xs text-slate-400">Tip</div>
+        <div class="text-sm text-slate-200 mt-1 leading-relaxed">
+          Harfni yodlash uchun: <span class="text-white font-semibold">Isolated → Initial → Medial → Final</span>
+          tartibida ko‘rib chiqing.
         </div>
       </div>
-
-      <div class="group rounded-2xl border border-white/10 bg-slate-950/40 p-4 text-center hover:bg-white/5 transition">
-        <div class="text-xs text-slate-400 [direction:ltr]">Medial</div>
-        <div class="arabic-font text-5xl font-black mt-1 text-white group-hover:scale-110 transition">
-          {{ letter.medial|default:"—" }}
-        </div>
-      </div>
-    </div>
-
-    <div class="mt-5 rounded-2xl border border-white/10 bg-white/5 p-4 [direction:ltr]">
-      <div class="text-xs text-slate-400">Tip</div>
-      <div class="text-sm text-slate-200 mt-1 leading-relaxed">
-        Harfni yodlash uchun: <span class="text-white font-semibold">Isolated → Initial → Medial → Final</span>
-        tartibida ko‘rib chiqing.
-      </div>
-    </div>
   </section>
 
   <!-- RIGHT: EXAMPLES (WRAP CHIPS) -->
@@ -155,11 +163,21 @@
         </div>
 
         <div class="mt-2 text-[11px] text-slate-300 [direction:ltr]">
-          {{ ex.transliteration|default:"—" }}
+          {% if ex.transliteration %}
+          {{ ex.transliteration|safe_text }}
+          {% else %}
+          —
+          {% endif %}
         </div>
 
         <div class="mt-1 text-xs text-slate-200 [direction:ltr]">
-          UZ: <span class="font-semibold text-white">{{ ex.translation_uz|default:"—" }}</span>
+          UZ: <span class="font-semibold text-white">
+            {% if ex.translation_uz %}
+            {{ ex.translation_uz|safe_text }}
+            {% else %}
+            —
+            {% endif %}
+          </span>
         </div>
       </div>
       {% endfor %}

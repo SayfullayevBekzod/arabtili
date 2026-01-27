@@ -79,8 +79,7 @@
     <div class="relative flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 mb-12">
       <div class="space-y-1">
         <div class="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">{{ u.order }}-Bo'lim</div>
-        <h2 class="text-2xl md:text-3xl font-black text-white group-hover:text-emerald-400 transition-colors">{{ u.title
-          }}</h2>
+        <h2 class="text-2xl md:text-3xl font-black text-white group-hover:text-emerald-400 transition-colors">{{ u.title }}</h2>
       </div>
 
       <div class="flex items-center gap-3">
@@ -118,10 +117,7 @@
                       {% if l.user_prog and l.user_prog.is_completed %}from-emerald-400 to-emerald-600 opacity-100{% else %}from-slate-700 to-slate-800 opacity-50{% endif %}">
             </div>
 
-            <span class="relative text-3xl drop-shadow-lg">{% if l.user_prog and l.user_prog.is_completed %}✅{% else
-              %}📚{% endif %}</span>
-
-            {% if l.user_prog and not l.user_prog.is_completed and l.user_prog.percent > 0 %}
+            <span class="relative text-3xl drop-shadow-lg">{% if l.user_prog and l.user_prog.is_completed %}✅{% else %}📚{% endif %}</span> {% if l.user_prog and not l.user_prog.is_completed and l.user_prog.percent > 0 %}
             <div
               class="absolute -bottom-2 -right-2 bg-sky-500 text-[10px] font-black px-2.5 py-1 rounded-xl border-4 border-slate-900 shadow-xl">
               {{ l.user_prog.percent }}%

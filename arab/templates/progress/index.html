@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load sanitize %}
 {% block title %}Progress{% endblock %}
 {% block content %}
 
@@ -117,7 +118,8 @@
       <div class="flex items-center justify-between rounded-2xl border border-white/10 bg-slate-950/30 px-4 py-3">
         <div class="text-slate-300">🧠 Review</div>
         <div class="text-slate-400 text-xs">
-          {{ today_review_done|default:0 }} / {{ daily_review_target|default:10 }}
+          {% if today_review_done is not None %}{{ today_review_done }}{% else %}0{% endif %} / {% if
+          daily_review_target is not None %}{{ daily_review_target }}{% else %}10{% endif %}
         </div>
       </div>
       <div class="flex items-center justify-between rounded-2xl border border-white/10 bg-slate-950/30 px-4 py-3">
@@ -149,20 +151,23 @@
     <div class="flex items-start justify-between gap-3">
       <div>
         <div class="text-sm text-slate-400">🧩 Level / XP</div>
-        <div class="mt-1 text-2xl font-black">Level {{ level|default:1 }}</div>
+        <div class="mt-1 text-2xl font-black">Level {% if level %}{{ level }}{% else %}1{% endif %}</div>
         <div class="text-xs text-slate-400 mt-1">
-          XP: <span class="text-slate-200 font-semibold">{{ xp|default:0 }}</span> / {{ xp_next|default:100 }}
+          XP: <span class="text-slate-200 font-semibold">{% if xp is not None %}{{ xp }}{% else %}0{% endif %}</span> /
+          {% if xp_next %}{{ xp_next }}{% else %}100{% endif %}
         </div>
       </div>
       <div class="h-12 w-12 rounded-2xl border border-white/10 bg-slate-950/40 grid place-items-center">🧩</div>
     </div>
 
     <div class="mt-5 h-2 rounded-full bg-white/10 overflow-hidden">
-      <div class="h-2 bg-gradient-to-r from-emerald-400 to-sky-400" style="width: {{ xp_pct|default:0 }}%"></div>
+      <div class="h-2 bg-gradient-to-r from-emerald-400 to-sky-400"
+        style="width: {% if xp_pct is not None %}{{ xp_pct }}{% else %}0{% endif %}%"></div>
     </div>
 
     <div class="mt-4 text-xs text-slate-400">
-      Next level uchun: <span class="text-slate-200 font-semibold">{{ xp_remaining|default:0 }}</span> XP kerak.
+      Next level uchun: <span class="text-slate-200 font-semibold">{% if xp_remaining is not None %}{{ xp_remaining }}{%
+        else %}0{% endif %}</span> XP kerak.
     </div>
 
     <div class="mt-5 rounded-2xl border border-white/10 bg-slate-950/30 p-4">
@@ -180,7 +185,8 @@
     <div class="flex items-start justify-between gap-3">
       <div>
         <div class="text-sm text-slate-400">⏱ Study time</div>
-        <div class="mt-1 text-2xl font-black">{{ study_today_min|default:0 }} min</div>
+        <div class="mt-1 text-2xl font-black">{% if study_today_min is not None %}{{ study_today_min }}{% else %}0{%
+          endif %} min</div>
         <div class="text-xs text-slate-400 mt-1">Bugun o‘qigan vaqt</div>
       </div>
       <div class="h-12 w-12 rounded-2xl border border-white/10 bg-slate-950/40 grid place-items-center">⏱</div>
@@ -189,12 +195,15 @@
     <div class="mt-5 grid grid-cols-2 gap-3 text-sm">
       <div class="rounded-2xl border border-white/10 bg-slate-950/30 p-4">
         <div class="text-xs text-slate-400">Haftada</div>
-        <div class="mt-1 text-xl font-black">{{ study_week_min|default:0 }} min</div>
+        <div class="mt-1 text-xl font-black">{% if study_week_min is not None %}{{ study_week_min }}{% else %}0{% endif
+          %} min</div>
       </div>
       <div class="rounded-2xl border border-white/10 bg-slate-950/30 p-4">
         <div class="text-xs text-slate-400">O‘rtacha</div>
-        <div class="mt-1 text-xl font-black">{{ study_avg_min|default:0 }} min/kun</div>
+        <div class="mt-1 text-xl font-black">{% if study_avg_min is not None %}{{ study_avg_min }}{% else %}0{% endif %}
+          min/kun</div>
       </div>
+
     </div>
 
     <div class="mt-4 text-xs text-slate-400">
@@ -274,7 +283,8 @@
     </div>
 
     <div class="mt-5 h-2 rounded-full bg-white/10 overflow-hidden">
-      <div class="h-2 bg-gradient-to-r from-emerald-400 to-sky-400" style="width: {{ words_pct|default:0 }}%"></div>
+      <div class="h-2 bg-gradient-to-r from-emerald-400 to-sky-400"
+        style="width: {% if words_pct is not None %}{{ words_pct }}{% else %}0{% endif %}%"></div>
     </div>
 
     <div class="mt-4 text-xs text-slate-400">
@@ -295,7 +305,7 @@
         <div class="mt-1 text-2xl font-black">Haftalik aktivlik</div>
       </div>
       <div class="rounded-2xl border border-white/10 bg-slate-950/40 px-4 py-2 text-xs text-slate-300">
-        Total: {{ week_total_actions|default:0 }}
+        Total: {% if week_total_actions is not None %}{{ week_total_actions }}{% else %}0{% endif %}
       </div>
     </div>
 
@@ -303,10 +313,11 @@
       {% for d in week_bars %}
       <div class="flex flex-col items-center gap-2">
         <div class="w-full rounded-2xl bg-white/10 overflow-hidden h-28 flex items-end">
-          <div class="w-full bg-gradient-to-t from-emerald-400/90 to-sky-400/70" style="height: {{ d.pct|default:0 }}%">
+          <div class="w-full bg-gradient-to-t from-emerald-400/90 to-sky-400/70"
+            style="height: {% if d.pct is not None %}{{ d.pct }}{% else %}0{% endif %}%">
           </div>
         </div>
-        <div class="text-[10px] text-slate-400">{{ d.label|default:"-" }}</div>
+        <div class="text-[10px] text-slate-400">{% if d.label %}{{ d.label|safe_text }}{% else %}-{% endif %}</div>
       </div>
       {% endfor %}
     </div>
@@ -362,7 +373,8 @@
   </div>
 
   <div class="mt-4 h-2 rounded-full bg-white/10 overflow-hidden">
-    <div class="h-2 bg-white" style="width: {{ lessons_pct|default:0 }}%"></div>
+    <div class="h-2 bg-white" style="width: {% if lessons_pct is not None %}{{ lessons_pct }}{% else %}0{% endif %}%">
+    </div>
   </div>
 
   <div class="mt-5 flex flex-wrap gap-2 text-xs">
@@ -394,7 +406,7 @@
     <div class="mt-5 flex flex-wrap gap-2">
       {% for a in achievements %}
       <span class="rounded-2xl border border-white/10 bg-slate-950/30 px-3 py-2 text-xs text-slate-200">
-        {{ a.icon|default:"✅" }} {{ a.title }}
+        {% if a.icon %}{{ a.icon|safe_text }}{% else %}✅{% endif %} {{ a.title|safe_text }}
       </span>
       {% empty %}
       <div class="text-sm text-slate-400">Hozircha badge yo‘q. Birinchi streakni boshlang 🔥</div>
@@ -448,7 +460,8 @@
       <div class="flex gap-1">
         {% for c in week %}
         <span class="h-3 w-3 rounded-[4px] border border-white/10"
-          style="background: rgba(16, 185, 129, {{ c|default:0 }})" title="activity"></span>
+          style="background: rgba(16, 185, 129, {% if c is not None %}{{ c }}{% else %}0{% endif %})"
+          title="activity"></span>
         {% endfor %}
       </div>
       {% endfor %}

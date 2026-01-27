@@ -22,7 +22,7 @@ try:
 except ImportError:
     Image = None
 
-from .forms import LoginForm, RegisterForm, UserUpdateForm, ProfileUpdateForm
+from .forms import LoginForm, RegisterForm, UserUpdateForm, ProfileUpdateForm, ReminderUpdateForm
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib import messages
@@ -48,6 +48,7 @@ from .models import (
     UserDailyStat,
     UserGamification,
     UserWeakArea,
+    UserReminder,
     QuranSurah,
     QuranAyah,
     Mission,
@@ -1524,24 +1525,29 @@ def practice_weak_words(request):
     return render(request, "practice/weak_words.html", {"items": quiz_items})
 @login_required
 def settings_profile(request):
-    # Ensure profile exists for existing users
     profile, created = Profile.objects.get_or_create(user=request.user)
+    reminder, _ = UserReminder.objects.get_or_create(user=request.user)
     
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=request.user)
         p_form = ProfileUpdateForm(request.POST, request.FILES, instance=profile)
-        if u_form.is_valid() and p_form.is_valid():
+        r_form = ReminderUpdateForm(request.POST, instance=reminder)
+        
+        if u_form.is_valid() and p_form.is_valid() and r_form.is_valid():
             u_form.save()
             p_form.save()
+            r_form.save()
             messages.success(request, f'Profilingiz muvaffaqiyatli yangilandi!')
             return redirect('arab:settings_profile')
     else:
         u_form = UserUpdateForm(instance=request.user)
         p_form = ProfileUpdateForm(instance=profile)
+        r_form = ReminderUpdateForm(instance=reminder)
 
     context = {
         'u_form': u_form,
-        'p_form': p_form
+        'p_form': p_form,
+        'r_form': r_form
     }
     return render(request, 'auth/profile_settings.html', context)
 
@@ -1837,13 +1843,18 @@ def leagues_list(request):
     # Filter users in same league
     # In real app, we would group by 'cohort' (random 30 users).
     # For now, global leaderboard per league tier.
-    leaderboard = UserGamification.objects.filter(
+    leaderboard = list(UserGamification.objects.filter(
         current_league=g.current_league
-    ).select_related('user', 'user__profile').order_by('-league_xp')[:50]
-    print(f"DEBUG: Rendering leagues.html with leaderboard len: {len(leaderboard)}")
+    ).select_related('user', 'user__profile').order_by('-league_xp')[:50])
+    
+    # Check if user is in leaderboard (leaderboard is now a list)
+    user_in_leaderboard = any(u.user == request.user for u in leaderboard)
+    
     return render(request, "pages/leagues.html", {
         "leaderboard": leaderboard,
-        "my_league": g.get_current_league_display()
+        "my_league": g.get_current_league_display(),
+        "user_gamification": g,
+        "user_in_leaderboard": user_in_leaderboard
     })
 
 
@@ -1890,3 +1901,15 @@ def shop_purchase(request, item):
     
     return redirect("arab:shop_index")
 
+
+@login_required
+@require_POST
+def save_push_subscription(request):
+    try:
+        data = json.loads(request.body)
+        reminder, _ = UserReminder.objects.get_or_create(user=request.user)
+        reminder.push_subscription = data
+        reminder.save()
+        return JsonResponse({'status': 'ok'})
+    except Exception as e:
+        return JsonResponse({'status': 'error', 'message': str(e)}, status=400)

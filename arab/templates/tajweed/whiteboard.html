@@ -126,8 +126,7 @@
 <script id="letters-data" type="application/json">
     [
         {% for letter in letters %}
-        { "word": "{{ letter.arabic }}", "name": "{{ letter.name }}", "svgPath": "{{ letter.svg_path }}" }{% if not forloop.last %},{% endif %}
-        {% endfor %}
+        { "word": "{{ letter.arabic }}", "name": "{{ letter.name }}", "svgPath": "{{ letter.svg_path }}" }{% if not forloop.last %},{% endif %} {% endfor %}
     ]
 </script>
 

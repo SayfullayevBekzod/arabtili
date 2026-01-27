@@ -180,13 +180,21 @@
           <div class="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">Transliteratsiya</div>
           <div
             class="px-3 py-2 rounded-xl bg-white/5 border border-white/5 text-sky-400 font-black tracking-tight text-xs">
-            {{ w.transliteration|default:"—" }}</div>
+            {% if w.transliteration %}
+            {{ w.transliteration }}
+            {% else %}
+            —
+            {% endif %}</div>
         </div>
         <div class="space-y-1">
           <div class="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">O‘qilishi</div>
           <div
             class="px-3 py-2 rounded-xl bg-white/5 border border-white/5 text-emerald-400 font-black tracking-tight text-xs">
-            {{ w.pronunciation|default:"—" }}</div>
+            {% if w.pronunciation %}
+            {{ w.pronunciation }}
+            {% else %}
+            —
+            {% endif %}</div>
         </div>
       </div>
 
@@ -208,8 +216,13 @@
             <div
               class="h-7 w-7 rounded-lg bg-emerald-500/10 flex items-center justify-center text-[9px] font-black text-emerald-500 border border-emerald-500/20">
               UZ</div>
-            <span class="text-base text-white font-black tracking-tight line-clamp-2 leading-snug">{{
-              w.translation_uz|default:"—" }}</span>
+            <span class="text-base text-white font-black tracking-tight line-clamp-2 leading-snug">
+              {% if w.translation_uz %}
+              {{ w.translation_uz }}
+              {% else %}
+              —
+              {% endif %}
+            </span>
           </div>
         </div>
 
@@ -268,8 +281,7 @@
       {% for i in page_obj.paginator.page_range %}
       {% if page_obj.number == i %}
       <span
-        class="h-12 w-12 rounded-full bg-emerald-500 text-slate-950 flex items-center justify-center font-black text-sm shadow-xl shadow-emerald-500/30 ring-4 ring-emerald-500/10">{{
-        i }}</span>
+        class="h-12 w-12 rounded-full bg-emerald-500 text-slate-950 flex items-center justify-center font-black text-sm shadow-xl shadow-emerald-500/30 ring-4 ring-emerald-500/10">{{ i  }}</span>
       {% elif i > page_obj.number|add:'-3' and i < page_obj.number|add:'3' %} <a
         href="?page={{ i }}&q={{ q }}&cat={{ cat }}&alpha={{ alpha }}"
         class="h-12 w-12 rounded-full flex items-center justify-center text-slate-500 hover:bg-white/5 hover:text-white transition-all text-xs font-black">

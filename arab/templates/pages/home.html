@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load sanitize %}
 {% block title %}AlifPro Academy - Bosh Sahifa{% endblock %}
 {% block content %}
 
@@ -65,15 +66,18 @@
       <!-- Stats -->
       <div class="pt-10 flex gap-12 border-t border-white/5">
         <div class="group">
-          <div class="text-3xl font-black text-white group-hover:text-emerald-400 transition-colors">{{total_words|default:"528" }}</div>
+          <div class="text-3xl font-black text-white group-hover:text-emerald-400 transition-colors">
+            {% if total_words %}{{ total_words }}{% else %}528{% endif %}</div>
           <div class="text-[10px] font-black text-slate-500 uppercase tracking-widest mt-1">Lug'at</div>
         </div>
         <div class="group">
-          <div class="text-3xl font-black text-white group-hover:text-sky-400 transition-colors">{{active_users|default:"13" }}</div>
+          <div class="text-3xl font-black text-white group-hover:text-sky-400 transition-colors">
+            {% if active_users %}{{ active_users }}{% else %}13{% endif %}</div>
           <div class="text-[10px] font-black text-slate-500 uppercase tracking-widest mt-1">O'quvchilar</div>
         </div>
         <div class="group">
-          <div class="text-3xl font-black text-white group-hover:text-amber-400 transition-colors">{{total_letters|default:"28" }}</div>
+          <div class="text-3xl font-black text-white group-hover:text-amber-400 transition-colors">
+            {% if total_letters %}{{ total_letters }}{% else %}28{% endif %}</div>
           <div class="text-[10px] font-black text-slate-500 uppercase tracking-widest mt-1">Darslar</div>
         </div>
       </div>
@@ -94,29 +98,30 @@
             </div>
             <div
               class="h-14 w-14 rounded-2xl bg-gradient-to-br from-emerald-400/20 to-sky-400/20 border border-white/10 grid place-items-center">
-              <span class="text-xl font-black text-emerald-400">{{ game.level|default:"1" }}</span>
+              <span class="text-xl font-black text-emerald-400">{% if game.level %}{{ game.level }}{% else %}1{% endif %}</span>
             </div>
           </div>
 
           <div class="grid grid-cols-2 gap-4">
             <div class="bg-white/5 rounded-2xl p-5 border border-white/5 hover:border-white/10 transition">
               <div class="h-10 w-10 rounded-xl bg-orange-500/10 grid place-items-center text-xl mb-3">🔥</div>
-              <div class="text-2xl font-black text-white">{{ game.current_streak|default:"0" }}</div>
+              <div class="text-2xl font-black text-white">{% if game.current_streak %}{{ game.current_streak }}{% else %}0{% endif %}</div>
               <div class="text-[10px] font-black text-slate-500 uppercase tracking-widest">Kunlik</div>
             </div>
             <div class="bg-white/5 rounded-2xl p-5 border border-white/5 hover:border-white/10 transition">
               <div class="h-10 w-10 rounded-xl bg-blue-500/10 grid place-items-center text-xl mb-3">⭐</div>
-              <div class="text-2xl font-black text-white">{{ game.xp_total|default:"0" }}</div>
+              <div class="text-2xl font-black text-white">{% if game.xp_total %}{{ game.xp_total }}{% else %}0{% endif %}</div>
               <div class="text-[10px] font-black text-slate-500 uppercase tracking-widest">XP</div>
             </div>
             <div class="bg-white/5 rounded-2xl p-5 border border-white/5 hover:border-white/10 transition">
               <div class="h-10 w-10 rounded-xl bg-yellow-500/10 grid place-items-center text-xl mb-3">🏆</div>
-              <div class="text-2xl font-black text-white line-clamp-1 text-sm">{{game.get_current_league_display|default:"Bronze" }}</div>
+              <div class="text-2xl font-black text-white line-clamp-1 text-sm">{% if game.get_current_league_display %}{{ game.get_current_league_display|safe_text }}{% else %}Bronze{% endif %}</div>
               <div class="text-[10px] font-black text-slate-500 uppercase tracking-widest">Liga</div>
             </div>
             <div class="bg-white/5 rounded-2xl p-5 border border-white/5 hover:border-white/10 transition">
               <div class="h-10 w-10 rounded-xl bg-red-500/10 grid place-items-center text-xl mb-3">❤️</div>
-              <div class="text-2xl font-black text-white">{{ game.hearts|default:"5" }}</div>
+              <div class="text-2xl font-black text-white">{% if game.hearts %}{{ game.hearts }}{% else %}5{% endif %}
+              </div>
               <div class="text-[10px] font-black text-slate-500 uppercase tracking-widest">Yuraklar</div>
             </div>
           </div>
@@ -223,8 +228,7 @@
         </div>
         <div
           class="relative w-14 h-14 rounded-2xl bg-slate-950 border border-white/10 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
-          {% if mp.mission.mission_type == 'review' %}📚{% elif mp.mission.mission_type == 'lesson' %}🎓{% elif
-          mp.mission.mission_type == 'word' %}🧩{% else %}⏱{% endif %}
+          {% if mp.mission.mission_type == 'review' %}📚{% elif mp.mission.mission_type == 'lesson' %}🎓{% elif mp.mission.mission_type == 'word' %}🧩{% else %}⏱{% endif %}
         </div>
       </div>
       <div class="flex-1 space-y-3">
