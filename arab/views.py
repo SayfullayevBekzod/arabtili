@@ -58,7 +58,11 @@ from .models import (
     ScenarioCategory,
     Scenario,
     DialogLine,
-    PhrasebookEntry
+    PhrasebookEntry,
+    UserFeedback
+)
+from .forms import (
+    RegisterForm, LoginForm, UserUpdateForm, ProfileUpdateForm, ReminderUpdateForm, FeedbackForm
 )
 from .progress_tracking import xp_for_next_level
 
@@ -138,65 +142,6 @@ def _update_daily_stat(user, review_inc=0, lesson_inc=0, new_word_inc=0, minutes
 
     # Check Missions
     _update_daily_mission_progress(user, review_inc, lesson_inc, new_word_inc, minutes_inc)
-
-
-def _get_daily_missions(user):
-    """
-    Get or create 3 daily missions for the user.
-    """
-    today = timezone.localdate()
-    # Check if we have missions for today
-    existing = UserMissionProgress.objects.filter(user=user, date=today).select_related("mission")
-    if existing.count() >= 3:
-        return existing
-
-    # Create new missions if not enough
-    # If no Mission templates exist, create some defaults
-    if Mission.objects.count() == 0:
-        Mission.objects.create(title="Review 10 ta so'z", mission_type="review", required_count=10, xp_reward=15)
-        Mission.objects.create(title="Review 20 ta so'z", mission_type="review", required_count=20, xp_reward=25)
-        Mission.objects.create(title="1 ta dars tugat", mission_type="lesson", required_count=1, xp_reward=50)
-        Mission.objects.create(title="5 ta yangi so'z", mission_type="word", required_count=5, xp_reward=20)
-        Mission.objects.create(title="15 daqiqa shug'ullan", mission_type="time", required_count=15, xp_reward=30)
-
-    # Pick 3 random missions
-    all_missions = list(Mission.objects.all())
-    # Try to pick different types if possible
-    selected_missions = random.sample(all_missions, k=min(3, len(all_missions)))
-    
-    # Check current progress from DailyStat (to sync initial state if user did actions before generating missions)
-    stat = UserDailyStat.objects.filter(user=user, day=today).first()
-    
-    new_progs = []
-    for m in selected_missions:
-        # Check if already assigned
-        if not UserMissionProgress.objects.filter(user=user, mission=m, date=today).exists():
-            # Init progress based on DailyStat
-            current = 0
-            if stat:
-                if m.mission_type == "review": current = stat.reviews_done
-                elif m.mission_type == "lesson": current = stat.lessons_done
-                elif m.mission_type == "word": current = stat.new_words
-                elif m.mission_type == "time": current = stat.study_minutes
-            
-            is_done = current >= m.required_count
-            mp = UserMissionProgress.objects.create(
-                user=user, 
-                mission=m, 
-                date=today,
-                current_progress=min(current, m.required_count),
-                is_completed=is_done
-            )
-            if is_done:
-                # Award XP immediately if auto-completed
-                g, _ = UserGamification.objects.get_or_create(user=user)
-                g.xp_total += m.xp_reward
-                g.save()
-                
-            new_progs.append(mp)
-            
-    # Re-fetch all to return uniform queryset
-    return UserMissionProgress.objects.filter(user=user, date=today).select_related("mission")
 
 
 def _update_daily_mission_progress(user, review_inc=0, lesson_inc=0, new_word_inc=0, minutes_inc=0):
@@ -712,15 +657,7 @@ def home(request):
         g, _ = UserGamification.objects.get_or_create(user=request.user)
         context["game"] = g
         context["streak"] = _calc_streak(request.user)
-        
-        # Daily Missions
-        missions = _get_daily_missions(request.user)
-        for m in missions:
-            # Calculate percent for the UI
-            m.progress_percent = int((m.current_progress / m.mission.required_count) * 100) if m.mission.required_count > 0 else 0
-        context["daily_quests"] = missions # Rename key to match template
-        
-        # Add Courses - filter by user's current course level
+# Add Courses - filter by user's current course level
         user_course = request.user.profile.current_course if hasattr(request.user, 'profile') and request.user.profile.current_course else None
         if user_course:
             # Show only the user's current course level
@@ -749,7 +686,7 @@ def alphabet(request):
 
 def letter_detail(request, pk):
     letter = get_object_or_404(Letter, pk=pk)
-    examples = list(letter.examples.all()[:3])
+    examples = list(letter.examples.all()[:10])
 
     audio_url = ""
     pr = letter.pronunciations.first()
@@ -772,9 +709,13 @@ def letter_practice(request, pk):
     options = [letter] + distractors
     random.shuffle(options)
     
+    # Find next letter logic
+    next_letter = Letter.objects.filter(id__gt=letter.id).order_by("id").first()
+
     return render(request, "alphabet/practice.html", {
-        "letter": letter,
-        "options": options, 
+        "letter": letter, 
+        "options": options,
+        "next_letter": next_letter,
     })
 
 
@@ -1913,3 +1854,18 @@ def save_push_subscription(request):
         return JsonResponse({'status': 'ok'})
     except Exception as e:
         return JsonResponse({'status': 'error', 'message': str(e)}, status=400)
+
+@login_required
+def feedback_view(request):
+    if request.method == 'POST':
+        form = FeedbackForm(request.POST)
+        if form.is_valid():
+            feedback = form.save(commit=False)
+            feedback.user = request.user
+            feedback.save()
+            messages.success(request, "Xabaringiz qabul qilindi! Tez orada ko'rib chiqamiz.")
+            return redirect('arab:feedback')
+    else:
+        form = FeedbackForm()
+    
+    return render(request, "pages/feedback.html", {"form": form})

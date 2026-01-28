@@ -943,3 +943,19 @@ def save_user_related_objects(sender, instance, **kwargs):
         instance.profile.save()
     if hasattr(instance, 'reminder_settings'):
         instance.reminder_settings.save()
+
+# ----------------------------
+# FEEDBACK
+# ----------------------------
+class UserFeedback(TimeStamped):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    type = models.CharField(max_length=20, choices=[
+        ('suggestion', 'Taklif'),
+        ('problem', 'Muammo'),
+        ('other', 'Boshqa')
+    ], default='suggestion')
+    message = models.TextField()
+    is_resolved = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"{self.user.username} - {self.type}"

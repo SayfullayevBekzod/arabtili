@@ -1,0 +1,17 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Pure White Circular Background -->
+  <circle cx="512" cy="512" r="512" fill="#FFFFFF"/>
+  
+  <!-- Outer Gold Band (Perfectly Centered) -->
+  <circle cx="512" cy="512" r="480" stroke="#C9A24D" stroke-width="24"/>
+  
+  <!-- Symmetrical "A" Monogram (Mathematically Balanced) -->
+  <!-- Main Blue Body -->
+  <path d="M512 250L260 774H390L512 512L634 774H764L512 250Z" fill="#1F4FD8"/>
+  
+  <!-- Gold Accent Header -->
+  <path d="M512 250L440 381L512 512L584 381L512 250Z" fill="#C9A24D"/>
+  
+  <!-- Symmetrical Lower Bridge -->
+  <path d="M370 660C440 610 584 610 654 660" stroke="#C9A24D" stroke-width="24" stroke-linecap="round"/>
+</svg>

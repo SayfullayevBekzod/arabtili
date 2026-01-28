@@ -26,7 +26,9 @@ class ProfileUpdateForm(forms.ModelForm):
         model = Profile
         fields = ['avatar', 'bio']
 
-from .models import UserReminder
+
+from .models import UserReminder, UserFeedback
+
 class ReminderUpdateForm(forms.ModelForm):
     class Meta:
         model = UserReminder
@@ -35,4 +37,13 @@ class ReminderUpdateForm(forms.ModelForm):
             'reminder_time': forms.TimeInput(attrs={'type': 'time', 'class': 'bg-slate-900 border-white/10 rounded-xl text-white px-4 py-2 w-full'}),
             'notes': forms.Textarea(attrs={'rows': 3, 'class': 'bg-slate-900 border-white/10 rounded-xl text-white px-4 py-2 w-full', 'placeholder': 'Eslatma yozing...'}),
             'is_enabled': forms.CheckboxInput(attrs={'class': 'w-5 h-5 rounded border-white/10 bg-slate-900 text-emerald-500 focus:ring-emerald-500'}),
+        }
+
+class FeedbackForm(forms.ModelForm):
+    class Meta:
+        model = UserFeedback
+        fields = ['type', 'message']
+        widgets = {
+            'type': forms.Select(attrs={'class': 'bg-slate-900 border-white/10 rounded-2xl text-white px-4 py-3 w-full focus:ring-emerald-500 focus:border-emerald-500'}),
+            'message': forms.Textarea(attrs={'rows': 5, 'class': 'bg-slate-900 border-white/10 rounded-2xl text-white px-4 py-3 w-full placeholder-slate-500 focus:ring-emerald-500 focus:border-emerald-500', 'placeholder': 'Fikringizni batafsil yozib qoldiring...'}),
         }

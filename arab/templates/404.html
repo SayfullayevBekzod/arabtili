@@ -1,41 +1,44 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Sahifa topilmadi | AlifPro{% endblock %}
+{% block title %}Sahifa topilmadi | AlifPro Academy{% endblock %}
 
 {% block content %}
-<div class="min-h-[80vh] flex items-center justify-center p-6">
-    <div class="max-w-md w-full text-center space-y-8">
-        <!-- 404 Visual -->
-        <div class="relative inline-block">
-            <h1 class="text-9xl font-black text-white/5 tracking-tighter">404</h1>
-            <div class="absolute inset-0 flex items-center justify-center">
-                <div
-                    class="text-4xl font-bold bg-gradient-to-r from-emerald-400 to-sky-400 bg-clip-text text-transparent">
-                    Oops!
-                </div>
-            </div>
+<div class="min-h-[70vh] flex items-center justify-center p-6 relative overflow-hidden">
+    <!-- Decorative Blurs -->
+    <div
+        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-emerald-500/10 rounded-full blur-[120px] pointer-events-none">
+    </div>
+
+    <div class="max-w-xl w-full text-center relative z-10">
+        <!-- Circular Logo Badge -->
+        <div
+            class="inline-flex h-24 w-24 items-center justify-center rounded-full border border-white/10 bg-white p-0 mb-8 mx-auto animate-float overflow-hidden">
+            <img src="{% static 'img/logo_alifpro.svg' %}" alt="AlifPro" class="h-full w-full object-cover">
         </div>
 
-        <div class="bg-slate-900/40 backdrop-blur-xl border border-white/10 p-8 rounded-3xl space-y-4">
-            <h2 class="text-2xl font-bold text-white">Sahifa topilmadi</h2>
-            <p class="text-slate-400">
-                Siz qidirayotgan sahifa mavjud emas, o'chirilgan yoki manzili o'zgartirilgan bo'lishi mumkin.
+        <h1
+            class="text-8xl sm:text-9xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white to-white/20 tracking-tighter mb-4">
+            404</h1>
+
+        <div class="bg-slate-900/40 backdrop-blur-2xl border border-white/10 p-8 sm:p-12 rounded-[2.5rem] shadow-2xl">
+            <h2 class="text-3xl font-black text-white mb-4">Sahifa topilmadi</h2>
+            <p class="text-slate-400 text-lg leading-relaxed max-w-sm mx-auto mb-8">
+                Kechirasiz, siz qidirayotgan sahifa vaqtincha mavjud emas yoki nomi o'zgartirilgan.
             </p>
 
-            <div class="pt-4">
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <a href="/"
-                    class="inline-flex items-center justify-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3 px-8 rounded-2xl transition-all hover:scale-105 active:scale-95 shadow-lg shadow-emerald-500/20">
+                    class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white text-slate-950 font-black py-4 px-10 rounded-2xl transition-all hover:scale-105 active:scale-95 shadow-xl">
                     <i class="fas fa-home"></i>
-                    Bosh sahifaga qaytish
+                    Bosh sahifa
                 </a>
+                <button onclick="history.back()"
+                    class="w-full sm:w-auto inline-flex items-center justify-center gap-2 border border-white/10 bg-white/5 hover:bg-white/10 text-white font-black py-4 px-10 rounded-2xl transition-all active:scale-95">
+                    <i class="fas fa-arrow-left"></i>
+                    Orqaga
+                </button>
             </div>
-        </div>
-
-        <!-- Decorative elements -->
-        <div class="absolute top-1/4 -left-20 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none">
-        </div>
-        <div class="absolute bottom-1/4 -right-20 w-64 h-64 bg-sky-500/10 rounded-full blur-3xl pointer-events-none">
         </div>
     </div>
 </div>

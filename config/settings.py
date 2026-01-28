@@ -31,12 +31,10 @@ import os
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-x)w7ju09shovlzj+xn+n^q5l$tcy$cc8g1_4q0#w0za9znt6t-')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 print(f"DEBUG status: {DEBUG}")
-print(f"DJANGO_DEBUG env var: {os.environ.get('DJANGO_DEBUG')}")
 
-ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', '*').split(',')
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '*'] if DEBUG else os.environ.get('DJANGO_ALLOWED_HOSTS', '*').split(',')
 
 # SSL / HTTPS settings for production
 # if not DEBUG:

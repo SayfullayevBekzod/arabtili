@@ -12,12 +12,12 @@
   <meta name="theme-color" content="#020617">
 
   <!-- FAVICONS -->
-  <link rel="icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}">
-  <link rel="apple-touch-icon" href="{% static 'img/favicon.png' %}">
+  <link rel="icon" type="image/svg+xml" href="{% static 'img/logo_alifpro.svg' %}">
+  <link rel="apple-touch-icon" href="{% static 'img/logo_alifpro.svg' %}">
   <link rel="manifest" href="{% static 'manifest.json' %}">
 
   <script>
-    const SW_VERSION = '2.1.0'; // Current version
+    const SW_VERSION = '2.2.0'; // Current version
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('/static/sw.js?v=' + SW_VERSION)
@@ -109,14 +109,11 @@
     }
 
     .logo-glow {
-      box-shadow: 0 0 0 0 rgba(52, 211, 153, 0);
-      transition: box-shadow .3s ease, transform .3s ease;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      border-radius: 9999px;
     }
 
     .group:hover .logo-glow {
-      box-shadow:
-        0 0 0 4px rgba(52, 211, 153, .14),
-        0 10px 40px rgba(56, 189, 248, .20);
       transform: scale(1.05);
     }
 
@@ -144,16 +141,29 @@
     }
 
     .mobile-link {
-      padding: 14px 16px;
-      border-radius: 1rem;
-      border: 1px solid rgba(255, 255, 255, .08);
-      background: rgba(255, 255, 255, .04);
-      transition: all .25s;
+      padding: 12px 14px;
+      border-radius: 1.25rem;
+      border: 1px solid rgba(255, 255, 255, .05);
+      background: rgba(255, 255, 255, .03);
+      transition: all .3s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
     }
 
-    .mobile-link:hover {
-      background: rgba(255, 255, 255, .12);
-      transform: translateX(4px);
+    .mobile-link:hover,
+    .mobile-link:active {
+      background: rgba(255, 255, 255, .08);
+      border-color: rgba(255, 255, 255, .15);
+      transform: scale(0.98);
+    }
+
+    .mobile-link span:first-child {
+      transition: transform 0.3s ease;
+    }
+
+    .mobile-link:hover span:first-child {
+      transform: scale(1.1) rotate(-5deg);
     }
 
     @keyframes slideUpNav {
@@ -175,18 +185,17 @@
       transform: translateX(-50%);
       width: calc(100% - 2rem);
       max-width: 400px;
-      background: rgba(15, 23, 42, 0.8);
-      backdrop-filter: blur(20px) saturate(180%);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 2.25rem;
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(25px) saturate(200%);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 2.5rem;
       display: flex;
       justify-content: space-around;
       align-items: center;
-      padding: 0.85rem;
+      padding: 0.75rem 1rem;
       box-shadow:
-        0 4px 6px -1px rgba(0, 0, 0, 0.1),
-        0 20px 25px -5px rgba(0, 0, 0, 0.2),
-        0 10px 10px -5px rgba(0, 0, 0, 0.1);
+        0 8px 32px -4px rgba(0, 0, 0, 0.4),
+        0 4px 12px -2px rgba(0, 0, 0, 0.2);
       z-index: 100;
       animation: slideUpNav 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
       animation-delay: 0.2s;
@@ -197,18 +206,27 @@
       flex-direction: column;
       align-items: center;
       gap: 0.25rem;
-      color: rgba(255, 255, 255, 0.5);
-      font-size: 0.7rem;
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 0.65rem;
       font-weight: 600;
-      transition: all 0.2s;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      padding: 0.5rem 0.75rem;
+      border-radius: 1.5rem;
     }
 
     .floating-nav-item.active {
       color: #10b981;
+      background: rgba(16, 185, 129, 0.1);
+      box-shadow: inset 0 0 12px rgba(16, 185, 129, 0.05);
     }
 
     .floating-nav-item i {
-      font-size: 1.25rem;
+      font-size: 1.1rem;
+      transition: transform 0.3s ease;
+    }
+
+    .floating-nav-item.active i {
+      transform: translateY(-2px);
     }
 
     @keyframes float {
@@ -226,6 +244,35 @@
     .animate-float {
       animation: float 6s ease-in-out infinite;
     }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #020617;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      border: 2px solid #020617;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(16, 185, 129, 0.4);
+    }
+
+    /* Scrolled Header Effect */
+    .header-scrolled {
+      background: rgba(2, 6, 23, 0.6) !important;
+      backdrop-filter: blur(25px) saturate(200%) !important;
+      border-color: rgba(255, 255, 255, 0.08) !important;
+      padding-top: 0.5rem !important;
+      padding-bottom: 0.5rem !important;
+      box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5);
+    }
   </style>
   <script type="text/javascript">
     (function (c, l, a, r, i, t, y) {
@@ -242,7 +289,11 @@
   {% if "/login/" not in request.path %}
   <div class="loader-wrapper" id="page-loader">
     <div class="loader-content">
-      <div class="loader-text">ALIFPRO</div>
+      <div
+        class="relative h-24 w-24 flex items-center justify-center rounded-full border border-white/10 bg-white mb-6 overflow-hidden">
+        <img src="{% static 'img/logo_alifpro.svg' %}" alt="AlifPro" class="h-full w-full object-cover">
+      </div>
+      <div class="loader-text">ALIFPRO ACADEMY</div>
     </div>
   </div>
   {% endif %}
@@ -257,26 +308,16 @@
         bg-slate-950/30
         backdrop-blur-xl
         px-4 sm:px-6 py-3
-        transition-all duration-300
+        transition-all duration-500
         hover:bg-white/5
-      ">
+      " id="main-nav-container">
 
         <!-- Brand -->
         <a href="/" class="flex items-center gap-3 group select-none">
-          <!-- Ideal text logo -->
-          <div class="relative h-11 w-11 rounded-2xl overflow-hidden border border-white/10 logo-glow">
-            <div class="absolute inset-0 bg-gradient-to-br from-emerald-400/40 via-sky-400/30 to-fuchsia-400/20"></div>
-            <div
-              class="absolute inset-0 opacity-70 bg-[radial-gradient(circle_at_20%_20%,rgba(255,255,255,.35),transparent_60%)]">
-            </div>
-            <div class="relative h-full w-full grid place-items-center">
-              <div class="text-[13px] font-black tracking-wider">AP</div>
-              <div class="absolute -bottom-1 right-1 arabic-font text-[13px] opacity-90" dir="rtl">ع</div>
-            </div>
-          </div>
-
-          <div class="leading-tight">
-            <div class="font-black leading-none text-white tracking-tight">ALIFPRO ACADEMY</div>
+          <div
+            class="relative h-14 w-14 flex items-center justify-center rounded-full border border-white/10 bg-white p-0 overflow-hidden">
+            <img src="{% static 'img/logo_alifpro.svg' %}" alt="AlifPro"
+              class="relative z-10 h-full w-full object-cover">
           </div>
         </a>
 
@@ -304,7 +345,7 @@
           <div class="h-4 w-px bg-white/10 mx-1"></div>
           <a href="/leagues/"
             class="nav-link px-3 py-2 rounded-xl transition hover:bg-white/10 {% if '/leagues/' in p %}bg-white/10 text-white{% else %}text-slate-400{% endif %}">
-            <i class="fas fa-trophy text-yellow-400 mr-1"></i>Liga
+            <i class="fas fa-trophy text-yellow-400 mr-1"></i>Ligalar
           </a>
           <a href="/shop/"
             class="nav-link px-3 py-2 rounded-xl transition hover:bg-white/10 {% if '/shop/' in p %}bg-white/10 text-white{% else %}text-slate-400{% endif %}">
@@ -331,7 +372,7 @@
                     class="fas fa-bolt"></i></span>
                 <div>
                   <div class="text-white font-medium text-xs">Mashq Hubi</div>
-                  <div class="text-[10px] text-slate-500">O'yin va testlar</div>
+                  <div class="text-[10px] text-slate-500">O'yinlar va testlar</div>
                 </div>
               </a>
               <a href="/review/"
@@ -341,7 +382,7 @@
                     class="fas fa-brain"></i></span>
                 <div>
                   <div class="text-white font-medium text-xs">Takrorlash</div>
-                  <div class="text-[10px] text-slate-500">Spaced Repetition</div>
+                  <div class="text-[10px] text-slate-500">So'zlarni eslab qolish</div>
                 </div>
               </a>
               <a href="/dictionary/"
@@ -351,7 +392,7 @@
                     class="fas fa-book"></i></span>
                 <div>
                   <div class="text-white font-medium text-xs">Lug‘at</div>
-                  <div class="text-[10px] text-slate-500">1000+ so'zlar</div>
+                  <div class="text-[10px] text-slate-500">1000 dan ortiq so'zlar</div>
                 </div>
               </a>
               <a href="/scenarios/"
@@ -429,6 +470,16 @@
                 <i class="fas fa-exchange-alt w-4 text-center"></i>
                 <span>Kursni o'zgartirish</span>
               </a>
+              <a href="https://tirikchilik.uz/SayfullayevBekzod" target="_blank"
+                class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-white/10 transition text-xs text-emerald-400 hover:text-emerald-300">
+                <i class="fas fa-heart w-4 text-center"></i>
+                <span>Qo'llab-quvvatlash</span>
+              </a>
+              <a href="{% url 'arab:feedback' %}"
+                class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-white/10 transition text-xs text-slate-300 hover:text-white">
+                <i class="fas fa-comment-alt w-4 text-center"></i>
+                <span>Fikr-mulohaza</span>
+              </a>
               <div class="h-px bg-white/5 my-1"></div>
               <a href="/accounts/logout/"
                 class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-red-500/10 transition text-xs text-red-400 hover:text-red-300">
@@ -466,7 +517,7 @@
     {% with p=request.path %}
     <a href="/" class="floating-nav-item {% if p == '/' %}active{% endif %}">
       <i class="fas fa-home"></i>
-      <span>Bosh sahifa</span>
+      <span>Asosiy</span>
     </a>
     <a href="/alphabet/" class="floating-nav-item {% if '/alphabet/' in p %}active{% endif %}">
       <i class="fas fa-font"></i>
@@ -498,23 +549,17 @@
               p-6 flex flex-col shadow-2xl
               translate-x-full transition-transform duration-300">
 
-      <div class="flex items-center justify-between mb-6">
+      <div class="flex items-center justify-between mb-8">
         <div class="flex items-center gap-3">
-          <div class="h-11 w-11 rounded-2xl overflow-hidden border border-white/10 logo-glow">
-            <div
-              class="h-full w-full bg-gradient-to-br from-emerald-400/35 via-sky-400/25 to-fuchsia-400/20 grid place-items-center">
-              <div class="text-[13px] font-black tracking-wider">AP</div>
-              <div class="absolute -bottom-1 right-1 arabic-font text-[13px] opacity-90" dir="rtl">ع</div>
-            </div>
-          </div>
-          <div>
-            <div class="font-black">AlifPro</div>
-            <div class="text-xs text-slate-400">Menyu</div>
+          <div
+            class="h-16 w-16 flex items-center justify-center rounded-full border border-white/10 bg-white p-0 overflow-hidden">
+            <img src="{% static 'img/logo_alifpro.svg' %}" alt="AlifPro" class="h-full w-full object-cover">
           </div>
         </div>
 
-        <button id="mobileClose" class="h-9 w-9 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10">
-          ✕
+        <button id="mobileClose"
+          class="h-10 w-10 rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 flex items-center justify-center transition-all active:scale-90">
+          <i class="fas fa-times opacity-60"></i>
         </button>
       </div>
 
@@ -537,18 +582,18 @@
             <a href="{% url 'arab:course_selection' %}" class="mobile-link flex items-center gap-3">
               <span class="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-400"><i
                   class="fas fa-exchange-alt"></i></span>
-              <span>Kursni o'zgartirish</span>
+              <span class="flex-1">Kursni o'zgartirish</span>
             </a>
 
             <a href="/leagues/" class="mobile-link flex items-center gap-3">
               <span class="w-8 h-8 rounded-lg bg-yellow-500/10 flex items-center justify-center text-yellow-400"><i
                   class="fas fa-shield-alt"></i></span>
-              <span>Liga</span>
+              <span class="flex-1">Ligalar</span>
             </a>
             <a href="/shop/" class="mobile-link flex items-center gap-3">
               <span class="w-8 h-8 rounded-lg bg-sky-500/10 flex items-center justify-center text-sky-400"><i
                   class="fas fa-store"></i></span>
-              <span>Do'kon</span>
+              <span class="flex-1">Do'kon</span>
             </a>
             <a href="/tajweed/" class="mobile-link flex items-center gap-3">
               <span class="w-8 h-8 rounded-lg bg-indigo-500/10 flex items-center justify-center text-indigo-400"><i
@@ -595,7 +640,7 @@
             <a href="{% url 'arab:settings_profile' %}" class="mobile-link flex items-center gap-3">
               <span class="w-8 h-8 rounded-lg bg-slate-800 flex items-center justify-center text-slate-400"><i
                   class="fas fa-user-cog"></i></span>
-              <span>Sozlamalar</span>
+              <span class="flex-1">Sozlamalar</span>
             </a>
           </div>
         </div>
@@ -696,7 +741,7 @@
             if (Notification.permission === "granted") {
               new Notification("AlifPro Academy", {
                 body: userNotes || "Vaqt bo'ldi! Arab tili darslarini davom ettiramizmi? 📚",
-                icon: "{% static 'img/favicon.png' %}"
+                icon: "{% static 'img/logo_alifpro.svg' %}"
               });
               localStorage.setItem('last_notified_time', today);
             }
@@ -719,7 +764,7 @@
   </script>
 
   <script>
-    // --- REAL TEME XP UPDATES ---
+    // --- REAL TIME XP UPDATES ---
     {% if user.is_authenticated %}
     (function () {
       const xpEl = document.getElementById("header-xp");
@@ -736,6 +781,15 @@
       }, 5000); // 5 seconds
     })();
     {% endif %}
+    // --- HEADER SCROLL EFFECT ---
+    window.addEventListener('scroll', () => {
+      const container = document.getElementById('main-nav-container');
+      if (window.scrollY > 50) {
+        container?.classList.add('header-scrolled');
+      } else {
+        container?.classList.remove('header-scrolled');
+      }
+    });
   </script>
 
 </body>

@@ -6,7 +6,8 @@ from .models import (
     Exercise, Question, Choice,
     UserLessonProgress, UserWordProgress, UserQuizAttempt,
     LessonVideo, UserVideoProgress, Profile,
-    ScenarioCategory, Scenario, DialogLine, PhrasebookEntry
+    ScenarioCategory, Scenario, DialogLine, PhrasebookEntry,
+    Mission, UserMissionProgress, UserGamification, UserDailyStat
 )
 
 @admin.register(ScenarioCategory)

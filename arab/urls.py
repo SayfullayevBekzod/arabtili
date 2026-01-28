@@ -60,6 +60,7 @@ urlpatterns = [
     path("dictionary/add/<int:word_id>/", views.dictionary_add_card, name="dictionary_add_card"),
     path("settings/profile/", views.settings_profile, name="settings_profile"),
     path("settings/password/", views.settings_password, name="settings_password"),
+    path("feedback/", views.feedback_view, name="feedback"),
 
     # Conversational
     path("scenarios/", views.scenario_list, name="scenario_list"),

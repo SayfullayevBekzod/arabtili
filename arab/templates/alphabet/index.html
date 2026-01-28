@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Arab Alifbosi - O‘rganish{% endblock %}
+{% block title %}Arab Alifbosi - O‘rganish - AlifPro Academy{% endblock %}
 {% block content %}
 
 <!-- HERO & SPOTLIGHT SECTION -->
@@ -66,8 +66,8 @@
         :class="filter === 'non-connect' ? 'bg-orange-500 text-slate-950' : 'bg-white/5 text-slate-400 hover:bg-white/10'"
         class="px-5 py-2.5 rounded-xl text-xs font-bold transition-all">QO'SHILMAYDIGAN</button>
     </div>
-    <div class="text-xs text-slate-500 font-bold whitespace-nowrap">
-      JAMI: <span class="text-white">{{ letters|length }} ta harf</span>
+    <div class="text-[10px] text-slate-500 font-bold whitespace-nowrap uppercase tracking-widest">
+      JAMI: <span class="text-white text-xs">{{ letters|length }} ta harf</span>
     </div>
   </div>
 
@@ -99,7 +99,8 @@
       </div>
 
       <div class="absolute bottom-4 left-0 right-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-        <span class="text-[9px] font-black text-sky-400 tracking-widest uppercase [direction:ltr]">KO'RISH →</span>
+        <span class="text-[9px] font-black text-sky-400 tracking-widest uppercase [direction:ltr]">KO'RISH
+          →</span>
       </div>
     </a>
     {% endfor %}

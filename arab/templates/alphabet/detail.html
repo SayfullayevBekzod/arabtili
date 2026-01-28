@@ -1,201 +1,315 @@
 {% extends "base.html" %}
 {% load sanitize %}
-{% block title %}{{ letter.name|safe_text }}{% endblock %}
+
+{% block title %}{{ letter.name|safe_text }} Harfi - AlifPro Academy{% endblock %}
+
 {% block content %}
+<div x-data="{ 
+    playing: false,
+    activeForm: 'isolated',
+    playAudio(url) {
+        if (!url) return;
+        let audio = new Audio(url);
+        audio.play();
+        this.playing = true;
+        audio.onended = () => { this.playing = false; };
+    }
+}" class="space-y-10 pb-12">
 
-<!-- HERO -->
-<section class="relative overflow-hidden rounded-[2.5rem] border border-white/10 bg-slate-900/40 p-8 md:p-12">
-  <div class="pointer-events-none absolute -top-32 -left-32 h-80 w-80 rounded-full bg-emerald-500/10 blur-[100px]">
-  </div>
-  <div class="pointer-events-none absolute -bottom-32 -right-32 h-80 w-80 rounded-full bg-sky-500/10 blur-[100px]">
-  </div>
-
-  <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
-    <div class="space-y-4">
-      <div
-        class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-[10px] font-black uppercase tracking-widest text-slate-400">
-        ALIFBO • TARTIB RAQAMI: #{{ letter.order }}
-      </div>
-      <h1 class="text-5xl md:text-6xl font-black text-white leading-tight">
-        {{ letter.name }} <span class="text-emerald-400">Harfi</span>
-      </h1>
-      <p class="text-slate-400 text-lg max-w-xl leading-relaxed">
-        Bu harfni yozilish shakllari, talaffuz qoidalari va real so'zlardagi misollar orqali chuqurroq o'rganing.
-      </p>
+  <!-- HERO SECTION: Premium Immersive Header -->
+  <section
+    class="relative overflow-hidden rounded-[3rem] border border-white/10 bg-slate-900/60 backdrop-blur-xl p-8 md:p-12">
+    <div
+      class="pointer-events-none absolute -top-40 -left-40 h-[500px] w-[500px] rounded-full bg-emerald-500/10 blur-[120px]">
     </div>
 
-    <div class="flex flex-wrap gap-3">
-      <a href="/alphabet/"
-        class="px-6 py-3 rounded-2xl bg-white/5 border border-white/10 text-white font-bold text-sm hover:bg-white/10 transition">
-        ← RO'YXATGA QAYTISH
-      </a>
-      <a href="{% url 'arab:letter_practice' letter.id %}"
-        class="px-6 py-3 rounded-2xl bg-emerald-500 text-slate-950 font-black text-sm hover:bg-emerald-400 transition shadow-lg shadow-emerald-500/20">
-        YOZISHNI MASHQ QILISH
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- Makhraj Section -->
-{% if letter.makhraj_image or letter.makhraj_description %}
-<section class="mt-6 rounded-3xl border border-white/10 bg-slate-800/50 p-8">
-  <h2 class="text-2xl font-bold text-white mb-4">Maxraj (Talaffuz o'rni)</h2>
-  <div class="flex flex-col md:flex-row gap-8 items-start">
-    {% if letter.makhraj_image %}
-    <div class="w-full md:w-1/3">
-      <img src="{{ letter.makhraj_image.url }}" alt="Makhraj" class="w-full rounded-2xl border border-white/10">
-    </div>
-    {% endif %}
-    <div class="w-full md:w-2/3">
-      {% if letter.makhraj_description %}
-      <p class="text-lg text-slate-300 leading-relaxed">{{ letter.makhraj_description|linebreaks }}</p>
-      {% endif %}
-    </div>
-  </div>
-</section>
-{% endif %}
-
-<div class="mt-6 grid lg:grid-cols-3 gap-4">
-
-  <!-- LEFT: BIG PREVIEW -->
-  <section class="rounded-3xl border border-white/10 bg-white/5 p-6 text-center" dir="rtl">
-    <div class="rounded-3xl border border-white/10 bg-slate-950/40 p-6">
-      <div class="arabic-font text-[100px] md:text-[120px] font-black leading-none text-white">
-        {{ letter.arabic }}
-      </div>
-      <div class="mt-2 text-xs text-slate-400 [direction:ltr]">
-        Default letter preview
-      </div>
-    </div>
-
-    <!-- quick diacritics -->
-    <div class="mt-4 grid grid-cols-3 gap-3 [direction:ltr]">
-      <div class="group rounded-2xl border border-white/10 bg-white/5 p-4 hover:bg-white/10 transition">
-        <div class="text-[11px] text-slate-400">Fatha</div>
-        <div class="arabic-font text-3xl font-black text-white mt-1"> {{ letter.arabic }}َ </div>
-      </div>
-      <div class="group rounded-2xl border border-white/10 bg-white/5 p-4 hover:bg-white/10 transition">
-        <div class="text-[11px] text-slate-400">Kasra</div>
-        <div class="arabic-font text-3xl font-black text-white mt-1"> {{ letter.arabic }}ِ </div>
-      </div>
-      <div class="group rounded-2xl border border-white/10 bg-white/5 p-4 hover:bg-white/10 transition">
-        <div class="text-[11px] text-slate-400">Damma</div>
-        <div class="arabic-font text-3xl font-black text-white mt-1"> {{ letter.arabic }}ُ </div>
-      </div>
-    </div>
-
-    <div class="mt-4 text-xs text-slate-400 [direction:ltr]">
-      Joins to next:
-      <span class="text-slate-200 font-semibold">{{ letter.joins_to_next }}</span>
-    </div>
-  </section>
-
-  <!-- MIDDLE: SHAPES -->
-  <section class="rounded-3xl border border-white/10 bg-white/5 p-6" dir="rtl">
-    <div class="[direction:ltr]">
-      <h2 class="text-lg font-bold text-white">Harf shakllari</h2>
-      <p class="mt-1 text-xs text-slate-400">So‘z ichida qanday ko‘rinishini ko‘ring</p>
-    </div>
-
-    <div class="mt-5 grid grid-cols-2 gap-3">
-      <div class="group rounded-2xl border border-white/10 bg-slate-950/40 p-4 text-center hover:bg-white/5 transition">
-        <div class="text-xs text-slate-400 [direction:ltr]">Isolated</div>
-        <div class="arabic-font text-5xl font-black mt-1 text-white group-hover:scale-110 transition">
-          {{ letter.isolated|default:letter.arabic }}
-        </div>
-      </div>
-
-      <div class="group rounded-2xl border border-white/10 bg-slate-950/40 p-4 text-center hover:bg-white/5 transition">
-        <div class="text-xs text-slate-400 [direction:ltr]">Final</div>
-        <div class="arabic-font text-5xl font-black mt-1 text-white group-hover:scale-110 transition">
-          <div class="arabic-font text-5xl font-black mt-1 text-white group-hover:scale-110 transition">
-            {% if letter.final %}
-            {{ letter.final|safe_text }}
-            {% else %}
-            —
-            {% endif %}
-          </div>
-        </div>
-
+    <div class="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-8">
+      <div class="flex-1 space-y-4 text-center lg:text-left">
         <div
-          class="group rounded-2xl border border-white/10 bg-slate-950/40 p-4 text-center hover:bg-white/5 transition">
-          <div class="text-xs text-slate-400 [direction:ltr]">Initial</div>
-          <div class="arabic-font text-5xl font-black mt-1 text-white group-hover:scale-110 transition">
-            {{ letter.initial|default:"—" }}
-          </div>
+          class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-[10px] font-black uppercase tracking-widest text-slate-400">
+          Alifbo • #{{ letter.order }}
         </div>
+        <h1 class="text-5xl md:text-7xl font-black text-white leading-tight">
+          {{ letter.name }} <span
+            class="bg-gradient-to-r from-emerald-400 to-sky-400 bg-clip-text text-transparent">Harfi</span>
+        </h1>
+        <p class="text-slate-400 text-lg max-w-xl leading-relaxed mx-auto lg:mx-0">
+          Ushbu harfni yozilish shakllari, talaffuz qoidalari va real so'zlardagi misollar orqali chuqurroq o'rganing.
+        </p>
+        <div class="flex flex-wrap justify-center lg:justify-start gap-4 pt-2">
+          <a href="{% url 'arab:letter_practice' letter.id %}"
+            class="flex items-center gap-3 px-6 py-3 rounded-2xl bg-white text-slate-950 font-bold hover:bg-emerald-400 transition-all active:scale-95 shadow-lg shadow-white/5">
+            <i class="fas fa-pen-nib"></i>
+            <span>YOZISHNI MASHQ QILISH</span>
+          </a>
+        </div>
+      </div>
 
+      <!-- Large Letter Visual (Static in Hero) -->
+      <div class="relative group">
         <div
-          class="group rounded-2xl border border-white/10 bg-slate-950/40 p-4 text-center hover:bg-white/5 transition">
-          <div class="text-xs text-slate-400 [direction:ltr]">Medial</div>
-          <div class="arabic-font text-5xl font-black mt-1 text-white group-hover:scale-110 transition">
-            {{ letter.medial|default:"—" }}
-          </div>
-        </div>
-      </div>
-
-      <div class="mt-5 rounded-2xl border border-white/10 bg-white/5 p-4 [direction:ltr]">
-        <div class="text-xs text-slate-400">Tip</div>
-        <div class="text-sm text-slate-200 mt-1 leading-relaxed">
-          Harfni yodlash uchun: <span class="text-white font-semibold">Isolated → Initial → Medial → Final</span>
-          tartibida ko‘rib chiqing.
-        </div>
-      </div>
-  </section>
-
-  <!-- RIGHT: EXAMPLES (WRAP CHIPS) -->
-  <section class="rounded-3xl border border-white/10 bg-white/5 p-6">
-    <div class="flex items-center justify-between">
-      <h2 class="text-lg font-bold text-white">Misollar</h2>
-      <span class="text-xs text-slate-400">{{ examples|length }} ta</span>
-    </div>
-
-    {% if examples %}
-    <!-- 🔥 ko'p so'z sig'adi: wrap + chips -->
-    <div class="mt-4 flex flex-wrap gap-3" dir="rtl">
-      {% for ex in examples %}
-      <div class="group rounded-2xl border border-white/10 bg-slate-950/40 px-4 py-3
-                   hover:bg-white/5 transition cursor-pointer select-none"
-        title="{{ ex.transliteration|default:'' }} • {{ ex.translation_uz|default:'' }}">
-        <div class="arabic-font text-3xl font-black text-white leading-none">
-          {{ ex.arabic_text }}
-        </div>
-
-        <div class="mt-2 text-[11px] text-slate-300 [direction:ltr]">
-          {% if ex.transliteration %}
-          {{ ex.transliteration|safe_text }}
-          {% else %}
-          —
-          {% endif %}
-        </div>
-
-        <div class="mt-1 text-xs text-slate-200 [direction:ltr]">
-          UZ: <span class="font-semibold text-white">
-            {% if ex.translation_uz %}
-            {{ ex.translation_uz|safe_text }}
-            {% else %}
-            —
-            {% endif %}
+          class="relative w-48 h-48 md:w-56 md:h-56 flex items-center justify-center rounded-[2.5rem] bg-white/5 border border-white/10 backdrop-blur-xl">
+          <span class="arabic-font text-[100px] md:text-[120px] font-black text-white select-none" dir="rtl">
+            {{ letter.arabic }}
           </span>
         </div>
       </div>
-      {% endfor %}
-    </div>
-    {% else %}
-    <div class="mt-4 text-slate-400 text-sm">
-      Misollar hali qo‘shilmagan.
-    </div>
-    {% endif %}
-
-    <div class="mt-5 rounded-2xl border border-white/10 bg-white/5 p-4">
-      <div class="text-xs text-slate-400">Maslahat</div>
-      <div class="mt-2 text-sm text-slate-200 leading-relaxed">
-        Misollarni ko‘rib bo‘lgach, keyingi harfga o‘ting va har kuni kamida 3 ta harfni mustahkamlang.
-      </div>
     </div>
   </section>
 
-</div>
+  <!-- PROFESSIONAL ARABIC LISTENING SECTION (Audio-First) -->
+  {% if audio_url %}
+  <section x-data="{ 
+        audioPlaying: false, 
+        speed: 1.0, 
+        repeat: false,
+        audioObj: null,
+        init() {
+            this.audioObj = new Audio('{{ audio_url }}');
+            this.audioObj.onended = () => { 
+                if (this.repeat) {
+                    this.play();
+                } else {
+                    this.audioPlaying = false; 
+                }
+            };
+        },
+        play() {
+            if (!this.audioObj) this.init();
+            this.audioObj.playbackRate = this.speed;
+            this.audioObj.play().catch(e => console.error(e));
+            this.audioPlaying = true;
+        },
+        pause() {
+            if (this.audioObj) {
+                this.audioObj.pause();
+            }
+            this.audioPlaying = false;
+        },
+        toggle() {
+            if (this.audioPlaying) this.pause();
+            else this.play();
+        },
+        setSpeed(s) {
+            this.speed = s;
+            if (this.audioObj) this.audioObj.playbackRate = s;
+        }
+    }"
+    class="relative rounded-[3rem] border border-white/10 bg-slate-900/40 backdrop-blur-xl p-10 md:p-16 text-center shadow-2xl overflow-hidden group">
 
-{% endblock %}
+    <div class="absolute inset-0 bg-gradient-to-b from-emerald-500/5 to-transparent pointer-events-none"></div>
+
+    <div class="relative z-10 space-y-12">
+      <!-- Label -->
+      <div
+        class="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-[11px] font-black uppercase tracking-[0.3em] text-emerald-400">
+        TALAFFUZI
+      </div>
+
+      <!-- Large Letter Visual with Dynamic Highlight -->
+      <div class="relative inline-block scale-110 md:scale-125">
+        <div :class="audioPlaying ? 'scale-110 blur-3xl opacity-30 px-20' : 'scale-0 opacity-0'"
+          class="absolute inset-0 bg-emerald-400 rounded-full transition-all duration-700 pointer-events-none"></div>
+        <span :class="audioPlaying ? 'text-emerald-400 scale-105' : 'text-white'"
+          class="arabic-font relative z-10 block text-[180px] md:text-[240px] font-black leading-none transition-all duration-300 select-none cursor-pointer hover:text-emerald-300"
+          @click="toggle()">
+          {{ letter.arabic }}
+        </span>
+      </div>
+
+      <!-- Controls (Professional Audio Controls) -->
+      <div class="flex flex-col items-center gap-10">
+        <!-- Main Play Action -->
+        <button @click="toggle()"
+          class="group relative w-24 h-24 flex items-center justify-center rounded-full bg-white text-slate-950 shadow-2xl hover:scale-110 active:scale-95 transition-all outline-none border-0">
+          <i :class="audioPlaying ? 'fas fa-pause text-2xl' : 'fas fa-play text-2xl ml-1'" class="relative z-10"></i>
+          <!-- Progress Ring -->
+          <div x-show="audioPlaying"
+            class="absolute inset-[-4px] rounded-full border-2 border-emerald-400 border-t-transparent animate-spin">
+          </div>
+        </button>
+
+        <!-- Professional Adjustments -->
+        <div class="flex flex-wrap justify-center items-center gap-4">
+          <!-- Slow Motion Playback -->
+          <button @click="setSpeed(speed === 1.0 ? 0.75 : 1.0)"
+            :class="speed === 0.75 ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30' : 'bg-white/5 text-slate-400 border-white/10 hover:text-white hover:bg-white/10'"
+            class="flex items-center gap-2 px-6 py-3 rounded-2xl border transition-all text-sm font-bold">
+            <i class="fas fa-gauge-low"></i>
+            <span>0.75x</span>
+          </button>
+
+          <!-- Repeat Toggle -->
+          <button @click="repeat = !repeat"
+            :class="repeat ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30' : 'bg-white/5 text-slate-400 border-white/10 hover:text-white hover:bg-white/10'"
+            class="flex items-center gap-2 px-6 py-3 rounded-2xl border transition-all text-sm font-bold">
+            <i class="fas fa-rotate-right"></i>
+            <span>QAYTA TINGLASH</span>
+          </button>
+
+          <!-- Arabic Status -->
+          <div
+            class="flex items-center gap-2 px-6 py-3 rounded-2xl bg-white/5 border border-white/10 text-slate-400 font-bold text-sm">
+            <i class="fas fa-ear-listen text-emerald-400"></i>
+            <span>TINGLASH</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  {% endif %}
+
+  <div class="grid lg:grid-cols-12 gap-8">
+    <!-- LEFT: Makhraj & Shapes -->
+    <div class="lg:col-span-8 space-y-8">
+      <!-- MAKHRAJ -->
+      {% if letter.makhraj_description or letter.makhraj_image %}
+      <section class="rounded-[2.5rem] border border-white/10 bg-slate-900/40 p-8">
+        <div class="flex flex-col md:flex-row gap-8 items-center">
+          {% if letter.makhraj_image %}
+          <div class="w-full md:w-1/3">
+            <img src="{{ letter.makhraj_image.url }}" alt="Maxraj"
+              class="w-full rounded-2xl border border-white/10 shadow-xl">
+          </div>
+          {% endif %}
+          <div class="flex-1 space-y-4">
+            <h2 class="text-2xl font-black text-white tracking-tight uppercase flex items-center gap-3">
+              <span class="w-2 h-6 bg-emerald-500 rounded-full"></span>
+              Maxraj
+            </h2>
+            {% if letter.makhraj_description %}
+            <p class="text-slate-300 text-lg leading-relaxed">
+              {{ letter.makhraj_description|linebreaksbr }}
+            </p>
+            {% endif %}
+          </div>
+        </div>
+      </section>
+      {% endif %}
+
+      {% if letter.initial or letter.medial or letter.final or letter.isolated %}
+      <!-- SHAPES -->
+      <section class="rounded-[2.5rem] border border-white/10 bg-slate-900/40 p-8">
+        <div class="flex items-center justify-between mb-8">
+          <h2 class="text-2xl font-black text-white tracking-tight uppercase flex items-center gap-3">
+            <span class="w-2 h-6 bg-sky-500 rounded-full"></span>
+            YOZILISH SHAKLLARI
+          </h2>
+          <div
+            class="px-3 py-1 rounded-full text-[10px] font-bold border border-current {{ letter.joins_to_next|yesno:'bg-emerald-500/20 text-emerald-400,bg-red-500/20 text-red-400' }}">
+            <span>{{ letter.joins_to_next|yesno:"Qo'shiladi,Qo'shilmaydi" }}</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4" dir="rtl">
+          <!-- Always show isolated as fallback if others missing -->
+          <div @click="activeForm = 'isolated'"
+            :class="activeForm === 'isolated' ? 'bg-white border-white scale-105 z-10' : 'bg-white/5 border-white/10'"
+            class="group p-8 rounded-3xl border transition-all cursor-pointer text-center shadow-lg">
+            <div :class="activeForm === 'isolated' ? 'text-slate-950' : 'text-slate-500'"
+              class="text-[10px] font-black uppercase mb-3 [direction:ltr]">ALOHIDA</div>
+            <div :class="activeForm === 'isolated' ? 'text-slate-950' : 'text-white'"
+              class="arabic-font text-6xl group-hover:scale-110 transition-transform">
+              {% if letter.isolated %}{{ letter.isolated }}{% else %}{{ letter.arabic }}{% endif %}
+            </div>
+          </div>
+          {% if letter.initial %}
+          <div @click="activeForm = 'initial'"
+            :class="activeForm === 'initial' ? 'bg-white border-white scale-105 z-10' : 'bg-white/5 border-white/10'"
+            class="group p-8 rounded-3xl border transition-all cursor-pointer text-center shadow-lg">
+            <div :class="activeForm === 'initial' ? 'text-slate-950' : 'text-slate-500'"
+              class="text-[10px] font-black uppercase mb-3 [direction:ltr]">BOSHIDA</div>
+            <div :class="activeForm === 'initial' ? 'text-slate-950' : 'text-white'"
+              class="arabic-font text-6xl group-hover:scale-110 transition-transform">
+              {{ letter.initial }}
+            </div>
+          </div>
+          {% endif %}
+          {% if letter.medial %}
+          <div @click="activeForm = 'medial'"
+            :class="activeForm === 'medial' ? 'bg-white border-white scale-105 z-10' : 'bg-white/5 border-white/10'"
+            class="group p-8 rounded-3xl border transition-all cursor-pointer text-center shadow-lg">
+            <div :class="activeForm === 'medial' ? 'text-slate-950' : 'text-slate-500'"
+              class="text-[10px] font-black uppercase mb-3 [direction:ltr]">O'RTASIDA</div>
+            <div :class="activeForm === 'medial' ? 'text-slate-950' : 'text-white'"
+              class="arabic-font text-6xl group-hover:scale-110 transition-transform">
+              {{ letter.medial }}
+            </div>
+          </div>
+          {% endif %}
+          {% if letter.final %}
+          <div @click="activeForm = 'final'"
+            :class="activeForm === 'final' ? 'bg-white border-white scale-105 z-10' : 'bg-white/5 border-white/10'"
+            class="group p-8 rounded-3xl border transition-all cursor-pointer text-center shadow-lg">
+            <div :class="activeForm === 'final' ? 'text-slate-950' : 'text-slate-500'"
+              class="text-[10px] font-black uppercase mb-3 [direction:ltr]">OXIRIDA</div>
+            <div :class="activeForm === 'final' ? 'text-slate-950' : 'text-white'"
+              class="arabic-font text-6xl group-hover:scale-110 transition-transform">
+              {{ letter.final }}
+            </div>
+          </div>
+          {% endif %}
+        </div>
+
+        <!-- Tips section removed for puristic data-driven UI -->
+      </section>
+      {% endif %}
+    </div>
+
+    <!-- RIGHT: Examples -->
+    <div class="lg:col-span-4 space-y-8">
+      <!-- EXAMPLES -->
+      {% if examples %}
+      <section class="rounded-[2.5rem] border border-white/10 bg-slate-900/40 p-6">
+        <h3 class="text-white font-black text-sm uppercase tracking-widest mb-6">Misollar</h3>
+
+        <div class="space-y-3">
+          {% for ex in examples %}
+          <div @click="playAudio('{{ ex.audio.url|default:'' }}')"
+            class="flex items-center justify-between p-4 rounded-2xl bg-white/5 border border-transparent hover:border-white/10 hover:bg-white/10 transition group cursor-pointer shadow-sm">
+            <div class="flex items-center gap-3">
+              <div
+                class="w-10 h-10 rounded-xl bg-slate-950 border border-white/5 flex items-center justify-center text-slate-500 group-hover:text-emerald-400 transition">
+                <i class="fas fa-play text-xs"></i>
+              </div>
+              <div class="text-left">
+                <div class="text-white font-bold text-sm">{{ ex.translation_uz }}</div>
+                <div class="text-[9px] text-slate-500 uppercase">{{ ex.transliteration }}</div>
+              </div>
+            </div>
+            <div class="arabic-font text-3xl text-white group-hover:text-emerald-400 transition" dir="rtl">
+              {{ ex.arabic_text }}
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </section>
+      {% endif %}
+
+      <!-- HARAKATS -->
+      <section class="rounded-[2.5rem] border border-white/10 bg-slate-900/40 p-6">
+        <h3 class="text-white font-black text-sm uppercase tracking-widest mb-6 text-center">Unli harakatlar</h3>
+        <div class="grid grid-cols-3 gap-3" dir="rtl">
+          <div class="p-4 rounded-2xl bg-white/5 border border-white/10 text-center transition hover:bg-white/10">
+            <div class="arabic-font text-4xl text-emerald-400 mb-1">{{ letter.arabic }}َ</div>
+            <div class="text-[9px] text-slate-500 [direction:ltr]">Fatha</div>
+          </div>
+          <div class="p-4 rounded-2xl bg-white/5 border border-white/10 text-center transition hover:bg-white/10">
+            <div class="arabic-font text-4xl text-sky-400 mb-1">{{ letter.arabic }}ِ</div>
+            <div class="text-[9px] text-slate-500 [direction:ltr]">Kasra</div>
+          </div>
+          <div class="p-4 rounded-2xl bg-white/5 border border-white/10 text-center transition hover:bg-white/10">
+            <div class="arabic-font text-4xl text-amber-400 mb-1">{{ letter.arabic }}ُ</div>
+            <div class="text-[9px] text-slate-500 [direction:ltr]">Damma</div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <style>
+    .arabic-font {
+      font-family: 'Noto Naskh Arabic', serif;
+    }
+  </style>
+  {% endblock %}
