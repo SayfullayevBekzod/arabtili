@@ -221,13 +221,20 @@ class VocabularyCategory(TimeStamped):
 
 class Word(TimeStamped):
     lesson = models.ForeignKey(Lesson, on_delete=models.SET_NULL, null=True, blank=True, related_name="words")
-    arabic = models.CharField(max_length=100)
+    arabic = models.CharField(max_length=100, unique=True, error_messages={'unique': "Bu so'z allaqachon mavjud!"})
     transliteration = models.CharField(max_length=150, blank=True)
     pronunciation = models.CharField(max_length=200, blank=True, help_text="O'qilishi (O'zbek lofida)")
     makhraj = models.TextField(blank=True, help_text="Talaffuz o'rni (maxraj)")
     translation_uz = models.CharField(max_length=200, blank=True)
     translation_ru = models.CharField(max_length=200, blank=True)
     word_type = models.CharField(max_length=50, blank=True, help_text="So'z turkumi (Ot, Sifat, va h.k.)")
+    
+    DIFFICULTY_CHOICES = [
+        ("easy", "Oson"),
+        ("medium", "O'rtacha"),
+        ("hard", "Qiyin"),
+    ]
+    difficulty = models.CharField(max_length=20, choices=DIFFICULTY_CHOICES, default="easy")
 
     category = models.ForeignKey(
         VocabularyCategory,
@@ -798,6 +805,9 @@ class UserQuestProgress(models.Model):
         unique_together = ("user", "quest", "day")
 
     def __str__(self):
+        return f"{self.user} - {self.quest}"
+
+
         return f"{self.user} - {self.quest.title}"
 
 
@@ -913,6 +923,7 @@ class Profile(TimeStamped):
     avatar = models.ImageField(upload_to="avatars/", blank=True, null=True)
     bio = models.TextField(max_length=500, blank=True)
     current_course = models.ForeignKey("Course", on_delete=models.SET_NULL, null=True, blank=True, related_name="students")
+    has_taken_placement_test = models.BooleanField(default=False, help_text="Whether user has completed placement test")
 
     def __str__(self):
         return f"{self.user.username}'s profile"

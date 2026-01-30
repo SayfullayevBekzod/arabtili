@@ -1,0 +1,833 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Arab tili imtihoni - AlifPro{% endblock %}
+
+{% block content %}
+<div id="exam-app" x-data="examApp()" x-init="init()" class="min-h-screen pb-20">
+
+    <!-- EXAM HEADER -->
+    <div class="sticky top-0 z-50 bg-slate-950/90 backdrop-blur-xl border-b border-white/5">
+        <div class="max-w-4xl mx-auto px-4 py-4">
+            <div class="flex items-center justify-between gap-4">
+                <!-- Title & Progress -->
+                <div class="flex items-center gap-4">
+                    <div
+                        class="h-12 w-12 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center text-white font-black text-lg shadow-lg shadow-amber-500/20">
+                        <i class="fas fa-scroll"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-lg font-black text-white uppercase tracking-tight">Arab tili imtihoni</h1>
+                        <div class="text-xs text-slate-500">1-daraja • 20 savol</div>
+                    </div>
+                </div>
+
+                <!-- Timer -->
+                <div class="flex items-center gap-3">
+                    <div :class="timeLeft < 60 ? 'bg-red-500/20 border-red-500/30 text-red-400' : 'bg-white/5 border-white/10 text-white'"
+                        class="px-4 py-2 rounded-xl border flex items-center gap-2 font-mono font-bold transition-all">
+                        <i class="fas fa-clock" :class="timeLeft < 60 ? 'animate-pulse' : ''"></i>
+                        <span x-text="formatTime(timeLeft)"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="mt-4 flex items-center gap-3">
+                <div class="flex-1 h-2 bg-slate-800 rounded-full overflow-hidden">
+                    <div class="h-full bg-gradient-to-r from-emerald-500 to-sky-500 transition-all duration-500 rounded-full"
+                        :style="`width: ${(currentQuestion / questions.length) * 100}%`"></div>
+                </div>
+                <span class="text-xs font-bold text-slate-400">
+                    <span x-text="currentQuestion + 1"></span>/<span x-text="questions.length"></span>
+                </span>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- MAIN EXAM CONTENT -->
+    <div x-show="!showResult" class="max-w-3xl mx-auto px-4 py-8">
+
+        <!-- Question Card -->
+        <div
+            class="relative rounded-[2.5rem] border border-white/10 bg-slate-900/50 backdrop-blur-xl p-8 md:p-12 shadow-2xl overflow-hidden">
+
+            <!-- Decorative -->
+            <div class="absolute -top-20 -right-20 w-40 h-40 bg-amber-500/10 rounded-full blur-3xl pointer-events-none">
+            </div>
+
+            <!-- Question Type Badge -->
+            <div class="flex items-center justify-between mb-8">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.2em]"
+                    :class="getQuestionTypeBadgeClass(questions[currentQuestion].type)">
+                    <i :class="getQuestionTypeIcon(questions[currentQuestion].type)"></i>
+                    <span x-text="getQuestionTypeLabel(questions[currentQuestion].type)"></span>
+                </div>
+                <div class="text-xs text-slate-600">
+                    <span x-text="currentQuestion + 1"></span>-savol
+                </div>
+            </div>
+
+            <!-- Question Content -->
+            <template x-if="questions[currentQuestion].type === 'multiple_choice'">
+                <div class="space-y-8">
+                    <div class="text-center">
+                        <p class="text-slate-400 text-sm mb-4" x-text="questions[currentQuestion].instruction"></p>
+                        <div class="arabic-font text-[80px] md:text-[120px] text-white leading-none py-8" dir="rtl"
+                            x-text="questions[currentQuestion].arabic"></div>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <template x-for="(option, idx) in questions[currentQuestion].options" :key="idx">
+                            <button @click="selectAnswer(idx)"
+                                :class="answers[currentQuestion] === idx ? 'bg-amber-500/20 border-amber-500/50 text-amber-400' : 'bg-white/5 border-white/10 text-white hover:bg-white/10'"
+                                class="p-5 rounded-2xl border font-bold text-lg transition-all flex items-center justify-center gap-3 group">
+                                <span class="w-8 h-8 rounded-lg flex items-center justify-center text-xs font-black"
+                                    :class="answers[currentQuestion] === idx ? 'bg-amber-500 text-slate-950' : 'bg-white/10 text-slate-400'"
+                                    x-text="['A', 'B', 'C', 'D'][idx]"></span>
+                                <span x-text="option"></span>
+                            </button>
+                        </template>
+                    </div>
+                </div>
+            </template>
+
+            <template x-if="questions[currentQuestion].type === 'listening'">
+                <div class="space-y-8 text-center">
+                    <p class="text-slate-400 text-sm" x-text="questions[currentQuestion].instruction"></p>
+
+                    <!-- Audio Player Mock -->
+                    <div class="flex flex-col items-center gap-6 py-8">
+                        <button @click="playMockAudio()"
+                            :class="isPlaying ? 'scale-110 bg-amber-500' : 'bg-white hover:scale-105'"
+                            class="w-24 h-24 rounded-full flex items-center justify-center text-slate-950 shadow-2xl transition-all">
+                            <i
+                                :class="isPlaying ? 'fas fa-volume-up text-4xl animate-pulse' : 'fas fa-play text-3xl ml-1'"></i>
+                        </button>
+                        <div x-show="isPlaying" class="flex items-end justify-center gap-1 h-8">
+                            <template x-for="i in 8">
+                                <div class="w-1.5 bg-amber-400 rounded-full animate-pulse"
+                                    :style="`height: ${Math.random() * 20 + 10}px; animation-delay: ${i * 0.1}s`"></div>
+                            </template>
+                        </div>
+                        <p class="text-xs text-slate-600">Tinglash uchun bosing</p>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <template x-for="(option, idx) in questions[currentQuestion].options" :key="idx">
+                            <button @click="selectAnswer(idx)"
+                                :class="answers[currentQuestion] === idx ? 'bg-amber-500/20 border-amber-500/50' : 'bg-white/5 border-white/10 hover:bg-white/10'"
+                                class="p-6 rounded-2xl border transition-all">
+                                <span class="arabic-font text-4xl text-white" dir="rtl" x-text="option"></span>
+                            </button>
+                        </template>
+                    </div>
+                </div>
+            </template>
+
+            <template x-if="questions[currentQuestion].type === 'matching'">
+                <div class="space-y-8">
+                    <p class="text-slate-400 text-sm text-center" x-text="questions[currentQuestion].instruction"></p>
+
+                    <div class="grid grid-cols-2 gap-8">
+                        <!-- Left Column (Arabic) -->
+                        <div class="space-y-4">
+                            <div class="text-xs font-bold text-slate-500 uppercase tracking-widest text-center mb-4">
+                                Harflar</div>
+                            <template x-for="(item, idx) in questions[currentQuestion].leftItems" :key="idx">
+                                <div @click="selectMatchLeft(idx)"
+                                    :class="matchLeft === idx ? 'bg-amber-500/20 border-amber-500/50 scale-105' : 'bg-white/5 border-white/10 hover:bg-white/10'"
+                                    class="p-4 rounded-2xl border text-center cursor-pointer transition-all">
+                                    <span class="arabic-font text-4xl text-white" dir="rtl" x-text="item"></span>
+                                </div>
+                            </template>
+                        </div>
+                        <!-- Right Column (Sounds) -->
+                        <div class="space-y-4">
+                            <div class="text-xs font-bold text-slate-500 uppercase tracking-widest text-center mb-4">
+                                Talaffuz</div>
+                            <template x-for="(item, idx) in questions[currentQuestion].rightItems" :key="idx">
+                                <div @click="selectMatchRight(idx)"
+                                    :class="matchRight === idx ? 'bg-sky-500/20 border-sky-500/50 scale-105' : 'bg-white/5 border-white/10 hover:bg-white/10'"
+                                    class="p-4 rounded-2xl border text-center cursor-pointer transition-all">
+                                    <span class="text-xl font-bold text-white" x-text="item"></span>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+
+                    <!-- Matched Pairs -->
+                    <div x-show="matchedPairs.length > 0"
+                        class="mt-6 p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/20">
+                        <div class="text-xs font-bold text-emerald-400 mb-2">Moslashtirildi:</div>
+                        <div class="flex flex-wrap gap-2">
+                            <template x-for="pair in matchedPairs">
+                                <span class="px-3 py-1 rounded-lg bg-emerald-500/20 text-emerald-400 text-sm font-bold"
+                                    x-text="pair.left + ' = ' + pair.right"></span>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+            </template>
+
+            <template x-if="questions[currentQuestion].type === 'writing'">
+                <div class="space-y-8 text-center">
+                    <p class="text-slate-400 text-sm" x-text="questions[currentQuestion].instruction"></p>
+
+                    <!-- Reference Letter -->
+                    <div class="arabic-font text-[100px] text-white leading-none py-4" dir="rtl"
+                        x-text="questions[currentQuestion].arabic"></div>
+
+                    <!-- Canvas Area -->
+                    <div
+                        class="relative mx-auto w-full max-w-sm aspect-square rounded-3xl bg-slate-950/50 border-2 border-dashed border-white/20 overflow-hidden">
+                        <canvas id="writing-canvas" class="absolute inset-0 w-full h-full cursor-crosshair"
+                            @mousedown="startDrawing($event)" @mousemove="draw($event)" @mouseup="stopDrawing()"
+                            @mouseleave="stopDrawing()" @touchstart="startDrawing($event)" @touchmove="draw($event)"
+                            @touchend="stopDrawing()"></canvas>
+
+                        <div x-show="!hasDrawn"
+                            class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                            <div class="text-slate-600 text-sm">
+                                <i class="fas fa-pen-fancy text-2xl mb-2"></i>
+                                <p>Bu yerga yozing</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-center gap-4">
+                        <button @click="clearCanvas()"
+                            class="px-6 py-3 rounded-xl bg-white/5 border border-white/10 text-white font-bold hover:bg-white/10 transition-all">
+                            <i class="fas fa-eraser mr-2"></i> Tozalash
+                        </button>
+                        <button @click="submitWriting()"
+                            class="px-6 py-3 rounded-xl bg-emerald-500 text-slate-950 font-bold hover:bg-emerald-400 transition-all">
+                            <i class="fas fa-check mr-2"></i> Tasdiqlash
+                        </button>
+                    </div>
+                </div>
+            </template>
+
+            <template x-if="questions[currentQuestion].type === 'pronunciation'">
+                <div class="space-y-8 text-center">
+                    <p class="text-slate-400 text-sm" x-text="questions[currentQuestion].instruction"></p>
+
+                    <!-- Letter to Pronounce -->
+                    <div class="arabic-font text-[100px] text-white leading-none py-4" dir="rtl"
+                        x-text="questions[currentQuestion].arabic"></div>
+
+                    <!-- Microphone Button -->
+                    <div class="flex flex-col items-center gap-6">
+                        <button @click="toggleRecording()"
+                            :class="isRecording ? 'bg-red-500 scale-110 animate-pulse' : 'bg-white hover:scale-105'"
+                            class="w-28 h-28 rounded-full flex items-center justify-center shadow-2xl transition-all">
+                            <i
+                                :class="isRecording ? 'fas fa-stop text-white text-3xl' : 'fas fa-microphone text-slate-950 text-4xl'"></i>
+                        </button>
+
+                        <!-- Recording Animation -->
+                        <div x-show="isRecording" class="flex items-center gap-2">
+                            <span class="w-3 h-3 rounded-full bg-red-500 animate-ping"></span>
+                            <span class="text-red-400 font-bold text-sm">Yozib olinmoqda...</span>
+                        </div>
+
+                        <!-- Success Feedback -->
+                        <div x-show="recordingComplete" x-transition class="flex items-center gap-2 text-emerald-400">
+                            <i class="fas fa-check-circle text-xl"></i>
+                            <span class="font-bold">Yozib olindi!</span>
+                        </div>
+
+                        <p class="text-xs text-slate-600" x-show="!isRecording && !recordingComplete">
+                            Mikrofon tugmasini bosib, harfni talaffuz qiling
+                        </p>
+                    </div>
+                </div>
+            </template>
+
+        </div>
+
+        <!-- Navigation -->
+        <div class="mt-8 flex items-center justify-between">
+            <button @click="prevQuestion()" :disabled="currentQuestion === 0"
+                :class="currentQuestion === 0 ? 'opacity-30 cursor-not-allowed' : 'hover:bg-white/10'"
+                class="px-6 py-4 rounded-2xl bg-white/5 border border-white/10 text-white font-bold transition-all flex items-center gap-2">
+                <i class="fas fa-arrow-left"></i>
+                <span class="hidden sm:inline">Oldingi</span>
+            </button>
+
+            <!-- Question Dots -->
+            <div class="flex items-center gap-1.5 overflow-x-auto max-w-[200px] sm:max-w-none">
+                <template x-for="(q, idx) in questions" :key="idx">
+                    <button @click="goToQuestion(idx)" :class="{
+                            'bg-amber-500 border-amber-500': currentQuestion === idx,
+                            'bg-emerald-500 border-emerald-500': answers[idx] !== null && currentQuestion !== idx,
+                            'bg-white/10 border-white/10': answers[idx] === null && currentQuestion !== idx
+                        }" class="w-3 h-3 rounded-full border transition-all hover:scale-125"></button>
+                </template>
+            </div>
+
+            <template x-if="currentQuestion < questions.length - 1">
+                <button @click="nextQuestion()"
+                    class="px-6 py-4 rounded-2xl bg-amber-500 text-slate-950 font-bold hover:bg-amber-400 transition-all flex items-center gap-2">
+                    <span class="hidden sm:inline">Keyingi</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </template>
+
+            <template x-if="currentQuestion === questions.length - 1">
+                <button @click="finishExam()"
+                    class="px-6 py-4 rounded-2xl bg-gradient-to-r from-emerald-500 to-sky-500 text-slate-950 font-bold hover:opacity-90 transition-all flex items-center gap-2">
+                    <span>Tugatish</span>
+                    <i class="fas fa-flag-checkered"></i>
+                </button>
+            </template>
+        </div>
+
+        <!-- Question Status -->
+        <div class="mt-8 p-4 rounded-2xl bg-white/5 border border-white/10">
+            <div class="flex items-center justify-between text-sm">
+                <span class="text-slate-400">Javob berilgan:</span>
+                <span class="font-bold text-white">
+                    <span x-text="answers.filter(a => a !== null).length"></span> / <span
+                        x-text="questions.length"></span>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- RESULT SCREEN -->
+    <div x-show="showResult" x-transition class="max-w-3xl mx-auto px-4 py-8">
+
+        <!-- Score Card -->
+        <div
+            class="relative rounded-[3rem] border border-white/10 bg-slate-900/50 backdrop-blur-xl p-10 md:p-16 shadow-2xl overflow-hidden text-center">
+
+            <!-- Celebration Background -->
+            <div
+                class="absolute inset-0 bg-gradient-to-b from-amber-500/10 via-transparent to-emerald-500/10 pointer-events-none">
+            </div>
+
+            <div class="relative z-10 space-y-10">
+                <!-- Trophy -->
+                <div class="relative inline-block">
+                    <div class="absolute inset-0 bg-amber-400 blur-3xl opacity-30 animate-pulse"></div>
+                    <div class="relative text-8xl">🏆</div>
+                </div>
+
+                <!-- Score -->
+                <div class="space-y-4">
+                    <h2 class="text-3xl md:text-4xl font-black text-white uppercase tracking-tight">Imtihon tugadi!</h2>
+                    <div class="inline-flex items-baseline gap-2">
+                        <span
+                            class="text-7xl md:text-8xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-emerald-400"
+                            x-text="score + '%'"></span>
+                    </div>
+                    <p class="text-slate-400" x-text="getScoreMessage()"></p>
+                </div>
+
+                <!-- Stats Grid -->
+                <div class="grid grid-cols-2 gap-4 text-left">
+                    <div class="p-5 rounded-2xl bg-emerald-500/10 border border-emerald-500/20">
+                        <div class="text-xs text-emerald-400 font-bold uppercase tracking-widest">To'g'ri</div>
+                        <div class="text-3xl font-black text-emerald-400 mt-1" x-text="correctAnswers"></div>
+                    </div>
+                    <div class="p-5 rounded-2xl bg-red-500/10 border border-red-500/20">
+                        <div class="text-xs text-red-400 font-bold uppercase tracking-widest">Noto'g'ri</div>
+                        <div class="text-3xl font-black text-red-400 mt-1" x-text="questions.length - correctAnswers">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Skills Breakdown -->
+                <div class="space-y-4 text-left">
+                    <h3 class="text-sm font-black text-white uppercase tracking-widest">Ko'nikmalar tahlili</h3>
+
+                    <template x-for="skill in skills" :key="skill.name">
+                        <div class="space-y-2">
+                            <div class="flex items-center justify-between text-sm">
+                                <span class="text-slate-400 flex items-center gap-2">
+                                    <i :class="skill.icon" class="text-amber-400"></i>
+                                    <span x-text="skill.label"></span>
+                                </span>
+                                <span class="font-bold text-white" x-text="skill.score + '%'"></span>
+                            </div>
+                            <div class="h-2 bg-slate-800 rounded-full overflow-hidden">
+                                <div class="h-full rounded-full transition-all duration-1000"
+                                    :class="skill.score >= 70 ? 'bg-emerald-500' : skill.score >= 50 ? 'bg-amber-500' : 'bg-red-500'"
+                                    :style="`width: ${skill.score}%`"></div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+
+                <!-- Feedback -->
+                <div class="p-6 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-left">
+                    <div class="flex items-start gap-4">
+                        <div class="text-3xl">💡</div>
+                        <div class="space-y-2">
+                            <h4 class="font-bold text-amber-400">Tavsiya</h4>
+                            <p class="text-sm text-slate-300" x-text="getFeedback()"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <button @click="reviewMistakes()"
+                        class="py-4 px-6 rounded-2xl bg-white/5 border border-white/10 text-white font-bold hover:bg-white/10 transition-all">
+                        <i class="fas fa-search mr-2"></i> Xatolarni ko'rish
+                    </button>
+                    <button @click="retryExam()"
+                        class="py-4 px-6 rounded-2xl bg-white/5 border border-white/10 text-white font-bold hover:bg-white/10 transition-all">
+                        <i class="fas fa-redo mr-2"></i> Qayta topshirish
+                    </button>
+                    <a href="{% url 'arab:progress' %}"
+                        class="py-4 px-6 rounded-2xl bg-gradient-to-r from-emerald-500 to-sky-500 text-slate-950 font-bold hover:opacity-90 transition-all flex items-center justify-center gap-2">
+                        <span>Davom etish</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .arabic-font {
+        font-family: 'Noto Naskh Arabic', serif;
+    }
+</style>
+
+<script>
+    function examApp() {
+        return {
+            currentQuestion: 0,
+            answers: [],
+            showResult: false,
+            timeLeft: 1200, // 20 minutes
+            timerInterval: null,
+            isPlaying: false,
+            isRecording: false,
+            recordingComplete: false,
+            matchLeft: null,
+            matchRight: null,
+            matchedPairs: [],
+            isDrawing: false,
+            hasDrawn: false,
+            canvas: null,
+            ctx: null,
+            score: 0,
+            correctAnswers: 0,
+            skills: [],
+            // Large Pool of Exam Questions (40+)
+            allQuestions: [
+                // Alphabet & Basics
+                { type: 'multiple_choice', instruction: 'Bu harfning to\'g\'ri talaffuzini tanlang', arabic: 'ب', options: ['Ba', 'Ta', 'Tha', 'Jim'], correct: 0 },
+                { type: 'listening', instruction: 'Nimani eshitdingiz?', options: ['أ', 'ب', 'ت', 'ث'], correct: 1 },
+                { type: 'multiple_choice', instruction: 'Qaysi harf \"Nun\" deb o\'qiladi?', arabic: '?', options: ['م', 'ن', 'ل', 'ك'], correct: 1 },
+                { type: 'pronunciation', instruction: 'Bu harfni talaffuz qiling', arabic: 'س', correct: true },
+                { type: 'writing', instruction: 'Bu harfni yozing', arabic: 'ج', correct: true },
+                { type: 'multiple_choice', instruction: 'Bu harfning nomi nima?', arabic: 'ع', options: ['Ayn', 'Ghayn', 'Fa', 'Qaf'], correct: 0 },
+                { type: 'listening', instruction: 'Qaysi harfni eshitdingiz?', options: ['ج', 'ح', 'خ', 'ه'], correct: 2 },
+                { type: 'multiple_choice', instruction: 'Qaysi harf \"Dal\"?', arabic: '?', options: ['ر', 'ز', 'د', 'ذ'], correct: 2 },
+                { type: 'writing', instruction: '\"Kof\" harfini yozing', arabic: 'ك', correct: true },
+                { type: 'pronunciation', instruction: 'Bu harfning talaffuzi qanday?', arabic: 'ث', correct: true },
+
+                // Vocabulary - Objects & Home
+                { type: 'multiple_choice', instruction: 'Bu so\'zning ma\'nosini tanlang', arabic: 'كِتَابٌ', options: ['Qalam', 'Kitob', 'Daftar', 'Stol'], correct: 1 },
+                { type: 'multiple_choice', instruction: '\"Daftar\" arabchada nima deyiladi?', arabic: '?', options: ['قَلَمٌ', 'دَفْتَرٌ', 'مَكْتَبٌ', 'كُرْسِيٌّ'], correct: 1 },
+                { type: 'multiple_choice', instruction: 'Bu rasm/so\'z nimani anglatadi?', arabic: 'بَابٌ', options: ['Eshik', 'Deraza', 'Devor', 'Uy'], correct: 0 },
+                { type: 'listening', instruction: 'Qaysi so\'zni eshitdingiz?', options: ['بَيْتٌ', 'بِنْتٌ', 'بَيْنٌ', 'بَيْعٌ'], correct: 0 },
+                { type: 'multiple_choice', instruction: '\"Qalam\" so\'zini toping', arabic: '?', options: ['كِتَابٌ', 'قَلَمٌ', 'مِسْطَرَةٌ', 'مِرْسَمٌ'], correct: 1 },
+                { type: 'writing', instruction: '\"Baitun\" (Uy) so\'zini yozing', arabic: 'بَيْتٌ', correct: true },
+                { type: 'matching', instruction: 'So\'zlarni tarjimasi bilan moslang', leftItems: ['كِتَابٌ', 'قَلَمٌ', 'بَيْتٌ'], rightItems: ['Uy', 'Kitob', 'Qalam'], correctPairs: [[0, 1], [1, 2], [2, 0]] },
+                { type: 'multiple_choice', instruction: '\"Kursi\" so\'zini toping', arabic: '?', options: ['سَرِيرٌ', 'كُرْسِيٌّ', 'طَاوِلَةٌ', 'خِزَانَةٌ'], correct: 1 },
+                { type: 'pronunciation', instruction: 'Bu so\'zni o\'qing', arabic: 'مَدْرَسَةٌ', correct: true },
+
+                // Greetings & Phrases
+                { type: 'multiple_choice', instruction: '\"Assalomu alaykum\"ga javob nima?', arabic: '?', options: ['Va alaykum assalom', 'Xush kelibsiz', 'Xayr', 'Rahmat'], correct: 0 },
+                { type: 'multiple_choice', instruction: '\"Ismingiz nima?\" arabchada qanday?', arabic: '?', options: ['كَيْفَ حَالُكَ؟', 'مَا اسْمُكَ؟', 'مِنْ أَيْنَ أَنْتَ؟', 'كَمْ عُمْرُكَ؟'], correct: 1 },
+                { type: 'listening', instruction: 'Qaysi ibora aytildi?', options: ['مَرْحَبًا', 'أَهْلًا', 'شُكْرًا', 'عَفْوًا'], correct: 0 },
+                { type: 'multiple_choice', instruction: '\"Shukran\" ma\'nosi nima?', arabic: '?', options: ['Kechirasiz', 'Rahmat', 'Salom', 'Mayli'], correct: 1 },
+                { type: 'pronunciation', instruction: 'Bu iborani o\'qing', arabic: 'صَبَاحُ الْخَيْرِ', correct: true },
+                { type: 'writing', instruction: '\"Xayr\" (Ma\'as-salama) so\'zini yozing', arabic: 'مَعَ السَّلَامَةِ', correct: true },
+                { type: 'multiple_choice', instruction: '\"Ahvalingiz qanday?\" arabchada:', arabic: '?', options: ['مَاذَا تَفْعَلُ؟', 'كَيْفَ حَالُكَ؟', 'إِلَى أَيْنَ؟', 'مَتَى تَعُودُ؟'], correct: 1 },
+
+                // Numbers & Colors
+                { type: 'multiple_choice', instruction: '\"Vahid\" (1) raqamini tanlang', arabic: '?', options: ['١', '٢', '٣', '٤'], correct: 0 },
+                { type: 'multiple_choice', instruction: '\"Salasa\" (3) raqamini tanlang', arabic: '?', options: ['٢', '٣', '٤', '٥'], correct: 1 },
+                { type: 'listening', instruction: 'Qaysi raqam aytildi?', options: ['خَمْسَة', 'سِتَّة', 'سَبْعَة', 'ثَمَانِيَة'], correct: 0 },
+                { type: 'multiple_choice', instruction: '\"Ahmar\" (Qizil) rangini tanlang', arabic: '?', options: ['أَزْرَقُ', 'أَخْضَرُ', 'أَحْمَرُ', 'أَصْفَرُ'], correct: 2 },
+                { type: 'multiple_choice', instruction: '\"Abyad\" (Oq) rangini tanlang', arabic: '?', options: ['أَسْوَدُ', 'أَبْيَضُ', 'رَمَادِيٌّ', 'بُنِّيٌّ'], correct: 1 },
+                { type: 'matching', instruction: 'Raqamlarni moslang', leftItems: ['١', '٢', '٣'], rightItems: ['Ikki', 'Bir', 'Uch'], correctPairs: [[0, 1], [1, 0], [2, 2]] },
+
+                // Grammar & Others
+                { type: 'multiple_choice', instruction: '\"Men\" (Ana) olmoshini tanlang', arabic: '?', options: ['أَنْتَ', 'أَنْتِ', 'أَنَا', 'هُوَ'], correct: 2 },
+                { type: 'multiple_choice', instruction: '\"Sen (erkak)\" arabchada nima?', arabic: '?', options: ['أَنْتَ', 'أَنْتِ', 'أَنَا', 'هِيَ'], correct: 0 },
+                { type: 'multiple_choice', instruction: '\"U (ayol)\" arabchada:', arabic: '?', options: ['هُوَ', 'هِيَ', 'هُمْ', 'نَحْنُ'], correct: 1 },
+                { type: 'listening', instruction: 'Qaysi so\'z aytildi?', options: ['كَبِيرٌ', 'صَغِيرٌ', 'جَدِيدٌ', 'قَدِيمٌ'], correct: 0 },
+                { type: 'multiple_choice', instruction: '\"Sag’ir\" (Kichik) so\'zining teskarisi nima?', arabic: '?', options: ['جَمِيلٌ', 'قَوِيٌّ', 'كَبِيرٌ', 'سَرِيعٌ'], correct: 2 },
+                { type: 'pronunciation', instruction: 'Bu so\'zni o\'qing', arabic: 'أَنَا طَالِبٌ', correct: true },
+                { type: 'writing', instruction: '\"Anta\" so\'zini yozing', arabic: 'أَنْتَ', correct: true }
+            ],
+
+            questions: [],
+
+            init() {
+                // Pick 10 random questions from allQuestions
+                const shuffled = [...this.allQuestions].sort(() => 0.5 - Math.random());
+                this.questions = shuffled.slice(0, 10);
+
+                // Initialize answers array
+                this.answers = new Array(this.questions.length).fill(null);
+
+                // Start timer
+                this.timerInterval = setInterval(() => {
+                    if (this.timeLeft > 0 && !this.showResult) {
+                        this.timeLeft--;
+                    } else if (this.timeLeft === 0) {
+                        this.finishExam();
+                    }
+                }, 1000);
+
+                // Initialize canvas after DOM is ready
+                this.$nextTick(() => {
+                    this.initCanvas();
+                });
+            },
+
+            initCanvas() {
+                this.canvas = document.getElementById('writing-canvas');
+                if (this.canvas) {
+                    this.ctx = this.canvas.getContext('2d');
+                    this.canvas.width = this.canvas.offsetWidth * 2;
+                    this.canvas.height = this.canvas.offsetHeight * 2;
+                    this.ctx.scale(2, 2);
+                    this.ctx.strokeStyle = '#34d399';
+                    this.ctx.lineWidth = 4;
+                    this.ctx.lineCap = 'round';
+                    this.ctx.lineJoin = 'round';
+                }
+            },
+
+            formatTime(seconds) {
+                const m = Math.floor(seconds / 60);
+                const s = seconds % 60;
+                return `${m}:${s.toString().padStart(2, '0')}`;
+            },
+
+            getQuestionTypeBadgeClass(type) {
+                const classes = {
+                    'multiple_choice': 'bg-amber-500/20 border border-amber-500/30 text-amber-400',
+                    'listening': 'bg-sky-500/20 border border-sky-500/30 text-sky-400',
+                    'matching': 'bg-purple-500/20 border border-purple-500/30 text-purple-400',
+                    'writing': 'bg-emerald-500/20 border border-emerald-500/30 text-emerald-400',
+                    'pronunciation': 'bg-pink-500/20 border border-pink-500/30 text-pink-400'
+                };
+                return classes[type] || classes['multiple_choice'];
+            },
+
+            getQuestionTypeIcon(type) {
+                const icons = {
+                    'multiple_choice': 'fas fa-list-ul',
+                    'listening': 'fas fa-headphones',
+                    'matching': 'fas fa-random',
+                    'writing': 'fas fa-pen',
+                    'pronunciation': 'fas fa-microphone'
+                };
+                return icons[type] || 'fas fa-question';
+            },
+
+            getQuestionTypeLabel(type) {
+                const labels = {
+                    'multiple_choice': 'Tanlash',
+                    'listening': 'Tinglash',
+                    'matching': 'Moslashtirish',
+                    'writing': 'Yozish',
+                    'pronunciation': 'Talaffuz'
+                };
+                return labels[type] || type;
+            },
+
+            selectAnswer(idx) {
+                this.answers[this.currentQuestion] = idx;
+            },
+
+            // Google Cloud TTS API
+            googleTtsApiKey: 'AIzaSyDQwhqE2-3u5W-feLg3BU0N0SmIAfY6WJw',
+            audioCache: {},
+
+            async playMockAudio() {
+                if (this.isPlaying) return;
+                this.isPlaying = true;
+
+                const q = this.questions[this.currentQuestion];
+                const text = q.options ? q.options[q.correct] : q.arabic || '';
+
+                // Try Google Cloud TTS first
+                try {
+                    await this.playGoogleTTS(text);
+                } catch (error) {
+                    console.log('Google TTS failed, falling back to browser TTS:', error);
+                    this.playBrowserTTS(text);
+                }
+            },
+
+            async playGoogleTTS(text) {
+                // Check cache first
+                if (this.audioCache[text]) {
+                    return this.playAudioFromBase64(this.audioCache[text]);
+                }
+
+                const response = await fetch(`https://texttospeech.googleapis.com/v1/text:synthesize?key=${this.googleTtsApiKey}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        input: { text: text },
+                        voice: {
+                            languageCode: 'ar-XA',
+                            name: 'ar-XA-Wavenet-A',
+                            ssmlGender: 'FEMALE'
+                        },
+                        audioConfig: {
+                            audioEncoding: 'MP3',
+                            speakingRate: 0.85,
+                            pitch: 0
+                        }
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Google TTS API error: ${response.status}`);
+                }
+
+                const data = await response.json();
+
+                // Cache the audio
+                this.audioCache[text] = data.audioContent;
+
+                return this.playAudioFromBase64(data.audioContent);
+            },
+
+            playAudioFromBase64(base64Audio) {
+                return new Promise((resolve, reject) => {
+                    const audio = new Audio(`data:audio/mp3;base64,${base64Audio}`);
+
+                    audio.onended = () => {
+                        this.isPlaying = false;
+                        resolve();
+                    };
+
+                    audio.onerror = (e) => {
+                        this.isPlaying = false;
+                        reject(e);
+                    };
+
+                    audio.play().catch(reject);
+                });
+            },
+
+            playBrowserTTS(text) {
+                if ('speechSynthesis' in window) {
+                    speechSynthesis.cancel();
+
+                    const utterance = new SpeechSynthesisUtterance(text);
+                    const voices = speechSynthesis.getVoices();
+                    const arabicVoice = voices.find(v => v.lang.startsWith('ar'));
+                    if (arabicVoice) utterance.voice = arabicVoice;
+
+                    utterance.lang = 'ar-SA';
+                    utterance.rate = 0.6;
+
+                    utterance.onend = () => { this.isPlaying = false; };
+                    utterance.onerror = () => { this.isPlaying = false; };
+
+                    speechSynthesis.speak(utterance);
+
+                    setTimeout(() => {
+                        if (this.isPlaying) this.isPlaying = false;
+                    }, 3000);
+                } else {
+                    setTimeout(() => { this.isPlaying = false; }, 1500);
+                }
+            },
+
+            selectMatchLeft(idx) {
+                this.matchLeft = idx;
+                this.tryMatch();
+            },
+
+            selectMatchRight(idx) {
+                this.matchRight = idx;
+                this.tryMatch();
+            },
+
+            tryMatch() {
+                if (this.matchLeft !== null && this.matchRight !== null) {
+                    const q = this.questions[this.currentQuestion];
+                    this.matchedPairs.push({
+                        left: q.leftItems[this.matchLeft],
+                        right: q.rightItems[this.matchRight]
+                    });
+                    this.matchLeft = null;
+                    this.matchRight = null;
+
+                    if (this.matchedPairs.length === q.leftItems.length) {
+                        this.answers[this.currentQuestion] = this.matchedPairs;
+                    }
+                }
+            },
+
+            startDrawing(e) {
+                this.isDrawing = true;
+                this.hasDrawn = true;
+                const pos = this.getPos(e);
+                this.ctx.beginPath();
+                this.ctx.moveTo(pos.x, pos.y);
+            },
+
+            draw(e) {
+                if (!this.isDrawing) return;
+                const pos = this.getPos(e);
+                this.ctx.lineTo(pos.x, pos.y);
+                this.ctx.stroke();
+            },
+
+            stopDrawing() {
+                this.isDrawing = false;
+            },
+
+            getPos(e) {
+                const rect = this.canvas.getBoundingClientRect();
+                const touch = e.touches ? e.touches[0] : e;
+                return {
+                    x: touch.clientX - rect.left,
+                    y: touch.clientY - rect.top
+                };
+            },
+
+            clearCanvas() {
+                if (this.ctx) {
+                    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                    this.hasDrawn = false;
+                }
+            },
+
+            submitWriting() {
+                this.answers[this.currentQuestion] = true;
+            },
+
+            toggleRecording() {
+                if (this.isRecording) {
+                    this.isRecording = false;
+                    this.recordingComplete = true;
+                    this.answers[this.currentQuestion] = true;
+                } else {
+                    this.isRecording = true;
+                    this.recordingComplete = false;
+
+                    // Simulate recording for 3 seconds
+                    setTimeout(() => {
+                        if (this.isRecording) {
+                            this.isRecording = false;
+                            this.recordingComplete = true;
+                            this.answers[this.currentQuestion] = true;
+                        }
+                    }, 3000);
+                }
+            },
+
+            prevQuestion() {
+                if (this.currentQuestion > 0) {
+                    this.currentQuestion--;
+                    this.resetQuestionState();
+                }
+            },
+
+            nextQuestion() {
+                if (this.currentQuestion < this.questions.length - 1) {
+                    this.currentQuestion++;
+                    this.resetQuestionState();
+                }
+            },
+
+            goToQuestion(idx) {
+                this.currentQuestion = idx;
+                this.resetQuestionState();
+            },
+
+            resetQuestionState() {
+                this.isRecording = false;
+                this.recordingComplete = false;
+                this.matchLeft = null;
+                this.matchRight = null;
+                this.matchedPairs = [];
+
+                this.$nextTick(() => {
+                    this.initCanvas();
+                });
+            },
+
+            finishExam() {
+                clearInterval(this.timerInterval);
+
+                // Calculate score (mock - random for demo)
+                this.correctAnswers = this.answers.filter((a, i) => {
+                    const q = this.questions[i];
+                    if (q.type === 'multiple_choice' || q.type === 'listening') {
+                        return a === q.correct;
+                    }
+                    return a !== null; // Writing and pronunciation always correct for mock
+                }).length;
+
+                this.score = Math.round((this.correctAnswers / this.questions.length) * 100);
+
+                // Generate skill scores
+                this.skills = [
+                    { name: 'reading', label: 'O\'qish', icon: 'fas fa-book', score: Math.min(100, this.score + Math.floor(Math.random() * 20) - 10) },
+                    { name: 'listening', label: 'Tinglash', icon: 'fas fa-headphones', score: Math.min(100, this.score + Math.floor(Math.random() * 20) - 10) },
+                    { name: 'writing', label: 'Yozish', icon: 'fas fa-pen', score: Math.min(100, this.score + Math.floor(Math.random() * 20) - 10) },
+                    { name: 'pronunciation', label: 'Talaffuz', icon: 'fas fa-microphone', score: Math.min(100, this.score + Math.floor(Math.random() * 20) - 10) }
+                ];
+
+                this.showResult = true;
+            },
+
+            getScoreMessage() {
+                if (this.score >= 90) return "Mukammal! Siz ajoyib natija ko'rsatdingiz!";
+                if (this.score >= 70) return "Yaxshi! Biroz mashq qiling va a'lo darajaga yetasiz!";
+                if (this.score >= 50) return "O'rtacha natija. Darslarni qayta ko'rib chiqing.";
+                return "Ko'proq mashq kerak. Asosiy darslarni takrorlang.";
+            },
+
+            getFeedback() {
+                const weakest = this.skills.reduce((a, b) => a.score < b.score ? a : b);
+                return `${weakest.label} ko'nikmasini yaxshilash uchun "${weakest.label}" bo'limidagi mashqlarni ko'proq bajaring. Har kuni 10-15 daqiqa mashq qilish katta samara beradi!`;
+            },
+
+            reviewMistakes() {
+                // Mock - just go to first question
+                this.showResult = false;
+                this.currentQuestion = 0;
+            },
+
+            retryExam() {
+                this.showResult = false;
+                this.currentQuestion = 0;
+                this.answers = new Array(this.questions.length).fill(null);
+                this.timeLeft = 1200;
+                this.score = 0;
+                this.correctAnswers = 0;
+
+                this.timerInterval = setInterval(() => {
+                    if (this.timeLeft > 0 && !this.showResult) {
+                        this.timeLeft--;
+                    }
+                }, 1000);
+            }
+        }
+    }
+</script>
+{% endblock %}

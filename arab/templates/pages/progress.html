@@ -1,0 +1,213 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Mening Natijalarim | AlifPro{% endblock %}
+
+{% block content %}
+<div class="space-y-8 pb-20 md:pb-0">
+
+    <!-- HEADER: PROFILE & LEVEL -->
+    <div class="bg-slate-900/50 border border-white/5 rounded-3xl p-6 backdrop-blur-sm relative overflow-hidden">
+        <div
+            class="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none">
+        </div>
+
+        <div class="relative z-10 flex flex-col md:flex-row items-center gap-6 text-center md:text-left">
+            <!-- Avatar -->
+            <div class="w-24 h-24 rounded-full border-4 border-slate-800 bg-slate-700 relative shadow-xl">
+                {% if user.profile.avatar %}
+                <img src="{{ user.profile.avatar.url }}" class="w-full h-full rounded-full object-cover">
+                {% else %}
+                <div class="w-full h-full flex items-center justify-center text-3xl font-bold text-slate-500">
+                    {{ user.username|slice:":1" }}
+                </div>
+                {% endif %}
+                <div
+                    class="absolute bottom-0 right-0 w-8 h-8 bg-emerald-500 rounded-full border-4 border-slate-800 flex items-center justify-center text-xs font-bold shadow-lg">
+                    {{ level }}
+                </div>
+            </div>
+
+            <!-- Info -->
+            <div class="flex-1 w-full">
+                <h1 class="text-2xl font-bold mb-1">{{ user.first_name|default:user.username }}</h1>
+                <div class="text-sm text-slate-400 mb-4">Level {{ level }} • {{ xp }} XP</div>
+
+                <!-- XP Bar -->
+                <div class="relative h-3 w-full bg-slate-800 rounded-full overflow-hidden">
+                    <div class="absolute left-0 top-0 h-full bg-gradient-to-r from-emerald-500 to-teal-400"
+                        style="width: {{ xp_pct }}%"></div>
+                </div>
+                <div class="flex justify-between text-[10px] text-slate-500 mt-1 font-medium tracking-wide">
+                    <span>{{ xp_remaining }} XP keyingi levelgacha</span>
+                    <span>{{ xp_next }} XP</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN STATS GRID -->
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+        <!-- Streak -->
+        <div
+            class="bg-slate-900/50 border border-white/5 p-5 rounded-3xl flex flex-col items-center justify-center text-center">
+            <div class="text-3xl mb-1">🔥</div>
+            <div class="text-xl font-bold text-white">{{ streak.current_streak }}</div>
+            <div class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Kun Streak</div>
+        </div>
+
+        <!-- Words -->
+        <div
+            class="bg-slate-900/50 border border-white/5 p-5 rounded-3xl flex flex-col items-center justify-center text-center">
+            <div class="text-3xl mb-1">📚</div>
+            <div class="text-xl font-bold text-white">{{ learned_words }} <span
+                    class="text-slate-500 text-sm font-normal">/ {{ total_words }}</span></div>
+            <div class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">So'zlar</div>
+        </div>
+
+        <!-- Lessons -->
+        <div
+            class="bg-slate-900/50 border border-white/5 p-5 rounded-3xl flex flex-col items-center justify-center text-center">
+            <div class="text-3xl mb-1">🎓</div>
+            <div class="text-xl font-bold text-white">{{ lessons_completed }} <span
+                    class="text-slate-500 text-sm font-normal">/ {{ lessons_total }}</span></div>
+            <div class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Darslar</div>
+        </div>
+
+        <!-- Accuracy -->
+        <div
+            class="bg-slate-900/50 border border-white/5 p-5 rounded-3xl flex flex-col items-center justify-center text-center">
+            <div class="text-3xl mb-1">🎯</div>
+            <div class="text-xl font-bold text-white">{{ quiz_accuracy }}<span class="text-sm font-normal">%</span>
+            </div>
+            <div class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Aniqlik</div>
+        </div>
+
+        <!-- Time -->
+        <div
+            class="bg-slate-900/50 border border-white/5 p-5 rounded-3xl flex flex-col items-center justify-center text-center">
+            <div class="text-3xl mb-1">⏱️</div>
+            <div class="text-xl font-bold text-white">{{ study_today_min }} <span class="text-sm font-normal">min</span>
+            </div>
+            <div class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Bugun</div>
+        </div>
+    </div>
+
+    <!-- ACTIVITY & HEATMAP ROW -->
+    <div class="grid lg:grid-cols-2 gap-6">
+
+        <!-- Weekly Activity -->
+        <div class="bg-slate-900/50 border border-white/5 rounded-3xl p-6">
+            <h3 class="font-bold text-lg mb-6 flex items-center gap-2">
+                <i class="far fa-chart-bar text-slate-500"></i>
+                Haftalik faollik
+            </h3>
+
+            <div class="flex items-end justify-between h-32 gap-2">
+                {% for bar in week_bars %}
+                <div class="flex-1 flex flex-col items-center gap-2 group">
+                    <div class="w-full bg-slate-800 rounded-t-lg relative overflow-hidden transition-all group-hover:bg-slate-700"
+                        style="height: {{ bar.pct }}%">
+                        <div class="absolute bottom-0 left-0 w-full bg-emerald-500/20 h-full"></div>
+                        {% if bar.pct > 0 %}
+                        <div
+                            class="absolute -top-8 left-1/2 -translate-x-1/2 bg-white text-slate-950 text-[10px] font-bold px-1.5 py-0.5 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                            {{ bar.raw }} ta
+                        </div>
+                        {% endif %}
+                    </div>
+                    <span class="text-xs font-medium text-slate-500">{{ bar.label }}</span>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Heatmap -->
+        <div class="bg-slate-900/50 border border-white/5 rounded-3xl p-6">
+            <h3 class="font-bold text-lg mb-6 flex items-center gap-2">
+                <i class="fas fa-th text-slate-500"></i>
+                Yillik natija (So'nggi 70 kun)
+            </h3>
+
+            <div class="flex flex-col gap-1 overflow-x-auto pb-2">
+                {% for row in heatmap %}
+                <div class="flex gap-1">
+                    {% for intensity in row %}
+                    <div class="w-3 h-3 rounded-sm flex-shrink-0"
+                        style="background-color: rgba(16, 185, 129, {{ intensity }})"></div>
+                    {% endfor %}
+                </div>
+                {% endfor %}
+            </div>
+            <div class="flex items-center gap-2 text-[10px] text-slate-500 mt-2 justify-end">
+                <span>Kam</span>
+                <div class="flex gap-0.5">
+                    <div class="w-2 h-2 rounded-sm bg-emerald-500/10"></div>
+                    <div class="w-2 h-2 rounded-sm bg-emerald-500/30"></div>
+                    <div class="w-2 h-2 rounded-sm bg-emerald-500/60"></div>
+                    <div class="w-2 h-2 rounded-sm bg-emerald-500"></div>
+                </div>
+                <span>Ko'p</span>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- WEAK AREAS & RECOMMENDATIONS -->
+    <div class="grid md:grid-cols-2 gap-6">
+
+        <!-- Weak Areas -->
+        <div class="space-y-4">
+            <h3 class="font-bold text-slate-400 text-sm uppercase tracking-widest px-1">Kuchaytirish kerak</h3>
+            {% if weak_areas %}
+            {% for area in weak_areas %}
+            <a href="{{ area.url }}"
+                class="block bg-slate-900/50 border border-red-500/20 p-4 rounded-2xl hover:bg-slate-800 transition group">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="font-bold text-red-400 group-hover:text-red-300 transition">{{ area.title }}</span>
+                    <span class="text-xs font-bold text-slate-500">{{ area.pct }}% xato</span>
+                </div>
+                <div class="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                    <div class="h-full bg-red-500 w-[{{ area.pct }}%]"></div>
+                </div>
+            </a>
+            {% endfor %}
+            {% else %}
+            <div class="p-6 rounded-2xl border border-dashed border-slate-700 text-center">
+                <div class="text-2xl mb-2">✨</div>
+                <h4 class="font-bold text-slate-300">Hammasi a'lo!</h4>
+                <p class="text-sm text-slate-500">Hozircha zaif nuqtalar yo'q. Davom eting!</p>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Recommendations -->
+        <div class="space-y-4">
+            <h3 class="font-bold text-slate-400 text-sm uppercase tracking-widest px-1">Tavsiyalar</h3>
+            {% for rec in recommendations %}
+            <a href="{{ rec.url }}"
+                class="flex items-center justify-between p-4 bg-gradient-to-r from-slate-900 to-slate-800 border border-white/5 rounded-2xl hover:border-emerald-500/30 transition group">
+                <div>
+                    <h4 class="font-bold text-emerald-400 group-hover:text-emerald-300 transition">{{ rec.title }}</h4>
+                    <p class="text-xs text-slate-400">{{ rec.desc }}</p>
+                </div>
+                <div
+                    class="w-8 h-8 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-500 group-hover:scale-110 transition">
+                    <i class="fas fa-arrow-right text-xs"></i>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- EDIT PROFILE BUTTON -->
+    <div class="text-center pt-8">
+        <a href="{% url 'arab:settings_profile' %}"
+            class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition font-bold text-sm">
+            <i class="fas fa-cog"></i>
+            Profilni tahrirlash
+        </a>
+    </div>
+
+</div>
+{% endblock %}

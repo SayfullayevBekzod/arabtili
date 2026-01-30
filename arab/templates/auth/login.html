@@ -80,8 +80,7 @@
                 <input type="checkbox" class="accent-emerald-500 h-4 w-4 rounded border-white/10 bg-white/5">
                 Eslab qolish
               </label>
-              <a href="{% url 'account_reset_password' %}"
-                class="text-emerald-500/80 hover:text-emerald-400 transition">Parolni
+              <a href="{% url 'password_reset' %}" class="text-emerald-500/80 hover:text-emerald-400 transition">Parolni
                 unutdingizmi?</a>
             </div>
           </div>
@@ -98,6 +97,8 @@
 
         <!-- Social Login -->
         {% load socialaccount %}
+        {% get_providers as socialaccount_providers %}
+        {% if socialaccount_providers %}
         <div class="mt-8 flex flex-col gap-4">
           <div class="relative flex items-center py-2">
             <div class="flex-grow border-t border-white/5"></div>
@@ -119,6 +120,7 @@
             </div>
           </a>
         </div>
+        {% endif %}
 
         <!-- Footer links -->
         <div class="mt-10 border-t border-white/5 pt-8 text-center">

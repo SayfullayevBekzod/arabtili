@@ -60,26 +60,26 @@
             {% endif %}
 
             <!-- Quick Actions -->
-            <div class="grid grid-cols-4 gap-3">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <a href="/alphabet/"
-                    class="p-4 rounded-xl bg-slate-800/50 border border-white/5 hover:bg-slate-800 transition text-center">
-                    <div class="text-2xl mb-1">🔤</div>
-                    <div class="text-sm font-medium text-white">Alifbo</div>
+                    class="p-5 rounded-[2rem] bg-slate-900/50 border border-white/5 hover:bg-slate-800 hover:border-emerald-500/30 transition-all text-center group shadow-lg">
+                    <div class="text-3xl mb-2 group-hover:scale-110 transition-transform">🔤</div>
+                    <div class="text-xs font-black text-white uppercase tracking-widest">Alifbo</div>
                 </a>
                 <a href="/dictionary/"
-                    class="p-4 rounded-xl bg-slate-800/50 border border-white/5 hover:bg-slate-800 transition text-center">
-                    <div class="text-2xl mb-1">📚</div>
-                    <div class="text-sm font-medium text-white">Lug'at</div>
+                    class="p-5 rounded-[2rem] bg-slate-900/50 border border-white/5 hover:bg-slate-800 hover:border-sky-500/30 transition-all text-center group shadow-lg">
+                    <div class="text-3xl mb-2 group-hover:scale-110 transition-transform">📚</div>
+                    <div class="text-xs font-black text-white uppercase tracking-widest">Lug'at</div>
                 </a>
                 <a href="/practice/"
-                    class="p-4 rounded-xl bg-slate-800/50 border border-white/5 hover:bg-slate-800 transition text-center">
-                    <div class="text-2xl mb-1">🎯</div>
-                    <div class="text-sm font-medium text-white">Mashq</div>
+                    class="p-5 rounded-[2rem] bg-slate-900/50 border border-white/5 hover:bg-slate-800 hover:border-amber-500/30 transition-all text-center group shadow-lg">
+                    <div class="text-3xl mb-2 group-hover:scale-110 transition-transform">🎯</div>
+                    <div class="text-xs font-black text-white uppercase tracking-widest">Mashq</div>
                 </a>
                 <a href="/leagues/"
-                    class="p-4 rounded-xl bg-slate-800/50 border border-white/5 hover:bg-slate-800 transition text-center">
-                    <div class="text-2xl mb-1">🏆</div>
-                    <div class="text-sm font-medium text-white">Liga</div>
+                    class="p-5 rounded-[2rem] bg-slate-900/50 border border-white/5 hover:bg-slate-800 hover:border-purple-500/30 transition-all text-center group shadow-lg">
+                    <div class="text-3xl mb-2 group-hover:scale-110 transition-transform">🏆</div>
+                    <div class="text-xs font-black text-white uppercase tracking-widest">Liga</div>
                 </a>
             </div>
 
@@ -169,7 +169,8 @@
                             </div>
                             {% endif %}
                         </div>
-                        <div class="text-xs text-slate-500 mt-1">{{ uq.current_progress }}/{{ uq.mission.required_count }}</div>
+                        <div class="text-xs text-slate-500 mt-1">{{ uq.current_progress }}/{{ uq.mission.required_count
+                            }}</div>
                     </div>
                     {% endfor %}
                 </div>

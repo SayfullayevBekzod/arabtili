@@ -3,39 +3,213 @@
 {% block title %}Progress{% endblock %}
 {% block content %}
 
-<!-- HERO -->
-<section class="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-6 md:p-10">
-  <div class="pointer-events-none absolute -top-32 -left-32 h-80 w-80 rounded-full bg-emerald-400/15 blur-3xl"></div>
-  <div class="pointer-events-none absolute -bottom-32 -right-32 h-80 w-80 rounded-full bg-sky-400/15 blur-3xl"></div>
+<!-- Post-Login Quiz Modal - 5 Questions -->
+{% if show_daily_quiz or show_welcome_quiz %} <div x-data="{ 
+    open: true,
+    currentQ: 0,
+    score: 0,
+    answered: false,
+    isCorrect: false,
+    finished: false,
+    loading: true,
+    questions: [],
+    
+    allQuizQuestions: [
+        { question: '\" Kitob\" so\'zining arabcha tarjimasi?', options: ['Kitabun (كِتَابٌ)', 'Qalamun (قَلَمٌ)'
+  , 'Babun (بَابٌ)' , 'Kursiyyun (كُرْسِيٌّ)' ], correct: 0 }, { question: 'Bu harf qanday o\' qiladi: ب', options:
+  ['Alif', 'Ba' , 'Ta' , 'Tha' ], correct: 1 }, { question: '\"Salom\" so\' zining arabchasi qaysi?', options:
+  ['مَرْحَبًا', 'سَلَامٌ' , 'شُكْرًا' , 'أَهْلًا' ], correct: 1 }, { question: 'Qaysi harf \"Jim\" deb o\' qiladi?',
+  options: ['ح', 'خ' , 'ج' , 'ث' ], correct: 2 }, { question: '\"Qalam\" arabchada qanday?' , options:
+  ['كِتَابٌ', 'دَفْتَرٌ' , 'قَلَمٌ' , 'مِسْطَرَةٌ' ], correct: 2 }, { question: '\"Olma\" (Tuffahun) so\' zini toping?',
+  options: ['تُفَّاحٌ', 'عِنَبٌ' , 'مَوْزٌ' , 'بُرْتُقَالٌ' ], correct: 0 }, { question: '\"Maktab\" so\' zining
+  ma\'nosi?', options: ['Kutubxona', 'Maktab' , 'Uy' , 'Bog\''], correct: 1 },
+        { question: ' Qaysi harf \"Shin\"?', options: ['س', 'ش' , 'ص' , 'ض' ], correct: 1 }, {
+  question: '\"Suv\" (Maun) arabchada?' , options: ['لَبَنٌ', 'مَاءٌ' , 'عَصِيرٌ' , 'شَايٌ' ], correct: 1 }, {
+  question: '\"Xush kelibsiz\" arabchada nima?' , options: ['أَهْلًا وَسَهْلًا', 'وَدَاعًا' , 'شُكْرًا' , 'عَفْوًا' ],
+  correct: 0 }, { question: '\"Oshxona\" (Matbaxun) qaysi?' , options: ['غُرْفَةٌ', 'حَمَّامٌ' , 'مَطْبَخٌ' , 'بَيْتٌ'
+  ], correct: 2 }, { question: 'Qaysi raqam \"Isnan\" (2)?' , options: ['١', '٢' , '٣' , '٤' ], correct: 1 }, {
+  question: '\"Non\" (Xubzun) arabchada?' , options: ['خُبْزٌ', 'لَحْمٌ' , 'أَرُزٌّ' , 'سَمَكٌ' ], correct: 0 }, {
+  question: '\"Katta\" (Kabir) so\' zining teskarisi?', options: ['جَمِيلٌ', 'قَدِيمٌ' , 'صَغِيرٌ' , 'سَرِيعٌ' ],
+  correct: 2 }, { question: '\"Rahmat\"ga javob nima?' , options: ['عَفْوًا', 'أَهْلًا' , 'سَلَامٌ' , 'مَرْحَبًا' ],
+  correct: 0 }, { question: 'Qaysi harf \"Zo\"?' , options: ['ط', 'ظ' , 'ص' , 'ض' ], correct: 1 }, {
+  question: '\"Quyosh\" (Shams) so\' zini toping?', options: ['قَمَرٌ', 'نَجْمٌ' , 'شَمْسٌ' , 'سَمَاءٌ' ], correct: 2 },
+  { question: '\"Oq\" (Abyad) rangini tanlang?' , options: ['أَسْوَدُ', 'أَبْيَضُ' , 'أَحْمَرُ' , 'أَزْرَقُ' ], correct:
+  1 }, { question: '\"Mushuk\" (Qitun) arabchada?' , options: ['قِطٌّ', 'كَلْبٌ' , 'أَسَدٌ' , 'فِيلٌ' ], correct: 0 }, {
+  question: '\"Daftar\" so\' zini tanlang?', options: ['كِتَابٌ', 'دَفْتَرٌ' , 'قَلَمٌ' , 'مِرْسَمٌ' ], correct: 1 } ],
+  init() { // Pick 5 random questions const shuffled=[...this.allQuizQuestions].sort(()=> 0.5 - Math.random());
+  this.questions = shuffled.slice(0, 5);
+  this.loading = false;
+  },
 
-  <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-5">
-    <div>
-      <div class="text-xs text-slate-400">Account • Dashboard</div>
-      <h1 class="mt-1 text-3xl md:text-5xl font-black">📊 Progress</h1>
-      <p class="mt-2 text-slate-300 text-sm max-w-2xl leading-relaxed">
+  selectAnswer(idx) {
+  if (this.answered) return;
+  this.answered = true;
+  this.isCorrect = idx === this.questions[this.currentQ].correct;
+  if (this.isCorrect) this.score++;
+
+  setTimeout(() => {
+  if (this.currentQ < this.questions.length - 1) { this.currentQ++; this.answered=false; this.isCorrect=false; } else {
+    this.finished=true; this.saveResult(); } }, 1000); }, async saveResult() { try { await fetch('/api/quiz/result/', {
+    method: 'POST' , headers: { 'Content-Type' : 'application/json' , 'X-CSRFToken' : '{{ csrf_token }}' }, body:
+    JSON.stringify({ correct: this.score>= 3, score: this.score, total: this.questions.length })
+    });
+    } catch (err) { console.error('Quiz save:', err); }
+    }
+    }
+    " x-init="init()" x-show="open" class="fixed inset-0 z-[200] flex items-center justify-center px-4" style="display:
+    none;">
+    <div class="absolute inset-0 bg-slate-950/80 backdrop-blur-sm" @click="open = false"></div>
+    <div class="relative w-full max-w-lg rounded-3xl border border-emerald-500/20 bg-slate-900 p-6 shadow-2xl">
+
+      <!-- Loading State -->
+      <div x-show="loading" class="py-12 flex flex-col items-center justify-center space-y-4">
+        <div class="relative">
+          <div class="h-16 w-16 rounded-2xl bg-emerald-500/20 flex items-center justify-center animate-pulse">
+            <i class="fas fa-robot text-2xl text-emerald-400"></i>
+          </div>
+          <template x-if="!aiErrorMessage">
+            <div class="absolute -inset-2 border border-emerald-500/30 rounded-3xl animate-spin"></div>
+          </template>
+        </div>
+        <div class="text-center px-4">
+          <template x-if="!aiErrorMessage">
+            <div>
+              <p class="text-white font-bold text-sm uppercase tracking-widest">AI Savollar Tuzilmoqda</p>
+              <p class="text-slate-500 text-[10px] uppercase mt-1">Siz uchun maxsus test tayyorlanyapti...</p>
+            </div>
+          </template>
+          <template x-if="aiErrorMessage">
+            <div>
+              <p class="text-red-400 font-bold text-sm uppercase tracking-widest">AI Band</p>
+              <p class="text-slate-400 text-[10px] mt-1" x-text="aiErrorMessage"></p>
+              <button @click="loading = false; aiErrorMessage = ''"
+                class="mt-4 px-6 py-2 rounded-xl bg-white text-slate-950 text-[10px] font-bold uppercase tracking-widest">
+                Davom etish
+              </button>
+            </div>
+          </template>
+        </div>
+      </div>
+
+      <!-- Progress Bar -->
+      <div class="mb-6" x-show="!finished && !loading">
+        <div class="flex items-center justify-between text-xs text-slate-400 mb-2">
+          <span>Savol <span x-text="currentQ + 1"></span> / <span x-text="questions.length"></span></span>
+          <span class="text-emerald-400"><span x-text="score"></span> to'g'ri</span>
+        </div>
+        <div class="h-2 bg-slate-800 rounded-full overflow-hidden">
+          <div class="h-full bg-gradient-to-r from-emerald-500 to-sky-500 transition-all duration-300"
+            :style="`width: ${((currentQ) / questions.length) * 100}%`"></div>
+        </div>
+      </div>
+
+      <!-- Question State -->
+      <div class="text-center" x-show="!finished && !loading">
+        <div
+          class="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-500/10 text-2xl text-emerald-400 mb-4">
+          🧠
+        </div>
+        <h2 class="text-xl font-black text-white" x-text="show_welcome_quiz ? 'Xush kelibsiz!' : 'Kun savollari!'"></h2>
+        <p class="mt-1 text-slate-400 text-sm"
+          x-text="show_welcome_quiz ? 'Bilimingizni sinab ko\'ramiz' : '5 ta savolga javob bering'"></p>
+      </div>
+
+      <!-- Question -->
+      <div class="mt-6 space-y-3" x-show="!finished">
+        <div class="text-lg font-bold text-center text-white mb-4 arabic-font" x-text="questions[currentQ].question">
+        </div>
+
+        <template x-for="(option, idx) in questions[currentQ].options" :key="idx">
+          <button @click="selectAnswer(idx)" :class="{
+            'bg-emerald-500/30 border-emerald-500': answered && idx === questions[currentQ].correct,
+            'bg-red-500/30 border-red-500': answered && isCorrect === false && idx !== questions[currentQ].correct && idx === questions[currentQ].options.indexOf(questions[currentQ].options.find((o, i) => i === idx)),
+            'bg-white/5 border-white/10 hover:bg-white/10': !answered
+          }" :disabled="answered" class="w-full rounded-2xl border p-4 text-left transition flex items-center gap-3">
+            <span class="w-8 h-8 rounded-lg flex items-center justify-center text-xs font-black"
+              :class="answered && idx === questions[currentQ].correct ? 'bg-emerald-500 text-white' : 'bg-white/10 text-slate-400'"
+              x-text="['A', 'B', 'C', 'D'][idx]"></span>
+            <span class="font-bold text-slate-300" x-text="option"></span>
+          </button>
+        </template>
+      </div>
+
+      <!-- Result State -->
+      <div class="text-center py-6" x-show="finished" style="display: none;">
+        <div class="inline-flex h-24 w-24 items-center justify-center rounded-full mb-4 text-5xl"
+          :class="score >= 3 ? 'bg-emerald-500/10' : 'bg-amber-500/10'">
+          <span x-text="score >= 4 ? '🏆' : score >= 3 ? '👍' : '💪'"></span>
+        </div>
+        <h2 class="text-3xl font-black text-white">
+          <span x-text="score"></span>/<span x-text="questions.length"></span>
+        </h2>
+        <p class="mt-2 text-slate-400"
+          x-text="score >= 4 ? 'Ajoyib natija! +20 XP' : score >= 3 ? 'Yaxshi! +10 XP' : 'Davom eting!'"></p>
+
+        <div class="mt-6 flex justify-center gap-3">
+          <button @click="open = false"
+            class="px-8 py-3 rounded-2xl bg-gradient-to-r from-emerald-500 to-sky-500 text-slate-950 font-bold hover:opacity-90 transition">
+            Davom etish
+          </button>
+        </div>
+      </div>
+
+      <button @click="open = false" x-show="!finished"
+        class="mt-6 w-full py-3 text-xs font-bold text-slate-500 hover:text-white transition uppercase tracking-widest">
+        O'tkazib yuborish
+      </button>
+    </div>
+</div>
+{% endif %}
+
+<!-- HERO -->
+<section
+  class="relative overflow-hidden rounded-[2.5rem] border border-white/10 bg-slate-900/40 backdrop-blur-xl p-6 md:p-12 shadow-2xl">
+  <div
+    class="pointer-events-none absolute -top-40 -left-40 h-[500px] w-[500px] rounded-full bg-emerald-500/10 blur-[120px]">
+  </div>
+  <div
+    class="pointer-events-none absolute -bottom-40 -right-40 h-[500px] w-[500px] rounded-full bg-sky-500/10 blur-[120px]">
+  </div>
+
+  <div class="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-8">
+    <div class="flex-1">
+      <div
+        class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-[10px] font-black uppercase tracking-widest text-emerald-400 mb-4">
+        Account • Dashboard
+      </div>
+      <h1 class="text-4xl md:text-6xl font-black text-white tracking-tight">📊 Progress</h1>
+      <p class="mt-4 text-slate-400 text-sm md:text-base max-w-xl leading-relaxed">
         Sizning natijangiz: streak, review, so‘z boyligi, darslar va odatlar.
       </p>
 
-      <div class="mt-5 flex flex-wrap gap-2 text-xs">
-        <span class="rounded-2xl border border-white/10 bg-slate-950/40 px-3 py-2 text-slate-300">✅ Daily</span>
-        <span class="rounded-2xl border border-white/10 bg-slate-950/40 px-3 py-2 text-slate-300">✅ Review</span>
-        <span class="rounded-2xl border border-white/10 bg-slate-950/40 px-3 py-2 text-slate-300">✅ Lessons</span>
-        <span class="rounded-2xl border border-white/10 bg-slate-950/40 px-3 py-2 text-slate-300">✅ Goals</span>
+      <div class="mt-6 flex flex-wrap gap-3">
+        <span
+          class="flex items-center gap-2 px-4 py-2 rounded-2xl bg-white/5 border border-white/10 text-xs font-bold text-slate-300">
+          <i class="fas fa-check-circle text-emerald-400 text-[10px]"></i> Daily
+        </span>
+        <span
+          class="flex items-center gap-2 px-4 py-2 rounded-2xl bg-white/5 border border-white/10 text-xs font-bold text-slate-300">
+          <i class="fas fa-check-circle text-emerald-400 text-[10px]"></i> Review
+        </span>
+        <span
+          class="flex items-center gap-2 px-4 py-2 rounded-2xl bg-white/5 border border-white/10 text-xs font-bold text-slate-300">
+          <i class="fas fa-check-circle text-emerald-400 text-[10px]"></i> Lessons
+        </span>
       </div>
     </div>
 
-    <div class="flex items-center gap-2">
+    <div class="flex flex-wrap items-center gap-3">
       <a href="/roadmap/"
-        class="rounded-2xl border border-emerald-400/30 bg-emerald-500/10 px-4 py-2 text-sm text-emerald-300 hover:bg-emerald-500/20 transition">
+        class="flex-1 sm:flex-none flex items-center justify-center gap-2 px-6 py-3 rounded-2xl bg-emerald-500 text-slate-950 font-bold text-sm hover:bg-emerald-400 transition-all active:scale-95">
         🗺 Roadmap
       </a>
       <a href="/review/"
-        class="rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-sm hover:bg-white/10 transition">
+        class="flex-1 sm:flex-none flex items-center justify-center gap-2 px-6 py-3 rounded-2xl bg-white/10 border border-white/10 text-white font-bold text-sm hover:bg-white/20 transition-all active:scale-95">
         🧠 Review
       </a>
       <a href="/accounts/logout/"
-        class="rounded-2xl bg-white text-slate-950 px-4 py-2 text-sm font-semibold hover:bg-slate-200 transition">
-        Logout
+        class="w-full sm:w-auto flex items-center justify-center px-6 py-3 rounded-2xl bg-red-500/10 border border-red-500/20 text-red-500 font-bold text-sm hover:bg-red-500 hover:text-white transition-all">
+        Chiqish
       </a>
     </div>
   </div>
@@ -62,8 +236,7 @@
           <div class="text-xs text-slate-400 mt-1">{{ m.mission.description }}</div>
         </div>
         <div class="text-xl">
-          {% if m.mission.mission_type == 'lesson' %}
-          🎓
+          {% if m.mission.mission_type == 'lesson' %} 🎓
           {% elif m.mission.mission_type == 'word' %}
           📚
           {% elif m.mission.mission_type == 'review' %}
@@ -85,8 +258,7 @@
       </div>
       <div class="mt-4 flex items-center justify-between">
         <span class="text-xs font-bold text-slate-200">+{{ m.mission.xp_reward }} XP</span>
-        {% if m.is_completed %}
-        <span class="text-[10px] bg-emerald-500/20 text-emerald-400 px-2 py-1 rounded-full font-bold">Bajarildi ✅</span>
+        {% if m.is_completed %} <span class="text-[10px] bg-emerald-500/20 text-emerald-400 px-2 py-1 rounded-full font-bold">Bajarildi ✅</span>
         {% else %}
         <span class="text-[10px] bg-white/5 text-slate-400 px-2 py-1 rounded-full">Davom etmoqda...</span>
         {% endif %}
@@ -118,9 +290,7 @@
       <div class="flex items-center justify-between rounded-2xl border border-white/10 bg-slate-950/30 px-4 py-3">
         <div class="text-slate-300">🧠 Review</div>
         <div class="text-slate-400 text-xs">
-          {% if today_review_done is not None %}{{ today_review_done }}{% else %}0{% endif %} /
-          {% if daily_review_target is not None %}{{ daily_review_target }}{% else %}10{% endif %}
-        </div>
+          {% if today_review_done is not None %}{{ today_review_done }}{% else %}0{% endif %} / {% if daily_review_target is not None %}{{ daily_review_target }}{% else %}10{% endif %} </div>
       </div>
       <div class="flex items-center justify-between rounded-2xl border border-white/10 bg-slate-950/30 px-4 py-3">
         <div class="text-slate-300">📚 Yangi so‘z</div>
@@ -151,23 +321,18 @@
     <div class="flex items-start justify-between gap-3">
       <div>
         <div class="text-sm text-slate-400">🧩 Level / XP</div>
-        <div class="mt-1 text-2xl font-black">Level {% if level %}{{ level }}{% else %}1{% endif %}</div>
-        <div class="text-xs text-slate-400 mt-1">
-          XP: <span class="text-slate-200 font-semibold">{% if xp is not None %}{{ xp }}{% else %}0{% endif %}</span> /
-          {% if xp_next %}{{ xp_next }}{% else %}100{% endif %}
-        </div>
+        <div class="mt-1 text-2xl font-black">Level {% if level %}{{ level }}{% else %}1{% endif %}</div> <div class="text-xs text-slate-400 mt-1">
+          XP: <span class="text-slate-200 font-semibold">{% if xp is not None %}{{ xp }}{% else %}0{% endif %}</span> / {% if xp_next %}{{ xp_next }}{% else %}100{% endif %} </div>
       </div>
       <div class="h-12 w-12 rounded-2xl border border-white/10 bg-slate-950/40 grid place-items-center">🧩</div>
     </div>
 
     <div class="mt-5 h-2 rounded-full bg-white/10 overflow-hidden">
       <div class="h-2 bg-gradient-to-r from-emerald-400 to-sky-400"
-        style="width: {% if xp_pct is not None %}{{ xp_pct }}{% else %}0{% endif %}%"></div>
-    </div>
+        style="width: {% if xp_pct is not None %}{{ xp_pct }}{% else %}0{% endif %}%"></div> </div>
 
     <div class="mt-4 text-xs text-slate-400">
-      Next level uchun: <span class="text-slate-200 font-semibold">{% if xp_remaining is not None %}{{ xp_remaining }}{%
-        else %}0{% endif %}</span> XP kerak.
+      Next level uchun: <span class="text-slate-200 font-semibold">{% if xp_remaining is not None %}{{ xp_remaining }}{% else %}0{% endif %}</span> XP kerak.
     </div>
 
     <div class="mt-5 rounded-2xl border border-white/10 bg-slate-950/30 p-4">
@@ -185,8 +350,7 @@
     <div class="flex items-start justify-between gap-3">
       <div>
         <div class="text-sm text-slate-400">⏱ Study time</div>
-        <div class="mt-1 text-2xl font-black">{% if study_today_min is not None %}{{ study_today_min }}{% else %}0{%
-          endif %} min</div>
+        <div class="mt-1 text-2xl font-black">{% if study_today_min is not None %}{{ study_today_min }}{% else %}0{% endif %} min</div>
         <div class="text-xs text-slate-400 mt-1">Bugun o‘qigan vaqt</div>
       </div>
       <div class="h-12 w-12 rounded-2xl border border-white/10 bg-slate-950/40 grid place-items-center">⏱</div>
@@ -195,15 +359,12 @@
     <div class="mt-5 grid grid-cols-2 gap-3 text-sm">
       <div class="rounded-2xl border border-white/10 bg-slate-950/30 p-4">
         <div class="text-xs text-slate-400">Haftada</div>
-        <div class="mt-1 text-xl font-black">{% if study_week_min is not None %}{{ study_week_min }}{% else %}0{% endif
-          %} min</div>
+        <div class="mt-1 text-xl font-black">{% if study_week_min is not None %}{{ study_week_min }}{% else %}0{% endif %} min</div>
       </div>
       <div class="rounded-2xl border border-white/10 bg-slate-950/30 p-4">
         <div class="text-xs text-slate-400">O‘rtacha</div>
-        <div class="mt-1 text-xl font-black">{% if study_avg_min is not None %}{{ study_avg_min }}{% else %}0{% endif %}
-          min/kun</div>
+        <div class="mt-1 text-xl font-black">{% if study_avg_min is not None %}{{ study_avg_min }}{% else %}0{% endif %} min/kun</div>
       </div>
-
     </div>
 
     <div class="mt-4 text-xs text-slate-400">
@@ -284,8 +445,7 @@
 
     <div class="mt-5 h-2 rounded-full bg-white/10 overflow-hidden">
       <div class="h-2 bg-gradient-to-r from-emerald-400 to-sky-400"
-        style="width: {% if words_pct is not None %}{{ words_pct }}{% else %}0{% endif %}%"></div>
-    </div>
+        style="width: {% if words_pct is not None %}{{ words_pct }}{% else %}0{% endif %}%"></div> </div>
 
     <div class="mt-4 text-xs text-slate-400">
       Tip: har kuni 5 ta yangi so‘z + 10 ta review.
@@ -305,8 +465,7 @@
         <div class="mt-1 text-2xl font-black">Haftalik aktivlik</div>
       </div>
       <div class="rounded-2xl border border-white/10 bg-slate-950/40 px-4 py-2 text-xs text-slate-300">
-        Total: {% if week_total_actions is not None %}{{ week_total_actions }}{% else %}0{% endif %}
-      </div>
+        Total: {% if week_total_actions is not None %}{{ week_total_actions }}{% else %}0{% endif %} </div>
     </div>
 
     <div class="mt-6 grid grid-cols-7 gap-2 items-end">
@@ -314,11 +473,9 @@
       <div class="flex flex-col items-center gap-2">
         <div class="w-full rounded-2xl bg-white/10 overflow-hidden h-28 flex items-end">
           <div class="w-full bg-gradient-to-t from-emerald-400/90 to-sky-400/70"
-            style="height: {% if d.pct is not None %}{{ d.pct }}{% else %}0{% endif %}%">
-          </div>
+            style="height: {% if d.pct is not None %}{{ d.pct }}{% else %}0{% endif %}%"> </div>
         </div>
-        <div class="text-[10px] text-slate-400">{% if d.label %}{{ d.label|safe_text }}{% else %}-{% endif %}</div>
-      </div>
+        <div class="text-[10px] text-slate-400">{% if d.label %}{{ d.label|safe_text }}{% else %}-{% endif %}</div> </div>
       {% endfor %}
     </div>
 
@@ -373,8 +530,7 @@
   </div>
 
   <div class="mt-4 h-2 rounded-full bg-white/10 overflow-hidden">
-    <div class="h-2 bg-white" style="width: {% if lessons_pct is not None %}{{ lessons_pct }}{% else %}0{% endif %}%">
-    </div>
+    <div class="h-2 bg-white" style="width: {% if lessons_pct is not None %}{{ lessons_pct }}{% else %}0{% endif %}%"> </div>
   </div>
 
   <div class="mt-5 flex flex-wrap gap-2 text-xs">
@@ -406,8 +562,7 @@
     <div class="mt-5 flex flex-wrap gap-2">
       {% for a in achievements %}
       <span class="rounded-2xl border border-white/10 bg-slate-950/30 px-3 py-2 text-xs text-slate-200">
-        {% if a.icon %}{{ a.icon|safe_text }}{% else %}✅{% endif %} {{ a.title|safe_text }}
-      </span>
+        {% if a.icon %}{{ a.icon|safe_text }}{% else %}✅{% endif %} {{ a.title|safe_text }} </span>
       {% empty %}
       <div class="text-sm text-slate-400">Hozircha badge yo‘q. Birinchi streakni boshlang 🔥</div>
       {% endfor %}
@@ -434,8 +589,7 @@
         <div class="mt-2 h-2 rounded-full bg-white/10 overflow-hidden">
           <div class="h-2 bg-gradient-to-r from-fuchsia-400/80 to-sky-400/70" style="width: {{ w.pct }}%"></div>
         </div>
-        {% if w.url %}
-        <a href="{{ w.url }}" class="mt-3 inline-flex text-xs text-slate-300 hover:text-white transition">Mashq qilish
+        {% if w.url %} <a href="{{ w.url }}" class="mt-3 inline-flex text-xs text-slate-300 hover:text-white transition">Mashq qilish
           →</a>
         {% endif %}
       </div>
@@ -460,8 +614,7 @@
       <div class="flex gap-1">
         {% for c in week %}
         <span class="h-3 w-3 rounded-[4px] border border-white/10"
-          style="background: rgba(16, 185, 129, {% if c is not None %}{{ c }}{% else %}0{% endif %})"
-          title="activity"></span>
+          style="background: rgba(16, 185, 129, {% if c is not None %}{{ c }}{% else %}0{% endif %})" title="activity"></span>
         {% endfor %}
       </div>
       {% endfor %}

@@ -20,7 +20,7 @@
     const SW_VERSION = '2.2.0'; // Current version
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/static/sw.js?v=' + SW_VERSION)
+        navigator.serviceWorker.register('/sw.js?v=' + SW_VERSION)
           .then(registration => {
             console.log('SW registered:', registration.scope);
             // Check for updates
@@ -336,9 +336,9 @@
             class="nav-link px-3 py-2 rounded-xl transition hover:bg-white/10 {% if '/dictionary/' in p %}bg-white/10 text-white{% else %}text-slate-400{% endif %}">
             Lug'at
           </a>
-          <a href="/placement/"
-            class="nav-link px-3 py-2 rounded-xl transition hover:bg-white/10 {% if '/placement/' in p %}bg-white/10 text-white{% else %}text-slate-400{% endif %}">
-            Sinov
+          <a href="{% url 'arab:exam' %}"
+            class="nav-link px-3 py-2 rounded-xl transition hover:bg-white/10 {% if '/exam/' in p %}bg-white/10 text-white{% else %}text-slate-400{% endif %}">
+            Imtihon
           </a>
 
           {% if user.is_authenticated %}
@@ -637,6 +637,11 @@
           <div class="text-[10px] font-black pointer-events-none text-slate-500 uppercase tracking-widest px-1 mb-2">
             Profil</div>
           <div class="space-y-1">
+            <a href="{% url 'arab:progress' %}" class="mobile-link flex items-center gap-3">
+              <span class="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-400"><i
+                  class="fas fa-user-circle"></i></span>
+              <span class="flex-1">Mening Profilim</span>
+            </a>
             <a href="{% url 'arab:settings_profile' %}" class="mobile-link flex items-center gap-3">
               <span class="w-8 h-8 rounded-lg bg-slate-800 flex items-center justify-center text-slate-400"><i
                   class="fas fa-user-cog"></i></span>
@@ -668,7 +673,7 @@
     </div>
   </div>
 
-  <main class="mx-auto w-[min(1150px,92%)] py-8 lg:pb-8 pb-32">
+  <main class="mx-auto w-[min(1150px,92%)] py-4 sm:py-6 lg:py-8 lg:pb-8 pb-24 sm:pb-28">
     {% block content %}{% endblock %}
   </main>
 
@@ -724,21 +729,60 @@
 
       if (!reminderEnabled) return;
 
+      // Check permission
       if (Notification.permission === "default") {
-        Notification.requestPermission();
-      }
+        // Create and show a toast asking for permission
+        const toast = document.createElement('div');
+        toast.className = "fixed bottom-4 right-4 z-[9999] max-w-sm rounded-2xl border border-emerald-500/20 bg-slate-900 p-4 shadow-2xl flex items-center gap-4 transition-all duration-500 translate-y-20 opacity-0";
+        toast.innerHTML = `
+            <div class="h-10 w-10 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-400">
+                <i class="fas fa-bell"></i>
+            </div>
+            <div class="flex-1">
+                <div class="text-xs font-bold text-white">Eslatmalar</div>
+                <div class="text-[10px] text-slate-400">Dars vaqtini o'tkazib yubormaslik uchun bildirishnomalarni yoqing.</div>
+            </div>
+            <button id="enableNotifBtn" class="px-3 py-1.5 rounded-xl bg-emerald-500 text-slate-950 text-xs font-bold hover:bg-emerald-400 transition">Yoqish</button>
+            <button id="closeNotifBtn" class="text-slate-500 hover:text-white transition"><i class="fas fa-times"></i></button>
+        `;
+        document.body.appendChild(toast);
 
-      // Local scheduling logic (Check every minute)
-      setInterval(() => {
-        const now = new Date();
-        const currentTime = now.getHours().toString().padStart(2, '0') + ":" + now.getMinutes().toString().padStart(2, '0');
+        // Animate in
+        requestAnimationFrame(() => {
+          toast.classList.remove('translate-y-20', 'opacity-0');
+        });
 
-        if (currentTime === reminderTime) {
-          const lastNotified = localStorage.getItem('last_notified_time');
-          const today = now.toDateString();
+        document.getElementById('enableNotifBtn').addEventListener('click', () => {
+          Notification.requestPermission().then(permission => {
+            if (permission === "granted") {
+              new Notification("AlifPro Academy", {
+                body: "Rahmat! Endi eslatmalarni vaqtida olasiz.",
+                icon: "{% static 'img/logo_alifpro.svg' %}"
+              });
+            }
+            toast.classList.add('translate-y-20', 'opacity-0');
+            setTimeout(() => toast.remove(), 500);
+          });
+        });
 
-          if (lastNotified !== today) {
-            if (Notification.permission === "granted") {
+        document.getElementById('closeNotifBtn').addEventListener('click', () => {
+          toast.classList.add('translate-y-20', 'opacity-0');
+          setTimeout(() => toast.remove(), 500);
+        });
+
+      } else if (Notification.permission === "granted") {
+        // Normal scheduling
+        setInterval(() => {
+          const now = new Date();
+          const hours = now.getHours().toString().padStart(2, '0');
+          const minutes = now.getMinutes().toString().padStart(2, '0');
+          const currentTime = `${hours}:${minutes}`;
+
+          if (currentTime === reminderTime) {
+            const lastNotified = localStorage.getItem('last_notified_time');
+            const today = now.toDateString();
+
+            if (lastNotified !== today) {
               new Notification("AlifPro Academy", {
                 body: userNotes || "Vaqt bo'ldi! Arab tili darslarini davom ettiramizmi? 📚",
                 icon: "{% static 'img/logo_alifpro.svg' %}"
@@ -746,8 +790,8 @@
               localStorage.setItem('last_notified_time', today);
             }
           }
-        }
-      }, 60000); // Check every minute
+        }, 60000); // Check every minute
+      }
     }
     document.addEventListener('DOMContentLoaded', setupNotifications);
     {% endif %}

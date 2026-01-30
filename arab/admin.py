@@ -167,12 +167,37 @@ class VocabularyCategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Word)
 class WordAdmin(admin.ModelAdmin):
-    list_display = ("arabic", "translation_uz") # DEBUG: removed lesson, category, translation_ru, created_at
-    list_filter = ("category", "lesson__unit__course", "lesson")
+    list_display = ("arabic", "transliteration", "translation_uz", "difficulty", "category", "has_audio")
+    list_filter = ("difficulty", "category", "lesson__unit__course")
     search_fields = ("arabic", "transliteration", "translation_uz", "translation_ru")
     ordering = ("arabic",)
     filter_horizontal = ("diacritics",)
     inlines = (WordExampleInline,)
+    readonly_fields = ("created_at", "updated_at")
+    
+    fieldsets = (
+        ("Word Details", {
+            "fields": ("arabic", "transliteration", "word_type", "difficulty")
+        }),
+        ("Meanings", {
+            "fields": ("translation_uz", "translation_ru", "makhraj", "pronunciation")
+        }),
+        ("Taxonomy", {
+            "fields": ("category", "lesson", "diacritics")
+        }),
+        ("Media", {
+            "fields": ("audio",)
+        }),
+        ("Metadata", {
+            "fields": ("created_at", "updated_at"),
+            "classes": ("collapse",)
+        }),
+    )
+
+    def has_audio(self, obj):
+        return bool(obj.audio)
+    has_audio.boolean = True
+    has_audio.short_description = "Audio"
 
 
 @admin.register(WordExample)

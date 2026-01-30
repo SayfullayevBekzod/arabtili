@@ -63,16 +63,32 @@
         audioPlaying: false, 
         speed: 1.0, 
         repeat: false,
+        progress: 0,
+        duration: 0,
         audioObj: null,
         init() {
             this.audioObj = new Audio('{{ audio_url }}');
+            this.audioObj.preload = 'auto'; // Preload for no lag
+            this.audioObj.addEventListener('loadedmetadata', () => {
+                this.duration = this.audioObj.duration;
+            });
+            this.audioObj.addEventListener('timeupdate', () => {
+                this.progress = (this.audioObj.currentTime / this.duration) * 100;
+            });
             this.audioObj.onended = () => { 
                 if (this.repeat) {
                     this.play();
                 } else {
                     this.audioPlaying = false; 
+                    this.progress = 0;
                 }
             };
+            window.addEventListener('keydown', (e) => {
+                if (e.code === 'Space') {
+                    e.preventDefault();
+                    this.toggle();
+                }
+            });
         },
         play() {
             if (!this.audioObj) this.init();
@@ -93,66 +109,88 @@
         setSpeed(s) {
             this.speed = s;
             if (this.audioObj) this.audioObj.playbackRate = s;
+        },
+        seek(event) {
+            if (!this.audioObj) return;
+            const rect = event.target.getBoundingClientRect();
+            const x = event.clientX - rect.left;
+            const width = rect.width;
+            const pct = x / width;
+            this.audioObj.currentTime = pct * this.duration;
         }
     }"
-    class="relative rounded-[3rem] border border-white/10 bg-slate-900/40 backdrop-blur-xl p-10 md:p-16 text-center shadow-2xl overflow-hidden group">
+    class="relative rounded-[2.5rem] md:rounded-[3rem] border border-white/10 bg-slate-900/40 backdrop-blur-xl p-6 md:p-16 text-center shadow-2xl overflow-hidden group">
 
     <div class="absolute inset-0 bg-gradient-to-b from-emerald-500/5 to-transparent pointer-events-none"></div>
 
-    <div class="relative z-10 space-y-12">
+    <div class="relative z-10 space-y-8 md:space-y-12">
       <!-- Label -->
       <div
-        class="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-[11px] font-black uppercase tracking-[0.3em] text-emerald-400">
+        class="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-[10px] md:text-[11px] font-black uppercase tracking-[0.3em] text-emerald-400">
         TALAFFUZI
       </div>
 
       <!-- Large Letter Visual with Dynamic Highlight -->
-      <div class="relative inline-block scale-110 md:scale-125">
+      <div class="relative inline-block scale-100 md:scale-125">
         <div :class="audioPlaying ? 'scale-110 blur-3xl opacity-30 px-20' : 'scale-0 opacity-0'"
           class="absolute inset-0 bg-emerald-400 rounded-full transition-all duration-700 pointer-events-none"></div>
         <span :class="audioPlaying ? 'text-emerald-400 scale-105' : 'text-white'"
-          class="arabic-font relative z-10 block text-[180px] md:text-[240px] font-black leading-none transition-all duration-300 select-none cursor-pointer hover:text-emerald-300"
+          class="arabic-font relative z-10 block text-[120px] md:text-[240px] font-black leading-none transition-all duration-300 select-none cursor-pointer hover:text-emerald-300"
           @click="toggle()">
           {{ letter.arabic }}
         </span>
       </div>
 
       <!-- Controls (Professional Audio Controls) -->
-      <div class="flex flex-col items-center gap-10">
-        <!-- Main Play Action -->
-        <button @click="toggle()"
-          class="group relative w-24 h-24 flex items-center justify-center rounded-full bg-white text-slate-950 shadow-2xl hover:scale-110 active:scale-95 transition-all outline-none border-0">
-          <i :class="audioPlaying ? 'fas fa-pause text-2xl' : 'fas fa-play text-2xl ml-1'" class="relative z-10"></i>
-          <!-- Progress Ring -->
-          <div x-show="audioPlaying"
-            class="absolute inset-[-4px] rounded-full border-2 border-emerald-400 border-t-transparent animate-spin">
-          </div>
-        </button>
+      <div class="flex flex-col items-center gap-8 w-full max-w-xl mx-auto">
 
-        <!-- Professional Adjustments -->
-        <div class="flex flex-wrap justify-center items-center gap-4">
+        <!-- Timeline -->
+        <div class="w-full flex items-center gap-3 text-xs font-bold text-emerald-400 font-mono" dir="ltr">
+          <span>0:00</span>
+          <div class="relative flex-grow h-2 bg-white/10 rounded-full overflow-hidden cursor-pointer group"
+            @click="seek($event)">
+            <div
+              class="absolute inset-y-0 left-0 bg-emerald-500 w-0 transition-all duration-100 group-hover:bg-emerald-400"
+              :style="`width: ${progress}%`"></div>
+          </div>
+          <span
+            x-text="duration ? (Math.floor(duration / 60) + ':' + ('0' + Math.floor(duration % 60)).slice(-2)) : '0:00'"></span>
+        </div>
+
+        <div class="flex items-center justify-center gap-6">
           <!-- Slow Motion Playback -->
-          <button @click="setSpeed(speed === 1.0 ? 0.75 : 1.0)"
-            :class="speed === 0.75 ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30' : 'bg-white/5 text-slate-400 border-white/10 hover:text-white hover:bg-white/10'"
-            class="flex items-center gap-2 px-6 py-3 rounded-2xl border transition-all text-sm font-bold">
-            <i class="fas fa-gauge-low"></i>
-            <span>0.75x</span>
+          <div class="flex items-center gap-2">
+            <button @click="setSpeed(0.5)"
+              :class="speed === 0.5 ? 'bg-emerald-500 text-slate-950' : 'bg-white/5 text-slate-400 hover:bg-white/10'"
+              class="w-10 h-10 rounded-xl font-bold text-xs transition-all">0.5x</button>
+            <button @click="setSpeed(0.75)"
+              :class="speed === 0.75 ? 'bg-emerald-500 text-slate-950' : 'bg-white/5 text-slate-400 hover:bg-white/10'"
+              class="w-10 h-10 rounded-xl font-bold text-xs transition-all">0.75x</button>
+            <button @click="setSpeed(1.0)"
+              :class="speed === 1.0 ? 'bg-emerald-500 text-slate-950' : 'bg-white/5 text-slate-400 hover:bg-white/10'"
+              class="w-10 h-10 rounded-xl font-bold text-xs transition-all">1x</button>
+            <button @click="setSpeed(1.25)"
+              :class="speed === 1.25 ? 'bg-emerald-500 text-slate-950' : 'bg-white/5 text-slate-400 hover:bg-white/10'"
+              class="w-10 h-10 rounded-xl font-bold text-xs transition-all">1.25x</button>
+          </div>
+
+          <!-- Main Play Action -->
+          <button @click="toggle()"
+            class="group relative w-20 h-20 flex items-center justify-center rounded-full bg-white text-slate-950 shadow-2xl hover:scale-110 active:scale-95 transition-all outline-none border-0 ring-4 ring-white/10">
+            <i :class="audioPlaying ? 'fas fa-pause text-xl' : 'fas fa-play text-xl ml-1'"
+              class="relative z-10 transition-all"></i>
           </button>
 
           <!-- Repeat Toggle -->
           <button @click="repeat = !repeat"
-            :class="repeat ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30' : 'bg-white/5 text-slate-400 border-white/10 hover:text-white hover:bg-white/10'"
-            class="flex items-center gap-2 px-6 py-3 rounded-2xl border transition-all text-sm font-bold">
-            <i class="fas fa-rotate-right"></i>
-            <span>QAYTA TINGLASH</span>
+            :class="repeat ? 'text-emerald-400 bg-emerald-500/20' : 'text-slate-500 hover:text-white bg-white/5'"
+            class="w-12 h-12 rounded-2xl flex items-center justify-center transition-all">
+            <i class="fas fa-repeat"></i>
           </button>
+        </div>
 
-          <!-- Arabic Status -->
-          <div
-            class="flex items-center gap-2 px-6 py-3 rounded-2xl bg-white/5 border border-white/10 text-slate-400 font-bold text-sm">
-            <i class="fas fa-ear-listen text-emerald-400"></i>
-            <span>TINGLASH</span>
-          </div>
+        <div class="text-[10px] uppercase tracking-widest text-slate-500 font-bold">
+          Space to Play/Pause
         </div>
       </div>
     </div>
@@ -259,32 +297,53 @@
     <!-- RIGHT: Examples -->
     <div class="lg:col-span-4 space-y-8">
       <!-- EXAMPLES -->
-      {% if examples %}
-      <section class="rounded-[2.5rem] border border-white/10 bg-slate-900/40 p-6">
-        <h3 class="text-white font-black text-sm uppercase tracking-widest mb-6">Misollar</h3>
+      <section class="rounded-[2.5rem] border border-white/10 bg-slate-900/40 p-6 md:p-8 space-y-8">
+        <div class="flex items-center gap-4">
+          <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 flex items-center justify-center text-emerald-400">
+            <i class="fas fa-book-open text-xl"></i>
+          </div>
+          <div>
+            <h3 class="text-white font-black text-lg uppercase tracking-tight">Misollar</h3>
+            <p class="text-xs text-slate-500 uppercase tracking-widest mt-0.5">So'zlardagi qo'llanilishi</p>
+          </div>
+        </div>
 
-        <div class="space-y-3">
+        <div class="space-y-4">
           {% for ex in examples %}
           <div @click="playAudio('{{ ex.audio.url|default:'' }}')"
-            class="flex items-center justify-between p-4 rounded-2xl bg-white/5 border border-transparent hover:border-white/10 hover:bg-white/10 transition group cursor-pointer shadow-sm">
-            <div class="flex items-center gap-3">
+            class="group relative flex items-center justify-between p-5 rounded-3xl bg-white/5 border border-white/5 hover:border-emerald-500/30 hover:bg-emerald-500/5 transition-all cursor-pointer shadow-sm overflow-hidden">
+
+            <div
+              class="absolute inset-y-0 left-0 w-1 bg-emerald-500 opacity-0 group-hover:opacity-100 transition-opacity">
+            </div>
+
+            <div class="flex items-center gap-4">
               <div
-                class="w-10 h-10 rounded-xl bg-slate-950 border border-white/5 flex items-center justify-center text-slate-500 group-hover:text-emerald-400 transition">
-                <i class="fas fa-play text-xs"></i>
+                class="w-12 h-12 rounded-2xl bg-slate-950 border border-white/5 flex items-center justify-center text-slate-500 group-hover:text-emerald-400 group-hover:scale-110 transition-all duration-300">
+                <i class="fas fa-play text-xs" :class="playing ? 'animate-pulse' : ''"></i>
               </div>
-              <div class="text-left">
-                <div class="text-white font-bold text-sm">{{ ex.translation_uz }}</div>
-                <div class="text-[9px] text-slate-500 uppercase">{{ ex.transliteration }}</div>
+              <div>
+                <div class="text-white font-black text-base group-hover:text-emerald-400 transition-colors">{{
+                  ex.translation_uz }}</div>
+                <div class="text-[10px] text-slate-500 uppercase tracking-[0.2em] mt-0.5 font-bold">{{
+                  ex.transliteration }}</div>
               </div>
             </div>
-            <div class="arabic-font text-3xl text-white group-hover:text-emerald-400 transition" dir="rtl">
+
+            <div
+              class="arabic-font text-4xl text-white group-hover:text-emerald-400 group-hover:scale-105 transition-all duration-300"
+              dir="rtl">
               {{ ex.arabic_text }}
             </div>
+          </div>
+          {% empty %}
+          <div class="py-12 text-center">
+            <div class="text-4xl mb-4 opacity-20">📚</div>
+            <p class="text-slate-500 text-xs uppercase tracking-[0.2em]">Hozircha misollar yo'q</p>
           </div>
           {% endfor %}
         </div>
       </section>
-      {% endif %}
 
       <!-- HARAKATS -->
       <section class="rounded-[2.5rem] border border-white/10 bg-slate-900/40 p-6">

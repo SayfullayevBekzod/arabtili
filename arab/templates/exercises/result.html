@@ -1,17 +1,127 @@
-<div class="mt-4 grid md:grid-cols-2 gap-3">
-  <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
-    <div class="text-xs text-slate-400">Lesson progress</div>
-    <div class="mt-1 text-2xl font-black">{{ progress.percent }}%</div>
-    {% if progress.is_completed %}
-      <div class="mt-1 text-xs text-emerald-200">✅ Lesson completed</div>
-    {% else %}
-      <div class="mt-1 text-xs text-slate-300">Davom eting…</div>
-    {% endif %}
+{% extends "base.html" %}
+{% block title %}Natija - {{ exercise.title }}{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto space-y-8 pb-20">
+
+  <!-- HERO RESULT CARD -->
+  <div class="relative overflow-hidden rounded-[2.5rem] bg-slate-900 border border-white/10 p-8 text-center">
+    <!-- Glow -->
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-64 h-64 bg-emerald-500/20 blur-[100px] pointer-events-none">
+    </div>
+
+    <div class="relative z-10">
+      <div class="text-sm font-bold tracking-widest text-slate-400 uppercase mb-4">Quiz Natijasi</div>
+
+      <div
+        class="w-32 h-32 mx-auto rounded-full border-4 border-slate-800 bg-slate-900 flex items-center justify-center relative mb-6 shadow-2xl">
+        {% if score == total %}
+        <span class="text-6xl animate-bounce">🏆</span>
+        {% elif score > total|add:"-2" %}
+        <span class="text-6xl animate-pulse">🌟</span>
+        {% else %}
+        <span class="text-6xl">💪</span>
+        {% endif %}
+
+        <div
+          class="absolute -bottom-2 px-3 py-1 bg-emerald-500 rounded-full border-4 border-slate-800 font-bold text-slate-950 text-sm">
+          {{ score }} / {{ total }}
+        </div>
+      </div>
+
+      <h1 class="text-4xl font-black text-white mb-2">
+        {% if score == total %}Ajoyib natija!
+        {% elif score > total|divisibleby:2 %}Yaxshi o‘tdingiz!
+        {% else %}Mashq qilish kerak{% endif %}
+      </h1>
+      <p class="text-slate-400 text-lg">
+        Siz {{ total }} ta savoldan {{ score }} tasiga to‘g‘ri javob berdingiz.
+      </p>
+    </div>
   </div>
 
-  <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
-    <div class="text-xs text-slate-400">Review</div>
-    <div class="mt-1 text-2xl font-black">+{{ created_cards }}</div>
-    <div class="mt-1 text-xs text-slate-300">So‘zlar review’ga qo‘shildi</div>
+  <!-- STATS GRID -->
+  <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+    <!-- Progress -->
+    <div class="bg-slate-800/50 border border-white/5 p-5 rounded-3xl text-center">
+      <div class="text-xs text-slate-500 uppercase font-bold mb-1">Dars jarayoni</div>
+      <div class="text-2xl font-black text-emerald-400">{{ progress.percent }}%</div>
+    </div>
+
+    <!-- Cards -->
+    <div class="bg-slate-800/50 border border-white/5 p-5 rounded-3xl text-center">
+      <div class="text-xs text-slate-500 uppercase font-bold mb-1">Yangi so‘zlar</div>
+      <div class="text-2xl font-black text-sky-400">+{{ created_cards }}</div>
+    </div>
+
+    <!-- XP (Placeholder) -->
+    <div class="bg-slate-800/50 border border-white/5 p-5 rounded-3xl text-center">
+      <div class="text-xs text-slate-500 uppercase font-bold mb-1">XP Orttirildi</div>
+      <div class="text-2xl font-black text-amber-400">+10</div>
+    </div>
+
+    <!-- Time (Placeholder) -->
+    <div class="bg-slate-800/50 border border-white/5 p-5 rounded-3xl text-center">
+      <div class="text-xs text-slate-500 uppercase font-bold mb-1">Vaqt</div>
+      <div class="text-2xl font-black text-slate-300">~2m</div>
+    </div>
   </div>
+
+  <!-- DETAILED BREAKDOWN -->
+  <div class="space-y-4">
+    <h3 class="text-xl font-bold text-white px-2">Batafsil tahlil</h3>
+
+    {% for item in details %}
+    <div
+      class="p-6 rounded-3xl border {% if item.is_correct %}border-emerald-500/20 bg-emerald-500/5{% else %}border-red-500/20 bg-red-500/5{% endif %}">
+      <div class="flex items-start gap-4">
+        <div
+          class="w-8 h-8 rounded-full flex items-center justify-center shrink-0 mt-1
+                    {% if item.is_correct %}bg-emerald-500 text-slate-900{% else %}bg-red-500 text-white{% endif %} text-sm font-bold">
+          {% if item.is_correct %}✓{% else %}✕{% endif %}
+        </div>
+
+        <div class="flex-1 space-y-2">
+          <div class="font-bold text-lg text-white">{{ item.question }}</div>
+
+          <div class="grid md:grid-cols-2 gap-4 text-sm mt-3">
+            <div class="bg-black/20 p-3 rounded-xl">
+              <span class="text-slate-500 block text-xs uppercase mb-1">Sizning javobingiz</span>
+              <span class="font-medium {% if item.is_correct %}text-emerald-400{% else %}text-red-400{% endif %}">
+                {{ item.picked|default:"Javob berilmadi" }}
+              </span>
+            </div>
+
+            {% if not item.is_correct %}
+            <div class="bg-black/20 p-3 rounded-xl border border-emerald-500/20">
+              <span class="text-slate-500 block text-xs uppercase mb-1">To‘g‘ri javob</span>
+              <span class="font-medium text-emerald-400">{{ item.correct }}</span>
+            </div>
+            {% endif %}
+          </div>
+
+          {% if item.explanation %}
+          <div class="mt-3 text-slate-400 text-sm italic border-l-2 border-white/10 pl-3">
+            💡 {{ item.explanation }}
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <!-- ACTION BUTTONS -->
+  <div class="flex flex-col sm:flex-row gap-4 pt-4">
+    <a href="{% url 'arab:lesson_detail' exercise.lesson.id %}"
+      class="flex-1 py-4 rounded-2xl bg-white text-slate-950 font-bold text-center hover:bg-emerald-400 hover:text-slate-900 transition shadow-xl">
+      Davom etish
+    </a>
+    <a href="{% url 'arab:exercise_run' exercise.id %}"
+      class="px-8 py-4 rounded-2xl bg-white/5 text-slate-400 font-bold text-center hover:bg-white/10 hover:text-white transition">
+      Qayta ishlash
+    </a>
+  </div>
+
 </div>
+{% endblock %}

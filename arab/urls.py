@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from . import ai_service
 
 app_name = "arab"
 
@@ -72,4 +73,15 @@ urlpatterns = [
     path("shop/", views.shop_index, name="shop_index"),
     path("shop/buy/<str:item>/", views.shop_purchase, name="shop_purchase"),
     path("api/push/subscribe/", views.save_push_subscription, name="api_save_push_subscription"),
+    path("api/quiz/result/", views.api_quiz_result, name="api_quiz_result"),
+    
+    # Exam
+    path("exam/", views.exam_view, name="exam"),
+    
+    # AI API endpoints
+    path("api/ai/exam-questions/", ai_service.generate_exam_questions, name="api_ai_exam_questions"),
+    path("api/ai/quiz-questions/", ai_service.generate_quiz_questions, name="api_ai_quiz_questions"),
+    path("api/ai/letter-examples/", ai_service.generate_letter_examples, name="api_ai_letter_examples"),
+    path("api/ai/vocabulary/", ai_service.generate_vocabulary, name="api_ai_vocabulary"),
+    path("api/ai/chat/", ai_service.ai_chat, name="api_ai_chat"),
 ]

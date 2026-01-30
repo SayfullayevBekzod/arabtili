@@ -81,7 +81,7 @@ def _calc_streak(user) -> dict:
         s = stats_map.get(d)
         if not s: return False
         # Goal: 10 reviews OR 1 lesson OR 5 new words OR 15 min study
-        return (s.reviews_done >= 10) or (s.lessons_done >= 1) or (s.new_words >= 5) or (s.study_minutes >= 15)
+        return ((s.reviews_done or 0) >= 10) or ((s.lessons_done or 0) >= 1) or ((s.new_words or 0) >= 5) or ((s.study_minutes or 0) >= 15)
 
     # current streak
     today = timezone.localdate()
@@ -172,6 +172,26 @@ def _update_daily_mission_progress(user, review_inc=0, lesson_inc=0, new_word_in
                 g.save()
             
             mp.save()
+
+
+def _get_daily_missions(user):
+    """
+    Returns list of daily quests/missions for the user.
+    """
+    try:
+        from .models import UserQuestProgress
+        today = timezone.localdate()
+        return UserQuestProgress.objects.filter(user=user, day=today).select_related('quest')
+    except Exception:
+        return []
+
+
+def xp_for_next_level(level):
+    """
+    K keyingi levelga o'tish uchun kerakli XP (oddiy formula).
+    Masalan: Level * 100
+    """
+    return level * 100
 
 
 def _check_achievements(user, stat=None):
@@ -1229,21 +1249,14 @@ def register(request):
     if request.method == "POST":
         form = RegisterForm(request.POST)
         if form.is_valid():
-            user = form.save()
-            
-            # --- Inline Face Setup ---
-            face_data = request.POST.get("face_data")
-            if face_data:
-                # Reuse OpenCV helper
-                face_hist = get_face_data_from_base64(face_data)
-                if face_hist is not None:
-                    profile = user.profile
-                    profile.face_encoding = json.dumps(face_hist)
-                    profile.save()
-            # -------------------------
-
-            login(request, user)
-            return redirect("arab:progress")
+            try:
+                user = form.save()
+                login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+                # Set a flag to show a welcome quiz/message
+                request.session['show_welcome_quiz'] = True
+                return redirect("arab:progress")
+            except Exception as e:
+                form.add_error(None, f"Xatolik yuz berdi: {e}")
     else:
         form = RegisterForm()
 
@@ -1255,20 +1268,29 @@ def login_view(request):
         return redirect("arab:progress")
 
     error = ""
+    form = LoginForm()
+    
     if request.method == "POST":
         form = LoginForm(request.POST)
         if form.is_valid():
-            user = authenticate(
-                request,
-                username=form.cleaned_data["username"],
-                password=form.cleaned_data["password"],
-            )
-            if user:
-                login(request, user)
-                return redirect("arab:progress")
-            error = "Login yoki parol noto‘g‘ri."
-    else:
-        form = LoginForm()
+            username = form.cleaned_data.get("username")
+            password = form.cleaned_data.get("password")
+            
+            try:
+                user = authenticate(request, username=username, password=password)
+                if user is not None:
+                    login(request, user)
+                    # Trigger quiz on next redirect
+                    request.session['just_logged_in'] = True
+                    return redirect("arab:progress")
+                else:
+                    error = "Login yoki parol noto'g'ri."
+            except Exception as e:
+                import logging
+                logging.error(f"Login error: {e}")
+                error = "Tizim xatoligi yuz berdi. Iltimos qayta urinib ko'ring."
+        else:
+            error = "Ma'lumotlarni to'liq kiriting."
 
     return render(request, "auth/login.html", {"form": form, "error": error})
 
@@ -1289,24 +1311,30 @@ def progress(request):
     # Streak
     streak = _calc_streak(user)
 
-    # Due count
-    due_count = 0
+    # Due count (Actual data from SM-2 cards)
+    due_count = UserCard.objects.filter(user=user, due_at__lte=timezone.now()).count()
 
     # Words
     learned_words = UserDailyStat.objects.filter(user=user).aggregate(s=Sum("new_words"))["s"] or 0
-    total_words = 500
+    total_words = Word.objects.count()
     words_pct = int((learned_words / max(1, total_words)) * 100)
 
-    # Lessons
-    lessons_completed = UserDailyStat.objects.filter(user=user).aggregate(s=Sum("lessons_done"))["s"] or 0
-    lessons_total = 60
+    # Lessons (Real Data)
+    lessons_completed = UserLessonProgress.objects.filter(user=user, is_completed=True).count()
+    lessons_total = Lesson.objects.count()
     lessons_pct = int((lessons_completed / max(1, lessons_total)) * 100)
+
+    # Quiz Accuracy
+    attempts = UserQuizAttempt.objects.filter(user=user)
+    q_score = attempts.aggregate(s=Sum('score'))['s'] or 0
+    q_total = attempts.aggregate(s=Sum('total'))['s'] or 0
+    quiz_accuracy = int((q_score / q_total) * 100) if q_total > 0 else 0
 
     # Gamification
     g, _ = UserGamification.objects.get_or_create(user=user)
-    level = g.level
-    xp = g.xp_total
-    xp_next = xp_for_next_level(level)
+    level = g.level or 1
+    xp = g.xp_total or 0
+    xp_next = max(100, xp_for_next_level(level))
     xp_in_level = xp % xp_next
     xp_pct = int((xp_in_level / max(1, xp_next)) * 100)
     xp_remaining = max(0, xp_next - xp_in_level)
@@ -1370,15 +1398,7 @@ def progress(request):
 
     heatmap = []
     cur = start_day
-    for _w in range(10):
-        row = []
-        for _d in range(7):
-            st = stats_map.get(cur)
-            row.append(intensity(st))
-            cur += timedelta(days=1)
-    heatmap = []
-    cur = start_day
-    for _w in range(10):
+    for _w in range(10):  # 10 haftalik ko'rinish
         row = []
         for _d in range(7):
             st = stats_map.get(cur)
@@ -1389,7 +1409,25 @@ def progress(request):
     # Missions
     missions = _get_daily_missions(user)
 
+    # Check for post-login actions
+    # Quiz trigger logic
+    show_welcome_quiz = False
+    show_daily_quiz = False
+
+    if request.session.pop('just_logged_in', False):
+        # Agar hali placement test topshirmagan bo'lsa - Welcome Quiz
+        if not hasattr(user, 'profile') or not user.profile.has_taken_placement_test:
+            show_welcome_quiz = True
+        else:
+            # Agar bugun hali review yoki lesson qilinmagan bo'lsa - Daily Quiz
+            daily_goal_met = ((today_stat.reviews_done or 0) >= daily_review_target or 
+                             (today_stat.lessons_done or 0) >= daily_lessons_target)
+            if not daily_goal_met:
+                show_daily_quiz = True
+
     context = {
+        "show_welcome_quiz": show_welcome_quiz,
+        "show_daily_quiz": show_daily_quiz,
         "streak": streak,
         "due_count": due_count,
         "learned_words": learned_words,
@@ -1398,6 +1436,7 @@ def progress(request):
         "lessons_completed": lessons_completed,
         "lessons_total": lessons_total,
         "lessons_pct": lessons_pct,
+        "quiz_accuracy": quiz_accuracy,
         "daily_review_target": daily_review_target,
         "daily_new_words_target": daily_new_words_target,
         "daily_lessons_target": daily_lessons_target,
@@ -1414,7 +1453,7 @@ def progress(request):
         "study_avg_min": study_avg_min,
         "week_bars": week_bars,
         "week_total_actions": week_total_actions,
-        "rank_name": "Bronze" if xp < 500 else "Silver" if xp < 1000 else "Gold",
+        "rank_name": "Bronze" if (xp or 0) < 500 else "Silver" if (xp or 0) < 1000 else "Gold",
         "recommendations": recommendations,
         "achievements": achievements,
         "weak_areas": weak_areas,
@@ -1683,11 +1722,10 @@ def placement_test(request):
         suggested_course = Course.objects.filter(level=level).first()
         if suggested_course:
             profile.current_course = suggested_course
-            profile.save()
-            messages.success(request, f"Sizning darajangiz: {level}. {suggested_course.title} tavsiya etiladi!")
-        else:
-            messages.success(request, f"Sizning darajangiz: {level}.")
-        return redirect("arab:home")
+        profile.has_taken_placement_test = True
+        profile.save()
+        messages.success(request, f"Sizning darajangiz: {level}. {suggested_course.title if suggested_course else 'Kurs tanlang'}!")
+        return redirect("arab:progress")
     questions = PlacementQuestion.objects.prefetch_related("options").all()
     if not questions.exists():
         messages.info(request, "Hozircha placement test savollari yo'q. A0 darajadan boshlang.")
@@ -1869,3 +1907,36 @@ def feedback_view(request):
         form = FeedbackForm()
     
     return render(request, "pages/feedback.html", {"form": form})
+
+@login_required
+@require_POST
+def api_quiz_result(request):
+    """
+    Handle post-login daily quiz results.
+    """
+    try:
+        data = json.loads(request.body)
+        is_correct = data.get('correct', False)
+        
+        if is_correct:
+            # Giving small XP reward
+            g, _ = UserGamification.objects.get_or_create(user=request.user)
+            g.xp_total += 10
+            g.save()
+            
+        # Mark as taken placement test if not already done
+        if hasattr(request.user, 'profile') and not request.user.profile.has_taken_placement_test:
+            request.user.profile.has_taken_placement_test = True
+            request.user.profile.save()
+            
+        return JsonResponse({'status': 'ok', 'xp_added': 10 if is_correct else 0})
+    except Exception as e:
+        return JsonResponse({'status': 'error', 'message': str(e)}, status=400)
+
+
+@login_required
+def exam_view(request):
+    """
+    Arabic exam/test page (mock version).
+    """
+    return render(request, "exam/index.html")
