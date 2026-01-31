@@ -46,7 +46,7 @@
     {% endif %}
 
     <!-- Items Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 px-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
 
         <!-- Item: Streak Freeze -->
         <div
@@ -69,6 +69,21 @@
             <p class="text-slate-400 text-sm leading-relaxed font-medium mb-8">
                 Bir kun dars qilmasangiz ham streakingiz buzilmaydi va saqlanib qoladi. Siz uchun eng kerakli yordamchi!
             </p>
+
+            <div class="space-y-3 mb-6">
+                <div class="flex items-center gap-2 text-xs text-slate-500">
+                    <i class="fas fa-check-circle text-sky-400"></i>
+                    <span>1 marta foydalanish mumkin</span>
+                </div>
+                <div class="flex items-center gap-2 text-xs text-slate-500">
+                    <i class="fas fa-check-circle text-sky-400"></i>
+                    <span>Streakni saqlaydi</span>
+                </div>
+                <div class="flex items-center gap-2 text-xs text-slate-500">
+                    <i class="fas fa-check-circle text-sky-400"></i>
+                    <span>Avto faollashadi</span>
+                </div>
+            </div>
 
             <form method="POST" action="{% url 'arab:shop_purchase' item='streak_freeze' %}" class="mt-auto">
                 {% csrf_token %}
@@ -108,6 +123,21 @@
                 Hamma yo'qotilgan jonlarni (maksimal 5 tagacha) darhol tiklang va o'rganishda davom eting.
             </p>
 
+            <div class="space-y-3 mb-6">
+                <div class="flex items-center gap-2 text-xs text-slate-500">
+                    <i class="fas fa-check-circle text-red-400"></i>
+                    <span>5 tagacha jon</span>
+                </div>
+                <div class="flex items-center gap-2 text-xs text-slate-500">
+                    <i class="fas fa-check-circle text-red-400"></i>
+                    <span>Darhol tiklash</span>
+                </div>
+                <div class="flex items-center gap-2 text-xs text-slate-500">
+                    <i class="fas fa-check-circle text-red-400"></i>
+                    <span>Cheksiz foydalanish</span>
+                </div>
+            </div>
+
             <form method="POST" action="{% url 'arab:shop_purchase' item='hearts' %}" class="mt-auto">
                 {% csrf_token %}
                 <button type="submit"
@@ -117,26 +147,188 @@
             </form>
         </div>
 
-        <!-- Item: Double XP (Coming Soon) -->
+        <!-- Item: Double XP -->
         <div
-            class="relative flex flex-col p-8 rounded-[2.5rem] bg-slate-950/40 border border-white/5 opacity-40 grayscale group overflow-hidden">
+            class="group relative flex flex-col p-8 rounded-[2.5rem] bg-slate-900/40 border border-white/10 hover:border-purple-500/30 transition-all duration-500 shadow-2xl overflow-hidden">
+            <div
+                class="absolute -top-24 -right-24 h-48 w-48 bg-purple-500/0 group-hover:bg-purple-500/10 rounded-full blur-3xl transition-all duration-700">
+            </div>
+
             <div class="flex items-center gap-6 mb-8">
                 <div
-                    class="w-20 h-20 rounded-3xl bg-purple-500/10 flex items-center justify-center text-4xl text-purple-400 shadow-inner">
-                    <i class="fas fa-flask"></i>
+                    class="w-20 h-20 rounded-3xl bg-slate-950 border border-white/5 flex items-center justify-center text-4xl text-purple-400 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-inner">
+                    <i class="fas fa-flask drop-shadow-[0_0_15px_rgba(168,85,247,0.5)]"></i>
                 </div>
                 <div class="flex-1">
                     <h3 class="font-black text-white text-xl tracking-tight">Double XP Potion</h3>
-                    <div class="text-[10px] font-black text-purple-400 uppercase tracking-widest mt-1">Coming Soon</div>
+                    <div class="text-[10px] font-black text-purple-400 uppercase tracking-widest mt-1">Limited Time</div>
                 </div>
             </div>
-            <p class="text-slate-500 text-sm leading-relaxed font-medium mb-8">
-                Tez orada: 30 daqiqa davomida har bir to'g'ri javob uchun ikki barobar ko'proq XP to'plang.
+
+            <p class="text-slate-400 text-sm leading-relaxed font-medium mb-8">
+                30 daqiqa davomida har bir to'g'ri javob uchun ikki barobar ko'proq XP to'plang. Tez o'sish uchun ajoyib imkoniyat!
             </p>
-            <button
-                class="w-full py-4 rounded-2xl bg-slate-900 text-slate-600 font-black uppercase tracking-widest text-xs cursor-not-allowed border border-white/5">
-                Tez orada
-            </button>
+
+            <div class="space-y-3 mb-6">
+                <div class="flex items-center gap-2 text-xs text-slate-500">
+                    <i class="fas fa-check-circle text-purple-400"></i>
+                    <span>30 daqiqa davomida</span>
+                </div>
+                <div class="flex items-center gap-2 text-xs text-slate-500">
+                    <i class="fas fa-check-circle text-purple-400"></i>
+                    <span>2x XP bonus</span>
+                </div>
+                <div class="flex items-center gap-2 text-xs text-slate-500">
+                    <i class="fas fa-check-circle text-purple-400"></i>
+                    <span>Barcha mashqlarda</span>
+                </div>
+            </div>
+
+            <form method="POST" action="{% url 'arab:shop_purchase' item='double_xp' %}" class="mt-auto">
+                {% csrf_token %}
+                <button type="submit"
+                    class="group/btn w-full py-4 rounded-2xl bg-gradient-to-r from-purple-500 to-pink-500 text-slate-950 font-black uppercase tracking-widest text-xs transition-all hover:scale-[1.02] active:scale-95 shadow-xl shadow-purple-500/20 flex items-center justify-center gap-2 {% if game.xp_total < 500 %}opacity-50 cursor-not-allowed grayscale{% endif %}" {% if game.xp_total < 500 %}disabled{% endif %}>
+                    <i class="fas fa-bolt group-hover/btn:animate-pulse"></i> 500 XP
+                </button>
+            </form>
+        </div>
+
+        <!-- Item: Time Warp -->
+        <div
+            class="group relative flex flex-col p-8 rounded-[2.5rem] bg-slate-900/40 border border-white/10 hover:border-amber-500/30 transition-all duration-500 shadow-2xl overflow-hidden">
+            <div
+                class="absolute -top-24 -right-24 h-48 w-48 bg-amber-500/0 group-hover:bg-amber-500/10 rounded-full blur-3xl transition-all duration-700">
+            </div>
+
+            <div class="flex items-center gap-6 mb-8">
+                <div
+                    class="w-20 h-20 rounded-3xl bg-slate-950 border border-white/5 flex items-center justify-center text-4xl text-amber-400 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-inner">
+                    <i class="fas fa-clock drop-shadow-[0_0_15px_rgba(251,191,36,0.5)]"></i>
+                </div>
+                <div class="flex-1">
+                    <h3 class="font-black text-white text-xl tracking-tight">Time Warp</h3>
+                    <div class="text-[10px] font-black text-amber-400 uppercase tracking-widest mt-1">Special</div>
+                </div>
+            </div>
+
+            <p class="text-slate-400 text-sm leading-relaxed font-medium mb-8">
+                Kunlik missiyalarni darhol tugating va yangi missiyalarni oching. Vaqtni tejash uchun mo'jizaviy vosita!
+            </p>
+
+            <div class="space-y-3 mb-6">
+                <div class="flex items-center gap-2 text-xs text-slate-500">
+                    <i class="fas fa-check-circle text-amber-400"></i>
+                    <span>Barcha missiyalar tugatiladi</span>
+                </div>
+                <div class="flex items-center gap-2 text-xs text-slate-500">
+                    <i class="fas fa-check-circle text-amber-400"></i>
+                    <span>Bonus XP olasiz</span>
+                </div>
+                <div class="flex items-center gap-2 text-xs text-slate-500">
+                    <i class="fas fa-check-circle text-amber-400"></i>
+                    <span>Kunlik 1 marta</span>
+                </div>
+            </div>
+
+            <form method="POST" action="{% url 'arab:shop_purchase' item='time_warp' %}" class="mt-auto">
+                {% csrf_token %}
+                <button type="submit"
+                    class="group/btn w-full py-4 rounded-2xl bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 font-black uppercase tracking-widest text-xs transition-all hover:scale-[1.02] active:scale-95 shadow-xl shadow-amber-500/20 flex items-center justify-center gap-2 {% if game.xp_total < 750 %}opacity-50 cursor-not-allowed grayscale{% endif %}" {% if game.xp_total < 750 %}disabled{% endif %}>
+                    <i class="fas fa-bolt group-hover/btn:animate-pulse"></i> 750 XP
+                </button>
+            </form>
+        </div>
+
+        <!-- Item: Lucky Charm -->
+        <div
+            class="group relative flex flex-col p-8 rounded-[2.5rem] bg-slate-900/40 border border-white/10 hover:border-emerald-500/30 transition-all duration-500 shadow-2xl overflow-hidden">
+            <div
+                class="absolute -top-24 -right-24 h-48 w-48 bg-emerald-500/0 group-hover:bg-emerald-500/10 rounded-full blur-3xl transition-all duration-700">
+            </div>
+
+            <div class="flex items-center gap-6 mb-8">
+                <div
+                    class="w-20 h-20 rounded-3xl bg-slate-950 border border-white/5 flex items-center justify-center text-4xl text-emerald-400 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-inner">
+                    <i class="fas fa-clover drop-shadow-[0_0_15px rgba(52,211,153,0.5)]"></i>
+                </div>
+                <div class="flex-1">
+                    <h3 class="font-black text-white text-xl tracking-tight">Lucky Charm</h3>
+                    <div class="text-[10px] font-black text-emerald-400 uppercase tracking-widest mt-1">Mystical</div>
+                </div>
+            </div>
+
+            <p class="text-slate-400 text-sm leading-relaxed font-medium mb-8">
+                Keyingi mashqda 50% ko'proq to'g'ri javob ehtimoli. Omadingizni sinab ko'ring va natijangizni yaxshilang!
+            </p>
+
+            <div class="space-y-3 mb-6">
+                <div class="flex items-center gap-2 text-xs text-slate-500">
+                    <i class="fas fa-check-circle text-emerald-400"></i>
+                    <span>50% bonus to'g'ri javob</span>
+                </div>
+                <div class="flex items-center gap-2 text-xs text-slate-500">
+                    <i class="fas fa-check-circle text-emerald-400"></i>
+                    <span>1 ta mashq uchun</span>
+                </div>
+                <div class="flex items-center gap-2 text-xs text-slate-500">
+                    <i class="fas fa-check-circle text-emerald-400"></i>
+                    <span>Tasodifiy bonus</span>
+                </div>
+            </div>
+
+            <form method="POST" action="{% url 'arab:shop_purchase' item='lucky_charm' %}" class="mt-auto">
+                {% csrf_token %}
+                <button type="submit"
+                    class="group/btn w-full py-4 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 font-black uppercase tracking-widest text-xs transition-all hover:scale-[1.02] active:scale-95 shadow-xl shadow-emerald-500/20 flex items-center justify-center gap-2 {% if game.xp_total < 400 %}opacity-50 cursor-not-allowed grayscale{% endif %}" {% if game.xp_total < 400 %}disabled{% endif %}>
+                    <i class="fas fa-bolt group-hover/btn:animate-pulse"></i> 400 XP
+                </button>
+            </form>
+        </div>
+
+        <!-- Item: Mystery Box -->
+        <div
+            class="group relative flex flex-col p-8 rounded-[2.5rem] bg-slate-900/40 border border-white/10 hover:border-pink-500/30 transition-all duration-500 shadow-2xl overflow-hidden">
+            <div
+                class="absolute -top-24 -right-24 h-48 w-48 bg-pink-500/0 group-hover:bg-pink-500/10 rounded-full blur-3xl transition-all duration-700">
+            </div>
+
+            <div class="flex items-center gap-6 mb-8">
+                <div
+                    class="w-20 h-20 rounded-3xl bg-slate-950 border border-white/5 flex items-center justify-center text-4xl text-pink-400 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-inner">
+                    <i class="fas fa-gift drop-shadow-[0_0_15px_rgba(236,72,153,0.5)]"></i>
+                </div>
+                <div class="flex-1">
+                    <h3 class="font-black text-white text-xl tracking-tight">Mystery Box</h3>
+                    <div class="text-[10px] font-black text-pink-400 uppercase tracking-widest mt-1">Surprise</div>
+                </div>
+            </div>
+
+            <p class="text-slate-400 text-sm leading-relaxed font-medium mb-8">
+                Tasodifiy sovg'a oching! Streak Freeze, yuraklar, XP yoki boshqa qimmatbaho narsalar topishingiz mumkin.
+            </p>
+
+            <div class="space-y-3 mb-6">
+                <div class="flex items-center gap-2 text-xs text-slate-500">
+                    <i class="fas fa-gift text-pink-400"></i>
+                    <span>Tasodifiy mukofot</span>
+                </div>
+                <div class="flex items-center gap-2 text-xs text-slate-500">
+                    <i class="fas fa-gift text-pink-400"></i>
+                    <span>Noyob imkoniyat</span>
+                </div>
+                <div class="flex items-center gap-2 text-xs text-slate-500">
+                    <i class="fas fa-gift text-pink-400"></i>
+                    <span>Kollektorlik</span>
+                </div>
+            </div>
+
+            <form method="POST" action="{% url 'arab:shop_purchase' item='mystery_box' %}" class="mt-auto">
+                {% csrf_token %}
+                <button type="submit"
+                    class="group/btn w-full py-4 rounded-2xl bg-gradient-to-r from-pink-500 to-rose-500 text-slate-950 font-black uppercase tracking-widest text-xs transition-all hover:scale-[1.02] active:scale-95 shadow-xl shadow-pink-500/20 flex items-center justify-center gap-2 {% if game.xp_total < 600 %}opacity-50 cursor-not-allowed grayscale{% endif %}" {% if game.xp_total < 600 %}disabled{% endif %}>
+                    <i class="fas fa-bolt group-hover/btn:animate-pulse"></i> 600 XP
+                </button>
+            </form>
         </div>
 
     </div>

@@ -970,3 +970,449 @@ class UserFeedback(TimeStamped):
 
     def __str__(self):
         return f"{self.user.username} - {self.type}"
+
+
+# ----------------------------
+# TAVSIF - DESCRIPTIVE DICTIONARY (MODULE 1)
+# ----------------------------
+class TavsifNoun(TimeStamped):
+    """Ot (Noun) for Tavsif - with all grammatical forms"""
+    arabic = models.CharField(max_length=100, unique=True)
+    arabic_definite = models.CharField(max_length=100, blank=True)  # ال + noun
+    transliteration = models.CharField(max_length=150, blank=True)
+    translation_uz = models.CharField(max_length=200)
+    
+    GENDER_CHOICES = [("M", "Muzakkar (Masculine)"), ("F", "Muannas (Feminine)")]
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICES, default="M")
+    
+    NUMBER_CHOICES = [("S", "Mufrad (Singular)"), ("D", "Mutsanna (Dual)"), ("P", "Jam' (Plural)")]
+    number = models.CharField(max_length=1, choices=NUMBER_CHOICES, default="S")
+    
+    # Dual and Plural forms
+    dual_form = models.CharField(max_length=100, blank=True)
+    plural_form = models.CharField(max_length=100, blank=True)
+    plural_type = models.CharField(max_length=20, blank=True, help_text="jam' salim/jam' taksir")
+    
+    audio = models.FileField(upload_to="audio/tavsif/nouns/", blank=True, null=True)
+    
+    class Meta:
+        ordering = ["arabic"]
+        verbose_name = "Tavsif - Ot (Noun)"
+        verbose_name_plural = "Tavsif - Otlar"
+    
+    def __str__(self):
+        return f"{self.arabic} ({self.translation_uz})"
+
+
+class TavsifAdjective(TimeStamped):
+    """Sifat (Adjective) for Tavsif - with all grammatical forms"""
+    arabic_masc = models.CharField(max_length=100, help_text="Muzakkar shakl")
+    arabic_fem = models.CharField(max_length=100, blank=True, help_text="Muannas shakl")
+    transliteration = models.CharField(max_length=150, blank=True)
+    translation_uz = models.CharField(max_length=200)
+    
+    # Plural forms
+    masc_plural = models.CharField(max_length=100, blank=True)
+    fem_plural = models.CharField(max_length=100, blank=True)
+    
+    # Dual forms
+    masc_dual = models.CharField(max_length=100, blank=True)
+    fem_dual = models.CharField(max_length=100, blank=True)
+    
+    audio = models.FileField(upload_to="audio/tavsif/adjectives/", blank=True, null=True)
+    
+    class Meta:
+        ordering = ["arabic_masc"]
+        verbose_name = "Tavsif - Sifat (Adjective)"
+        verbose_name_plural = "Tavsif - Sifatlar"
+    
+    def __str__(self):
+        return f"{self.arabic_masc} / {self.arabic_fem}"
+    
+    def get_form(self, gender='M', number='S', definite=False):
+        """Get correct adjective form based on gender, number, definiteness"""
+        if number == 'S':
+            base = self.arabic_masc if gender == 'M' else self.arabic_fem
+        elif number == 'D':
+            base = self.masc_dual if gender == 'M' else self.fem_dual
+        else:  # Plural
+            base = self.masc_plural if gender == 'M' else self.fem_plural
+        
+        if definite and base:
+            return f"ال{base}"
+        return base or self.arabic_masc
+
+
+class TavsifPhrase(TimeStamped):
+    """Complete Tavsif phrase (Noun + Adjective) with auto-correction"""
+    noun = models.ForeignKey(TavsifNoun, on_delete=models.CASCADE, related_name="phrases")
+    adjective = models.ForeignKey(TavsifAdjective, on_delete=models.CASCADE, related_name="phrases")
+    
+    # Pre-computed correct forms
+    correct_phrase = models.CharField(max_length=250, blank=True, help_text="Auto-generated correct form")
+    correct_phrase_definite = models.CharField(max_length=250, blank=True)
+    
+    example_sentence = models.TextField(blank=True, help_text="Example sentence in Arabic")
+    example_translation = models.CharField(max_length=500, blank=True)
+    
+    audio = models.FileField(upload_to="audio/tavsif/phrases/", blank=True, null=True)
+    
+    class Meta:
+        ordering = ["noun__arabic"]
+        unique_together = ("noun", "adjective")
+        verbose_name = "Tavsif - Ibora"
+        verbose_name_plural = "Tavsif - Iboralar"
+    
+    def __str__(self):
+        return self.correct_phrase or f"{self.noun.arabic} {self.adjective.arabic_masc}"
+    
+    def save(self, *args, **kwargs):
+        # Auto-generate correct phrase based on agreement rules
+        self.correct_phrase = self.generate_correct_phrase(definite=False)
+        self.correct_phrase_definite = self.generate_correct_phrase(definite=True)
+        super().save(*args, **kwargs)
+    
+    def generate_correct_phrase(self, definite=False):
+        """Generate grammatically correct phrase with agreement"""
+        noun = self.noun
+        adj = self.adjective
+        
+        # Get adjective form matching noun's gender and number
+        adj_form = adj.get_form(gender=noun.gender, number=noun.number, definite=definite)
+        
+        if definite:
+            noun_form = noun.arabic_definite or f"ال{noun.arabic}"
+        else:
+            noun_form = noun.arabic
+        
+        return f"{noun_form} {adj_form}"
+
+
+# ----------------------------
+# SARF - ARABIC MORPHOLOGY (MODULE 2)
+# ----------------------------
+class ArabicRoot(TimeStamped):
+    """Arabic trilateral/quadrilateral root"""
+    letters = models.CharField(max_length=10, unique=True, help_text="Root letters, e.g. ك ت ب")
+    meaning = models.CharField(max_length=200, help_text="Core meaning of root")
+    translation_uz = models.CharField(max_length=200)
+    
+    PATTERN_CHOICES = [
+        ("3", "Thulathi (3 letters)"),
+        ("4", "Ruba'i (4 letters)"),
+    ]
+    pattern = models.CharField(max_length=1, choices=PATTERN_CHOICES, default="3")
+    
+    class Meta:
+        ordering = ["letters"]
+        verbose_name = "Sarf - Ildiz (Root)"
+        verbose_name_plural = "Sarf - Ildizlar"
+    
+    def __str__(self):
+        return f"{self.letters} ({self.meaning})"
+
+
+class SarfDerivation(TimeStamped):
+    """Derived word forms from a root"""
+    root = models.ForeignKey(ArabicRoot, on_delete=models.CASCADE, related_name="derivations")
+    
+    FORM_CHOICES = [
+        ("past", "Fi'l Madi (O'tgan zamon)"),
+        ("present", "Fi'l Mudori (Hozirgi zamon)"),
+        ("masdar", "Masdar (Ot-fe'l)"),
+        ("active_part", "Ism Fa'il (Faol sifatdosh)"),
+        ("passive_part", "Ism Maf'ul (Majhul sifatdosh)"),
+        ("place", "Ism Makan (Joy oti)"),
+        ("tool", "Ism Ala (Asbob oti)"),
+        ("intensive", "Mubalaghah (Kuchaytirilgan shakl)"),
+    ]
+    form_type = models.CharField(max_length=20, choices=FORM_CHOICES)
+    
+    arabic = models.CharField(max_length=100)
+    wazn = models.CharField(max_length=50, blank=True, help_text="Pattern/Wazn, e.g. فَاعِل")
+    transliteration = models.CharField(max_length=150, blank=True)
+    translation_uz = models.CharField(max_length=200)
+    explanation = models.TextField(blank=True, help_text="How this form is derived")
+    
+    audio = models.FileField(upload_to="audio/sarf/", blank=True, null=True)
+    
+    class Meta:
+        ordering = ["root", "form_type"]
+        unique_together = ("root", "form_type", "arabic")
+        verbose_name = "Sarf - Hosila"
+        verbose_name_plural = "Sarf - Hosilalar"
+    
+    def __str__(self):
+        return f"{self.arabic} ({self.get_form_type_display()})"
+
+
+# ----------------------------
+# NAHV - ARABIC GRAMMAR (MODULE 2)
+# ----------------------------
+class NahvSentence(TimeStamped):
+    """Arabic sentence for grammar analysis"""
+    arabic_text = models.TextField()
+    translation_uz = models.TextField()
+    transliteration = models.TextField(blank=True)
+    
+    SENTENCE_TYPES = [
+        ("nominal", "Jumla Ismiya (Ot gapi)"),
+        ("verbal", "Jumla Fi'liya (Fe'l gapi)"),
+    ]
+    sentence_type = models.CharField(max_length=20, choices=SENTENCE_TYPES)
+    
+    level = models.CharField(max_length=10, choices=[("A0","A0"),("A1","A1"),("A2","A2"),("B1","B1")], default="A0")
+    
+    audio = models.FileField(upload_to="audio/nahv/", blank=True, null=True)
+    
+    class Meta:
+        ordering = ["level", "id"]
+        verbose_name = "Nahv - Gap"
+        verbose_name_plural = "Nahv - Gaplar"
+    
+    def __str__(self):
+        return self.arabic_text[:50]
+
+
+class NahvWordAnalysis(TimeStamped):
+    """I'rab analysis of a word in a sentence"""
+    sentence = models.ForeignKey(NahvSentence, on_delete=models.CASCADE, related_name="word_analyses")
+    
+    word = models.CharField(max_length=100)
+    position = models.PositiveIntegerField(help_text="Word position in sentence")
+    
+    ROLE_CHOICES = [
+        ("mubtada", "Mubtada (Ega)"),
+        ("khabar", "Xabar (Kesim)"),
+        ("fail", "Fa'il (Bajaruvchi)"),
+        ("mafool_bihi", "Maf'ul Bihi (To'ldiruvchi)"),
+        ("fiil", "Fi'l (Fe'l)"),
+        ("jar_majroor", "Jar va Majrur"),
+        ("mudaf", "Mudof"),
+        ("mudaf_ilayh", "Mudof ilayh"),
+        ("sifat", "Sifat"),
+        ("mansub", "Mansub"),
+        ("majroor", "Majrur"),
+        ("marfoo", "Marfu'"),
+        ("harf", "Harf"),
+    ]
+    grammatical_role = models.CharField(max_length=30, choices=ROLE_CHOICES)
+    
+    IRAB_CHOICES = [
+        ("marfoo", "Marfu' (و / ون / ان)"),
+        ("mansub", "Mansub (ا / ين / ين)"),
+        ("majroor", "Majrur (ي / ين / ين)"),
+        ("mabni", "Mabni (O'zgarmaydi)"),
+    ]
+    irab = models.CharField(max_length=20, choices=IRAB_CHOICES, blank=True)
+    irab_sign = models.CharField(max_length=50, blank=True, help_text="e.g. Damma, Fatha, Kasra")
+    
+    explanation_uz = models.TextField(help_text="I'rab tushuntirish o'zbekcha")
+    
+    class Meta:
+        ordering = ["sentence", "position"]
+        verbose_name = "Nahv - So'z tahlili"
+        verbose_name_plural = "Nahv - So'z tahlillari"
+    
+    def __str__(self):
+        return f"{self.word} ({self.get_grammatical_role_display()})"
+
+
+# ----------------------------
+# VERB CONJUGATION (MODULE 5)
+# ----------------------------
+class ArabicVerb(TimeStamped):
+    """Arabic verb with all conjugation forms"""
+    root = models.ForeignKey(ArabicRoot, on_delete=models.SET_NULL, null=True, blank=True, related_name="verbs")
+    
+    # Past tense base form (3rd person masculine singular)
+    past_base = models.CharField(max_length=50, help_text="Fi'l Madi (Huwa)")
+    present_base = models.CharField(max_length=50, help_text="Fi'l Mudori (Huwa)")
+    command_base = models.CharField(max_length=50, blank=True, help_text="Fi'l Amr (Anta)")
+    masdar = models.CharField(max_length=50, blank=True)
+    
+    transliteration = models.CharField(max_length=100, blank=True)
+    translation_uz = models.CharField(max_length=200)
+    
+    VERB_FORM_CHOICES = [
+        ("1", "Form I (Fa'ala)"),
+        ("2", "Form II (Fa''ala)"),
+        ("3", "Form III (Faa'ala)"),
+        ("4", "Form IV (Af'ala)"),
+        ("5", "Form V (Tafa''ala)"),
+        ("6", "Form VI (Tafaa'ala)"),
+        ("7", "Form VII (Infa'ala)"),
+        ("8", "Form VIII (Ifta'ala)"),
+        ("9", "Form IX (If'alla)"),
+        ("10", "Form X (Istaf'ala)"),
+    ]
+    verb_form = models.CharField(max_length=2, choices=VERB_FORM_CHOICES, default="1")
+    
+    audio = models.FileField(upload_to="audio/verbs/", blank=True, null=True)
+    
+    class Meta:
+        ordering = ["past_base"]
+        verbose_name = "Fe'l (Verb)"
+        verbose_name_plural = "Fe'llar (Verbs)"
+    
+    def __str__(self):
+        return f"{self.past_base} - {self.translation_uz}"
+
+
+class VerbConjugation(TimeStamped):
+    """Individual conjugation of a verb"""
+    verb = models.ForeignKey(ArabicVerb, on_delete=models.CASCADE, related_name="conjugations")
+    
+    TENSE_CHOICES = [
+        ("past", "Moʻziy (O'tgan zamon)"),
+        ("present", "Mudori (Hozirgi/Kelasi)"),
+        ("command", "Amr (Buyruq)"),
+    ]
+    tense = models.CharField(max_length=10, choices=TENSE_CHOICES)
+    
+    PERSON_CHOICES = [
+        ("1s", "Ana (Men)"),
+        ("1p", "Nahnu (Biz)"),
+        ("2ms", "Anta (Sen - erkak)"),
+        ("2fs", "Anti (Sen - ayol)"),
+        ("2mp", "Antum (Sizlar - erkak)"),
+        ("2fp", "Antunna (Sizlar - ayol)"),
+        ("3ms", "Huwa (U - erkak)"),
+        ("3fs", "Hiya (U - ayol)"),
+        ("3mp", "Hum (Ular - erkak)"),
+        ("3fp", "Hunna (Ular - ayol)"),
+        ("2md", "Antuma (Ikkalangiz)"),
+        ("3md", "Huma (Ikkalasi - erkak)"),
+        ("3fd", "Huma (Ikkalasi - ayol)"),
+    ]
+    person = models.CharField(max_length=5, choices=PERSON_CHOICES)
+    
+    conjugated_form = models.CharField(max_length=100)
+    transliteration = models.CharField(max_length=150, blank=True)
+    
+    audio = models.FileField(upload_to="audio/conjugations/", blank=True, null=True)
+    
+    class Meta:
+        ordering = ["verb", "tense", "person"]
+        unique_together = ("verb", "tense", "person")
+        verbose_name = "Fe'l tuslanishi"
+        verbose_name_plural = "Fe'l tuslanishlari"
+    
+    def __str__(self):
+        return f"{self.conjugated_form} ({self.get_person_display()} - {self.get_tense_display()})"
+
+
+# ----------------------------
+# SENTENCE BUILDING (MODULE 4)
+# ----------------------------
+class SentenceExercise(TimeStamped):
+    """Sentence building exercise"""
+    EXERCISE_TYPES = [
+        ("word_order", "So'z tartibi"),
+        ("translation", "Tarjima (UZ → AR)"),
+        ("fill_blank", "Bo'sh joyni to'ldiring"),
+        ("correction", "Xatoni tuzating"),
+    ]
+    exercise_type = models.CharField(max_length=20, choices=EXERCISE_TYPES)
+    
+    arabic_sentence = models.TextField(help_text="To'g'ri javob")
+    uzbek_sentence = models.TextField()
+    
+    # For word order exercises - shuffled words
+    word_options = models.JSONField(default=list, help_text="Aralashtirilgan so'zlar ro'yxati")
+    
+    # For fill in blank
+    sentence_with_blank = models.TextField(blank=True, help_text="Gap _____ bilan")
+    correct_word = models.CharField(max_length=100, blank=True)
+    
+    level = models.CharField(max_length=10, choices=[("A0","A0"),("A1","A1"),("A2","A2"),("B1","B1")], default="A0")
+    
+    hint = models.CharField(max_length=300, blank=True, help_text="Yordam")
+    explanation = models.TextField(blank=True, help_text="Grammatika tushuntirishi")
+    
+    audio = models.FileField(upload_to="audio/sentences/", blank=True, null=True)
+    
+    class Meta:
+        ordering = ["level", "exercise_type"]
+        verbose_name = "Gap mashqi"
+        verbose_name_plural = "Gap mashqlari"
+    
+    def __str__(self):
+        return self.arabic_sentence[:50]
+
+
+# ----------------------------
+# SPEAKING LESSONS (MODULE 6)
+# ----------------------------
+class SpeakingCategory(TimeStamped):
+    """Category for speaking lessons"""
+    name = models.CharField(max_length=100)
+    name_uz = models.CharField(max_length=100)
+    icon = models.CharField(max_length=50, default="fas fa-microphone")
+    description = models.TextField(blank=True)
+    order = models.PositiveIntegerField(default=0)
+    
+    class Meta:
+        ordering = ["order"]
+        verbose_name = "Gapirish kategoriyasi"
+        verbose_name_plural = "Gapirish kategoriyalari"
+    
+    def __str__(self):
+        return self.name_uz
+
+
+class SpeakingLesson(TimeStamped):
+    """100 speaking lessons with dialogues"""
+    category = models.ForeignKey(SpeakingCategory, on_delete=models.CASCADE, related_name="lessons")
+    
+    lesson_number = models.PositiveIntegerField()
+    title = models.CharField(max_length=200)
+    title_uz = models.CharField(max_length=200)
+    
+    # Main dialogue
+    dialogue_arabic = models.TextField(help_text="Full dialogue in Arabic")
+    dialogue_uz = models.TextField(help_text="Uzbek translation")
+    dialogue_transliteration = models.TextField(blank=True)
+    
+    # Key phrases
+    key_phrases = models.JSONField(default=list, help_text="Key phrases to learn [{'ar': '', 'uz': '', 'audio': ''}]")
+    
+    # Q&A tasks
+    qa_tasks = models.JSONField(default=list, help_text="Speaking tasks [{'question_ar': '', 'question_uz': '', 'sample_answer': ''}]")
+    
+    audio_dialogue = models.FileField(upload_to="audio/speaking/dialogues/", blank=True, null=True)
+    audio_slow = models.FileField(upload_to="audio/speaking/slow/", blank=True, null=True, help_text="Slow version")
+    
+    level = models.CharField(max_length=20, choices=[("beginner","Boshlang'ich"),("intermediate","O'rta"),("advanced","Yuqori")], default="beginner")
+    xp_reward = models.PositiveIntegerField(default=50)
+    estimated_minutes = models.PositiveIntegerField(default=10)
+    
+    class Meta:
+        ordering = ["category", "lesson_number"]
+        unique_together = ("category", "lesson_number")
+        verbose_name = "Gapirish darsi"
+        verbose_name_plural = "Gapirish darslari"
+    
+    def __str__(self):
+        return f"{self.lesson_number}. {self.title_uz}"
+
+
+class SpeakingPractice(TimeStamped):
+    """User's speaking practice session"""
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="speaking_practices")
+    lesson = models.ForeignKey(SpeakingLesson, on_delete=models.CASCADE, related_name="practices")
+    
+    is_completed = models.BooleanField(default=False)
+    phrases_practiced = models.PositiveIntegerField(default=0)
+    qa_completed = models.PositiveIntegerField(default=0)
+    
+    # Optional: user's recorded audio
+    user_recording = models.FileField(upload_to="audio/user_recordings/", blank=True, null=True)
+    
+    class Meta:
+        unique_together = ("user", "lesson")
+        verbose_name = "Gapirish amaliyoti"
+        verbose_name_plural = "Gapirish amaliyotlari"
+    
+    def __str__(self):
+        return f"{self.user.username} - {self.lesson.title_uz}"

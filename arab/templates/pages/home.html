@@ -46,9 +46,9 @@
           O'qishni davom ettirish
           <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
         </a>
-        <a href="/practice/"
+        <a href="/exam/"
           class="px-8 py-4 rounded-2xl bg-white/5 border border-white/10 text-white font-black uppercase tracking-widest text-sm hover:bg-white/10 transition-all">
-          Mashq qilish
+          Sinov savollari
         </a>
         {% else %}
         <a href="/accounts/register/"
@@ -103,22 +103,22 @@
           </div>
 
           <div class="grid grid-cols-2 gap-4">
-            <div class="bg-white/5 rounded-2xl p-5 border border-white/5 hover:border-white/10 transition">
+            <div class="bg-white/5 rounded-2xl p-5 border border-white/5 hover:border-white/10 transition cursor-pointer" onclick="showFeatureInfo('streak')">
               <div class="h-10 w-10 rounded-xl bg-orange-500/10 grid place-items-center text-xl mb-3">🔥</div>
               <div class="text-2xl font-black text-white">{% if game.current_streak %}{{ game.current_streak }}{% else %}0{% endif %}</div>
               <div class="text-[10px] font-black text-slate-500 uppercase tracking-widest">Kunlik</div>
             </div>
-            <div class="bg-white/5 rounded-2xl p-5 border border-white/5 hover:border-white/10 transition">
+            <div class="bg-white/5 rounded-2xl p-5 border border-white/5 hover:border-white/10 transition cursor-pointer" onclick="showFeatureInfo('xp')">
               <div class="h-10 w-10 rounded-xl bg-blue-500/10 grid place-items-center text-xl mb-3">⭐</div>
               <div class="text-2xl font-black text-white">{% if game.xp_total %}{{ game.xp_total }}{% else %}0{% endif %}</div>
               <div class="text-[10px] font-black text-slate-500 uppercase tracking-widest">XP</div>
             </div>
-            <div class="bg-white/5 rounded-2xl p-5 border border-white/5 hover:border-white/10 transition">
+            <div class="bg-white/5 rounded-2xl p-5 border border-white/5 hover:border-white/10 transition cursor-pointer" onclick="showFeatureInfo('league')">
               <div class="h-10 w-10 rounded-xl bg-yellow-500/10 grid place-items-center text-xl mb-3">🏆</div>
               <div class="text-2xl font-black text-white line-clamp-1 text-sm">{% if game.get_current_league_display %}{{ game.get_current_league_display|safe_text }}{% else %}Bronze{% endif %}</div>
               <div class="text-[10px] font-black text-slate-500 uppercase tracking-widest">Liga</div>
             </div>
-            <div class="bg-white/5 rounded-2xl p-5 border border-white/5 hover:border-white/10 transition">
+            <div class="bg-white/5 rounded-2xl p-5 border border-white/5 hover:border-white/10 transition cursor-pointer" onclick="showFeatureInfo('hearts')">
               <div class="h-10 w-10 rounded-xl bg-red-500/10 grid place-items-center text-xl mb-3">❤️</div>
               <div class="text-2xl font-black text-white">{% if game.hearts %}{{ game.hearts }}{% else %}5{% endif %}
               </div>
@@ -255,5 +255,65 @@
   </div>
 </section>
 {% endif %}
+
+<!-- Feature Info Modal -->
+<div id="featureModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+  <div class="bg-slate-900 rounded-2xl border border-white/10 p-6 max-w-md w-full">
+    <div class="flex items-center justify-between mb-4">
+      <h3 id="modalTitle" class="text-xl font-bold text-white"></h3>
+      <button onclick="closeFeatureModal()" class="text-slate-400 hover:text-white">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div id="modalContent" class="text-slate-300"></div>
+  </div>
+</div>
+
+<script>
+function showFeatureInfo(feature) {
+  const modal = document.getElementById('featureModal');
+  const title = document.getElementById('modalTitle');
+  const content = document.getElementById('modalContent');
+  
+  const features = {
+    streak: {
+      title: '🔥 Kunlik Streak',
+      content: 'Har kuni o‘qib, streakingizni oshiring! Ketma-ket kunlar o‘qib, bonus XP va mukofotlarni qo‘lga kiriting. Streakni saqlash uchun har kuni kamida 10 daqiqa dars qiling.'
+    },
+    xp: {
+      title: '⭐ XP (Tajriba Ballari)',
+      content: 'Darslarni tamomlab, savollarga to‘g‘ri javob berib XP yig‘ing. XP orqali yangi darajalarga ko‘tarilasiz va ligalarda yuqoriroq chiqasiz.'
+    },
+    league: {
+      title: '🏆 Liga Tizimi',
+      content: 'Bronza, Kumush, Oltin va Platina ligalarida boshqa o‘quvchilar bilan bellashing. Har hafta eng yaxshi o‘quvchilar mukofotlanadi.'
+    },
+    hearts: {
+      title: '❤️ Yuraklar (Hayot)',
+      content: 'Mashqlarda xato qilganda yuraklar kamayadi. Yuraklar tugasa, kutish yoki do‘kondan qo‘shimcha yuraklar olish kerak. Har 30 daqiqada 1 ta yurak qo‘shiladi.'
+    }
+  };
+  
+  const info = features[feature];
+  title.textContent = info.title;
+  content.textContent = info.content;
+  
+  modal.classList.remove('hidden');
+  modal.classList.add('flex');
+}
+
+function closeFeatureModal() {
+  const modal = document.getElementById('featureModal');
+  modal.classList.add('hidden');
+  modal.classList.remove('flex');
+}
+
+// Close modal when clicking outside
+document.getElementById('featureModal').addEventListener('click', function(e) {
+  if (e.target === this) {
+    closeFeatureModal();
+  }
+});
+</script>
 
 {% endblock %}

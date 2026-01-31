@@ -56,7 +56,7 @@
 
     <!-- Roadmap Content -->
     <div class="relative z-10 space-y-32">
-      {% for lvl in levels %}
+      {% for lvl, courses in roadmap_rows %}
       <div class="roadmap-item relative flex flex-col md:flex-row items-center gap-12 group"
         style="{% if forloop.counter0|divisibleby:2 %}flex-direction: row;{% else %}flex-direction: row-reverse;{% endif %}">
 
@@ -140,6 +140,29 @@
                 mashq qilish.
                 {% endif %}
               </p>
+
+              {% if courses %}
+              <div class="rounded-[2rem] border border-white/10 bg-white/5 p-5">
+                <div class="text-[10px] font-black tracking-[0.2em] text-slate-500 uppercase mb-3">
+                  Kurslar
+                </div>
+                <div class="space-y-2">
+                  {% for c in courses %}
+                  <a href="{% url 'arab:course_detail' c.id %}"
+                    class="block rounded-2xl border border-white/10 bg-slate-950/40 px-4 py-3 hover:bg-white/10 transition">
+                    <div class="flex items-center justify-between gap-3">
+                      <div class="text-sm font-black text-white">{{ c.title }}</div>
+                      <div class="text-xs text-slate-400">→</div>
+                    </div>
+                    {% if c.description %}
+                    <div class="mt-1 text-xs text-slate-400 line-clamp-2">{{ c.description }}</div>
+                    {% endif %}
+                  </a>
+                  {% endfor %}
+                </div>
+              </div>
+              {% endif %}
+
               <div class="flex items-center justify-between pt-6 border-t border-white/5">
                 <div class="flex -space-x-3">
                   <div

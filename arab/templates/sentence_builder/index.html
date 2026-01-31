@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% block title %}Gap Tuzish | AlifPro{% endblock %}
+{% block content %}
+
+<div class="max-w-6xl mx-auto py-12 px-4">
+    <!-- Header -->
+    <div class="mb-12 space-y-4">
+        <div
+            class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-orange-500/10 border border-orange-500/20 text-[10px] font-black uppercase tracking-widest text-orange-400">
+            GAP TUZISH
+        </div>
+        <h1 class="text-4xl md:text-6xl font-black text-white">Gap <span class="text-orange-400">Qurish</span></h1>
+        <p class="text-slate-400 max-w-2xl text-lg leading-relaxed">
+            So'zlarni tartibga qo'ying va to'g'ri gap tuzing.
+        </p>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+        <a href="{% url 'arab:sentence_builder_practice' %}"
+            class="p-6 rounded-2xl bg-orange-500/20 border border-orange-500/30 hover:bg-orange-500/30 transition-all group">
+            <div class="text-xl font-black text-orange-400 group-hover:scale-105 transition-transform">
+                <i class="fas fa-play mr-2"></i>Boshlash
+            </div>
+            <div class="text-sm text-slate-400">Mashq qilish</div>
+        </a>
+        {% for type_key, type_name in types.items %}
+        <div class="p-6 rounded-2xl bg-slate-900/60 border border-white/10">
+            <div class="text-lg font-bold text-white">{{ type_name }}</div>
+            <div class="text-sm text-slate-400">Mashq turi</div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Filters -->
+    <div class="flex gap-4 mb-8 flex-wrap">
+        <select onchange="location.href='?level='+this.value+'&type={{ current_type }}'"
+            class="px-4 py-2 rounded-xl bg-slate-900 border border-white/10 text-white">
+            <option value="">Barcha darajalar</option>
+            {% for lvl in levels %}
+            <option value="{{ lvl }}" {% if lvl == current_level %}selected{% endif %}>{{ lvl }}</option>
+            {% endfor %}
+        </select>
+        <select onchange="location.href='?level={{ current_level }}&type='+this.value"
+            class="px-4 py-2 rounded-xl bg-slate-900 border border-white/10 text-white">
+            <option value="">Barcha turlar</option>
+            {% for type_key, type_name in types.items %}
+            <option value="{{ type_key }}" {% if type_key == current_type %}selected{% endif %}>{{ type_name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <!-- Exercises Grid -->
+    <div class="grid md:grid-cols-2 gap-6">
+        {% for exercise in exercises %}
+        <div class="p-6 rounded-[2rem] bg-slate-900/60 border border-white/10">
+            <!-- Type Badge -->
+            <div class="flex gap-2 mb-4">
+                <span class="px-3 py-1 rounded-lg bg-orange-500/20 text-orange-400 text-xs">
+                    {{ exercise.get_exercise_type_display }}
+                </span>
+                <span class="px-3 py-1 rounded-lg bg-slate-700 text-slate-300 text-xs">{{ exercise.level }}</span>
+            </div>
+
+            <!-- Uzbek Sentence -->
+            <div class="text-lg text-white mb-3">{{ exercise.uzbek_sentence }}</div>
+
+            <!-- Arabic Answer (hidden normally) -->
+            <div class="p-3 rounded-xl bg-slate-800/50 text-right">
+                <div class="text-2xl font-arabic text-orange-400">{{ exercise.arabic_sentence }}</div>
+            </div>
+
+            {% if exercise.hint %}
+            <div class="mt-3 text-sm text-slate-500">
+                <i class="fas fa-lightbulb text-amber-400 mr-1"></i>{{ exercise.hint }}
+            </div>
+            {% endif %}
+        </div>
+        {% empty %}
+        <div class="col-span-full text-center py-20">
+            <i class="fas fa-puzzle-piece text-6xl text-slate-700 mb-4"></i>
+            <p class="text-slate-400 text-lg">Hozircha mashqlar yo'q.</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Pagination -->
+    {% if exercises.has_other_pages %}
+    <div class="mt-10 flex justify-center gap-2">
+        {% if exercises.has_previous %}
+        <a href="?page={{ exercises.previous_page_number }}"
+            class="px-4 py-2 rounded-xl bg-slate-800 text-white hover:bg-slate-700">
+            <i class="fas fa-chevron-left"></i>
+        </a>
+        {% endif %}
+        <span class="px-4 py-2 rounded-xl bg-orange-500/20 text-orange-400">
+            {{ exercises.number }} / {{ exercises.paginator.num_pages }}
+        </span>
+        {% if exercises.has_next %}
+        <a href="?page={{ exercises.next_page_number }}"
+            class="px-4 py-2 rounded-xl bg-slate-800 text-white hover:bg-slate-700">
+            <i class="fas fa-chevron-right"></i>
+        </a>
+        {% endif %}
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}

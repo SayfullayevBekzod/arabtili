@@ -1,0 +1,213 @@
+{% extends "base.html" %}
+{% block title %}{{ lesson.title_uz }} | AlifPro{% endblock %}
+{% block content %}
+
+<div class="max-w-4xl mx-auto py-12 px-4">
+    <!-- Navigation -->
+    <div class="flex items-center justify-between mb-8">
+        <a href="{% url 'arab:speaking_index' %}" class="text-slate-400 hover:text-pink-400 transition-colors">
+            <i class="fas fa-arrow-left mr-2"></i>Barcha darslar
+        </a>
+        <div class="flex gap-2">
+            {% if prev_lesson %}
+            <a href="{% url 'arab:speaking_lesson_detail' prev_lesson.id %}"
+                class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700">
+                <i class="fas fa-chevron-left"></i>
+            </a>
+            {% endif %}
+            {% if next_lesson %}
+            <a href="{% url 'arab:speaking_lesson_detail' next_lesson.id %}"
+                class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700">
+                <i class="fas fa-chevron-right"></i>
+            </a>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Lesson Header -->
+    <div class="p-8 rounded-[3rem] bg-slate-900/60 border border-white/10 mb-8">
+        <div class="flex items-center gap-4 mb-4">
+            <div class="w-16 h-16 rounded-2xl bg-pink-500/20 grid place-items-center text-pink-400 text-2xl font-bold">
+                {{ lesson.lesson_number }}
+            </div>
+            <div>
+                <span
+                    class="px-3 py-1 rounded-lg {% if lesson.level == 'beginner' %}bg-emerald-500/20 text-emerald-400{% elif lesson.level == 'intermediate' %}bg-amber-500/20 text-amber-400{% else %}bg-rose-500/20 text-rose-400{% endif %} text-xs">
+                    {{ lesson.get_level_display }}
+                </span>
+            </div>
+        </div>
+
+        <h1 class="text-3xl font-black text-white mb-2">{{ lesson.title_uz }}</h1>
+        <p class="text-slate-400">{{ lesson.title }}</p>
+
+        <div class="flex gap-6 mt-6 text-sm text-slate-400">
+            <span><i class="far fa-clock mr-2 text-pink-400"></i>{{ lesson.estimated_minutes }} daqiqa</span>
+            <span><i class="fas fa-bolt mr-2 text-amber-400"></i>+{{ lesson.xp_reward }} XP</span>
+            {% if practice.is_completed %}
+            <span class="text-emerald-400"><i class="fas fa-check-circle mr-2"></i>Tugatilgan</span>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Dialogue -->
+    <div class="mb-8">
+        <h2 class="text-xl font-bold text-white mb-4">
+            <i class="fas fa-comments text-pink-400 mr-2"></i>Dialog
+        </h2>
+
+        <div class="p-6 rounded-2xl bg-slate-900/60 border border-white/10">
+            {% if lesson.audio_dialogue %}
+            <div class="mb-6 flex gap-4">
+                <button onclick="toggleAudio('dialogAudio')"
+                    class="flex-1 px-6 py-4 rounded-xl bg-pink-500/20 text-pink-400 hover:bg-pink-500/30 transition-all">
+                    <i class="fas fa-play mr-2" id="dialogPlayIcon"></i>Dialogni tinglash
+                </button>
+                {% if lesson.audio_slow %}
+                <button onclick="toggleAudio('slowAudio')"
+                    class="px-6 py-4 rounded-xl bg-slate-700 text-slate-300 hover:bg-slate-600 transition-all">
+                    <i class="fas fa-forward mr-2"></i>Sekin
+                </button>
+                {% endif %}
+            </div>
+            <audio id="dialogAudio" src="{{ lesson.audio_dialogue.url }}"></audio>
+            {% if lesson.audio_slow %}
+            <audio id="slowAudio" src="{{ lesson.audio_slow.url }}"></audio>
+            {% endif %}
+            {% endif %}
+
+            <!-- Arabic Dialogue -->
+            <div class="text-2xl font-arabic text-white leading-loose text-right mb-4">
+                {{ lesson.dialogue_arabic|linebreaksbr }}
+            </div>
+
+            {% if lesson.dialogue_transliteration %}
+            <div class="text-slate-400 italic mb-4">
+                {{ lesson.dialogue_transliteration|linebreaksbr }}
+            </div>
+            {% endif %}
+
+            <!-- Uzbek Translation -->
+            <div class="p-4 rounded-xl bg-slate-800/50 text-slate-300">
+                {{ lesson.dialogue_uz|linebreaksbr }}
+            </div>
+        </div>
+    </div>
+
+    <!-- Key Phrases -->
+    {% if key_phrases %}
+    <div class="mb-8">
+        <h2 class="text-xl font-bold text-white mb-4">
+            <i class="fas fa-key text-amber-400 mr-2"></i>Asosiy Iboralar
+        </h2>
+
+        <div class="grid gap-4">
+            {% for phrase in key_phrases %}
+            <div class="p-4 rounded-2xl bg-slate-900/60 border border-white/10 flex items-center gap-4">
+                <div class="flex-1">
+                    <div class="text-xl font-arabic text-white mb-1">{{ phrase.ar }}</div>
+                    <div class="text-slate-400">{{ phrase.uz }}</div>
+                </div>
+                {% if phrase.audio %}
+                <button onclick="playPhrase('{{ phrase.audio }}')"
+                    class="w-12 h-12 rounded-xl bg-pink-500/20 text-pink-400 hover:bg-pink-500/30 transition-all">
+                    <i class="fas fa-volume-up"></i>
+                </button>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Q&A Tasks -->
+    {% if qa_tasks %}
+    <div class="mb-8">
+        <h2 class="text-xl font-bold text-white mb-4">
+            <i class="fas fa-question-circle text-cyan-400 mr-2"></i>Savol-Javob Mashqi
+        </h2>
+
+        <div class="space-y-4">
+            {% for qa in qa_tasks %}
+            <div class="p-6 rounded-2xl bg-slate-900/60 border border-white/10">
+                <div class="text-lg text-white mb-2">{{ qa.question_uz }}</div>
+                <div class="text-xl font-arabic text-cyan-400 mb-4">{{ qa.question_ar }}</div>
+
+                <button onclick="this.nextElementSibling.classList.toggle('hidden')"
+                    class="text-sm text-slate-400 hover:text-pink-400 transition-colors">
+                    <i class="fas fa-eye mr-1"></i>Namuna javobni ko'rish
+                </button>
+                <div class="hidden mt-3 p-4 rounded-xl bg-slate-800/50">
+                    <div class="text-xl font-arabic text-emerald-400">{{ qa.sample_answer }}</div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Complete Button -->
+    {% if not practice.is_completed %}
+    <div class="text-center">
+        <button onclick="completeLesson()" id="completeBtn"
+            class="px-12 py-5 rounded-2xl bg-pink-500 text-white font-bold text-lg hover:bg-pink-400 transition-all shadow-xl shadow-pink-500/20">
+            <i class="fas fa-check mr-2"></i>Darsni tugatish (+{{ lesson.xp_reward }} XP)
+        </button>
+    </div>
+    {% else %}
+    <div class="text-center">
+        <div class="inline-flex items-center gap-3 px-8 py-4 rounded-2xl bg-emerald-500/20 text-emerald-400">
+            <i class="fas fa-check-circle text-2xl"></i>
+            <span class="font-bold">Dars tugatilgan!</span>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<script>
+    function toggleAudio(audioId) {
+        const audio = document.getElementById(audioId);
+        if (audio.paused) {
+            audio.play();
+        } else {
+            audio.pause();
+        }
+    }
+
+    function playPhrase(audioUrl) {
+        const audio = new Audio(audioUrl);
+        audio.play();
+    }
+
+    function completeLesson() {
+        const btn = document.getElementById('completeBtn');
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Yuklanmoqda...';
+
+        fetch('{% url "arab:api_speaking_complete" lesson.id %}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === 'ok') {
+                    btn.innerHTML = '<i class="fas fa-check mr-2"></i>Tugatildi! +' + data.xp_gained + ' XP';
+                    btn.classList.remove('bg-pink-500', 'hover:bg-pink-400');
+                    btn.classList.add('bg-emerald-500');
+
+                    setTimeout(() => {
+                        {% if next_lesson %}
+                        window.location.href = "{% url 'arab:speaking_lesson_detail' next_lesson.id %}";
+                        {% else %}
+                        window.location.href = "{% url 'arab:speaking_index' %}";
+                        {% endif %}
+                    }, 1500);
+                }
+            });
+    }
+</script>
+
+{% endblock %}

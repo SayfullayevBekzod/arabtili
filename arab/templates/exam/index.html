@@ -474,8 +474,27 @@
             questions: [],
 
             init() {
-                // Pick 10 random questions from allQuestions
-                const shuffled = [...this.allQuestions].sort(() => 0.5 - Math.random());
+                // Get user level from Django template
+                const userLevel = {{ user_level|default:1 }};
+                
+                // Filter questions by level and pick 10 random
+                let levelQuestions = this.allQuestions;
+                if (userLevel === 1) {
+                    // Level 1: Alphabet & Basics only
+                    levelQuestions = this.allQuestions.filter(q => 
+                        q.arabic && (q.arabic.length === 1 || q.instruction.includes('harf') || q.instruction.includes('talaffuz'))
+                    );
+                } else if (userLevel === 2) {
+                    // Level 2: Vocabulary & Objects
+                    levelQuestions = this.allQuestions.filter(q => 
+                        q.instruction.includes('so\'z') || q.instruction.includes('ma\'nosi') || q.type === 'matching'
+                    );
+                } else if (userLevel >= 3) {
+                    // Level 3+: All questions including grammar
+                    levelQuestions = this.allQuestions;
+                }
+                
+                const shuffled = [...levelQuestions].sort(() => 0.5 - Math.random());
                 this.questions = shuffled.slice(0, 10);
 
                 // Initialize answers array

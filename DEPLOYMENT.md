@@ -18,7 +18,7 @@
 python manage.py migrate
 
 # 2. BARCHA ma'lumotlarni yuklash (AVTOMATIK!)
-python migrate_to_postgres.py import database_export.json
+python manage.py seed_all
 
 # 3. Superuser yaratish
 python manage.py createsuperuser
@@ -110,7 +110,7 @@ heroku run python manage.py migrate
 heroku run python manage.py createsuperuser
 
 # Ma'lumotlarni yuklash
-heroku run python import_custom_json.py words1.json
+heroku run python manage.py seed_all
 ```
 
 ## Render.com Deploy
@@ -128,5 +128,5 @@ Loyihada `render.yaml` fayli mavjud.
 ### 3. Ma'lumotlarni yuklash
 ```bash
 # Render shell orqali
-python import_custom_json.py words1.json
+python manage.py seed_all
 ```

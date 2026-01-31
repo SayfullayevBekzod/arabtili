@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+{% block title %}Tavsif - Sifat Lug'ati | AlifPro{% endblock %}
+{% block content %}
+
+<div class="max-w-6xl mx-auto py-12 px-4">
+    <!-- Header -->
+    <div class="mb-12 space-y-4">
+        <div
+            class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-[10px] font-black uppercase tracking-widest text-amber-400">
+            TAVSIF LUG'ATI
+        </div>
+        <h1 class="text-4xl md:text-6xl font-black text-white">Sifat <span class="text-amber-400">Lug'ati</span></h1>
+        <p class="text-slate-400 max-w-2xl text-lg leading-relaxed">
+            Ot va sifat birikmalari - avto-tuzatish bilan. Jins, son va aniqlik muvofiqligini o'rganing.
+        </p>
+    </div>
+
+    <!-- Quick Stats -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+        <div class="p-6 rounded-2xl bg-slate-900/60 border border-white/10">
+            <div class="text-3xl font-black text-amber-400">{{ total_phrases }}</div>
+            <div class="text-sm text-slate-400">Iboralar</div>
+        </div>
+        <div class="p-6 rounded-2xl bg-slate-900/60 border border-white/10">
+            <div class="text-3xl font-black text-emerald-400">{{ nouns|length }}</div>
+            <div class="text-sm text-slate-400">Otlar</div>
+        </div>
+        <div class="p-6 rounded-2xl bg-slate-900/60 border border-white/10">
+            <div class="text-3xl font-black text-sky-400">{{ adjectives|length }}</div>
+            <div class="text-sm text-slate-400">Sifatlar</div>
+        </div>
+        <a href="{% url 'arab:tavsif_builder' %}"
+            class="p-6 rounded-2xl bg-amber-500/20 border border-amber-500/30 hover:bg-amber-500/30 transition-all group">
+            <div class="text-xl font-black text-amber-400 group-hover:scale-105 transition-transform">
+                <i class="fas fa-hammer mr-2"></i>Qurish
+            </div>
+            <div class="text-sm text-slate-400">Ibora yarating</div>
+        </a>
+    </div>
+
+    <!-- Search -->
+    <form method="get" class="mb-8">
+        <div class="flex gap-4">
+            <input type="text" name="q" value="{{ q }}" placeholder="Qidirish..."
+                class="flex-1 px-6 py-4 rounded-2xl bg-slate-900/60 border border-white/10 text-white placeholder:text-slate-500 focus:outline-none focus:border-amber-500/50">
+            <button type="submit"
+                class="px-8 py-4 rounded-2xl bg-amber-500 text-slate-900 font-bold hover:bg-amber-400 transition-all">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+    </form>
+
+    <!-- Phrases Grid -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {% for phrase in phrases %}
+        <div
+            class="group p-6 rounded-[2rem] bg-slate-900/60 border border-white/10 hover:border-amber-500/50 transition-all">
+            <!-- Arabic Phrase -->
+            <div class="text-3xl font-arabic text-white mb-3 text-right">{{ phrase.correct_phrase }}</div>
+
+            <!-- Noun + Adjective breakdown -->
+            <div class="flex gap-2 mb-4">
+                <span class="px-3 py-1 rounded-lg bg-emerald-500/20 text-emerald-400 text-xs">
+                    {{ phrase.noun.arabic }} ({{ phrase.noun.get_gender_display }})
+                </span>
+                <span class="px-3 py-1 rounded-lg bg-sky-500/20 text-sky-400 text-xs">
+                    {{ phrase.adjective.arabic_masc }}
+                </span>
+            </div>
+
+            <!-- Translation -->
+            <div class="text-slate-300 mb-3">{{ phrase.noun.translation_uz }} {{ phrase.adjective.translation_uz }}
+            </div>
+
+            <!-- Example -->
+            {% if phrase.example_sentence %}
+            <div class="p-3 rounded-xl bg-slate-800/50 text-sm">
+                <div class="text-amber-400 font-arabic mb-1">{{ phrase.example_sentence }}</div>
+                <div class="text-slate-400">{{ phrase.example_translation }}</div>
+            </div>
+            {% endif %}
+
+            <!-- Definite form -->
+            <div class="mt-4 pt-4 border-t border-white/5">
+                <div class="text-xs text-slate-500 mb-1">Ma'rifali shakl:</div>
+                <div class="text-lg font-arabic text-amber-300">{{ phrase.correct_phrase_definite }}</div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-span-full text-center py-20">
+            <i class="fas fa-book-open text-6xl text-slate-700 mb-4"></i>
+            <p class="text-slate-400 text-lg">Hozircha iboralar yo'q.</p>
+            <a href="{% url 'arab:tavsif_builder' %}"
+                class="inline-block mt-4 px-6 py-3 rounded-xl bg-amber-500 text-slate-900 font-bold hover:bg-amber-400 transition-all">
+                Ibora yaratish
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Pagination -->
+    {% if phrases.has_other_pages %}
+    <div class="mt-10 flex justify-center gap-2">
+        {% if phrases.has_previous %}
+        <a href="?page={{ phrases.previous_page_number }}&q={{ q }}"
+            class="px-4 py-2 rounded-xl bg-slate-800 text-white hover:bg-slate-700">
+            <i class="fas fa-chevron-left"></i>
+        </a>
+        {% endif %}
+
+        <span class="px-4 py-2 rounded-xl bg-amber-500/20 text-amber-400">
+            {{ phrases.number }} / {{ phrases.paginator.num_pages }}
+        </span>
+
+        {% if phrases.has_next %}
+        <a href="?page={{ phrases.next_page_number }}&q={{ q }}"
+            class="px-4 py-2 rounded-xl bg-slate-800 text-white hover:bg-slate-700">
+            <i class="fas fa-chevron-right"></i>
+        </a>
+        {% endif %}
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}

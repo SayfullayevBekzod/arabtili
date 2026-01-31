@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block title %}{{ category.name_uz }} | AlifPro{% endblock %}
+{% block content %}
+
+<div class="max-w-5xl mx-auto py-12 px-4">
+    <!-- Back Link -->
+    <a href="{% url 'arab:speaking_index' %}"
+        class="inline-flex items-center gap-2 text-slate-400 hover:text-pink-400 mb-8 transition-colors">
+        <i class="fas fa-arrow-left"></i> Barcha kategoriyalar
+    </a>
+
+    <!-- Category Header -->
+    <div class="p-8 rounded-[3rem] bg-slate-900/60 border border-white/10 mb-10">
+        <div class="flex items-center gap-6">
+            <div class="w-20 h-20 rounded-2xl bg-pink-500/20 grid place-items-center text-pink-400 text-3xl">
+                <i class="{{ category.icon }}"></i>
+            </div>
+            <div>
+                <h1 class="text-3xl font-black text-white mb-2">{{ category.name_uz }}</h1>
+                {% if category.description %}
+                <p class="text-slate-400">{{ category.description }}</p>
+                {% endif %}
+                <p class="text-sm text-slate-500 mt-2">{{ lessons.count }} ta dars</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lessons Grid -->
+    <div class="grid md:grid-cols-2 gap-6">
+        {% for lesson in lessons %}
+        <a href="{% url 'arab:speaking_lesson_detail' lesson.id %}"
+            class="group p-6 rounded-[2rem] bg-slate-900/60 border border-white/10 hover:border-pink-500/50 transition-all hover:-translate-y-1 relative">
+
+            {% if lesson.id in completed_ids %}
+            <div class="absolute top-4 right-4 w-8 h-8 rounded-full bg-emerald-500 text-white grid place-items-center">
+                <i class="fas fa-check text-sm"></i>
+            </div>
+            {% endif %}
+
+            <div class="flex items-start gap-4 mb-4">
+                <div class="w-12 h-12 rounded-xl bg-pink-500/20 grid place-items-center text-pink-400 font-bold">
+                    {{ lesson.lesson_number }}
+                </div>
+                <div class="flex-1">
+                    <span
+                        class="px-2 py-1 rounded-lg {% if lesson.level == 'beginner' %}bg-emerald-500/20 text-emerald-400{% elif lesson.level == 'intermediate' %}bg-amber-500/20 text-amber-400{% else %}bg-rose-500/20 text-rose-400{% endif %} text-xs">
+                        {{ lesson.get_level_display }}
+                    </span>
+                </div>
+            </div>
+
+            <h3 class="text-xl font-bold text-white mb-2">{{ lesson.title_uz }}</h3>
+            <p class="text-slate-400 text-sm mb-4">{{ lesson.title }}</p>
+
+            <div class="flex items-center gap-4 text-xs text-slate-500">
+                <span><i class="far fa-clock mr-1"></i>{{ lesson.estimated_minutes }} daqiqa</span>
+                <span><i class="fas fa-bolt text-amber-400 mr-1"></i>+{{ lesson.xp_reward }} XP</span>
+            </div>
+        </a>
+        {% empty %}
+        <div class="col-span-full text-center py-16">
+            <i class="fas fa-inbox text-6xl text-slate-700 mb-4"></i>
+            <p class="text-slate-400">Bu kategoriyada hali darslar yo'q.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

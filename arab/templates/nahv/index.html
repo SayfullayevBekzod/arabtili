@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% block title %}Nahv - Grammatika | AlifPro{% endblock %}
+{% block content %}
+
+<div class="max-w-6xl mx-auto py-12 px-4">
+    <!-- Header -->
+    <div class="mb-12 space-y-4">
+        <div
+            class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-rose-500/10 border border-rose-500/20 text-[10px] font-black uppercase tracking-widest text-rose-400">
+            NAHV ILMI
+        </div>
+        <h1 class="text-4xl md:text-6xl font-black text-white">Gap <span class="text-rose-400">Tahlili</span></h1>
+        <p class="text-slate-400 max-w-2xl text-lg leading-relaxed">
+            Arab tili grammatikasi - jumla tuzilishi va i'rob tahlili.
+        </p>
+    </div>
+
+    <!-- Quick Stats -->
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-10">
+        <div class="p-6 rounded-2xl bg-slate-900/60 border border-white/10">
+            <div class="text-3xl font-black text-rose-400">{{ total_sentences }}</div>
+            <div class="text-sm text-slate-400">Gaplar</div>
+        </div>
+        <a href="{% url 'arab:nahv_practice' %}"
+            class="p-6 rounded-2xl bg-rose-500/20 border border-rose-500/30 hover:bg-rose-500/30 transition-all group">
+            <div class="text-xl font-black text-rose-400 group-hover:scale-105 transition-transform">
+                <i class="fas fa-dumbbell mr-2"></i>Mashq
+            </div>
+            <div class="text-sm text-slate-400">I'rob tahlili</div>
+        </a>
+        <div class="p-6 rounded-2xl bg-slate-900/60 border border-white/10">
+            <div class="flex gap-2">
+                <span class="px-2 py-1 rounded bg-emerald-500/20 text-emerald-400 text-xs">Ismiya</span>
+                <span class="px-2 py-1 rounded bg-amber-500/20 text-amber-400 text-xs">Fi'liya</span>
+            </div>
+            <div class="text-sm text-slate-400 mt-2">Gap turlari</div>
+        </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="flex gap-4 mb-8 flex-wrap">
+        <select onchange="location.href='?level='+this.value+'&type={{ current_type }}'"
+            class="px-4 py-2 rounded-xl bg-slate-900 border border-white/10 text-white">
+            <option value="">Barcha darajalar</option>
+            {% for lvl in levels %}
+            <option value="{{ lvl }}" {% if lvl == current_level %}selected{% endif %}>{{ lvl }}</option>
+            {% endfor %}
+        </select>
+        <select onchange="location.href='?level={{ current_level }}&type='+this.value"
+            class="px-4 py-2 rounded-xl bg-slate-900 border border-white/10 text-white">
+            <option value="">Barcha turlar</option>
+            <option value="nominal" {% if current_type == 'nominal' %}selected{% endif %}>Jumla Ismiya</option>
+            <option value="verbal" {% if current_type == 'verbal' %}selected{% endif %}>Jumla Fi'liya</option>
+        </select>
+    </div>
+
+    <!-- Sentences List -->
+    <div class="space-y-6">
+        {% for sentence in sentences %}
+        <a href="{% url 'arab:nahv_sentence_detail' sentence.id %}"
+            class="block p-6 rounded-[2rem] bg-slate-900/60 border border-white/10 hover:border-rose-500/50 transition-all group">
+            <!-- Arabic Sentence -->
+            <div class="text-3xl font-arabic text-white mb-4 text-right leading-loose">{{ sentence.arabic_text }}</div>
+
+            <!-- Translation -->
+            <div class="text-slate-300 mb-4">{{ sentence.translation_uz }}</div>
+
+            <!-- Meta -->
+            <div class="flex gap-3 items-center">
+                <span
+                    class="px-3 py-1 rounded-lg {% if sentence.sentence_type == 'nominal' %}bg-emerald-500/20 text-emerald-400{% else %}bg-amber-500/20 text-amber-400{% endif %} text-xs">
+                    {{ sentence.get_sentence_type_display }}
+                </span>
+                <span class="px-3 py-1 rounded-lg bg-slate-700 text-slate-300 text-xs">{{ sentence.level }}</span>
+                <span class="text-xs text-slate-500">{{ sentence.word_analyses.count }} so'z tahlili</span>
+                <span class="ml-auto text-rose-400 group-hover:translate-x-1 transition-transform">
+                    <i class="fas fa-arrow-right"></i>
+                </span>
+            </div>
+        </a>
+        {% empty %}
+        <div class="text-center py-20">
+            <i class="fas fa-file-alt text-6xl text-slate-700 mb-4"></i>
+            <p class="text-slate-400 text-lg">Hozircha gaplar yo'q.</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Pagination -->
+    {% if sentences.has_other_pages %}
+    <div class="mt-10 flex justify-center gap-2">
+        {% if sentences.has_previous %}
+        <a href="?page={{ sentences.previous_page_number }}&level={{ current_level }}&type={{ current_type }}"
+            class="px-4 py-2 rounded-xl bg-slate-800 text-white hover:bg-slate-700">
+            <i class="fas fa-chevron-left"></i>
+        </a>
+        {% endif %}
+        <span class="px-4 py-2 rounded-xl bg-rose-500/20 text-rose-400">
+            {{ sentences.number }} / {{ sentences.paginator.num_pages }}
+        </span>
+        {% if sentences.has_next %}
+        <a href="?page={{ sentences.next_page_number }}&level={{ current_level }}&type={{ current_type }}"
+            class="px-4 py-2 rounded-xl bg-slate-800 text-white hover:bg-slate-700">
+            <i class="fas fa-chevron-right"></i>
+        </a>
+        {% endif %}
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}

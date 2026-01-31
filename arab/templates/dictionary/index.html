@@ -285,8 +285,7 @@
       {% for i in page_obj.paginator.page_range %}
       {% if page_obj.number == i %}
       <span
-        class="h-12 w-12 rounded-full bg-emerald-500 text-slate-950 flex items-center justify-center font-black text-sm shadow-xl shadow-emerald-500/30 ring-4 ring-emerald-500/10">{{
-        i }}</span>
+        class="h-12 w-12 rounded-full bg-emerald-500 text-slate-950 flex items-center justify-center font-black text-sm shadow-xl shadow-emerald-500/30 ring-4 ring-emerald-500/10">{{ i  }}</span>
       {% elif i > page_obj.number|add:'-3' and i < page_obj.number|add:'3' %} <a
         href="?page={{ i }}&q={{ q }}&cat={{ cat }}&alpha={{ alpha }}"
         class="h-12 w-12 rounded-full flex items-center justify-center text-slate-500 hover:bg-white/5 hover:text-white transition-all text-xs font-black">

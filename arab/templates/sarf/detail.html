@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block title %}{{ root.letters }} - Ildiz Tahlili | AlifPro{% endblock %}
+{% block content %}
+
+<div class="max-w-5xl mx-auto py-12 px-4">
+    <!-- Back Link -->
+    <a href="{% url 'arab:sarf_index' %}"
+        class="inline-flex items-center gap-2 text-slate-400 hover:text-violet-400 mb-6 transition-colors">
+        <i class="fas fa-arrow-left"></i> Ildizlarga qaytish
+    </a>
+
+    <!-- Root Header -->
+    <div class="p-8 rounded-[3rem] bg-slate-900/60 border border-white/10 mb-10">
+        <div class="text-center">
+            <div class="text-6xl font-arabic text-white mb-4">{{ root.letters }}</div>
+            <div class="flex justify-center gap-3 mb-4">
+                <span
+                    class="px-4 py-2 rounded-xl {% if root.pattern == '3' %}bg-violet-500/20 text-violet-400{% else %}bg-amber-500/20 text-amber-400{% endif %}">
+                    {{ root.get_pattern_display }}
+                </span>
+            </div>
+            <h2 class="text-2xl text-white font-bold mb-2">{{ root.meaning }}</h2>
+            <p class="text-slate-400">{{ root.translation_uz }}</p>
+        </div>
+    </div>
+
+    <!-- Derivations -->
+    <h3 class="text-2xl font-bold text-white mb-6">
+        <i class="fas fa-code-branch text-violet-400 mr-2"></i>Hosilalar
+    </h3>
+
+    <div class="grid gap-6">
+        {% for form_type, derivation_list in derivations.items %}
+        <div class="p-6 rounded-2xl bg-slate-900/60 border border-white/10">
+            <div class="flex items-center gap-3 mb-4">
+                <span class="px-4 py-2 rounded-xl bg-violet-500/20 text-violet-400 font-bold">
+                    {{ derivation_types|default_if_none:"" }}
+                    {% for key, val in derivation_types.items %}
+                    {% if key == form_type %}{{ val }}{% endif %}
+                    {% endfor %}
+                </span>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-4">
+                {% for d in derivation_list %}
+                <div class="p-4 rounded-xl bg-slate-800/50 border border-white/5">
+                    <div class="flex justify-between items-start mb-2">
+                        <div class="text-2xl font-arabic text-white">{{ d.arabic }}</div>
+                        {% if d.wazn %}
+                        <span class="px-2 py-1 rounded-lg bg-slate-700 text-xs text-slate-300">{{ d.wazn }}</span>
+                        {% endif %}
+                    </div>
+                    <div class="text-sm text-slate-300 mb-1">{{ d.transliteration }}</div>
+                    <div class="text-emerald-400">{{ d.translation_uz }}</div>
+                    {% if d.explanation %}
+                    <div class="mt-2 text-xs text-slate-500">{{ d.explanation }}</div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% empty %}
+        <div class="text-center py-16">
+            <i class="fas fa-inbox text-6xl text-slate-700 mb-4"></i>
+            <p class="text-slate-400">Bu ildiz uchun hosilalar hali kiritilmagan.</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Practice CTA -->
+    <div class="mt-10 p-8 rounded-[2rem] bg-violet-500/10 border border-violet-500/30 text-center">
+        <h3 class="text-2xl font-bold text-white mb-3">Mashq qiling!</h3>
+        <p class="text-slate-400 mb-6">Ildizdan hosila yasashni mashq qiling</p>
+        <a href="{% url 'arab:sarf_practice' %}"
+            class="inline-block px-8 py-4 rounded-2xl bg-violet-500 text-white font-bold hover:bg-violet-400 transition-all">
+            <i class="fas fa-dumbbell mr-2"></i>Mashqni boshlash
+        </a>
+    </div>
+</div>
+
+{% endblock %}

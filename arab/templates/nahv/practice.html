@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block title %}Nahv Mashqi | AlifPro{% endblock %}
+{% block content %}
+
+<div class="max-w-3xl mx-auto py-12 px-4">
+    <!-- Header -->
+    <div class="text-center mb-10">
+        <div
+            class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-rose-500/10 border border-rose-500/20 text-[10px] font-black uppercase tracking-widest text-rose-400 mb-4">
+            NAHV MASHQI
+        </div>
+        <h1 class="text-3xl font-black text-white">I'rob Tahlili</h1>
+    </div>
+
+    <!-- Quiz Card -->
+    <div class="p-8 rounded-[3rem] bg-slate-900/60 border border-white/10" id="quizCard">
+        <!-- Sentence -->
+        <div class="text-center mb-8">
+            <div class="text-sm text-slate-400 mb-4">Gapni o'qing:</div>
+            <div class="text-3xl font-arabic text-white leading-loose mb-4">{{ sentence.arabic_text }}</div>
+            <div class="text-slate-400">{{ sentence.translation_uz }}</div>
+        </div>
+
+        <!-- Target Word -->
+        <div class="p-6 rounded-2xl bg-rose-500/10 border border-rose-500/30 mb-6">
+            <div class="text-sm text-slate-400 mb-2 text-center">Quyidagi so'zning grammatik rolini toping:</div>
+            <div class="text-4xl font-arabic text-rose-400 text-center">{{ target_word.word }}</div>
+        </div>
+
+        <!-- Options -->
+        <div class="grid grid-cols-2 gap-4" id="optionsGrid">
+            {% for role, display in options %}
+            <button type="button" onclick="checkAnswer('{{ role }}', '{{ correct_answer }}')"
+                class="option-btn p-4 rounded-2xl bg-slate-800 border border-white/10 text-white hover:border-rose-500/50 hover:bg-slate-700 transition-all text-left">
+                <div class="font-bold">{{ display }}</div>
+            </button>
+            {% endfor %}
+        </div>
+
+        <!-- Result -->
+        <div id="resultArea" class="hidden mt-8 p-6 rounded-2xl text-center">
+            <div id="resultIcon" class="text-6xl mb-4"></div>
+            <div id="resultText" class="text-2xl font-bold mb-2"></div>
+            <div id="explanationText" class="text-slate-400 mb-4">{{ target_word.explanation_uz }}</div>
+            <a href="{% url 'arab:nahv_practice' %}"
+                class="inline-block px-6 py-3 rounded-xl bg-rose-500 text-white font-bold hover:bg-rose-400 transition-all">
+                Keyingi savol <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Back Link -->
+    <div class="mt-8 text-center">
+        <a href="{% url 'arab:nahv_index' %}" class="text-slate-400 hover:text-rose-400 transition-colors">
+            <i class="fas fa-arrow-left mr-2"></i>Gaplarga qaytish
+        </a>
+    </div>
+</div>
+
+<script>
+    function checkAnswer(selected, correct) {
+        const buttons = document.querySelectorAll('.option-btn');
+        const resultArea = document.getElementById('resultArea');
+        const resultIcon = document.getElementById('resultIcon');
+        const resultText = document.getElementById('resultText');
+
+        buttons.forEach(btn => {
+            btn.disabled = true;
+            const btnRole = btn.onclick.toString().match(/'([^']+)'/)[1];
+            if (btnRole === correct) {
+                btn.classList.add('border-emerald-500', 'bg-emerald-500/20');
+            } else if (btnRole === selected && selected !== correct) {
+                btn.classList.add('border-rose-500', 'bg-rose-500/20');
+            }
+        });
+
+        resultArea.classList.remove('hidden');
+
+        if (selected === correct) {
+            resultArea.classList.add('bg-emerald-500/20');
+            resultIcon.textContent = '🎉';
+            resultText.textContent = "To'g'ri!";
+            resultText.classList.add('text-emerald-400');
+        } else {
+            resultArea.classList.add('bg-rose-500/20');
+            resultIcon.textContent = '❌';
+            resultText.textContent = "Noto'g'ri";
+            resultText.classList.add('text-rose-400');
+        }
+    }
+</script>
+
+{% endblock %}

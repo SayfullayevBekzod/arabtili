@@ -59,7 +59,21 @@ from .models import (
     Scenario,
     DialogLine,
     PhrasebookEntry,
-    UserFeedback
+    UserFeedback,
+    # New modules
+    TavsifNoun,
+    TavsifAdjective,
+    TavsifPhrase,
+    ArabicRoot,
+    SarfDerivation,
+    NahvSentence,
+    NahvWordAnalysis,
+    ArabicVerb,
+    VerbConjugation,
+    SentenceExercise,
+    SpeakingCategory,
+    SpeakingLesson,
+    SpeakingPractice,
 )
 from .forms import (
     RegisterForm, LoginForm, UserUpdateForm, ProfileUpdateForm, ReminderUpdateForm, FeedbackForm
@@ -692,8 +706,24 @@ def home(request):
 
 
 def roadmap(request):
-    levels = ["A0", "A1", "A2", "B1", "Quran"]
-    return render(request, "pages/roadmap.html", {"levels": levels})
+    course_qs = Course.objects.filter(is_published=True).order_by("level", "id")
+    levels = [lvl for (lvl, _) in Course.LEVEL_CHOICES]
+    level_courses = {lvl: [] for lvl in levels}
+    for c in course_qs:
+        level_courses.setdefault(c.level, []).append(c)
+
+    levels.append("Quran")
+
+    roadmap_rows = [(lvl, level_courses.get(lvl, [])) for lvl in levels]
+
+    return render(
+        request,
+        "pages/roadmap.html",
+        {
+            "levels": levels,
+            "roadmap_rows": roadmap_rows,
+        },
+    )
 
 
 # ----------------------------
@@ -1008,6 +1038,30 @@ def practice_hub(request):
         "week_stats": week_stats,
         "total_words": Word.objects.count(),
         "total_letters": Letter.objects.count(),
+    })
+
+
+@login_required
+def practice_match_game(request):
+    """Match game practice - match Arabic words with Uzbek meanings"""
+    words = Word.objects.order_by('?')[:8]
+    return render(request, "practice/match_game.html", {
+        "words": words,
+    })
+
+
+@login_required
+def practice_weak_words(request):
+    """Review weak/difficult words based on spaced repetition"""
+    user = request.user
+    # Get words the user has reviewed with low scores
+    weak_cards = SpacedRepetitionCard.objects.filter(
+        user=user,
+        ease_factor__lt=2.5
+    ).select_related('word').order_by('next_review_date')[:20]
+    
+    return render(request, "practice/weak_words.html", {
+        "weak_cards": weak_cards,
     })
 
 @require_POST
@@ -1852,6 +1906,10 @@ def shop_purchase(request, item):
     Handle shop purchases:
     - streak_freeze: 200 XP
     - hearts: 300 XP
+    - double_xp: 500 XP
+    - time_warp: 750 XP
+    - lucky_charm: 400 XP
+    - mystery_box: 600 XP
     """
     g, _ = UserGamification.objects.get_or_create(user=request.user)
     
@@ -1875,6 +1933,80 @@ def shop_purchase(request, item):
                 g.hearts = 5  # Full refill
                 g.save()
                 messages.success(request, "Jonlar to'ldirildi! ❤️")
+            else:
+                messages.error(request, f"Yetarli XP yo'q. Kerak: {cost} XP")
+                
+        elif item == "double_xp":
+            cost = 500
+            if g.xp_total >= cost:
+                g.xp_total -= cost
+                # Activate double XP for 30 minutes
+                g.double_xp_until = timezone.now() + timedelta(minutes=30)
+                g.save()
+                messages.success(request, "Double XP faollashtirildi! 30 daqiqa davom etadi. ⚡")
+            else:
+                messages.error(request, f"Yetarli XP yo'q. Kerak: {cost} XP")
+                
+        elif item == "time_warp":
+            cost = 750
+            if g.xp_total >= cost:
+                g.xp_total -= cost
+                # Complete all daily missions and give bonus XP
+                from arab.models import UserMission
+                missions = UserMission.objects.filter(user=request.user, completed=False)
+                bonus_xp = 0
+                for mission in missions:
+                    mission.completed = True
+                    mission.current_progress = mission.mission.required_count
+                    mission.save()
+                    bonus_xp += mission.mission.xp_reward
+                g.xp_total += bonus_xp
+                g.save()
+                messages.success(request, f"Kunlik missiyalar tugatildi! +{bonus_xp} XP bonus! ⏰")
+            else:
+                messages.error(request, f"Yetarli XP yo'q. Kerak: {cost} XP")
+                
+        elif item == "lucky_charm":
+            cost = 400
+            if g.xp_total >= cost:
+                g.xp_total -= cost
+                # Store lucky charm for next quiz
+                g.lucky_charm_count = getattr(g, 'lucky_charm_count', 0) + 1
+                g.save()
+                messages.success(request, "Lucky Charm sotib olindi! Keyingi mashqda omadingiz kelsin! 🍀")
+            else:
+                messages.error(request, f"Yetarli XP yo'q. Kerak: {cost} XP")
+                
+        elif item == "mystery_box":
+            cost = 600
+            if g.xp_total >= cost:
+                g.xp_total -= cost
+                # Random reward
+                import random
+                rewards = [
+                    ("streak_freeze", "Streak Freeze! 🎉"),
+                    ("hearts", "5 ta jon! ❤️"),
+                    ("xp", 300, "300 XP bonus! ⭐"),
+                    ("xp", 500, "500 XP bonus! ⭐"),
+                    ("lucky_charm", "Lucky Charm! 🍀"),
+                ]
+                reward = random.choice(rewards)
+                
+                if reward[0] == "streak_freeze":
+                    g.streak_freeze_count = getattr(g, 'streak_freeze_count', 0) + 1
+                    message = reward[1]
+                elif reward[0] == "hearts":
+                    g.hearts = 5
+                    message = reward[1]
+                elif reward[0] == "xp":
+                    g.xp_total += reward[1]
+                    message = reward[1]
+                elif reward[0] == "lucky_charm":
+                    g.lucky_charm_count = getattr(g, 'lucky_charm_count', 0) + 1
+                    message = reward[1]
+                
+                g.save()
+                messages.success(request, f"Mystery Box ochildi! {message}")
             else:
                 messages.error(request, f"Yetarli XP yo'q. Kerak: {cost} XP")
     
@@ -1937,6 +2069,705 @@ def api_quiz_result(request):
 @login_required
 def exam_view(request):
     """
-    Arabic exam/test page (mock version).
+    Arabic exam/test page with level-based questions.
     """
-    return render(request, "exam/index.html")
+    # Get user level
+    try:
+        game = request.user.game
+        user_level = game.level if game.level else 1
+    except AttributeError:
+        user_level = 1
+    
+    context = {
+        'user_level': user_level,
+    }
+    return render(request, "exam/index.html", context)
+
+
+# ============================================
+# MODULE 1: TAVSIF - DESCRIPTION DICTIONARY
+# ============================================
+@login_required
+def tavsif_index(request):
+    """Main Tavsif dictionary page with auto-correction"""
+    phrases = TavsifPhrase.objects.select_related('noun', 'adjective').all()
+    nouns = TavsifNoun.objects.all()
+    adjectives = TavsifAdjective.objects.all()
+    
+    # Filter by search
+    q = request.GET.get('q', '').strip()
+    if q:
+        phrases = phrases.filter(
+            Q(noun__arabic__icontains=q) |
+            Q(noun__translation_uz__icontains=q) |
+            Q(adjective__arabic_masc__icontains=q) |
+            Q(adjective__translation_uz__icontains=q) |
+            Q(correct_phrase__icontains=q)
+        )
+    
+    paginator = Paginator(phrases, 20)
+    page_number = request.GET.get('page', 1)
+    page_obj = paginator.get_page(page_number)
+    
+    context = {
+        'phrases': page_obj,
+        'nouns': nouns[:10],
+        'adjectives': adjectives[:10],
+        'q': q,
+        'total_phrases': phrases.count(),
+    }
+    return render(request, "tavsif/index.html", context)
+
+
+@login_required
+def tavsif_builder(request):
+    """Interactive Tavsif phrase builder with auto-correction"""
+    nouns = TavsifNoun.objects.all()
+    adjectives = TavsifAdjective.objects.all()
+    
+    result = None
+    if request.method == 'POST':
+        noun_id = request.POST.get('noun_id')
+        adj_id = request.POST.get('adjective_id')
+        user_phrase = request.POST.get('user_phrase', '').strip()
+        definite = request.POST.get('definite') == 'on'
+        
+        if noun_id and adj_id:
+            noun = get_object_or_404(TavsifNoun, id=noun_id)
+            adj = get_object_or_404(TavsifAdjective, id=adj_id)
+            
+            # Get or create phrase
+            phrase, _ = TavsifPhrase.objects.get_or_create(noun=noun, adjective=adj)
+            
+            # Determine correct form
+            correct = phrase.correct_phrase_definite if definite else phrase.correct_phrase
+            
+            # Check user's answer
+            is_correct = user_phrase == correct
+            
+            result = {
+                'noun': noun,
+                'adjective': adj,
+                'user_phrase': user_phrase,
+                'correct_phrase': correct,
+                'is_correct': is_correct,
+                'definite': definite,
+                'gender_match': noun.gender,
+                'number_match': noun.number,
+            }
+    
+    context = {
+        'nouns': nouns,
+        'adjectives': adjectives,
+        'result': result,
+    }
+    return render(request, "tavsif/builder.html", context)
+
+
+@login_required
+@require_POST
+def api_tavsif_check(request):
+    """API to check Tavsif phrase correctness"""
+    try:
+        data = json.loads(request.body)
+        noun_id = data.get('noun_id')
+        adj_id = data.get('adjective_id')
+        user_phrase = data.get('phrase', '').strip()
+        definite = data.get('definite', False)
+        
+        noun = get_object_or_404(TavsifNoun, id=noun_id)
+        adj = get_object_or_404(TavsifAdjective, id=adj_id)
+        
+        phrase, _ = TavsifPhrase.objects.get_or_create(noun=noun, adjective=adj)
+        correct = phrase.correct_phrase_definite if definite else phrase.correct_phrase
+        
+        is_correct = user_phrase == correct
+        
+        return JsonResponse({
+            'status': 'ok',
+            'is_correct': is_correct,
+            'correct_phrase': correct,
+            'user_phrase': user_phrase,
+            'noun_gender': noun.get_gender_display(),
+            'noun_number': noun.get_number_display(),
+        })
+    except Exception as e:
+        return JsonResponse({'status': 'error', 'message': str(e)}, status=400)
+
+
+# ============================================
+# MODULE 2: SARF - ARABIC MORPHOLOGY
+# ============================================
+@login_required
+def sarf_index(request):
+    """Main Sarf page - root-based word derivation"""
+    roots = ArabicRoot.objects.prefetch_related('derivations').all()
+    
+    q = request.GET.get('q', '').strip()
+    if q:
+        roots = roots.filter(
+            Q(letters__icontains=q) |
+            Q(meaning__icontains=q) |
+            Q(translation_uz__icontains=q)
+        )
+    
+    paginator = Paginator(roots, 15)
+    page_number = request.GET.get('page', 1)
+    page_obj = paginator.get_page(page_number)
+    
+    context = {
+        'roots': page_obj,
+        'q': q,
+        'total_roots': ArabicRoot.objects.count(),
+    }
+    return render(request, "sarf/index.html", context)
+
+
+@login_required
+def sarf_root_detail(request, pk):
+    """Detailed view of a root with all derivations"""
+    root = get_object_or_404(ArabicRoot.objects.prefetch_related('derivations'), pk=pk)
+    
+    # Group derivations by type
+    derivations = {}
+    for d in root.derivations.all():
+        if d.form_type not in derivations:
+            derivations[d.form_type] = []
+        derivations[d.form_type].append(d)
+    
+    context = {
+        'root': root,
+        'derivations': derivations,
+        'derivation_types': dict(SarfDerivation.FORM_CHOICES),
+    }
+    return render(request, "sarf/detail.html", context)
+
+
+@login_required
+def sarf_practice(request):
+    """Sarf transformation practice"""
+    roots = list(ArabicRoot.objects.filter(derivations__isnull=False).distinct()[:20])
+    
+    if not roots:
+        return render(request, "sarf/practice_empty.html")
+    
+    # Pick a random root with derivations
+    root = random.choice(roots)
+    derivations = list(root.derivations.all())
+    
+    if len(derivations) < 2:
+        return render(request, "sarf/practice_empty.html")
+    
+    # Create quiz - show one form, ask for another
+    source = random.choice(derivations)
+    target_type = random.choice([d.form_type for d in derivations if d.form_type != source.form_type])
+    target = root.derivations.filter(form_type=target_type).first()
+    
+    # Get wrong options
+    wrong_derivations = list(SarfDerivation.objects.exclude(root=root).filter(form_type=target_type)[:3])
+    options = [target.arabic] + [d.arabic for d in wrong_derivations if d]
+    random.shuffle(options)
+    
+    context = {
+        'root': root,
+        'source': source,
+        'target_type': target_type,
+        'target_type_display': dict(SarfDerivation.FORM_CHOICES).get(target_type),
+        'correct_answer': target.arabic if target else '',
+        'options': options,
+    }
+    return render(request, "sarf/practice.html", context)
+
+
+# ============================================
+# MODULE 2: NAHV - ARABIC GRAMMAR
+# ============================================
+@login_required
+def nahv_index(request):
+    """Main Nahv page - sentence grammar analysis"""
+    sentences = NahvSentence.objects.prefetch_related('word_analyses').all()
+    
+    level = request.GET.get('level', '')
+    sentence_type = request.GET.get('type', '')
+    
+    if level:
+        sentences = sentences.filter(level=level)
+    if sentence_type:
+        sentences = sentences.filter(sentence_type=sentence_type)
+    
+    paginator = Paginator(sentences, 10)
+    page_number = request.GET.get('page', 1)
+    page_obj = paginator.get_page(page_number)
+    
+    context = {
+        'sentences': page_obj,
+        'levels': ['A0', 'A1', 'A2', 'B1'],
+        'current_level': level,
+        'current_type': sentence_type,
+        'total_sentences': NahvSentence.objects.count(),
+    }
+    return render(request, "nahv/index.html", context)
+
+
+@login_required
+def nahv_sentence_detail(request, pk):
+    """Detailed I'rab analysis of a sentence"""
+    sentence = get_object_or_404(NahvSentence.objects.prefetch_related('word_analyses'), pk=pk)
+    
+    context = {
+        'sentence': sentence,
+        'analyses': sentence.word_analyses.order_by('position'),
+    }
+    return render(request, "nahv/detail.html", context)
+
+
+@login_required
+def nahv_practice(request):
+    """Nahv grammar practice - identify grammatical roles"""
+    sentences = list(NahvSentence.objects.filter(word_analyses__isnull=False).distinct()[:30])
+    
+    if not sentences:
+        return render(request, "nahv/practice_empty.html")
+    
+    sentence = random.choice(sentences)
+    analyses = list(sentence.word_analyses.all())
+    
+    if not analyses:
+        return render(request, "nahv/practice_empty.html")
+    
+    # Pick a word to quiz about
+    target_word = random.choice(analyses)
+    
+    # Get options
+    all_roles = [r[0] for r in NahvWordAnalysis.ROLE_CHOICES]
+    options = [target_word.grammatical_role]
+    while len(options) < 4 and len(all_roles) > len(options):
+        role = random.choice(all_roles)
+        if role not in options:
+            options.append(role)
+    random.shuffle(options)
+    
+    context = {
+        'sentence': sentence,
+        'target_word': target_word,
+        'options': [(r, dict(NahvWordAnalysis.ROLE_CHOICES).get(r)) for r in options],
+        'correct_answer': target_word.grammatical_role,
+    }
+    return render(request, "nahv/practice.html", context)
+
+
+# ============================================
+# MODULE 4: SENTENCE BUILDING (GAP TUZISH)
+# ============================================
+@login_required
+def sentence_builder_index(request):
+    """Main sentence building page"""
+    exercises = SentenceExercise.objects.all()
+    
+    level = request.GET.get('level', '')
+    exercise_type = request.GET.get('type', '')
+    
+    if level:
+        exercises = exercises.filter(level=level)
+    if exercise_type:
+        exercises = exercises.filter(exercise_type=exercise_type)
+    
+    paginator = Paginator(exercises, 15)
+    page_number = request.GET.get('page', 1)
+    page_obj = paginator.get_page(page_number)
+    
+    context = {
+        'exercises': page_obj,
+        'levels': ['A0', 'A1', 'A2', 'B1'],
+        'types': dict(SentenceExercise.EXERCISE_TYPES),
+        'current_level': level,
+        'current_type': exercise_type,
+    }
+    return render(request, "sentence_builder/index.html", context)
+
+
+@login_required
+def sentence_builder_practice(request):
+    """Interactive sentence building practice"""
+    exercises = list(SentenceExercise.objects.filter(exercise_type='word_order')[:50])
+    
+    if not exercises:
+        # Create sample if none exist
+        exercises = list(SentenceExercise.objects.all()[:20])
+        if not exercises:
+            return render(request, "sentence_builder/empty.html")
+    
+    exercise = random.choice(exercises)
+    
+    # Parse words for drag-drop
+    words = exercise.word_options if exercise.word_options else exercise.arabic_sentence.split()
+    if not exercise.word_options:
+        random.shuffle(words)
+    
+    context = {
+        'exercise': exercise,
+        'words': words,
+        'correct_sentence': exercise.arabic_sentence,
+    }
+    return render(request, "sentence_builder/practice.html", context)
+
+
+@login_required
+@require_POST
+def api_sentence_check(request):
+    """API to check sentence building answer"""
+    try:
+        data = json.loads(request.body)
+        exercise_id = data.get('exercise_id')
+        user_sentence = data.get('sentence', '').strip()
+        
+        exercise = get_object_or_404(SentenceExercise, id=exercise_id)
+        
+        # Normalize for comparison
+        correct = exercise.arabic_sentence.strip()
+        is_correct = user_sentence == correct
+        
+        # Award XP if correct
+        xp_gained = 0
+        if is_correct:
+            g, _ = UserGamification.objects.get_or_create(user=request.user)
+            g.xp_total += 15
+            g.save()
+            xp_gained = 15
+        
+        return JsonResponse({
+            'status': 'ok',
+            'is_correct': is_correct,
+            'correct_sentence': correct,
+            'user_sentence': user_sentence,
+            'explanation': exercise.explanation,
+            'xp_gained': xp_gained,
+        })
+    except Exception as e:
+        return JsonResponse({'status': 'error', 'message': str(e)}, status=400)
+
+
+# ============================================
+# MODULE 5: VERB PRACTICE (MOZIY - MUZORE - AMR)
+# ============================================
+@login_required
+def verb_practice_index(request):
+    """Main verb practice page with conjugation tables"""
+    verbs = ArabicVerb.objects.prefetch_related('conjugations').all()
+    
+    q = request.GET.get('q', '').strip()
+    if q:
+        verbs = verbs.filter(
+            Q(past_base__icontains=q) |
+            Q(present_base__icontains=q) |
+            Q(translation_uz__icontains=q)
+        )
+    
+    paginator = Paginator(verbs, 12)
+    page_number = request.GET.get('page', 1)
+    page_obj = paginator.get_page(page_number)
+    
+    context = {
+        'verbs': page_obj,
+        'q': q,
+        'total_verbs': ArabicVerb.objects.count(),
+    }
+    return render(request, "verbs/index.html", context)
+
+
+@login_required
+def verb_conjugation_table(request, pk):
+    """Full conjugation table for a verb"""
+    verb = get_object_or_404(ArabicVerb.objects.prefetch_related('conjugations'), pk=pk)
+    
+    # Organize conjugations by tense
+    conjugations = {'past': [], 'present': [], 'command': []}
+    for conj in verb.conjugations.all():
+        conjugations[conj.tense].append(conj)
+    
+    context = {
+        'verb': verb,
+        'conjugations': conjugations,
+        'persons': dict(VerbConjugation.PERSON_CHOICES),
+    }
+    return render(request, "verbs/table.html", context)
+
+
+@login_required
+def verb_practice_session(request):
+    """Interactive verb conjugation practice"""
+    verbs = list(ArabicVerb.objects.filter(conjugations__isnull=False).distinct()[:30])
+    
+    if not verbs:
+        return render(request, "verbs/practice_empty.html")
+    
+    verb = random.choice(verbs)
+    conjugations = list(verb.conjugations.all())
+    
+    if not conjugations:
+        return render(request, "verbs/practice_empty.html")
+    
+    # Pick a conjugation to quiz
+    target = random.choice(conjugations)
+    
+    # Get wrong options
+    wrong_forms = list(VerbConjugation.objects.exclude(verb=verb).filter(tense=target.tense, person=target.person)[:3])
+    options = [target.conjugated_form] + [c.conjugated_form for c in wrong_forms]
+    random.shuffle(options)
+    
+    context = {
+        'verb': verb,
+        'target_tense': target.get_tense_display(),
+        'target_person': target.get_person_display(),
+        'correct_answer': target.conjugated_form,
+        'options': options,
+        'tense': target.tense,
+        'person': target.person,
+    }
+    return render(request, "verbs/practice.html", context)
+
+
+@login_required
+@require_POST
+def api_verb_check(request):
+    """API to check verb conjugation answer"""
+    try:
+        data = json.loads(request.body)
+        verb_id = data.get('verb_id')
+        tense = data.get('tense')
+        person = data.get('person')
+        user_answer = data.get('answer', '').strip()
+        
+        verb = get_object_or_404(ArabicVerb, id=verb_id)
+        conjugation = verb.conjugations.filter(tense=tense, person=person).first()
+        
+        if not conjugation:
+            return JsonResponse({'status': 'error', 'message': 'Conjugation not found'}, status=404)
+        
+        is_correct = user_answer == conjugation.conjugated_form
+        
+        xp_gained = 0
+        if is_correct:
+            g, _ = UserGamification.objects.get_or_create(user=request.user)
+            g.xp_total += 10
+            g.save()
+            xp_gained = 10
+        
+        return JsonResponse({
+            'status': 'ok',
+            'is_correct': is_correct,
+            'correct_answer': conjugation.conjugated_form,
+            'user_answer': user_answer,
+            'xp_gained': xp_gained,
+        })
+    except Exception as e:
+        return JsonResponse({'status': 'error', 'message': str(e)}, status=400)
+
+
+# ============================================
+# MODULE 6: SPEAKING LESSONS (SHIFOVIY)
+# ============================================
+@login_required
+def speaking_index(request):
+    """Main speaking lessons page - 100 lessons"""
+    categories = SpeakingCategory.objects.prefetch_related('lessons').all()
+    
+    # Get user's progress
+    user_practices = SpeakingPractice.objects.filter(user=request.user, is_completed=True).values_list('lesson_id', flat=True)
+    completed_count = len(user_practices)
+    total_lessons = SpeakingLesson.objects.count()
+    
+    context = {
+        'categories': categories,
+        'completed_count': completed_count,
+        'total_lessons': total_lessons,
+        'progress_pct': int((completed_count / total_lessons * 100)) if total_lessons > 0 else 0,
+    }
+    return render(request, "speaking/index.html", context)
+
+
+@login_required
+def speaking_lesson_detail(request, pk):
+    """Individual speaking lesson with dialogue and exercises"""
+    lesson = get_object_or_404(SpeakingLesson.objects.select_related('category'), pk=pk)
+    
+    # Get or create user's practice session
+    practice, created = SpeakingPractice.objects.get_or_create(
+        user=request.user,
+        lesson=lesson
+    )
+    
+    # Get adjacent lessons
+    prev_lesson = SpeakingLesson.objects.filter(
+        category=lesson.category,
+        lesson_number__lt=lesson.lesson_number
+    ).order_by('-lesson_number').first()
+    
+    next_lesson = SpeakingLesson.objects.filter(
+        category=lesson.category,
+        lesson_number__gt=lesson.lesson_number
+    ).order_by('lesson_number').first()
+    
+    context = {
+        'lesson': lesson,
+        'practice': practice,
+        'prev_lesson': prev_lesson,
+        'next_lesson': next_lesson,
+        'key_phrases': lesson.key_phrases or [],
+        'qa_tasks': lesson.qa_tasks or [],
+    }
+    return render(request, "speaking/lesson.html", context)
+
+
+@login_required
+@require_POST
+def api_speaking_complete(request, pk):
+    """API to mark speaking lesson as complete"""
+    try:
+        lesson = get_object_or_404(SpeakingLesson, id=pk)
+        
+        practice, created = SpeakingPractice.objects.get_or_create(
+            user=request.user,
+            lesson=lesson
+        )
+        
+        if not practice.is_completed:
+            practice.is_completed = True
+            practice.save()
+            
+            # Award XP
+            g, _ = UserGamification.objects.get_or_create(user=request.user)
+            g.xp_total += lesson.xp_reward
+            g.save()
+            
+            return JsonResponse({
+                'status': 'ok',
+                'xp_gained': lesson.xp_reward,
+                'message': f'{lesson.title_uz} muvaffaqiyatli tugatildi!'
+            })
+        
+        return JsonResponse({'status': 'ok', 'xp_gained': 0, 'message': 'Allaqachon tugatilgan'})
+    except Exception as e:
+        return JsonResponse({'status': 'error', 'message': str(e)}, status=400)
+
+
+@login_required
+def speaking_category_detail(request, pk):
+    """View all lessons in a speaking category"""
+    category = get_object_or_404(SpeakingCategory, pk=pk)
+    lessons = category.lessons.all()
+    
+    # Get user's completed lessons in this category
+    completed = SpeakingPractice.objects.filter(
+        user=request.user,
+        lesson__category=category,
+        is_completed=True
+    ).values_list('lesson_id', flat=True)
+    
+    context = {
+        'category': category,
+        'lessons': lessons,
+        'completed_ids': list(completed),
+    }
+    return render(request, "speaking/category.html", context)
+
+
+# ============================================
+# MODULE 7: ENHANCED PLACEMENT TEST
+# ============================================
+@login_required
+def placement_test_enhanced(request):
+    """Enhanced placement test with multiple sections"""
+    if request.method == "POST":
+        correct_count = 0
+        total_sections = {
+            'vocabulary': 0,
+            'grammar': 0,
+            'sentences': 0,
+            'verbs': 0
+        }
+        correct_sections = {
+            'vocabulary': 0,
+            'grammar': 0,
+            'sentences': 0,
+            'verbs': 0
+        }
+        
+        for key, value in request.POST.items():
+            if key.startswith("q_"):
+                parts = key.split("_")
+                q_id = parts[1]
+                section = parts[2] if len(parts) > 2 else 'vocabulary'
+                
+                total_sections[section] = total_sections.get(section, 0) + 1
+                
+                if PlacementOption.objects.filter(id=value, question_id=q_id, is_correct=True).exists():
+                    correct_count += 1
+                    correct_sections[section] = correct_sections.get(section, 0) + 1
+        
+        total_questions = sum(total_sections.values())
+        if total_questions > 0:
+            percentage = (correct_count / total_questions) * 100
+            
+            # Determine level based on percentage
+            if percentage < 25:
+                level = "A0"
+            elif percentage < 50:
+                level = "A1"
+            elif percentage < 75:
+                level = "A2"
+            else:
+                level = "B1"
+        else:
+            level = "A0"
+        
+        # Update user profile
+        profile, _ = Profile.objects.get_or_create(user=request.user)
+        suggested_course = Course.objects.filter(level=level).first()
+        if suggested_course:
+            profile.current_course = suggested_course
+        profile.has_taken_placement_test = True
+        profile.save()
+        
+        # Store results in session for results page
+        request.session['placement_results'] = {
+            'level': level,
+            'percentage': round(percentage, 1),
+            'correct': correct_count,
+            'total': total_questions,
+            'sections': correct_sections,
+        }
+        
+        return redirect("arab:placement_results")
+    
+    # Get questions for each section
+    all_questions = PlacementQuestion.objects.prefetch_related("options").all()
+    
+    if not all_questions.exists():
+        messages.info(request, "Hozircha placement test savollari yo'q. A0 darajadan boshlang.")
+        return redirect("arab:home")
+    
+    context = {
+        'questions': all_questions,
+        'total_questions': all_questions.count(),
+    }
+    return render(request, "pages/placement_enhanced.html", context)
+
+
+@login_required
+def placement_results(request):
+    """Show placement test results"""
+    results = request.session.get('placement_results', {})
+    
+    if not results:
+        return redirect("arab:placement")
+    
+    profile = Profile.objects.filter(user=request.user).first()
+    
+    context = {
+        'results': results,
+        'profile': profile,
+        'level': results.get('level', 'A0'),
+    }
+    return render(request, "pages/placement_results.html", context)
+

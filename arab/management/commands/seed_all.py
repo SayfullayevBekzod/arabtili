@@ -9,18 +9,35 @@ class Command(BaseCommand):
         self.stdout.write(self.style.WARNING('🚀 Starting Full Database Seeding...'))
 
         commands = [
-            # Core Data
+            # 1. Core Data (Categories, Courses, Levels)
             'init_data',
             
-            # Content
+            # 2. Alphabet & Letters
             'seed_alphabet',
+            'seed_letter_cards',
+            
+            # 3. Vocabulary
+            'seed_words',
             'import_new_words',
             
-            # Tajweed Pro
+            # 4. Grammar & Verbs
+            'seed_verbs',
+            
+            # 5. Speaking (Shifoviya)
+            'seed_speaking',
+            
+            # 6. Tajweed (Rules & Quiz)
+            'seed_tajweed',
+            'seed_tajweed_tags',
+            'seed_tajweed_examples',
             'seed_tajweed_pro',
             'seed_tajweed_quiz',
             
-            # Additional content can be added here once commands are created
+            # 7. Conversational Scenarios
+            'seed_scenarios',
+            
+            # 8. Placement Test
+            'seed_placement',
         ]
 
         for cmd in commands:

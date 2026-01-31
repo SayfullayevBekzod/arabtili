@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block title %}Darajangiz - {{ results.level }} | AlifPro{% endblock %}
+{% block content %}
+
+<div class="max-w-3xl mx-auto py-12 px-4">
+    <!-- Celebration Header -->
+    <div class="text-center mb-10">
+        <div class="text-8xl mb-6">🎉</div>
+        <h1 class="text-4xl font-black text-white mb-2">Tabriklaymiz!</h1>
+        <p class="text-slate-400 text-lg">Sizning darajangiz aniqlandi</p>
+    </div>
+
+    <!-- Level Card -->
+    <div
+        class="p-10 rounded-[3rem] bg-gradient-to-br from-emerald-500/20 to-cyan-500/20 border border-emerald-500/30 mb-8 text-center">
+        <div class="text-sm text-slate-400 mb-2">Sizning darajangiz:</div>
+        <div class="text-7xl font-black text-white mb-4">{{ results.level }}</div>
+        <div class="text-2xl text-emerald-400">{{ results.percentage }}% to'g'ri</div>
+        <div class="text-slate-400 mt-2">{{ results.correct }} / {{ results.total }} savol</div>
+    </div>
+
+    <!-- Section Breakdown -->
+    {% if results.sections %}
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+        {% for section, count in results.sections.items %}
+        {% if count > 0 %}
+        <div class="p-4 rounded-2xl bg-slate-900/60 border border-white/10 text-center">
+            <div class="text-2xl font-bold text-white">{{ count }}</div>
+            <div class="text-xs text-slate-400">{{ section|capfirst }}</div>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Level Description -->
+    <div class="p-6 rounded-2xl bg-slate-900/60 border border-white/10 mb-8">
+        <h3 class="text-xl font-bold text-white mb-4">Sizning darajangiz haqida:</h3>
+
+        {% if results.level == 'A0' %}
+        <p class="text-slate-300">Siz Arab tilini endigina o'rganishni boshlayapsiz. Alifbo va asosiy so'zlardan
+            boshlang!</p>
+        {% elif results.level == 'A1' %}
+        <p class="text-slate-300">Siz boshlang'ich darajada. Asosiy grammatika va lug'at boyligini oshirishga e'tibor
+            bering.</p>
+        {% elif results.level == 'A2' %}
+        <p class="text-slate-300">Yaxshi! Siz o'rta darajaga yaqinlashyapsiz. Gaplar tuzish va suhbat ko'nikmalarini
+            rivojlantiring.</p>
+        {% else %}
+        <p class="text-slate-300">Ajoyib! Siz o'rta darajadan yuqori. Murakkab matnlar va ilmiy arab tilini o'rganing.
+        </p>
+        {% endif %}
+    </div>
+
+    <!-- Recommended Actions -->
+    <div class="text-center">
+        <h3 class="text-lg font-bold text-white mb-4">Keyingi qadamlar:</h3>
+        <div class="flex flex-wrap justify-center gap-4">
+            <a href="{% url 'arab:course_list' %}"
+                class="px-6 py-3 rounded-xl bg-emerald-500 text-white font-bold hover:bg-emerald-400 transition-all">
+                <i class="fas fa-book mr-2"></i>Kurslarni ko'rish
+            </a>
+            <a href="{% url 'arab:alphabet' %}"
+                class="px-6 py-3 rounded-xl bg-slate-700 text-white hover:bg-slate-600 transition-all">
+                <i class="fas fa-spell-check mr-2"></i>Alifbo
+            </a>
+            <a href="{% url 'arab:dictionary' %}"
+                class="px-6 py-3 rounded-xl bg-slate-700 text-white hover:bg-slate-600 transition-all">
+                <i class="fas fa-book-open mr-2"></i>Lug'at
+            </a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -22,6 +22,7 @@ urlpatterns = [
     path("api/lessons/<int:pk>/submit/", views.api_lesson_submit, name="api_lesson_submit"),
 
     path("practice/", views.practice_hub, name="practice"),
+    path("practice/match/", views.practice_match_game, name="practice_match_game"),
     path("practice/weak/", views.practice_weak_words, name="practice_weak_words"),
     path("review/", views.review, name="review"),
     path("dictionary/", views.dictionary, name="dictionary"),
@@ -84,4 +85,40 @@ urlpatterns = [
     path("api/ai/letter-examples/", ai_service.generate_letter_examples, name="api_ai_letter_examples"),
     path("api/ai/vocabulary/", ai_service.generate_vocabulary, name="api_ai_vocabulary"),
     path("api/ai/chat/", ai_service.ai_chat, name="api_ai_chat"),
+    
+    # MODULE 1: TAVSIF - Description Dictionary
+    path("tavsif/", views.tavsif_index, name="tavsif_index"),
+    path("tavsif/builder/", views.tavsif_builder, name="tavsif_builder"),
+    path("api/tavsif/check/", views.api_tavsif_check, name="api_tavsif_check"),
+    
+    # MODULE 2: SARF - Arabic Morphology
+    path("sarf/", views.sarf_index, name="sarf_index"),
+    path("sarf/<int:pk>/", views.sarf_root_detail, name="sarf_root_detail"),
+    path("sarf/practice/", views.sarf_practice, name="sarf_practice"),
+    
+    # MODULE 2: NAHV - Arabic Grammar
+    path("nahv/", views.nahv_index, name="nahv_index"),
+    path("nahv/<int:pk>/", views.nahv_sentence_detail, name="nahv_sentence_detail"),
+    path("nahv/practice/", views.nahv_practice, name="nahv_practice"),
+    
+    # MODULE 4: Sentence Building
+    path("sentences/", views.sentence_builder_index, name="sentence_builder_index"),
+    path("sentences/practice/", views.sentence_builder_practice, name="sentence_builder_practice"),
+    path("api/sentences/check/", views.api_sentence_check, name="api_sentence_check"),
+    
+    # MODULE 5: Verb Practice
+    path("verbs/", views.verb_practice_index, name="verb_practice_index"),
+    path("verbs/<int:pk>/", views.verb_conjugation_table, name="verb_conjugation_table"),
+    path("verbs/practice/", views.verb_practice_session, name="verb_practice_session"),
+    path("api/verbs/check/", views.api_verb_check, name="api_verb_check"),
+    
+    # MODULE 6: Speaking Lessons
+    path("speaking/", views.speaking_index, name="speaking_index"),
+    path("speaking/<int:pk>/", views.speaking_lesson_detail, name="speaking_lesson_detail"),
+    path("speaking/category/<int:pk>/", views.speaking_category_detail, name="speaking_category_detail"),
+    path("api/speaking/<int:pk>/complete/", views.api_speaking_complete, name="api_speaking_complete"),
+    
+    # MODULE 7: Enhanced Placement Test
+    path("placement/enhanced/", views.placement_test_enhanced, name="placement_enhanced"),
+    path("placement/results/", views.placement_results, name="placement_results"),
 ]

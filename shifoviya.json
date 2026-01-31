@@ -1,0 +1,1208 @@
+{
+  "kitob_malumotlari": {
+    "nomi": "الدُّرُوسُ الشَّفَاهِيَّةُ (Shifohiyya - Og'zaki darslar) 1-qism",
+    "muallif": "Ahmad Hodiy Maqsudiy",
+    "nashr_yili": "2014",
+    "manba": "www.arabic.uz"
+  },
+  "darslar": [
+    {
+      "dars_raqami": 1,
+      "sarlavha_arabcha": "الدَّرْسُ الأَوَّلُ (الْمُذَكَّرُ)",
+      "sarlavha_ozbekcha": "1-dars (Muzakkar - Erkak jinsi)",
+      "lugat": [
+        { "arabcha": "هُوَ", "ozbekcha": "u (muzakkar)" },
+        { "arabcha": "هُمْ", "ozbekcha": "ular (m.r.)" },
+        { "arabcha": "أَنْتَ", "ozbekcha": "sen" },
+        { "arabcha": "أَنْتُمْ", "ozbekcha": "sizlar" },
+        { "arabcha": "أَنَا", "ozbekcha": "men" },
+        { "arabcha": "نَحْنُ", "ozbekcha": "biz" },
+        { "arabcha": "كَبِيرٌ", "ozbekcha": "katta" },
+        { "arabcha": "كِبَارٌ", "ozbekcha": "kattalar" },
+        { "arabcha": "صَغِيرٌ", "ozbekcha": "kichik" },
+        { "arabcha": "صِغَارٌ", "ozbekcha": "kichiklar" },
+        { "arabcha": "طَوِيلٌ", "ozbekcha": "uzun" },
+        { "arabcha": "طِوَالٌ", "ozbekcha": "uzunlar" },
+        { "arabcha": "قَصِيرٌ", "ozbekcha": "qisqa" },
+        { "arabcha": "قِصَارٌ", "ozbekcha": "qisqalar" }
+      ],
+      "matnlar": {
+        "arabcha": "هُوَ كَبِيرٌ * هُمْ كِبَارٌ * أَنْتَ صَغِيْرٌ * أَنْتُمْ صِغَارٌ * أَنَا طَوِيلٌ * نَحْنُ طِوَالٌ * هُوَ قَصِيرٌ * هُمْ قِصَارٌ * أَنْتَ طَوِيْلٌ * أَنْتُمْ طِوَالٌ * أَنَا كَبِيرٌ * نَحْنُ كِبَارٌ.",
+        "ozbekcha": "U kattadir. Ular kattalardir. Sen kichiksan. Sizlar kichiksizlar. Men uzunman. Biz uzunlarmiz. U qisqadir. Ular qisqalardir. Sen uzunsan. Sizlar uzunsizlar. Men kattaman. Biz kattalarmiz."
+      }
+    },
+    {
+      "dars_raqami": 2,
+      "sarlavha_arabcha": "الدَّرْسُ الثَّانِي (المؤنث)",
+      "sarlavha_ozbekcha": "2-dars (Muannas - Ayol jinsi)",
+      "lugat": [
+        { "arabcha": "هِيَ", "ozbekcha": "u (muannas)" },
+        { "arabcha": "هُنَّ", "ozbekcha": "ular (m.s.)" },
+        { "arabcha": "أَنْتِ", "ozbekcha": "sen (m.s.)" },
+        { "arabcha": "أَنْتُنَّ", "ozbekcha": "sizlar (m.s.)" },
+        { "arabcha": "كَبِيرَةٌ", "ozbekcha": "katta (m.s.)" },
+        { "arabcha": "كَبِيرَاتٌ", "ozbekcha": "kattalar (m.s.)" },
+        { "arabcha": "صَغِيرَةٌ", "ozbekcha": "kichik (m.s.)" },
+        { "arabcha": "صَغِيرَاتٌ", "ozbekcha": "kichiklar (m.s.)" },
+        { "arabcha": "طَوِيلَةٌ", "ozbekcha": "uzun (m.s.)" },
+        { "arabcha": "طَوِيلَاتٌ", "ozbekcha": "uzunlar (m.s.)" },
+        { "arabcha": "قَصِيرَةٌ", "ozbekcha": "qisqa (m.s.)" },
+        { "arabcha": "قَصِيرَاتٌ", "ozbekcha": "qisqalar (m.s.)" }
+      ],
+      "matnlar": {
+        "arabcha": "هِيَ كَبِيرَةٌ * هُنَّ كَبِيرَاتٌ * أَنْتِ صَغِيْرَةٌ * أَنْتُنَّ صَغِيْرَاتٌ * أَنَا طَوِيْلَةٌ * نَحْنُ طَوِيْلَاتٌ * هِيَ قَصِيرَةٌ * هُنَّ قَصِيرَاتٌ * أَنْتِ طَوِيْلَةٌ * أَنْتُنَّ طَوِيْلاَتٌ * أَنَا كَبِيرَةٌ * نَحْنُ كَبِيرَاتٌ.",
+        "ozbekcha": "U (ayol) kattadir. Ular (ayollar) kattalardir. Sen (ayol) kichiksan. Sizlar (ayollar) kichiksizlar. Men (ayol) uzunman. Biz (ayollar) uzunlarmiz."
+      }
+    },
+    {
+      "dars_raqami": 3,
+      "sarlavha_arabcha": "الدَّرْسُ الثَّالِثُ",
+      "sarlavha_ozbekcha": "3-dars",
+      "lugat": [
+        { "arabcha": "هَذَا", "ozbekcha": "bu" },
+        { "arabcha": "هَذِهِ", "ozbekcha": "bu (m.s.)" },
+        { "arabcha": "هَؤُلَاءِ", "ozbekcha": "bular" },
+        { "arabcha": "ذَاكَ", "ozbekcha": "anavi" },
+        { "arabcha": "تِلْكَ", "ozbekcha": "anavi (m.s.)" },
+        { "arabcha": "أُولَئِكَ", "ozbekcha": "anavilar" },
+        { "arabcha": "غَنِيٌّ", "ozbekcha": "boy" },
+        { "arabcha": "أَغْنِيَاءُ", "ozbekcha": "boylar" },
+        { "arabcha": "فَقِيرٌ", "ozbekcha": "kambag'al" },
+        { "arabcha": "فُقَرَاءُ", "ozbekcha": "kambag'allar" },
+        { "arabcha": "رَجُلٌ", "ozbekcha": "kishi (erkak)" },
+        { "arabcha": "رِجَالٌ", "ozbekcha": "kishilar" },
+        { "arabcha": "امْرَأَةٌ", "ozbekcha": "ayol" },
+        { "arabcha": "نِسَاءٌ", "ozbekcha": "ayollar" }
+      ],
+      "matnlar": {
+        "arabcha": "هَذَا الرَّجُلُ غَنِيٌّ * هَؤُلاءِ الرِّجَالُ أَغْنِيَاءُ * هَذِهِ الْمَرْأَةُ غَنِيَّةٌ * هَؤُلَاءِ النِّسَاءُ غَنِيَّاتٌ * ذَاكَ الرَّجُلُ فَقِيرٌ * أُولَئِكَ الرِّجَالُ فَقَرَاءُ * تِلْكَ الْمَرْأَةُ فَقِيرَةٌ * أُولَئِكَ النِّسَاءُ فَقِيرَاتُ...",
+        "ozbekcha": "Bu kishi boydir. Bu kishilar boylardir. Bu ayol boydir. Bu ayollar boylardir. Anavi kishi kambag'aldir. Anavi kishilar kambag'allardir..."
+      }
+    },
+    {
+      "dars_raqami": 4,
+      "sarlavha_arabcha": "الدَّرْسُ الرَّابِعُ",
+      "sarlavha_ozbekcha": "4-dars",
+      "lugat": [
+        { "arabcha": "إِنْسَانُ", "ozbekcha": "kishi (inson)" },
+        { "arabcha": "أُنَاسٌ (النَّاسُ)", "ozbekcha": "kishilar" },
+        { "arabcha": "شَيْخ", "ozbekcha": "qariya" },
+        { "arabcha": "شُيُوخٌ", "ozbekcha": "qariyalar" },
+        { "arabcha": "عَجُوزٌ", "ozbekcha": "kampir" },
+        { "arabcha": "عَجَائِز", "ozbekcha": "kampirlar" },
+        { "arabcha": "شَاب", "ozbekcha": "yigit" },
+        { "arabcha": "شُبَّانٌ", "ozbekcha": "yigitlar" },
+        { "arabcha": "صَبِي", "ozbekcha": "g'o'dak (o'g'il)" },
+        { "arabcha": "صِبْيَان", "ozbekcha": "g'o'daklar" },
+        { "arabcha": "وَلَدٌ", "ozbekcha": "bola" },
+        { "arabcha": "أَوْلاد", "ozbekcha": "bolalar" },
+        { "arabcha": "خَادِمٌ", "ozbekcha": "xizmatchi" },
+        { "arabcha": "خُدَّامٌ", "ozbekcha": "xizmatchilar" },
+        { "arabcha": "عَالِم", "ozbekcha": "olim" },
+        { "arabcha": "عُلَمَاءُ", "ozbekcha": "olimlar" },
+        { "arabcha": "جَاهِل", "ozbekcha": "johil (nodon)" },
+        { "arabcha": "جُهَلَاءُ", "ozbekcha": "johillar" },
+        { "arabcha": "صَبِيَّةٌ", "ozbekcha": "g'o'dak qiz" },
+        { "arabcha": "شَابَّةٌ", "ozbekcha": "bo'yga yetgan qiz" },
+        { "arabcha": "خَادِمَةٌ", "ozbekcha": "xizmatkor qiz" }
+      ],
+      "matnlar": {
+        "arabcha": "هَذَا الإِنْسَانُ شَيْخٌ * هَؤُلاءِ النَّاسُ شُيُونٌ * ذَاكَ الشَّيْخُ عَالِمٌ * أُولَئِكَ الشُّيُوخُ عُلَمَاءُ * تِلْكَ الْعَجُوزُ جَاهِلَةٌ...",
+        "ozbekcha": "Bu inson qariyadir. Bu insonlar qariyalardir. Anavi qariya olimdir. Anavi qariyalar olimlardir. Anavi kampir johildir..."
+      }
+    },
+    {
+      "dars_raqami": 5,
+      "sarlavha_arabcha": "الدَّرْسُ الْخَامِسُ",
+      "sarlavha_ozbekcha": "5-dars",
+      "lugat": [
+        { "arabcha": "عَاقِل", "ozbekcha": "aqlli" },
+        { "arabcha": "عُقَلَاءُ", "ozbekcha": "aqllilar" },
+        { "arabcha": "سَفِيه", "ozbekcha": "telba, aqli past" },
+        { "arabcha": "سُفَهَاءُ", "ozbekcha": "telbalar" },
+        { "arabcha": "ذَكِي", "ozbekcha": "dono, ziyrak" },
+        { "arabcha": "أَذْكِيَاءُ", "ozbekcha": "donolar, ziyraklar" },
+        { "arabcha": "غَبِيٌّ", "ozbekcha": "tentak" },
+        { "arabcha": "أَغْبِيَاءُ", "ozbekcha": "tentaklar" },
+        { "arabcha": "سَمِين", "ozbekcha": "semiz" },
+        { "arabcha": "سِمَانٌ", "ozbekcha": "semizlar" },
+        { "arabcha": "نَحِيف", "ozbekcha": "oriq, ozg'in" },
+        { "arabcha": "نِحَاف", "ozbekcha": "oriqlar" },
+        { "arabcha": "قَوِيٌّ", "ozbekcha": "kuchli" },
+        { "arabcha": "أَقْوِيَاءُ", "ozbekcha": "kuchlilar" },
+        { "arabcha": "ضَعِيف", "ozbekcha": "kuchsiz" },
+        { "arabcha": "ضُعَفَاءُ", "ozbekcha": "kuchsizlar" },
+        { "arabcha": "صَحِيحٌ", "ozbekcha": "sog'lom" },
+        { "arabcha": "أَصِحَاءُ", "ozbekcha": "sog'lomlar" },
+        { "arabcha": "مَرِيضٌ", "ozbekcha": "bemor" },
+        { "arabcha": "مَرْضَى", "ozbekcha": "bemorlar" }
+      ],
+      "matnlar": {
+        "arabcha": "هُوَ عَاقِلٌ * هُمْ عُقَلاءُ * هِيَ سَفِيْهَةٌ * هُنَّ سَفِيْهَاتٌ * أَنْتَ ذَكِيٌّ * أَنْتُمْ أَذْكِيَاءُ...",
+        "ozbekcha": "U aqllidir. Ular aqllilardir. U (ayol) telbadir. Ular (ayollar) telbalardir. Sen ziyraksan. Sizlar ziyraklarsiz..."
+      }
+    },
+    {
+      "dars_raqami": 6,
+      "sarlavha_arabcha": "الدَّرْسُ السَّادِسُ",
+      "sarlavha_ozbekcha": "6-dars",
+      "lugat": [
+        { "arabcha": "صَدِيقٌ", "ozbekcha": "d'ost" },
+        { "arabcha": "أَصْدِقَاءُ", "ozbekcha": "d'ostlar" },
+        { "arabcha": "عَدُوٌّ", "ozbekcha": "dushman" },
+        { "arabcha": "أَعْدَاءُ", "ozbekcha": "dushmanlar" },
+        { "arabcha": "جَار", "ozbekcha": "qo'shni" },
+        { "arabcha": "جِيْرَانُ", "ozbekcha": "qo'shnilar" },
+        { "arabcha": "ضَيْف", "ozbekcha": "mehmon" },
+        { "arabcha": "ضُيُوف", "ozbekcha": "mehmonlar" },
+        { "arabcha": "صَدِيقُهُمْ", "ozbekcha": "ularning do'sti" },
+        { "arabcha": "صَدِيقُهُ", "ozbekcha": "uning do'sti" },
+        { "arabcha": "صَدِيقُكُمْ", "ozbekcha": "sizlarning do'stingiz" },
+        { "arabcha": "صَدِيقُكَ", "ozbekcha": "seing do'sting" },
+        { "arabcha": "صَدِيقِي", "ozbekcha": "mening do'stim" }
+      ],
+      "matnlar": {
+        "arabcha": "صَدِيقُهُ غَنِيٌّ * أَصْدِقَاؤُهُمْ أَغْنِيَاءُ * صَدِيقَتُهَا فَقِيْرَةٌ * صَدِيقَاتُهُنَّ فَقِيرَاتٌ...",
+        "ozbekcha": "Uning do'sti boydir. Ularning do'stlari boylardir. Uning (ayol) dugonasi kambag'aldir..."
+      }
+    },
+    {
+      "dars_raqami": 7,
+      "sarlavha_arabcha": "الدَّرْسُ السَّابِعُ",
+      "sarlavha_ozbekcha": "7-dars",
+      "lugat": [
+        { "arabcha": "أَب", "ozbekcha": "ota" },
+        { "arabcha": "آبَاء", "ozbekcha": "otalar" },
+        { "arabcha": "أُمٌّ", "ozbekcha": "ona" },
+        { "arabcha": "أُمَّهَاتُ", "ozbekcha": "onalar" },
+        { "arabcha": "ابْن", "ozbekcha": "o'g'il" },
+        { "arabcha": "أَبْنَاءُ", "ozbekcha": "o'g'illar" },
+        { "arabcha": "ابْنَةٌ", "ozbekcha": "qiz" },
+        { "arabcha": "بَنَاتُ", "ozbekcha": "qizlar" },
+        { "arabcha": "أَخ", "ozbekcha": "ini (aka-uka)" },
+        { "arabcha": "إِخْوَةٌ", "ozbekcha": "inilar" },
+        { "arabcha": "أُخْت", "ozbekcha": "opa-singil" },
+        { "arabcha": "أَخَوَاتُ", "ozbekcha": "opa-singillar" },
+        { "arabcha": "جَد", "ozbekcha": "bobo" },
+        { "arabcha": "أَجْدَادٌ", "ozbekcha": "bobolar" },
+        { "arabcha": "جَدَّة", "ozbekcha": "momo" },
+        { "arabcha": "جَدَّات", "ozbekcha": "momolar" },
+        { "arabcha": "زَوْج", "ozbekcha": "er" },
+        { "arabcha": "أَزْوَاجٌ", "ozbekcha": "erlar" },
+        { "arabcha": "زَوْجَةٌ", "ozbekcha": "xotin" },
+        { "arabcha": "زَوْجَاتٌ", "ozbekcha": "xotinlar" },
+        { "arabcha": "خَتَن", "ozbekcha": "kuyov" },
+        { "arabcha": "أَخْتَانُ", "ozbekcha": "kuyovlar" },
+        { "arabcha": "كَنَّة", "ozbekcha": "kelin" },
+        { "arabcha": "كَنَّات", "ozbekcha": "kelinlar" }
+      ],
+      "matnlar": {
+        "arabcha": "أَبُوهُ غَنِيٌّ * آبَاؤُهُمْ أَغْنِيَاءُ * أَبُوهَا عَالِمٌ * آبَاؤُهُنَّ عُلَمَاءُ...",
+        "ozbekcha": "Uning otasi boydir. Ularning otalari boylardir. Uning (ayol) otasi olimdir. Ularning (ayollar) otalari olimlardir..."
+      }
+    },
+    {
+      "dars_raqami": 8,
+      "sarlavha_arabcha": "الدَّرْسُ الثَّامِنُ",
+      "sarlavha_ozbekcha": "8-dars",
+      "lugat": [
+        { "arabcha": "أُسْتَاذُ", "ozbekcha": "ustoz, o'qituvchi" },
+        { "arabcha": "أَسَاتِيذُ", "ozbekcha": "ustozlar, o'qituvchilar" },
+        { "arabcha": "تِلْمِيذُ", "ozbekcha": "shogird, o'quvchi" },
+        { "arabcha": "تَلَامِيذ", "ozbekcha": "shogirdlar, o'quvchilar" },
+        { "arabcha": "طَبِيب", "ozbekcha": "tabib, do'xtir" },
+        { "arabcha": "أَطِبَّاءُ", "ozbekcha": "tabiblar, do'xtirlar" },
+        { "arabcha": "تَاجِر", "ozbekcha": "tijoratchi, savdogar" },
+        { "arabcha": "تُجَّار", "ozbekcha": "tijoratchilar, savdogarlar" },
+        { "arabcha": "صَانِعُ", "ozbekcha": "hunarmand" },
+        { "arabcha": "صَنَعَةٌ", "ozbekcha": "hunarmandlar" },
+        { "arabcha": "مَاهِر", "ozbekcha": "mahoratli, mohir" },
+        { "arabcha": "مَهَرَةٌ", "ozbekcha": "mahoratlilar, mohirlar" },
+        { "arabcha": "صَالِح", "ozbekcha": "salohiyatli, solih" },
+        { "arabcha": "صُلَحَاءُ", "ozbekcha": "salohiyatlilar, solihlar" },
+        { "arabcha": "فَاسِقٌ", "ozbekcha": "fosiq" },
+        { "arabcha": "فَسَقَةٌ", "ozbekcha": "fosiqlar" },
+        { "arabcha": "سَخِي", "ozbekcha": "saxiy" },
+        { "arabcha": "أَسْخِيَاءُ", "ozbekcha": "saxiylar" },
+        { "arabcha": "بَخِيل", "ozbekcha": "baxil" },
+        { "arabcha": "بُخَلَاء", "ozbekcha": "baxillar" },
+        { "arabcha": "عَادِلٌ", "ozbekcha": "adolatli, odil" },
+        { "arabcha": "عُدُولٌ", "ozbekcha": "adolatlilar, odillar" },
+        { "arabcha": "ظَالِم", "ozbekcha": "zolim" },
+        { "arabcha": "ظَلَمَة", "ozbekcha": "zolimlar" }
+      ],
+      "matnlar": {
+        "arabcha": "أُسْتَاذُ هَذَا التَّلْمِيذِ شَيْخٌ * أَسَاتِيْذُ هَؤُلاءِ التَّلَامِيذِ شُيُوخٌ...",
+        "ozbekcha": "Bu o'quvchining ustozi qariyadir. Bu o'quvchilarning ustozlari qariyalardir..."
+      }
+    },
+    {
+      "dars_raqami": 9,
+      "sarlavha_arabcha": "الدَّرْسُ التَّاسِعُ",
+      "sarlavha_ozbekcha": "9-dars",
+      "lugat": [
+        { "arabcha": "إِمَامٌ", "ozbekcha": "imom" },
+        { "arabcha": "أَئِمَّةٌ", "ozbekcha": "imomlar" },
+        { "arabcha": "مُعَلَّمٌ", "ozbekcha": "o'qituvchi, muallim" },
+        { "arabcha": "مُعَلِّمُونَ", "ozbekcha": "o'qituvchilar, muallimlar" },
+        { "arabcha": "مُدَرِّس", "ozbekcha": "mudarris" },
+        { "arabcha": "مُدَرِّسُونَ", "ozbekcha": "mudarrislar" },
+        { "arabcha": "مُؤَذِّنٌ", "ozbekcha": "muazzin" },
+        { "arabcha": "مُؤَذِّنُونَ", "ozbekcha": "muazzinlar" },
+        { "arabcha": "مُتَكَبر", "ozbekcha": "takabbur, dimog'dor" },
+        { "arabcha": "مُتَكَبِّرُونَ", "ozbekcha": "takabburlar, dimog'dorlar" },
+        { "arabcha": "مُتَوَاضِع", "ozbekcha": "tavozu'li, hokisor" },
+        { "arabcha": "مُتَوَاضِعُونَ", "ozbekcha": "tavozu'lilar, hokisorlar" },
+        { "arabcha": "مسْرُور", "ozbekcha": "shod, xursand" },
+        { "arabcha": "مَسْرُورُونَ", "ozbekcha": "shodlar, xursandlar" },
+        { "arabcha": "مَحْزُونٌ", "ozbekcha": "mahzun, xafa" },
+        { "arabcha": "مَحْزُونُونَ", "ozbekcha": "mahzunlar, xafalar" },
+        { "arabcha": "مُجْتَهِد", "ozbekcha": "faol, tirishqoq" },
+        { "arabcha": "مُجْتَهِدُونَ", "ozbekcha": "faollar, tirishqoqlar" },
+        { "arabcha": "گسلان", "ozbekcha": "dangasa" },
+        { "arabcha": "کسالی", "ozbekcha": "dangasalar" },
+        { "arabcha": "صَادِقٌ", "ozbekcha": "rostgo'y, to'g'risuz" },
+        { "arabcha": "صَادِقُونَ", "ozbekcha": "rostgo'ylar, to'g'risuzlar" },
+        { "arabcha": "كَاذِبٌ", "ozbekcha": "yolg'onchi" },
+        { "arabcha": "كَاذِبُونَ", "ozbekcha": "yolg'onchilar" }
+      ],
+      "matnlar": {
+        "arabcha": "هَذَا الرَّجُلُ، إِمَامٌ عَالِمٌ * ذَاكَ الإِمَامُ الْعَالِمُ، غَنِيٌّ...",
+        "ozbekcha": "Bu kishi olim imomdir. Anavi olim imom boydir..."
+      }
+    },
+    {
+      "dars_raqami": 10,
+      "sarlavha_arabcha": "الدَّرْسُ الْعَاشِرُ",
+      "sarlavha_ozbekcha": "10-dars",
+      "lugat": [
+        { "arabcha": "خَيَّاط", "ozbekcha": "tikuvchi" },
+        { "arabcha": "خَيَّاطُونَ", "ozbekcha": "tikuvchilar" },
+        { "arabcha": "نَجَّار", "ozbekcha": "duradgor" },
+        { "arabcha": "نَجَّارُونَ", "ozbekcha": "duradgorlar" },
+        { "arabcha": "خَبَّاز", "ozbekcha": "nonvoy" },
+        { "arabcha": "حَداد", "ozbekcha": "temirchi" },
+        { "arabcha": "قَصَّابٌ", "ozbekcha": "qassob" },
+        { "arabcha": "خَفَّاف", "ozbekcha": "mahsido'z, kosib" },
+        { "arabcha": "خلاق", "ozbekcha": "sartarosh" },
+        { "arabcha": "قَصَّار", "ozbekcha": "kir yuvuvchi" },
+        { "arabcha": "حَمَّالٌ", "ozbekcha": "yuk tashuvchi, hammol" },
+        { "arabcha": "فراش", "ozbekcha": "farrosh" },
+        { "arabcha": "فلاح", "ozbekcha": "dehqon" },
+        { "arabcha": "دلال", "ozbekcha": "dallol" },
+        { "arabcha": "ملاح", "ozbekcha": "kemachi" },
+        { "arabcha": "بَطَالُ", "ozbekcha": "ishsiz" }
+      ],
+      "matnlar": {
+        "arabcha": "هَذَا الرَّجُلُ خَيَّاطٌ * هَؤُلاءِ الرِّجَالُ خَيَّاطُونَ * هَذِهِ الْمَرْأَةُ خَيَّاطَةٌ...",
+        "ozbekcha": "Bu kishi tikuvchidir. Bu kishilar tikuvchilardir. Bu ayol tikuvchidir..."
+      }
+    },
+    {
+      "dars_raqami": 11,
+      "sarlavha_arabcha": "الدَّرْسُ الْحَادِيَ عَشَرَ",
+      "sarlavha_ozbekcha": "11-dars",
+      "lugat": [
+        { "arabcha": "أَزْهَرُ", "ozbekcha": "oq yuzli" },
+        { "arabcha": "زهر", "ozbekcha": "oq yuzlilar" },
+        { "arabcha": "أَسْمَرُ", "ozbekcha": "qora yuzli" },
+        { "arabcha": "سمر", "ozbekcha": "qora yuzlilar" },
+        { "arabcha": "أَشْقَرُ", "ozbekcha": "qizil yuzli" },
+        { "arabcha": "شقر", "ozbekcha": "qizil yuzlilar" },
+        { "arabcha": "أَخْرَسُ", "ozbekcha": "tilsiz (soqov)" },
+        { "arabcha": "خرس", "ozbekcha": "tilsizlar" },
+        { "arabcha": "أَصَمُّ", "ozbekcha": "kar" },
+        { "arabcha": "صم", "ozbekcha": "karlar" },
+        { "arabcha": "أَعْمَى", "ozbekcha": "ko'r" },
+        { "arabcha": "عُمي", "ozbekcha": "ko'rlar" },
+        { "arabcha": "أَحْوَلُ", "ozbekcha": "g'ilay ko'zli" },
+        { "arabcha": "حول", "ozbekcha": "g'ilay ko'zlilar" },
+        { "arabcha": "أَشَلُ", "ozbekcha": "cho'loq" },
+        { "arabcha": "شل", "ozbekcha": "cho'loqlar" },
+        { "arabcha": "أَعْرَجُ", "ozbekcha": "oqsoq" },
+        { "arabcha": "عرج", "ozbekcha": "oqsoqlar" },
+        { "arabcha": "أَحْدَبُ", "ozbekcha": "bukri" },
+        { "arabcha": "حدب", "ozbekcha": "bukrilar" },
+        { "arabcha": "أَحْمَقُ", "ozbekcha": "ahmoq" },
+        { "arabcha": "حمق", "ozbekcha": "ahmoqlar" }
+      ],
+      "matnlar": {
+        "arabcha": "هُوَ أَزْهَرُ * هُمْ زُهْرٌ * هِيَ زَهْرَاءُ * هُنَّ زُهْرٌ * أَنْتَ أَسْمَرُ...",
+        "ozbekcha": "U oq yuzlidir. Ular oq yuzlilardir. U (ayol) oq yuzlidir..."
+      }
+    },
+    {
+      "dars_raqami": 12,
+      "sarlavha_arabcha": "الدَّرْسُ الثَّانِي عَشَرَ",
+      "sarlavha_ozbekcha": "12-dars",
+      "lugat": [
+        { "arabcha": "لَيْسَ", "ozbekcha": "emas" },
+        { "arabcha": "لَيْسُوا", "ozbekcha": "emaslar" },
+        { "arabcha": "لَيْسَتْ", "ozbekcha": "emas (ayol)" },
+        { "arabcha": "لَسْنَ", "ozbekcha": "emaslar (ayollar)" },
+        { "arabcha": "لَسْتَ", "ozbekcha": "emassan" },
+        { "arabcha": "لَسْتُمْ", "ozbekcha": "emassizlar" },
+        { "arabcha": "لَسْتُ", "ozbekcha": "emasman" },
+        { "arabcha": "لَسْنَا", "ozbekcha": "emasmiz" }
+      ],
+      "matnlar": {
+        "arabcha": "هُوَ لَيْسَ بِكَبِيرٍ * هُمْ لَيْسُوا بِكِبَارٍ * هِيَ لَيْسَتْ بِكَبِيرَةٍ...",
+        "ozbekcha": "U katta emas. Ular kattalar emas. U (ayol) katta emas..."
+      }
+    },
+    {
+      "dars_raqami": 13,
+      "sarlavha_arabcha": "الدَّرْسُ الثَّالِثُ عَشَرَ",
+      "sarlavha_ozbekcha": "13-dars",
+      "lugat": [
+        { "arabcha": "صبور", "ozbekcha": "sabrli" },
+        { "arabcha": "صبر", "ozbekcha": "sabrli" },
+        { "arabcha": "عَجُولٌ", "ozbekcha": "shoshqaloq" },
+        { "arabcha": "عُجْل", "ozbekcha": "shoshqaloqlar" },
+        { "arabcha": "بشوش", "ozbekcha": "ochiq chehrali, kulimsiragan" },
+        { "arabcha": "بش", "ozbekcha": "ochiq chehralilar" },
+        { "arabcha": "عبوس", "ozbekcha": "qovog'i soliq" },
+        { "arabcha": "عبس", "ozbekcha": "qovog'i soliqlilar" },
+        { "arabcha": "غَضُوبٌ", "ozbekcha": "g'azabli" },
+        { "arabcha": "غضب", "ozbekcha": "g'azablilar" },
+        { "arabcha": "عَنُودٌ", "ozbekcha": "qaysar" },
+        { "arabcha": "عند", "ozbekcha": "qaysarlar" },
+        { "arabcha": "وَقُورٌ", "ozbekcha": "salobatli" },
+        { "arabcha": "وقر", "ozbekcha": "salobatlilar" },
+        { "arabcha": "لَعُوبٌ", "ozbekcha": "o'yinqaroq, o'ynoqi" },
+        { "arabcha": "لُعَبٌ", "ozbekcha": "o'yinqaroqlar" },
+        { "arabcha": "جَسُورٌ", "ozbekcha": "bahodir" },
+        { "arabcha": "جسر", "ozbekcha": "bahodirlar" },
+        { "arabcha": "حَسُودٌ", "ozbekcha": "hasadchi" },
+        { "arabcha": "حسد", "ozbekcha": "hasadchilar" }
+      ],
+      "matnlar": {
+        "arabcha": "هُوَ صَبُورٌ * هُمْ صُبْرٌ * هِيَ عَجُولٌ * هُنَّ عُجْلٌ * أَنْتَ بَشُورٌ...",
+        "ozbekcha": "U sabrlidir. Ular sabrlilardir. U (ayol) shoshqaloqdir. Ular (ayollar) shoshqaloqlardir. Sen ochiq chehralisan..."
+      }
+    },
+    {
+      "dars_raqami": 14,
+      "sarlavha_arabcha": "الدَّرْسُ الرَّابِعُ عَشَرَ",
+      "sarlavha_ozbekcha": "14-dars",
+      "lugat": [
+        { "arabcha": "طيب", "ozbekcha": "yaxshi" },
+        { "arabcha": "طَيِّبُونَ", "ozbekcha": "yaxshilar" },
+        { "arabcha": "حَبِيبٍ", "ozbekcha": "yomon" },
+        { "arabcha": "حُبَثَاءُ", "ozbekcha": "yomonlar" },
+        { "arabcha": "سَعِيدٌ", "ozbekcha": "baxtli" },
+        { "arabcha": "سُعَدَاءُ", "ozbekcha": "baxtlilar" },
+        { "arabcha": "تعس", "ozbekcha": "baxtsiz" },
+        { "arabcha": "تَعِسُونَ", "ozbekcha": "baxtsizlar" },
+        { "arabcha": "عَزِيزٌ", "ozbekcha": "aziz" },
+        { "arabcha": "عزه", "ozbekcha": "azizlar" },
+        { "arabcha": "ذليل", "ozbekcha": "xorlangan" },
+        { "arabcha": "أَذِلَّةٌ", "ozbekcha": "xorlanganlar" },
+        { "arabcha": "عَفِيفٌ", "ozbekcha": "iffatli" },
+        { "arabcha": "أَعِفَّاءُ", "ozbekcha": "iffatlilar" },
+        { "arabcha": "نجيب", "ozbekcha": "pok ko'ngilli" },
+        { "arabcha": "نُحَبَاءُ", "ozbekcha": "pok ko'ngillilar" },
+        { "arabcha": "رَحِيمٌ", "ozbekcha": "rahmdil" },
+        { "arabcha": "رُحَمَاء", "ozbekcha": "rahmdillar" },
+        { "arabcha": "حَلِيمٌ", "ozbekcha": "yuvvosh, halim" },
+        { "arabcha": "حُلَمَاءُ", "ozbekcha": "yuvvoshlar, halimlar" },
+        { "arabcha": "رفيق", "ozbekcha": "yo'ldosh" },
+        { "arabcha": "رُفَقَاءُ", "ozbekcha": "yo'ldoshlar" },
+        { "arabcha": "شريك", "ozbekcha": "sherik" },
+        { "arabcha": "شُرَكَاء", "ozbekcha": "sheriklar" },
+        { "arabcha": "عم", "ozbekcha": "amaki" },
+        { "arabcha": "أَعْمَامٌ", "ozbekcha": "amakilar" },
+        { "arabcha": "عَمَّةٌ", "ozbekcha": "amma" },
+        { "arabcha": "عَمَّاتُ", "ozbekcha": "ammalar" },
+        { "arabcha": "خَالٌ", "ozbekcha": "tog'a" },
+        { "arabcha": "أَخْوَالٌ", "ozbekcha": "tog'alar" },
+        { "arabcha": "حالة", "ozbekcha": "xola" },
+        { "arabcha": "حالات", "ozbekcha": "xolalar" }
+      ],
+      "matnlar": {
+        "arabcha": "هُوَ طَيِّبٌ * هُمْ طَيِّبُونَ * عَدُوِّي خَبِينٌ * أَعْدَاؤُنَا خُبَثَاءُ...",
+        "ozbekcha": "U yaxshidir. Ular yaxshilardir. Dushmanim yomondir. Dushmanlarimiz yomonlardir..."
+      }
+    },
+    {
+      "dars_raqami": 15,
+      "sarlavha_arabcha": "الدَّرْسُ الْخَامِسُ عَشَرَ",
+      "sarlavha_ozbekcha": "15-dars",
+      "lugat": [
+        { "arabcha": "ملك", "ozbekcha": "podshoh" },
+        { "arabcha": "ملوك", "ozbekcha": "podshohlar" },
+        { "arabcha": "وزير", "ozbekcha": "vazir" },
+        { "arabcha": "وزَرَاءُ", "ozbekcha": "vazirlar" },
+        { "arabcha": "أمير", "ozbekcha": "amir" },
+        { "arabcha": "أُمَرَاءُ", "ozbekcha": "amirlar" },
+        { "arabcha": "سَيِّد", "ozbekcha": "sayyid, xo'ja" },
+        { "arabcha": "سَادَة", "ozbekcha": "sayyidlar, xo'jalar" },
+        { "arabcha": "عَزَب", "ozbekcha": "oila qurmagan, xotinsiz" },
+        { "arabcha": "أعزاب", "ozbekcha": "oila qurmaganlar" },
+        { "arabcha": "مُتَأَهلُ", "ozbekcha": "oila qurgan, xotinli" },
+        { "arabcha": "مُتَأَقِلُونَ", "ozbekcha": "oila qurganlar" },
+        { "arabcha": "مَشْغُولٌ", "ozbekcha": "mashg'ulotli" },
+        { "arabcha": "مَشْغُولُونَ", "ozbekcha": "mashg'ulotlilar" },
+        { "arabcha": "مَشْهُورٌ", "ozbekcha": "mashhur" },
+        { "arabcha": "مَشْهُورُونَ", "ozbekcha": "mashhurlar" },
+        { "arabcha": "بَلْ", "ozbekcha": "balki" },
+        { "arabcha": "و", "ozbekcha": "va" },
+        { "arabcha": "أَمَّا", "ozbekcha": "ammo" },
+        { "arabcha": "إِمَّا", "ozbekcha": "yoki (yo...)" },
+        { "arabcha": "أو", "ozbekcha": "yoki" }
+      ],
+      "matnlar": {
+        "arabcha": "هَذَا الْمَلِكُ مَشْهُورٌ جِدًّا * هَؤُلاَءِ الْمُلُوكُ مَشَاهِيرُ جِدًّا...",
+        "ozbekcha": "Bu podshoh juda mashhurdir. Anavi podshohlar juda mashhurlardir..."
+      }
+    },
+    {
+      "dars_raqami": 16,
+      "sarlavha_arabcha": "الدَّرْسُ السَّادِسُ عَشَرَ",
+      "sarlavha_ozbekcha": "16-dars",
+      "lugat": [
+        { "arabcha": "بَلَد", "ozbekcha": "shahar, mamlakat" },
+        { "arabcha": "بلاد", "ozbekcha": "shaharlar, mamlakatlar" },
+        { "arabcha": "قَرْيَةٌ", "ozbekcha": "qishloq" },
+        { "arabcha": "قرى", "ozbekcha": "qishloqlar" },
+        { "arabcha": "مَكْتَبٌ", "ozbekcha": "maktab, ofis" },
+        { "arabcha": "مَكَاتِبُ", "ozbekcha": "maktablar, ofislar" },
+        { "arabcha": "كتاب", "ozbekcha": "boshlang'ich maktab" },
+        { "arabcha": "كتاتيب", "ozbekcha": "boshlang'ich maktablar" },
+        { "arabcha": "مَدْرَسَةٌ", "ozbekcha": "madrasa, maktab" },
+        { "arabcha": "مَدَارِسُ", "ozbekcha": "madrasalar, maktablar" },
+        { "arabcha": "بيت", "ozbekcha": "uy" },
+        { "arabcha": "بيوت", "ozbekcha": "uyar" },
+        { "arabcha": "حُجْرَةٌ", "ozbekcha": "xona" },
+        { "arabcha": "حُجُرَاتٌ", "ozbekcha": "xonalar" },
+        { "arabcha": "باب", "ozbekcha": "eshik" },
+        { "arabcha": "أَبْوَابٌ", "ozbekcha": "eshiklar" },
+        { "arabcha": "كوة", "ozbekcha": "kichkina deraza" },
+        { "arabcha": "كواء", "ozbekcha": "kichkina derazalar" },
+        { "arabcha": "نَافِذَةٌ", "ozbekcha": "deraza, darcha" },
+        { "arabcha": "نَوَافِذُ", "ozbekcha": "derazalar, darchalar" },
+        { "arabcha": "شُبَّاكٌ", "ozbekcha": "deraza, tuynuk" },
+        { "arabcha": "شَبَابِيكُ", "ozbekcha": "derazalar, tuynuklar" },
+        { "arabcha": "ضيق", "ozbekcha": "tor" },
+        { "arabcha": "واسع", "ozbekcha": "keng" },
+        { "arabcha": "بَعِيد", "ozbekcha": "uzoq" },
+        { "arabcha": "قَرِيبٌ", "ozbekcha": "yaqin" },
+        { "arabcha": "مُغْلَقُ", "ozbekcha": "yopiq" },
+        { "arabcha": "مَفْتُوحٌ", "ozbekcha": "ochiq" }
+      ],
+      "matnlar": {
+        "arabcha": "هَذَا الْبَلَدُ كَبِيرٌ * هَذِهِ الْبِلادُ كَبِيرَةٌ * ذَاكَ الْبَلَدُ صَغِيْرٌ...",
+        "ozbekcha": "Bu shahar kattadir. Bu shaharlar kattadir. Anavi shahar kichikdir..."
+      }
+    },
+    {
+      "dars_raqami": 17,
+      "sarlavha_arabcha": "الدَّرْسُ السَّابِعُ عَشَرَ",
+      "sarlavha_ozbekcha": "17-dars",
+      "lugat": [
+        { "arabcha": "مَسْجِدٌ", "ozbekcha": "masjid" },
+        { "arabcha": "مَسَاجِدُ", "ozbekcha": "masjidlar" },
+        { "arabcha": "مَنَارَةٌ", "ozbekcha": "minora" },
+        { "arabcha": "مَنَاوِرُ", "ozbekcha": "minoralar" },
+        { "arabcha": "محلة", "ozbekcha": "mahalla" },
+        { "arabcha": "محلات", "ozbekcha": "mahallalar" },
+        { "arabcha": "زقاق", "ozbekcha": "ko'cha (tor, kichik)" },
+        { "arabcha": "أَزِقَةٌ", "ozbekcha": "ko'chalar" },
+        { "arabcha": "سوق", "ozbekcha": "bozor" },
+        { "arabcha": "أَسْوَاقُ", "ozbekcha": "bozorlar" },
+        { "arabcha": "دگان", "ozbekcha": "do'kon" },
+        { "arabcha": "دكاكين", "ozbekcha": "do'konlar" },
+        { "arabcha": "عَرْصَةٌ", "ozbekcha": "sahna, hovli" },
+        { "arabcha": "عراض", "ozbekcha": "sahnalar, hovlilar" },
+        { "arabcha": "صفة", "ozbekcha": "suffa, ayvon" },
+        { "arabcha": "صفف", "ozbekcha": "suffalar, ayvonlar" },
+        { "arabcha": "حَدِيقَةٌ", "ozbekcha": "bog'" },
+        { "arabcha": "حَدَائِقُ", "ozbekcha": "bog'lar" },
+        { "arabcha": "مُثَلَّتْ", "ozbekcha": "uchburchak" },
+        { "arabcha": "مُدَوَّر", "ozbekcha": "yumaloq" },
+        { "arabcha": "مُسْتَطِيلٌ", "ozbekcha": "to'g'ri to'rtburchak (uzunchoq)" },
+        { "arabcha": "مُرَبَّع", "ozbekcha": "to'rtburchak" },
+        { "arabcha": "نَعَمْ", "ozbekcha": "ha" },
+        { "arabcha": "لا", "ozbekcha": "yo'q" },
+        { "arabcha": "هل", "ozbekcha": "mi? (so'roq yuklamasi)" },
+        { "arabcha": "أَوْ لا", "ozbekcha": "yoki yo'q" }
+      ],
+      "matnlar": {
+        "arabcha": "مَسْجِدُ مَحَلَّتِنَا كَبِيرٌ * مَسَاجِدُ مَحَلَاتِ بَلَدِنَا كَبِيرَةٌ * مَنَارَةُ هَذَا الْمَسْجِدِ طَوِيلَةٌ...",
+        "ozbekcha": "Mahallamizning masjidi kattadir. Shahrimizning masjidlari kattadir. Bu masjidning minorasi uzundir..."
+      }
+    },
+    {
+      "dars_raqami": 18,
+      "sarlavha_arabcha": "الدَّرْسُ الثَّامِنَ عَشَرَ",
+      "sarlavha_ozbekcha": "18-dars",
+      "lugat": [
+        { "arabcha": "كتاب", "ozbekcha": "kitob" },
+        { "arabcha": "كتب", "ozbekcha": "kitoblar" },
+        { "arabcha": "دفتر", "ozbekcha": "daftar" },
+        { "arabcha": "دَفَائِرُ", "ozbekcha": "daftarlar" },
+        { "arabcha": "صَحِيفَةٌ", "ozbekcha": "sahifa, varaq" },
+        { "arabcha": "صحف", "ozbekcha": "sahifalar" },
+        { "arabcha": "غلاف", "ozbekcha": "g'ilof, muqova" },
+        { "arabcha": "غلف", "ozbekcha": "g'iloflar" },
+        { "arabcha": "قَلَمٌ", "ozbekcha": "qalam" },
+        { "arabcha": "أقلام", "ozbekcha": "qalamlar" },
+        { "arabcha": "حبر", "ozbekcha": "siyoh" },
+        { "arabcha": "أحْبَارٌ", "ozbekcha": "siyohlar" },
+        { "arabcha": "مِحْبَرَة", "ozbekcha": "siyohdon" },
+        { "arabcha": "مَحابِرُ", "ozbekcha": "siyohdonlar" },
+        { "arabcha": "صندوق", "ozbekcha": "sandiq" },
+        { "arabcha": "صَنَادِيقُ", "ozbekcha": "sandiqlar" },
+        { "arabcha": "عتيق", "ozbekcha": "eski" },
+        { "arabcha": "جَدِيدٌ", "ozbekcha": "yangi" },
+        { "arabcha": "كثير", "ozbekcha": "ko'p" },
+        { "arabcha": "قليل", "ozbekcha": "oz" },
+        { "arabcha": "أَيْضًا", "ozbekcha": "yana" },
+        { "arabcha": "فقط", "ozbekcha": "faqat" },
+        { "arabcha": "لَهُ", "ozbekcha": "u uchun (unga tegishli)" },
+        { "arabcha": "لَيْسَ لَهُ", "ozbekcha": "unga tegishli emas (uniki emas)" }
+      ],
+      "matnlar": {
+        "arabcha": "هَذَا الكِتَابُ جَدِيدٌ * هَذِهِ الكُتُبُ جَدِيدَةٌ * ذَاكَ الكِتَابُ عَتِيقٌ...",
+        "ozbekcha": "Bu kitob yangidir. Bu kitoblar yangidir. Anavi kitob eskidir..."
+      }
+    },
+    {
+      "dars_raqami": 19,
+      "sarlavha_arabcha": "الدَّرْسُ التَّاسِعُ عَشَرَ",
+      "sarlavha_ozbekcha": "19-dars",
+      "lugat": [
+        { "arabcha": "شيء", "ozbekcha": "narsa" },
+        { "arabcha": "أشْيَاء", "ozbekcha": "narsalar" },
+        { "arabcha": "شَجَرٌ", "ozbekcha": "daraxt" },
+        { "arabcha": "أَشْجَارُ", "ozbekcha": "daraxtlar" },
+        { "arabcha": "حَجَرٌ", "ozbekcha": "tosh" },
+        { "arabcha": "أَحْجَارٌ", "ozbekcha": "toshlar" },
+        { "arabcha": "طين", "ozbekcha": "loy" },
+        { "arabcha": "أَطْيَانٌ", "ozbekcha": "loyolar" },
+        { "arabcha": "قطن", "ozbekcha": "paxta" },
+        { "arabcha": "أقْطَانٌ", "ozbekcha": "paxtalar" },
+        { "arabcha": "لَوْحٌ", "ozbekcha": "taxtacha" },
+        { "arabcha": "الْوَاح", "ozbekcha": "taxtachalar" },
+        { "arabcha": "حَبْل", "ozbekcha": "arqon, ip" },
+        { "arabcha": "أحْبَالٌ", "ozbekcha": "arqonlar" },
+        { "arabcha": "عصا", "ozbekcha": "hassa, aso" },
+        { "arabcha": "عصي", "ozbekcha": "hassalar, asolar" },
+        { "arabcha": "لين", "ozbekcha": "yumshoq" },
+        { "arabcha": "صلب", "ozbekcha": "qattiq" },
+        { "arabcha": "عوج", "ozbekcha": "qiyshiq" },
+        { "arabcha": "مُسْتَقِيمٌ", "ozbekcha": "to'g'ri" },
+        { "arabcha": "خَفِيفٌ", "ozbekcha": "yengil" },
+        { "arabcha": "ثَقِيل", "ozbekcha": "og'ir" },
+        { "arabcha": "مَتِينٌ", "ozbekcha": "mustahkam" },
+        { "arabcha": "غلِيظٌ", "ozbekcha": "yo'g'on, qo'pol" }
+      ],
+      "matnlar": {
+        "arabcha": "هَذَا الشَّيْءُ صُلْبٌ * هَذِهِ الأَشْيَاءُ صُلْبَةٌ * ذَاكَ الشَّيْءُ لَيْنْ...",
+        "ozbekcha": "Bu narsa qattiqdir. Bu narsalar qattiqdir. Anavi narsa yumshoqdir..."
+      }
+    },
+    {
+      "dars_raqami": 20,
+      "sarlavha_arabcha": "الدَّرْسُ العِشْرُونَ",
+      "sarlavha_ozbekcha": "20-dars",
+      "lugat": [
+        { "arabcha": "عرق", "ozbekcha": "tomir, ildiz" },
+        { "arabcha": "عروق", "ozbekcha": "tomirlar, ildizlar" },
+        { "arabcha": "غُصْنٌ", "ozbekcha": "shox (daraxtniki)" },
+        { "arabcha": "أَغْصَانُ", "ozbekcha": "shoxlar" },
+        { "arabcha": "قشر", "ozbekcha": "po'stloq, qobiq" },
+        { "arabcha": "قشور", "ozbekcha": "po'stloqlar, qobiqlar" },
+        { "arabcha": "حَبُّ", "ozbekcha": "don" },
+        { "arabcha": "حبوب", "ozbekcha": "donlar" },
+        { "arabcha": "وَرَقُ", "ozbekcha": "barg" },
+        { "arabcha": "أوراق", "ozbekcha": "barglar" },
+        { "arabcha": "زهر", "ozbekcha": "gul, chechak" },
+        { "arabcha": "أزهار", "ozbekcha": "gullar, chechaklar" },
+        { "arabcha": "ثمر", "ozbekcha": "meva" },
+        { "arabcha": "أَثْمَارُ", "ozbekcha": "mevalar" },
+        { "arabcha": "غَيْرُ", "ozbekcha": "boshqa" },
+        { "arabcha": "أَغْيَارُ", "ozbekcha": "boshqalar" },
+        { "arabcha": "أَبْيَضُ", "ozbekcha": "oq" },
+        { "arabcha": "أَسْوَدُ", "ozbekcha": "qora" },
+        { "arabcha": "أحمر", "ozbekcha": "qizil" },
+        { "arabcha": "أَصْفَرُ", "ozbekcha": "sariq" },
+        { "arabcha": "أخْضَرُ", "ozbekcha": "yashil" },
+        { "arabcha": "أَزْرَقُ", "ozbekcha": "ko'k" },
+        { "arabcha": "أَرْقَط", "ozbekcha": "ola-bula" },
+        { "arabcha": "أَجْوَفُ", "ozbekcha": "ichi kovak" }
+      ],
+      "matnlar": {
+        "arabcha": "عِرْقُ هَذِهِ الشَّجَرَةِ طَوِيلٌ * عُرُوقُ الأَشْجَارِ كَثِيرَةٌ * غُصُونُ تِلْكَ الشَّجَرَةِ مُعْوَجَّةٌ...",
+        "ozbekcha": "Bu daraxtning ildizi uzundir. Daraxtlarning ildizlari ko'pdir. Anavi daraxtning shoxlari qiyshiqdir..."
+      }
+    },
+    {
+      "dars_raqami": 21,
+      "sarlavha_arabcha": "الدَّرْسُ الْحَادِي وَالْعِشْرُونَ",
+      "sarlavha_ozbekcha": "21-dars",
+      "lugat": [
+        { "arabcha": "مَدَحَ", "ozbekcha": "Maqtadi (1 er)" },
+        { "arabcha": "مَدَحَا", "ozbekcha": "Maqtadi (2 er)" },
+        { "arabcha": "مَدَحُوا", "ozbekcha": "Maqtadilar (erlar)" },
+        { "arabcha": "مَدَحَتْ", "ozbekcha": "Maqtadi (1 ayol)" },
+        { "arabcha": "مَدَحَتَا", "ozbekcha": "Maqtadi (2 ayol)" },
+        { "arabcha": "مَدَحْنَ", "ozbekcha": "Maqtadilar (ayollar)" },
+        { "arabcha": "مُدِحَ", "ozbekcha": "Maqtaldi (1 er)" },
+        { "arabcha": "مَا مَدَحَ", "ozbekcha": "Maqtamadi" }
+      ],
+      "matnlar": {
+        "arabcha": "هُوَ مَدَحَ، هُمْ مَدَحُوا هِيَ مَدَحَتْ ، هُنَّ مَدَحْنَ...",
+        "ozbekcha": "U maqtadi. Ular maqtadilar. U (ayol) maqtadi. Ular (ayollar) maqtadilar..."
+      }
+    },
+    {
+      "dars_raqami": 22,
+      "sarlavha_arabcha": "الدَّرْسُ الثَّانِي وَالعِشْرُونَ",
+      "sarlavha_ozbekcha": "22-dars",
+      "lugat": [
+        { "arabcha": "كَتَبَ", "ozbekcha": "yozdi" },
+        { "arabcha": "قَرَأَ", "ozbekcha": "o'qidi" },
+        { "arabcha": "مَنَحَ", "ozbekcha": "berdi" },
+        { "arabcha": "أَخَذَ", "ozbekcha": "oldi" },
+        { "arabcha": "سَرَقَ", "ozbekcha": "o'g'irladi" },
+        { "arabcha": "أكل", "ozbekcha": "yedi" },
+        { "arabcha": "فَتَحَ", "ozbekcha": "ochdi" },
+        { "arabcha": "جَمَعَ", "ozbekcha": "to'pladi" },
+        { "arabcha": "مَالٌ", "ozbekcha": "mol (boylik)" },
+        { "arabcha": "أَمْوَالُ", "ozbekcha": "mollar" },
+        { "arabcha": "ثمن", "ozbekcha": "pul" },
+        { "arabcha": "أَثْمَانُ", "ozbekcha": "pullar" },
+        { "arabcha": "طَعَامُ", "ozbekcha": "ovqat" },
+        { "arabcha": "أَطْعِمَةٌ", "ozbekcha": "ovqatlar" },
+        { "arabcha": "هَدِيَّةٌ", "ozbekcha": "sovg'a" },
+        { "arabcha": "هَدَايَا", "ozbekcha": "sovg'alar" },
+        { "arabcha": "صَدَقَةٌ", "ozbekcha": "sadaqa" },
+        { "arabcha": "صَدَقَاتُ", "ozbekcha": "sadaqalar" },
+        { "arabcha": "خط", "ozbekcha": "xat, chiziq" },
+        { "arabcha": "خطوط", "ozbekcha": "xatlar, chiziqlar" },
+        { "arabcha": "حَرْفٌ", "ozbekcha": "harf" },
+        { "arabcha": "حُرُوفٌ", "ozbekcha": "harflar" }
+      ],
+      "matnlar": {
+        "arabcha": "هُوَ قَرَأَ كِتَابًا كَبِيرًا * هُمْ قَرَؤُوا كُتُبًا كَبِيرَة * هِيَ كَتَبَتْ خَطَّا طَوِيلاً...",
+        "ozbekcha": "U katta kitobni o'qidi. Ular katta kitoblarni o'qidilar. U (ayol) uzun xat yozdi..."
+      }
+    },
+    {
+      "dars_raqami": 23,
+      "sarlavha_arabcha": "الدَّرْسُ الثَّالِثُ وَالعِشْرُونَ",
+      "sarlavha_ozbekcha": "23-dars",
+      "lugat": [
+        { "arabcha": "ب", "ozbekcha": "bilan" },
+        { "arabcha": "ك", "ozbekcha": "kabi" },
+        { "arabcha": "في", "ozbekcha": "ichida, -da" },
+        { "arabcha": "عَلَى", "ozbekcha": "ustida" },
+        { "arabcha": "من", "ozbekcha": "-dan" },
+        { "arabcha": "إلى", "ozbekcha": "-ga" },
+        { "arabcha": "عَنْ", "ozbekcha": "haqida, -dan" },
+        { "arabcha": "مَعَ", "ozbekcha": "bilan birga" },
+        { "arabcha": "لدى", "ozbekcha": "oldida, qoshida" },
+        { "arabcha": "مكان", "ozbekcha": "o'rin, joy" },
+        { "arabcha": "أَمْكِنَةٌ", "ozbekcha": "o'rinlar, joylar" },
+        { "arabcha": "مِثْلُ", "ozbekcha": "o'xshash" },
+        { "arabcha": "أَمْثَالُ", "ozbekcha": "o'xshashlar" },
+        { "arabcha": "رَحَلَ", "ozbekcha": "ko'chdi" },
+        { "arabcha": "سَكَنَ", "ozbekcha": "turdi, yashadi" },
+        { "arabcha": "رَجَعَ", "ozbekcha": "qaytdi" },
+        { "arabcha": "ذَهَبَ", "ozbekcha": "ketdi" }
+      ],
+      "matnlar": {
+        "arabcha": "هُوَ كَتَبَ كِتَابَهُ بِقَلْمٍ طَوِيلٍ * هِيَ كَتَبَتْ كِتَابَهَا بِهَذَا القَلَمِ القَصِيرِ...",
+        "ozbekcha": "U kitobini uzun qalam bilan yozdi. U (ayol) kitobini bu qisqa qalam bilan yozdi..."
+      }
+    },
+    {
+      "dars_raqami": 24,
+      "sarlavha_arabcha": "الدَّرْسُ الرَّابِعُ وَالعِشْرُونَ",
+      "sarlavha_ozbekcha": "24-dars",
+      "lugat": [
+        { "arabcha": "دَخَلَ", "ozbekcha": "kirdi" },
+        { "arabcha": "خَرَجَ", "ozbekcha": "chiqdi" },
+        { "arabcha": "رَقَدَ", "ozbekcha": "yotdi (uxlash uchun)" },
+        { "arabcha": "جَلَسَ", "ozbekcha": "o'tirdi" },
+        { "arabcha": "تَرَكَ", "ozbekcha": "tark qildi, qoldirdi" },
+        { "arabcha": "نَظَرَ", "ozbekcha": "qaradi" },
+        { "arabcha": "ضَرَبَ", "ozbekcha": "urdi" },
+        { "arabcha": "شَتَمَ", "ozbekcha": "so'kdi, haqorat qildi" },
+        { "arabcha": "وقت", "ozbekcha": "vaqt" },
+        { "arabcha": "أَوْقَاتٌ", "ozbekcha": "vaqtlar" },
+        { "arabcha": "صلاة", "ozbekcha": "namoz" },
+        { "arabcha": "صَلَوَاتٌ", "ozbekcha": "namozlar" },
+        { "arabcha": "قَبْلَ", "ozbekcha": "oldin" },
+        { "arabcha": "بَعْدَ", "ozbekcha": "keyin" }
+      ],
+      "matnlar": {
+        "arabcha": "هَذَا الرَّجُلُ خَرَجَ مِنْ بَيْتِهِ فَذَهَبَ إِلَى بَيْتِ صَدِيقِهِ وَقْتَ الفَجْرِ...",
+        "ozbekcha": "Bu kishi uyidan chiqdi, bas, bomdod vaqtida do'stining uyiga ketdi..."
+      }
+    },
+    {
+      "dars_raqami": 25,
+      "sarlavha_arabcha": "الدَّرْسُ الْخَامِسُ وَالْعِشْرُونَ",
+      "sarlavha_ozbekcha": "25-dars",
+      "lugat": [
+        { "arabcha": "أمس", "ozbekcha": "kecha" },
+        { "arabcha": "الْيَومَ", "ozbekcha": "bugun" },
+        { "arabcha": "الآن", "ozbekcha": "hozir" },
+        { "arabcha": "آنِفًا", "ozbekcha": "hozirgina, ozgina oldin" },
+        { "arabcha": "ليلاً", "ozbekcha": "tunda" },
+        { "arabcha": "نَهَارًا", "ozbekcha": "kunduzi" },
+        { "arabcha": "صباحًا", "ozbekcha": "erta tongda" },
+        { "arabcha": "مَسَاءً", "ozbekcha": "oqshom, kechda" },
+        { "arabcha": "يَوْمَ السَّبْتِ", "ozbekcha": "shanba kuni" },
+        { "arabcha": "يَوْمَ الْأَحَدِ", "ozbekcha": "yakshanba kuni" },
+        { "arabcha": "يَومَ الإِثْنَيْنِ", "ozbekcha": "dushanba kuni" },
+        { "arabcha": "يَومَ الثَّلاثَاءِ", "ozbekcha": "seshanba kuni" },
+        { "arabcha": "يَومَ الأَرْبَعَاءِ", "ozbekcha": "chorshanba kuni" },
+        { "arabcha": "يَومَ الْخَمِيسِ", "ozbekcha": "payshanba kuni" },
+        { "arabcha": "يَوْمَ الْجُمُعَةِ", "ozbekcha": "juma kuni" },
+        { "arabcha": "عيد", "ozbekcha": "bayram, hayit" },
+        { "arabcha": "أَعْيَادٌ", "ozbekcha": "bayramlar" }
+      ],
+      "matnlar": {
+        "arabcha": "مَدَحْنَا مُعَلِّمَنَا اليَومَ فِي الْمَدْرَسَةِ مَعَ شُرَكَائِنَا بَعْدَ الدَّرْسِ...",
+        "ozbekcha": "Biz bugun madrasada darsdan keyin sheriklarimiz bilan muallimimizni maqtadik..."
+      }
+    },
+    {
+      "dars_raqami": 26,
+      "sarlavha_arabcha": "الدَّرْسُ السَّادِسُ وَالعِشْرُونَ",
+      "sarlavha_ozbekcha": "26-dars",
+      "lugat": [
+        { "arabcha": "أَيْنَ؟", "ozbekcha": "qayerda?" },
+        { "arabcha": "مِنْ أَيْنَ؟", "ozbekcha": "qayerdan?" },
+        { "arabcha": "إِلَى أَيْنَ؟", "ozbekcha": "qayerga?" },
+        { "arabcha": "مَتَى ؟", "ozbekcha": "qachon?" },
+        { "arabcha": "مَنْ؟", "ozbekcha": "kim?" },
+        { "arabcha": "لِمَنْ ؟", "ozbekcha": "kim uchun?" },
+        { "arabcha": "مَا ؟", "ozbekcha": "nima?" },
+        { "arabcha": "مَاذا؟", "ozbekcha": "nima (qildi/narsa)?" },
+        { "arabcha": "هنا", "ozbekcha": "bu yerda" },
+        { "arabcha": "هناك", "ozbekcha": "u yerda" },
+        { "arabcha": "فوق", "ozbekcha": "ustida" },
+        { "arabcha": "تحت", "ozbekcha": "ostida" },
+        { "arabcha": "أَمَامَ", "ozbekcha": "oldida" },
+        { "arabcha": "وَرَاءَ", "ozbekcha": "orqasida" },
+        { "arabcha": "يمين", "ozbekcha": "o'ng" },
+        { "arabcha": "يَسَارَ", "ozbekcha": "chap" }
+      ],
+      "matnlar": {
+        "arabcha": "أَيْنَ قَرَأْتَ هَذَا الْكِتَابَ؟ - قَرَأْتُهُ فِي الْمَدْرَسَةِ مَعَ شُرَكَائِي.",
+        "ozbekcha": "Bu kitobni qayerda o'qiding? - Uni maktabda sheriklarim bilan o'qidim."
+      }
+    },
+    {
+      "dars_raqami": 27,
+      "sarlavha_arabcha": "الدَّرْسُ السَّابِعُ وَالعِشْرُونَ",
+      "sarlavha_ozbekcha": "27-dars",
+      "lugat": [
+        { "arabcha": "زَمَانٌ", "ozbekcha": "zamon" },
+        { "arabcha": "أَزْمِنَةُ", "ozbekcha": "zamonlar" },
+        { "arabcha": "منة", "ozbekcha": "yil" },
+        { "arabcha": "سِنُونَ", "ozbekcha": "yillar" },
+        { "arabcha": "شهر", "ozbekcha": "oy" },
+        { "arabcha": "شُهُورٌ", "ozbekcha": "oylar" },
+        { "arabcha": "أسبوع", "ozbekcha": "hafta" },
+        { "arabcha": "أسابيع", "ozbekcha": "haftalar" },
+        { "arabcha": "الْمَاضِي", "ozbekcha": "o'tgan" },
+        { "arabcha": "الحاضر", "ozbekcha": "hozirgi" },
+        { "arabcha": "الآتي", "ozbekcha": "kelasi (kelajak)" },
+        { "arabcha": "محرم الحرام", "ozbekcha": "Muharram" },
+        { "arabcha": "صَفَرُ الْخَيرِ", "ozbekcha": "Safar" },
+        { "arabcha": "رَبِيعُ الأَوَّلُ", "ozbekcha": "Robiy'ul avval" },
+        { "arabcha": "رَمَضَانُ", "ozbekcha": "Ramazon" }
+      ],
+      "matnlar": {
+        "arabcha": "زَمَانُنَا الْآنَ زَمَانٌ حَاضِرٌ * زَمانُ الأَمْسِ زَمَانٌ مَاضٍ...",
+        "ozbekcha": "Bizning hozirgi zamonimiz hozirgi zamondir. Kechagi zamon o'tgan zamondir..."
+      }
+    },
+    {
+      "dars_raqami": 28,
+      "sarlavha_arabcha": "الدَّرْسُ الثَّامِنُ وَالعِشْرُونَ",
+      "sarlavha_ozbekcha": "28-dars",
+      "lugat": [
+        { "arabcha": "عَرَفَ", "ozbekcha": "tanidi" },
+        { "arabcha": "حَسِبَ", "ozbekcha": "fikr yuritdi, o'yladi (hisobladi)" },
+        { "arabcha": "عَلِمَ", "ozbekcha": "bildi" },
+        { "arabcha": "فَهِمَ", "ozbekcha": "angladi, tushundi" },
+        { "arabcha": "سَمِعَ", "ozbekcha": "eshitdi" },
+        { "arabcha": "شَرِبَ", "ozbekcha": "ichdi" },
+        { "arabcha": "لَبِسَ", "ozbekcha": "kiydi" },
+        { "arabcha": "حَفِظُ", "ozbekcha": "yodladi" },
+        { "arabcha": "فَرِحَ", "ozbekcha": "xursand bo'ldi" },
+        { "arabcha": "ضَحِكَ", "ozbekcha": "kuldi" },
+        { "arabcha": "نَدِمَ", "ozbekcha": "nadomat qildi" },
+        { "arabcha": "لَعِبَ", "ozbekcha": "o'ynadi" },
+        { "arabcha": "عِلْمٌ", "ozbekcha": "ilm" },
+        { "arabcha": "عُلُومٌ", "ozbekcha": "ilmlar" },
+        { "arabcha": "خبر", "ozbekcha": "xabar" },
+        { "arabcha": "أخْبَارٌ", "ozbekcha": "xabarlar" }
+      ],
+      "matnlar": {
+        "arabcha": "هُوَ عَرَفَ هَذَا الضَّيْفَ * هُمْ عَرَفُوا هَؤُلاءِ الضُّيُوفَ...",
+        "ozbekcha": "U bu mehmonni tanidi. Ular bu mehmonlarni tanidilar..."
+      }
+    },
+    {
+      "dars_raqami": 29,
+      "sarlavha_arabcha": "الدَّرْسُ التَّاسِعُ وَالعِشْرُونَ",
+      "sarlavha_ozbekcha": "29-dars",
+      "lugat": [
+        { "arabcha": "بَصُرَ", "ozbekcha": "ko'rdi" },
+        { "arabcha": "قَرُبَ", "ozbekcha": "yaqin bo'ldi" },
+        { "arabcha": "بَعْدَ", "ozbekcha": "uzoq bo'ldi (uzoqlashdi)" },
+        { "arabcha": "كَبُرَ", "ozbekcha": "katta bo'ldi (kattalashdi)" },
+        { "arabcha": "صَغُرَ", "ozbekcha": "kichik bo'ldi (kichraydi)" },
+        { "arabcha": "كَثُرَ", "ozbekcha": "ko'paydi" },
+        { "arabcha": "قَلَّ", "ozbekcha": "ozaydi" },
+        { "arabcha": "حَسُنَ", "ozbekcha": "chiroyli bo'ldi" },
+        { "arabcha": "قَبُحَ", "ozbekcha": "xunuk bo'ldi" },
+        { "arabcha": "سَهُلَ", "ozbekcha": "oson bo'ldi (yengillashdi)" },
+        { "arabcha": "صَعُبَ", "ozbekcha": "qiyin bo'ldi (og'irlashdi)" }
+      ],
+      "matnlar": {
+        "arabcha": "بَصُرَ زَيدٌ بَهَذَا الشَّيْءِ * هَلْ بَصُرْتَ بِهِ؟ * بَصُرْتُ بِذَاكَ الشَّيْءِ...",
+        "ozbekcha": "Zayd bu narsani ko'rdi. Uni ko'rdingmi? Anavi narsani ko'rdim..."
+      }
+    },
+    {
+      "dars_raqami": 30,
+      "sarlavha_arabcha": "الدَّرْسُ الثَّلَاثُونَ",
+      "sarlavha_ozbekcha": "30-dars",
+      "lugat": [
+        { "arabcha": "الَّذِي", "ozbekcha": "qaysiki (u - muzakkar)" },
+        { "arabcha": "الَّذِينَ", "ozbekcha": "qaysiki (ular - muzakkar)" },
+        { "arabcha": "الَّتِي", "ozbekcha": "qaysiki (u - muannas)" },
+        { "arabcha": "اللَّاتِي", "ozbekcha": "qaysiki (ular - muannas)" },
+        { "arabcha": "نَطَقَ", "ozbekcha": "gapirdi, nutq qildi" },
+        { "arabcha": "سَعَلَ", "ozbekcha": "yo'taldi" },
+        { "arabcha": "عَطَسَ", "ozbekcha": "aksa urdi" },
+        { "arabcha": "سَئَلَ", "ozbekcha": "so'radi" },
+        { "arabcha": "طَمَعَ", "ozbekcha": "tama' qildi" },
+        { "arabcha": "قَنَعَ", "ozbekcha": "qanoat qildi" },
+        { "arabcha": "حَمَلَ", "ozbekcha": "ko'tardi" },
+        { "arabcha": "خَدَمَ", "ozbekcha": "xizmat qildi" },
+        { "arabcha": "قَطَعَ", "ozbekcha": "kesdi" },
+        { "arabcha": "خَدَعَ", "ozbekcha": "aldadi" }
+      ],
+      "matnlar": {
+        "arabcha": "الرَّجُلُ الَّذِي نَطَقَ فِي البَيْتِ بِاللُّغَةِ العَرَبِيَّةِ هُوَ رَجُلٌ عَالِمٌ...",
+        "ozbekcha": "Uyda arab tilida gapirgan kishi olim kishidir..."
+      }
+    },
+    {
+      "dars_raqami": 31,
+      "sarlavha_arabcha": "الدَّرْسُ الْحَادِي وَالثَّلَاثُونَ",
+      "sarlavha_ozbekcha": "31-dars",
+      "lugat": [
+        { "arabcha": "يَمْدَحُ", "ozbekcha": "maqtaydi (hozirgi-kelasi)" },
+        { "arabcha": "يَعْرِفُ", "ozbekcha": "taniydi (hozirgi-kelasi)" },
+        { "arabcha": "يَبْصُرُ", "ozbekcha": "ko'radi (hozirgi-kelasi)" },
+        { "arabcha": "لَا يَمْدَحُ", "ozbekcha": "maqtamaydi" },
+        { "arabcha": "لَنْ يَمْدَحَ", "ozbekcha": "hech qachon maqtamaydi" },
+        { "arabcha": "لَمْ يَمْدَحْ", "ozbekcha": "maqtamadi (o'tgan)" },
+        { "arabcha": "سَيَمْدَحُ", "ozbekcha": "yaqinda maqtaydi" },
+        { "arabcha": "سَوفَ يَمْدَحُ", "ozbekcha": "kelajakda maqtaydi" },
+        { "arabcha": "قَدْ مَدَحَ", "ozbekcha": "tahqiq, aniq maqtadi" }
+      ],
+      "matnlar": {
+        "arabcha": "لا يَمْدَحُ بَعْضُ النَّاسِ صَدِيقَهُ * قَدْ مَدَحْتَ ابْنَكَ...",
+        "ozbekcha": "Ba'zi odamlar do'stini maqtamaydi. Sen o'g'lingni aniq maqtading..."
+      }
+    },
+    {
+      "dars_raqami": 32,
+      "sarlavha_arabcha": "الدَّرسُ الثَّانِي وَالثَّلَاثُونَ",
+      "sarlavha_ozbekcha": "32-dars",
+      "lugat": [
+        { "arabcha": "يَكْتُبُ", "ozbekcha": "yozadi" },
+        { "arabcha": "يَأْخُذُ", "ozbekcha": "oladi" },
+        { "arabcha": "يَأْكُلُ", "ozbekcha": "yeydi" },
+        { "arabcha": "يَسْكُنُ", "ozbekcha": "turadi" },
+        { "arabcha": "يَخْرُجُ", "ozbekcha": "chiqadi" },
+        { "arabcha": "يَدْخُلُ", "ozbekcha": "kiradi" },
+        { "arabcha": "يَرْقُدُ", "ozbekcha": "yotadi" },
+        { "arabcha": "يَنْظُرُ", "ozbekcha": "qaraydi" },
+        { "arabcha": "يَتْرُكُ", "ozbekcha": "tark qiladi" },
+        { "arabcha": "يَضْرِبُ", "ozbekcha": "uradi" },
+        { "arabcha": "يَشْتُمُ", "ozbekcha": "so'kadi" },
+        { "arabcha": "يَجْمَعُ", "ozbekcha": "to'playdi" },
+        { "arabcha": "يَفْتَحُ", "ozbekcha": "ochadi" },
+        { "arabcha": "يَمْنَحُ", "ozbekcha": "beradi" },
+        { "arabcha": "يَقْرَأُ", "ozbekcha": "o'qiydi" }
+      ],
+      "matnlar": {
+        "arabcha": "يَكْتُبُ التِّلْمِيذُ كِتَابَهُ * هُوَ يَقْرَأُ الْقُرْآنَ...",
+        "ozbekcha": "O'quvchi kitobini yozadi. U Qur'on o'qiydi..."
+      }
+    },
+    {
+      "dars_raqami": 33,
+      "sarlavha_arabcha": "الدَّرْسُ الثَّالِثُ وَالثَّلَاثُونَ",
+      "sarlavha_ozbekcha": "33-dars",
+      "lugat": [
+        { "arabcha": "اُكْتُبْ", "ozbekcha": "yoz (buyruq)" },
+        { "arabcha": "اِقْرَأْ", "ozbekcha": "o'qi (buyruq)" },
+        { "arabcha": "خُذْ", "ozbekcha": "ol (buyruq)" },
+        { "arabcha": "كُلْ", "ozbekcha": "ye (buyruq)" },
+        { "arabcha": "اِفْتَحْ", "ozbekcha": "och (buyruq)" },
+        { "arabcha": "اِجْمَعْ", "ozbekcha": "to'pla (buyruq)" }
+      ],
+      "matnlar": {
+        "arabcha": "يَا تِلْمِيذُ، اُكْتُبْ دَرْسَكَ...",
+        "ozbekcha": "Ey o'quvchi, darsingni yoz..."
+      }
+    },
+    {
+      "dars_raqami": 36,
+      "sarlavha_arabcha": "الدَّرْسُ السَّادِسُ وَالثَّلَاثُونَ",
+      "sarlavha_ozbekcha": "36-dars",
+      "lugat": [
+        { "arabcha": "مَادِحٌ", "ozbekcha": "maqtovchi (ism foil)" },
+        { "arabcha": "مَمْدُوحٌ", "ozbekcha": "maqtalgan (ism maf'ul)" },
+        { "arabcha": "كَاتِبٌ", "ozbekcha": "yozuvchi" },
+        { "arabcha": "مَكْتُوبٌ", "ozbekcha": "yozilgan" },
+        { "arabcha": "قَارِئٌ", "ozbekcha": "o'quvchi (qori)" },
+        { "arabcha": "مَقْرُوءٌ", "ozbekcha": "o'qilgan" },
+        { "arabcha": "فَاتِحٌ", "ozbekcha": "ochuvchi" },
+        { "arabcha": "مَفْتُوحٌ", "ozbekcha": "ochilgan" },
+        { "arabcha": "جَامِعٌ", "ozbekcha": "jamlovchi" },
+        { "arabcha": "مَجْمُوعٌ", "ozbekcha": "jamlangan" },
+        { "arabcha": "عَالِمٌ", "ozbekcha": "biluvchi" },
+        { "arabcha": "مَعْلُومٌ", "ozbekcha": "ma'lum (bilingan)" }
+      ],
+      "matnlar": {
+        "arabcha": "هُوَ مَادِحٌ * هُمْ مَادِحُونَ * هِيَ مَادِحَةٌ...",
+        "ozbekcha": "U maqtovchidir. Ular maqtovchilardir. U (ayol) maqtovchidir..."
+      }
+    },
+    {
+      "dars_raqami": 37,
+      "sarlavha_arabcha": "الدَّرْسُ السَّابِعُ وَالثَّلَاثُونَ",
+      "sarlavha_ozbekcha": "37-dars",
+      "lugat": [
+        { "arabcha": "كَبِيرٌ", "ozbekcha": "katta" },
+        { "arabcha": "أَكْبَرُ", "ozbekcha": "kattaroq (eng katta)" },
+        { "arabcha": "صَغِيرٌ", "ozbekcha": "kichik" },
+        { "arabcha": "أَصْغَرُ", "ozbekcha": "kichikroq (eng kichik)" },
+        { "arabcha": "طَوِيلٌ", "ozbekcha": "uzun" },
+        { "arabcha": "أَطْوَلُ", "ozbekcha": "uzunroq" },
+        { "arabcha": "قَصِيرٌ", "ozbekcha": "qisqa" },
+        { "arabcha": "أَقْصَرُ", "ozbekcha": "qisqaroq" },
+        { "arabcha": "غَنِيٌّ", "ozbekcha": "boy" },
+        { "arabcha": "أَغْنَى", "ozbekcha": "boyroq" }
+      ],
+      "matnlar": {
+        "arabcha": "هُوَ كَبِيرٌ وَهَذَا أَكْبَرُ مِنْهُ...",
+        "ozbekcha": "U kattadir va bu undan kattaroqdir..."
+      }
+    },
+    {
+      "dars_raqami": 38,
+      "sarlavha_arabcha": "الدَّرْسُ الثَّامِنُ وَالثَّلَاثُونَ",
+      "sarlavha_ozbekcha": "38-dars",
+      "lugat": [
+        { "arabcha": "مَدْحٌ", "ozbekcha": "maqtamoq" },
+        { "arabcha": "مَعْرِفَةٌ", "ozbekcha": "tanimoq" },
+        { "arabcha": "قِرَاءَةٌ", "ozbekcha": "o'qimoq" },
+        { "arabcha": "كِتَابَةٌ", "ozbekcha": "yozmoq" },
+        { "arabcha": "خِدْمَةٌ", "ozbekcha": "xizmat qilmoq" },
+        { "arabcha": "أَكْلٌ", "ozbekcha": "yemoq" },
+        { "arabcha": "شُرْبٌ", "ozbekcha": "ichmoq" },
+        { "arabcha": "جُلُوسٌ", "ozbekcha": "o'tirmoq" },
+        { "arabcha": "خُرُوجٌ", "ozbekcha": "chiqmoq" },
+        { "arabcha": "دُخُولٌ", "ozbekcha": "kirmoq" }
+      ]
+    },
+    {
+      "dars_raqami": 40,
+      "sarlavha_arabcha": "الدَّرْسُ الْأَرْبَعُونَ",
+      "sarlavha_ozbekcha": "40-dars",
+      "lugat": [
+        { "arabcha": "غَبَاوَةٌ", "ozbekcha": "kaltafahmlik" },
+        { "arabcha": "قُوَّةٌ", "ozbekcha": "quvvatli bo'lmoq" },
+        { "arabcha": "ضُعْفٌ", "ozbekcha": "zaif bo'lmoq" },
+        { "arabcha": "صِحَّةٌ", "ozbekcha": "sog'lom bo'lmoq" },
+        { "arabcha": "مَرَضٌ", "ozbekcha": "kasal bo'lmoq" },
+        { "arabcha": "صَدَاقَةٌ", "ozbekcha": "sadoqatli bo'lmoq" },
+        { "arabcha": "عَدَاوَةٌ", "ozbekcha": "adovatli bo'lmoq" }
+      ],
+      "matnlar": {
+        "arabcha": "جَهَالَةُ زَيْدٍ مَشْهُورَةٌ * الْجَهَالَةُ صِفَةٌ قَبِيحَةٌ...",
+        "ozbekcha": "Zaydning johilligi mashhurdir. Johillik xunuk sifatdir..."
+      }
+    },
+    {
+      "dars_raqami": 41,
+      "sarlavha_arabcha": "الدَّرْسُ الْحَادِي وَالْأَرْبَعُونَ",
+      "sarlavha_ozbekcha": "41-dars",
+      "lugat": [
+        { "arabcha": "مَاءٌ", "ozbekcha": "suv" },
+        { "arabcha": "مِيَاهٌ", "ozbekcha": "suvlar" },
+        { "arabcha": "بِثْرٌ", "ozbekcha": "quduq" },
+        { "arabcha": "آبَارٌ", "ozbekcha": "quduqlar" },
+        { "arabcha": "نَهْرٌ", "ozbekcha": "daryo (katta)" },
+        { "arabcha": "أَنْهَارٌ", "ozbekcha": "daryolar" },
+        { "arabcha": "جَدْوَلٌ", "ozbekcha": "ariq (kichik)" },
+        { "arabcha": "جَدَاوِلُ", "ozbekcha": "ariqlar" },
+        { "arabcha": "عَيْنٌ", "ozbekcha": "buloq" },
+        { "arabcha": "عُيُونٌ", "ozbekcha": "buloqlar" },
+        { "arabcha": "غَدِيرٌ", "ozbekcha": "ko'lmak" },
+        { "arabcha": "غُدْرَانٌ", "ozbekcha": "ko'lmaklar" },
+        { "arabcha": "بَحْرٌ", "ozbekcha": "dengiz" },
+        { "arabcha": "بِحَارٌ", "ozbekcha": "dengizlar" }
+      ],
+      "matnlar": {
+        "arabcha": "هَذَا الْمَاءُ جَارٍ * ذَاكَ الْمَاءُ بَارِدٌ...",
+        "ozbekcha": "Bu suv oquvchidir. Anavi suv sovuqdir..."
+      }
+    },
+    {
+      "dars_raqami": 43,
+      "sarlavha_arabcha": "الدَّرْسُ الثَّالِثُ وَالْأَرْبَعُونَ",
+      "sarlavha_ozbekcha": "43-dars",
+      "lugat": [
+        { "arabcha": "ثَوْبٌ", "ozbekcha": "kiyim" },
+        { "arabcha": "أَثْوَابٌ", "ozbekcha": "kiyimlar" },
+        { "arabcha": "قَمِيصٌ", "ozbekcha": "ko'ylak" },
+        { "arabcha": "قُمْصَانٌ", "ozbekcha": "ko'ylaklar" },
+        { "arabcha": "جُبَّةٌ", "ozbekcha": "jupba (chopon)" },
+        { "arabcha": "جِبَابٌ", "ozbekcha": "jupbalar" },
+        { "arabcha": "رِدَاءٌ", "ozbekcha": "rido (ustki kiyim)" },
+        { "arabcha": "أَرْدِيَةٌ", "ozbekcha": "ridolar" },
+        { "arabcha": "سَرَاوِيلُ", "ozbekcha": "shim, ishton" },
+        { "arabcha": "إِزَارٌ", "ozbekcha": "izor (belbog')" },
+        { "arabcha": "أُزُرٌ", "ozbekcha": "izorlar" }
+      ],
+      "matnlar": {
+        "arabcha": "هَذَا الثَّوْبُ جَدِيدٌ * لَيْسَتْ أَثْوَابُ عَلِيّ بِجَدِيدَةٍ...",
+        "ozbekcha": "Bu kiyim yangidir. Alining kiyimlari yangi emas..."
+      }
+    },
+    {
+      "dars_raqami": 44,
+      "sarlavha_arabcha": "الدَّرْسُ الرَّابِعُ وَالْأَرْبَعُونَ",
+      "sarlavha_ozbekcha": "44-dars",
+      "lugat": [
+        { "arabcha": "عِمَامَةٌ", "ozbekcha": "salla" },
+        { "arabcha": "عَمَائِمُ", "ozbekcha": "sallalar" },
+        { "arabcha": "قَلَنْسُوَةٌ", "ozbekcha": "bosh kiyim, qalpoq" },
+        { "arabcha": "قَلَانِسُ", "ozbekcha": "bosh kiyimlar" },
+        { "arabcha": "طَرْبُوشٌ", "ozbekcha": "tarbush (turkcha bosh kiyim)" },
+        { "arabcha": "خِفٌّ", "ozbekcha": "mahsi" },
+        { "arabcha": "أَخْفَافٌ", "ozbekcha": "mahsilar" },
+        { "arabcha": "جَوْرَبٌ", "ozbekcha": "paypoq" },
+        { "arabcha": "جَوَارِبُ", "ozbekcha": "paypoqlar" },
+        { "arabcha": "جُمْجُمٌ", "ozbekcha": "kavush" },
+        { "arabcha": "جَمَاجِمُ", "ozbekcha": "kavushlar" }
+      ],
+      "matnlar": {
+        "arabcha": "هَذِهِ الْعِمَامَةُ بَيْضَاءُ * تِلْكَ الْعِمَامَةُ خَضْرَاءُ...",
+        "ozbekcha": "Bu salla oqdir. Anavi salla yashildir..."
+      }
+    },
+    {
+      "dars_raqami": 45,
+      "sarlavha_arabcha": "الدَّرْسُ الْخَامِسُ وَالْأَرْبَعُونَ",
+      "sarlavha_ozbekcha": "45-dars",
+      "lugat": [
+        { "arabcha": "دِينٌ", "ozbekcha": "din" },
+        { "arabcha": "أَدْيَانٌ", "ozbekcha": "dinlar" },
+        { "arabcha": "عَقِيدَةٌ", "ozbekcha": "aqida" },
+        { "arabcha": "عَقَائِدُ", "ozbekcha": "aqidalar" },
+        { "arabcha": "عِبَادَةٌ", "ozbekcha": "ibodat" },
+        { "arabcha": "رَأْيٌ", "ozbekcha": "ra'y, fikr" },
+        { "arabcha": "آرَاءٌ", "ozbekcha": "fikrlar" },
+        { "arabcha": "مُسْلِمٌ", "ozbekcha": "musulmon" },
+        { "arabcha": "مُؤْمِنٌ", "ozbekcha": "mo'min" },
+        { "arabcha": "كَافِرٌ", "ozbekcha": "kofir" },
+        { "arabcha": "مُنَافِقٌ", "ozbekcha": "munofiq" }
+      ],
+      "matnlar": {
+        "arabcha": "أَدْيَانُ النَّاسِ مُخْتَلِفَةٌ: بَعْضُهَا حَقٌّ وَبَعْضُهَا بَاطِلٌ...",
+        "ozbekcha": "Odamlarning dinlari turlichadir: ba'zisi haq va ba'zisi botildir..."
+      }
+    },
+    {
+      "dars_raqami": 46,
+      "sarlavha_arabcha": "الدَّرْسُ السَّادِسُ وَالْأَرْبَعُونَ",
+      "sarlavha_ozbekcha": "46-dars",
+      "lugat": [
+        { "arabcha": "عَبْدٌ", "ozbekcha": "qul (banda)" },
+        { "arabcha": "عِبَادٌ", "ozbekcha": "qullar" },
+        { "arabcha": "نَبِيٌّ", "ozbekcha": "payg'ambar" },
+        { "arabcha": "أَنْبِيَاءُ", "ozbekcha": "payg'ambarlar" },
+        { "arabcha": "رَسُولٌ", "ozbekcha": "elchi (payg'ambar)" },
+        { "arabcha": "رُسُلٌ", "ozbekcha": "elchilar" },
+        { "arabcha": "أُمَّةٌ", "ozbekcha": "ummat" },
+        { "arabcha": "أُمَمٌ", "ozbekcha": "ummatlar" },
+        { "arabcha": "قَبْرٌ", "ozbekcha": "qabr" },
+        { "arabcha": "قُبُورٌ", "ozbekcha": "qabrlar" },
+        { "arabcha": "جَنَّةٌ", "ozbekcha": "jannat" },
+        { "arabcha": "جَهَنَّمُ", "ozbekcha": "jahannam" }
+      ],
+      "matnlar": {
+        "arabcha": "لاَ إِلَهَ إِلاَّ اللهُ مُحَمَّدٌ رَسُولُ اللهِ...",
+        "ozbekcha": "Allohdan o'zga iloh yo'q, Muhammad Allohning elchisidir..."
+      }
+    },
+    {
+      "dars_raqami": 48,
+      "sarlavha_arabcha": "الدَّرْسُ الثَّامِنُ وَالْأَرْبَعُونَ",
+      "sarlavha_ozbekcha": "48-dars",
+      "lugat": [
+        { "arabcha": "كَيْفَ", "ozbekcha": "qanday, nechuk?" },
+        { "arabcha": "كَيْفَ حَالُكُمْ ؟", "ozbekcha": "Holingiz nechuk?" },
+        { "arabcha": "طَيِّبٌ", "ozbekcha": "yaxshi" },
+        { "arabcha": "الْحَمْدُ لِلهِ", "ozbekcha": "Allohga hamd bo'lsin" },
+        { "arabcha": "مَرْحَبًا", "ozbekcha": "marhabo" },
+        { "arabcha": "أَهْلاً وَسَهْلاً", "ozbekcha": "xush kelibsiz" },
+        { "arabcha": "تَفَضَّلُوا", "ozbekcha": "marhamat qilinglar" },
+        { "arabcha": "السَّلامُ", "ozbekcha": "tinchlik, omonlik" }
+      ],
+      "matnlar": {
+        "arabcha": "اِصْبِرْ قَلِيلاً وَلاَ تَعْجَلْ...",
+        "ozbekcha": "Ozroq sabr qil va shoshilma..."
+      }
+    },
+    {
+      "dars_raqami": 49,
+      "sarlavha_arabcha": "الدَّرْسُ التَّاسِعُ وَالْأَرْبَعُونَ",
+      "sarlavha_ozbekcha": "49-dars (So'zlashuv)",
+      "lugat": [],
+      "matnlar": {
+        "arabcha": "- السَّلامُ عَلَيْكُمْ يَا شَيْخُ! - وَعَلَيْكُمُ السَّلامُ، مَرْحَبًا، أَهْلاً وَسَهْلاً، تَفَضَّلُوا.",
+        "ozbekcha": "- Assalomu alaykum, ey shayx! - Va alaykum assalom, marhabo, xush kelibsiz, marhamat qilinglar."
+      }
+    },
+    {
+      "dars_raqami": 51,
+      "sarlavha_arabcha": "الدَّرْسُ الْحَادِي وَالْخَمْسُونَ",
+      "sarlavha_ozbekcha": "51-dars",
+      "lugat": [
+        { "arabcha": "جَلِيسٌ", "ozbekcha": "ulfat" },
+        { "arabcha": "جُلَسَاءُ", "ozbekcha": "ulfatlar" },
+        { "arabcha": "قَرِينٌ", "ozbekcha": "do'st, yaqin" },
+        { "arabcha": "قُرَنَاءُ", "ozbekcha": "do'stlar" },
+        { "arabcha": "حَبِيبٌ", "ozbekcha": "o'rtoq, jo'ra (suyukli)" },
+        { "arabcha": "أَحِبَّاءُ", "ozbekcha": "o'rtoqlar" },
+        { "arabcha": "تَائِبٌ", "ozbekcha": "tavba qiluvchi" },
+        { "arabcha": "فَرِيضَةٌ", "ozbekcha": "farz" },
+        { "arabcha": "سُنَّةٌ", "ozbekcha": "sunnat" },
+        { "arabcha": "حَرَامٌ", "ozbekcha": "harom" },
+        { "arabcha": "حَلالٌ", "ozbekcha": "halol" }
+      ],
+      "matnlar": {
+        "arabcha": "قَالَ النَّبِيُّ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ: طَلَبُ الْعِلْمِ فَرِيضَةٌ عَلَى كُلِّ مُسْلِمٍ وَمُسْلِمَةٍ...",
+        "ozbekcha": "Payg'ambar sollallohu alayhi vasallam aytdilar: Ilm talab qilish har bir musulmon erkak va musulmon ayolga farzdir..."
+      }
+    }
+  ]
+}
