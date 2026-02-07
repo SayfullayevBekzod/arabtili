@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="uz">
+
+<head>
+    <meta charset="utf-8">
+    <title>Uyga Vazifalar | AlifPro</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#020617">
+    <link rel="icon" type="image/svg+xml" href="/static/img/logo_alifpro.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body {
+            overflow-x: hidden;
+            background-color: #020617;
+            color: white;
+            font-family: 'Inter', sans-serif;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #020617;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            border: 2px solid #020617;
+        }
+    </style>
+</head>
+
+<body class="bg-slate-950 text-white selection:bg-emerald-400/30">
+
+    <header class="sticky top-0 z-50 border-b border-white/10 bg-slate-950/80 backdrop-blur-xl">
+        <div class="mx-auto w-[min(1150px,92%)] flex items-center justify-between py-4">
+            <a href="/" class="flex items-center gap-2 text-slate-400 hover:text-white transition">
+                <i class="fas fa-arrow-left"></i> Orqaga
+            </a>
+            <div class="font-bold">Uyga Vazifalar</div>
+            <div class="w-16"></div>
+        </div>
+    </header>
+
+    <div class="max-w-4xl mx-auto py-8 px-4">
+        <div class="flex items-center justify-between mb-8">
+            <div>
+                <h1 class="text-3xl font-black text-white mb-2">Uyga Vazifalar</h1>
+                <p class="text-slate-400">O'qituvchidan kelgan topshiriqlar</p>
+            </div>
+            <div
+                class="h-12 w-12 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center text-2xl shadow-lg shadow-indigo-500/20">
+                📝
+            </div>
+        </div>
+
+        <div id="loading" class="text-center py-12">
+            <div class="text-indigo-500 text-xl animate-pulse">Yuklanmoqda...</div>
+        </div>
+
+        <div id="homework-list" class="space-y-4 hidden">
+            <!-- JS will populate this -->
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('/homework/api/list/')
+                .then(res => res.json())
+                .then(data => {
+                    const list = document.getElementById('homework-list');
+                    const loading = document.getElementById('loading');
+
+                    loading.classList.add('hidden');
+                    list.classList.remove('hidden');
+
+                    if (data.items.length === 0) {
+                        list.innerHTML = `<div class="text-center py-8 text-slate-500">Hozircha vazifalar yo'q.</div>`;
+                        return;
+                    }
+
+                    list.innerHTML = data.items.map(item => {
+                        let statusIcon = '🆕';
+                        let statusClass = 'text-white';
+                        if (item.status === 'graded') statusIcon = '✅';
+                        else if (item.status === 'submitted') statusIcon = '⏳';
+                        else if (item.status === 'rejected') statusIcon = '❌';
+
+                        return `
+                    <div class="group relative overflow-hidden rounded-2xl bg-slate-900/50 border border-white/5 hover:border-indigo-500/30 transition-all hover:bg-slate-800/80">
+                        <div class="absolute inset-0 bg-gradient-to-r from-indigo-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition duration-500"></div>
+                        <div class="relative p-5 flex items-center gap-4">
+                            <div class="shrink-0">
+                                <div class="h-12 w-12 rounded-xl bg-slate-700/50 border border-white/5 flex items-center justify-center text-xl">${statusIcon}</div>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <div class="flex items-center gap-2 mb-1">
+                                    <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-white/5 text-slate-400">
+                                        ${item.level}
+                                    </span>
+                                    ${item.status === 'new' ? '<span class="h-2 w-2 rounded-full bg-indigo-500 animate-pulse"></span>' : ''}
+                                </div>
+                                <h3 class="font-bold text-white text-lg truncate group-hover:text-indigo-400 transition">${item.title}</h3>
+                                <div class="flex items-center gap-4 text-xs font-medium text-slate-500 mt-1">
+                                    <span class="flex items-center gap-1"><i class="fas fa-clock"></i> Deadline: ${new Date(item.deadline).toLocaleDateString()}</span>
+                                    <span class="flex items-center gap-1 text-amber-400/80"><i class="fas fa-star"></i> ${item.xp_reward} XP</span>
+                                </div>
+                            </div>
+                            <div>
+                               <a href="/homework/${item.id}/" class="px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/5 text-sm font-bold text-white transition">
+                                    ${item.status === 'new' ? 'Bajarish' : 'Ko\'rish'}
+                               </a>
+                            </div>
+                        </div>
+                    </div>`;
+                    }).join('');
+                })
+                .catch(err => {
+                    console.error(err);
+                    document.getElementById('loading').innerHTML = '<div class="text-red-500">Xatolik yuz berdi.</div>';
+                });
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,189 +1,269 @@
 {% extends "base.html" %}
-{% block title %}{{ course.title }}{% endblock %}
+{% block title %}{{ course.title }} - AlifPro{% endblock %}
+
 {% block content %}
-
-<!-- HERO -->
+<!-- HERO SECTION: Premium Immersive Header -->
 <section
-  class="relative overflow-hidden rounded-[2.5rem] border border-white/10 bg-slate-900/40 backdrop-blur-md p-8 md:p-12 mb-8 shadow-2xl">
-  <div class="pointer-events-none absolute -top-40 -left-40 h-96 w-96 rounded-full bg-emerald-500/10 blur-[100px]">
+  class="relative overflow-hidden rounded-[3rem] border border-white/10 bg-slate-900/60 backdrop-blur-xl p-8 md:p-12 mb-12 shadow-2xl group">
+
+  <!-- Dynamic Background Orbs -->
+  <div
+    class="pointer-events-none absolute -top-40 -left-40 h-[500px] w-[500px] rounded-full bg-emerald-500/10 blur-[120px] group-hover:bg-emerald-500/20 transition-all duration-1000">
   </div>
-  <div class="pointer-events-none absolute -bottom-40 -right-40 h-96 w-96 rounded-full bg-sky-500/10 blur-[100px]">
+  <div
+    class="pointer-events-none absolute -bottom-40 -right-40 h-[500px] w-[500px] rounded-full bg-sky-500/10 blur-[120px] group-hover:bg-sky-500/20 transition-all duration-1000">
   </div>
 
-  <div class="relative flex flex-col md:flex-row md:items-start md:justify-between gap-8">
-    <div class="max-w-3xl space-y-4">
+  <div class="relative z-10 flex flex-col md:flex-row md:items-start md:justify-between gap-8">
+    <div class="max-w-3xl space-y-6">
+      <!-- Badge -->
       <div
-        class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] font-black uppercase tracking-widest text-slate-400">
-        Kurs • 0 → PRO
+        class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-[10px] font-black uppercase tracking-widest text-slate-400 backdrop-blur-sm shadow-sm">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        Kurs • {{ course.level }}
       </div>
-      <h1 class="text-4xl md:text-6xl font-black leading-tight tracking-tight text-white">{{ course.title }}</h1>
-      <p class="text-slate-400 text-base md:text-lg leading-relaxed font-medium">
+
+      <!-- Title -->
+      <h1 class="text-5xl md:text-7xl font-black text-white leading-tight tracking-tight drop-shadow-lg">
+        {{ course.title }}
+      </h1>
+
+      <!-- Description -->
+      <p class="text-slate-400 text-lg md:text-xl leading-relaxed font-medium max-w-2xl">
         {{ course.description }}
       </p>
 
-      <!-- Chips -->
-      <div class="pt-4 flex flex-wrap items-center gap-3 text-[10px] font-black uppercase tracking-widest">
-        <span class="rounded-2xl border border-white/10 bg-slate-950/40 px-4 py-2 hover:bg-slate-950 transition">
-          Level: <span class="text-emerald-400">{{ course.level }}</span>
-        </span>
+      <!-- Stats Grid -->
+      <div class="flex flex-wrap gap-4 pt-4">
+        <!-- Units Count -->
+        <div
+          class="flex items-center gap-3 px-5 py-3 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md hover:bg-white/10 transition-colors">
+          <div
+            class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500/20 to-emerald-500/5 flex items-center justify-center text-emerald-400 border border-emerald-500/20">
+            <i class="fas fa-layer-group"></i>
+          </div>
+          <div>
+            <div class="text-xs text-slate-500 uppercase font-bold tracking-wider">Bo'limlar</div>
+            <div class="text-xl font-black text-white">{{ units|length }} ta</div>
+          </div>
+        </div>
 
-        <span class="rounded-2xl border border-white/10 bg-slate-950/40 px-4 py-2 hover:bg-slate-950 transition">
-          Bo'limlar: <span class="text-sky-400">{{ units|length }}</span>
-        </span>
+        <!-- Lessons Count -->
+        <div
+          class="flex items-center gap-3 px-5 py-3 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md hover:bg-white/10 transition-colors">
+          <div
+            class="w-10 h-10 rounded-xl bg-gradient-to-br from-sky-500/20 to-sky-500/5 flex items-center justify-center text-sky-400 border border-sky-500/20">
+            <i class="fas fa-book-open"></i>
+          </div>
+          <div>
+            <div class="text-xs text-slate-500 uppercase font-bold tracking-wider">Darslar</div>
+            <div class="text-xl font-black text-white">
+              {% with total=0 %}
+              {% for u in units %}{% with total=total|add:u.lessons.count %}{% endwith %}{% endfor %}
+              {{ total }}
+              {% endwith %} ta
+            </div>
+          </div>
+        </div>
 
-        <span class="rounded-2xl border border-white/10 bg-slate-950/40 px-4 py-2 hover:bg-slate-950 transition">
-          Darslar:
-          <span class="text-amber-400">
-            {% with total=0 %}
-            {% for u in units %}{% with total=total|add:u.lessons.count %}{% endwith %}{% endfor %}
-            {{ total }}
-            {% endwith %}
-          </span>
-        </span>
-
-        {% if course.is_published %}
-        <span class="rounded-2xl border border-emerald-500/30 bg-emerald-500/10 px-4 py-2 text-emerald-400">
-          Published
-        </span>
-        {% else %}
-        <span class="rounded-2xl border border-yellow-500/30 bg-yellow-500/10 px-4 py-2 text-yellow-400">
-          Draft
-        </span>
-        {% endif %}
+        <!-- Status -->
+        <div
+          class="flex items-center gap-3 px-5 py-3 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md hover:bg-white/10 transition-colors">
+          {% if course.is_published %}
+          <div
+            class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500/20 to-emerald-500/5 flex items-center justify-center text-emerald-400 border border-emerald-500/20">
+            <i class="fas fa-check-circle"></i>
+          </div>
+          <div>
+            <div class="text-xs text-slate-500 uppercase font-bold tracking-wider">Holati</div>
+            <div class="text-xl font-black text-white">Active</div>
+          </div>
+          {% else %}
+          <div
+            class="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500/20 to-amber-500/5 flex items-center justify-center text-amber-400 border border-amber-500/20">
+            <i class="fas fa-pencil-alt"></i>
+          </div>
+          <div>
+            <div class="text-xs text-slate-500 uppercase font-bold tracking-wider">Holati</div>
+            <div class="text-xl font-black text-white">Draft</div>
+          </div>
+          {% endif %}
+        </div>
       </div>
     </div>
 
-    <div class="flex items-center gap-3">
+    <!-- Actions -->
+    <div class="flex flex-col sm:flex-row items-center gap-4 mt-8 md:mt-0">
       <a href="/courses/"
-        class="h-12 flex items-center px-6 rounded-2xl border border-white/10 bg-white/5 text-sm font-black uppercase tracking-widest hover:bg-white/10 transition">
-        ← Kurslar
+        class="h-14 px-8 rounded-2xl border border-white/10 bg-white/5 text-slate-300 font-bold hover:bg-white/10 hover:text-white transition flex items-center justify-center w-full sm:w-auto">
+        <i class="fas fa-arrow-left mr-2"></i> Kurslar
       </a>
       <a href="/practice/"
-        class="h-12 flex items-center px-6 rounded-2xl bg-white text-slate-950 text-sm font-black uppercase tracking-widest hover:scale-105 active:scale-95 transition-all shadow-xl">
-        🚀 Mashq
+        class="h-14 px-8 rounded-2xl bg-gradient-to-r from-emerald-400 to-emerald-600 text-slate-950 font-black hover:scale-105 active:scale-95 transition-all shadow-lg shadow-emerald-500/20 flex items-center justify-center w-full sm:w-auto">
+        <i class="fas fa-rocket mr-2"></i> O'YINLAR
       </a>
     </div>
   </div>
 </section>
 
-<!-- UNITS -->
-<div class="mt-10 space-y-6">
+<!-- CONTENT: Units & Lessons -->
+<div class="space-y-12">
   {% for u in units %}
-  <section
-    class="group relative overflow-hidden rounded-[2.5rem] border border-white/10 bg-slate-900/40 backdrop-blur-md p-8 md:p-10 transition-all duration-500 hover:border-emerald-500/30">
+  <div class="relative group/unit">
+    <!-- Connecting Line between Units -->
+    {% if not forloop.last %}
+    <div class="absolute left-8 top-full h-12 w-0.5 bg-gradient-to-b from-slate-700 to-transparent -z-10"></div>
+    {% endif %}
 
-    <div
-      class="absolute -top-24 -right-24 h-48 w-48 bg-emerald-500/0 group-hover:bg-emerald-500/5 rounded-full blur-3xl transition-all duration-700">
-    </div>
+    <section
+      class="relative overflow-hidden rounded-[2.5rem] border border-white/10 bg-slate-900/40 backdrop-blur-xl p-8 md:p-10 transition-all duration-500 hover:border-emerald-500/30 hover:bg-slate-900/60 shadow-xl">
 
-    <div class="relative flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 mb-12">
-      <div class="space-y-1">
-        <div class="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">{{ u.order }}-Bo'lim</div>
-        <h2 class="text-2xl md:text-3xl font-black text-white group-hover:text-emerald-400 transition-colors">{{ u.title }}</h2>
-      </div>
-
-      <div class="flex items-center gap-3">
-        <span
-          class="px-4 py-2 rounded-2xl bg-white/5 border border-white/10 text-[10px] font-black uppercase tracking-widest text-slate-400">
-          {{ u.lessons.count }} ta dars
-        </span>
-        <span class="px-3 py-3 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs">
-          <i class="fas fa-layer-group"></i>
-        </span>
-      </div>
-    </div>
-
-    <!-- Lessons Tree -->
-    <div class="relative max-w-lg mx-auto py-4">
-      <!-- Vertical path Line -->
+      <!-- Hover Glow -->
       <div
-        class="absolute left-1/2 top-0 bottom-0 w-1.5 bg-slate-950/60 -ml-0.75 rounded-full shadow-inner overflow-hidden">
-        <div class="h-full w-full bg-gradient-to-b from-emerald-500 via-sky-500 to-emerald-500 opacity-20"></div>
+        class="absolute -top-24 -right-24 h-64 w-64 bg-emerald-500/0 group-hover/unit:bg-emerald-500/5 rounded-full blur-3xl transition-all duration-700 pointer-events-none">
       </div>
 
-      <div class="space-y-16">
-        {% for l in u.lessons.all %}
-        <div class="relative flex flex-col items-center group/lesson">
-
-          <!-- Lesson Node -->
-          <a href="{% url 'arab:lesson_detail' l.id %}"
-            class="z-10 w-24 h-24 rounded-[2rem] border-4 border-slate-950 bg-slate-900 
-                      flex items-center justify-center shadow-2xl transition-all duration-500
-                      hover:scale-110 active:scale-95 ring-4 ring-transparent hover:ring-white/10
-                      {% if l.user_prog and l.user_prog.is_completed %}border-emerald-500/50 shadow-emerald-500/20{% endif %}">
-
-            <div
-              class="absolute inset-0 rounded-[1.8rem] bg-gradient-to-br transition-opacity
-                      {% if l.user_prog and l.user_prog.is_completed %}from-emerald-400 to-emerald-600 opacity-100{% else %}from-slate-700 to-slate-800 opacity-50{% endif %}">
-            </div>
-
-            <span class="relative text-3xl drop-shadow-lg">{% if l.user_prog and l.user_prog.is_completed %}✅{% else %}📚{% endif %}</span> {% if l.user_prog and not l.user_prog.is_completed and l.user_prog.percent > 0 %}
-            <div
-              class="absolute -bottom-2 -right-2 bg-sky-500 text-[10px] font-black px-2.5 py-1 rounded-xl border-4 border-slate-900 shadow-xl">
-              {{ l.user_prog.percent }}%
-            </div>
-            {% endif %}
-          </a>
-
-          <!-- Connecting line glow for completed -->
-          {% if l.user_prog and l.user_prog.is_completed %}
-          <div class="absolute top-1/2 -z-0 h-24 w-1 bg-emerald-500/30 blur-sm rounded-full pointer-events-none"></div>
-          {% endif %}
-
-          <!-- Label -->
-          <div class="mt-6 flex flex-col items-center gap-2 group/label">
-            <h3
-              class="text-white font-black text-sm tracking-tight text-center group-hover/lesson:text-emerald-400 transition-colors">
-              {{ l.order }}. {{ l.title }}
-              {% if l.videos.all %}
-              <i class="fas fa-play-circle ml-1 text-sky-400"></i>
-              {% endif %}
-            </h3>
-            <div class="flex items-center gap-2">
-              {% if l.user_prog and l.user_prog.is_completed %}
-              <span
-                class="px-2 py-0.5 rounded-lg bg-emerald-500/10 text-[9px] font-black text-emerald-400 uppercase tracking-widest border border-emerald-500/20">Bajarildi</span>
-              {% else %}
-              <span
-                class="px-2 py-0.5 rounded-lg bg-white/5 text-[9px] font-black text-slate-500 uppercase tracking-widest border border-white/5">⏱
-                {{ l.estimated_minutes }} min</span>
-              {% endif %}
-            </div>
+      <!-- Unit Header -->
+      <div
+        class="relative flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 mb-12 border-b border-white/5 pb-8">
+        <div class="space-y-2">
+          <div class="flex items-center gap-3">
+            <span
+              class="w-8 h-8 rounded-lg bg-slate-800 flex items-center justify-center text-xs font-black text-slate-400 border border-white/5 shadow-inner">
+              {{ u.order }}
+            </span>
+            <span class="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">BO'LIM</span>
           </div>
+          <h2
+            class="text-3xl md:text-4xl font-black text-white group-hover/unit:text-emerald-400 transition-colors tracking-tight">
+            {{ u.title }}</h2>
+        </div>
 
+        <div class="flex items-center gap-3">
+          <div class="px-4 py-2 rounded-xl bg-slate-950/50 border border-white/5 flex items-center gap-2">
+            <span class="text-emerald-400 text-sm"><i class="fas fa-book"></i></span>
+            <span class="text-xs font-bold text-slate-300">{{ u.lessons.count }} ta dars</span>
+          </div>
         </div>
-        {% empty %}
-        <div class="text-center py-10 bg-white/5 rounded-3xl border border-white/5 text-slate-500 text-sm font-medium">
-          Hali darslar qo‘shilmagan.
-        </div>
-        {% endfor %}
       </div>
-    </div>
 
-  </section>
+      <!-- Lessons Timeline -->
+      <div class="relative max-w-2xl mx-auto py-4 pl-4 md:pl-0">
+        <!-- Vertical Timeline Line -->
+        <div class="absolute left-6 md:left-1/2 top-0 bottom-0 w-1 bg-slate-800 rounded-full overflow-hidden">
+          <div class="h-full w-full bg-gradient-to-b from-emerald-500/50 via-sky-500/50 to-emerald-500/50 opacity-30">
+          </div>
+        </div>
+
+        <div class="space-y-12">
+          {% for l in u.lessons.all %}
+          <div class="relative flex flex-col md:flex-row items-center gap-8 group/lesson"
+            :class="{'md:flex-row-reverse': {{ forloop.counter0|divisibleby:2|yesno:'true,false' }} }">
+
+            <!-- Timeline Node (Center) -->
+            <div class="absolute left-6 md:left-1/2 -ml-6 md:-ml-6 flex items-center justify-center z-10">
+              <a href="{% url 'arab:lesson_detail' l.id %}"
+                class="w-12 h-12 rounded-full border-4 border-slate-900 flex items-center justify-center shadow-lg transition-all duration-300 hover:scale-110
+                          {% if l.user_prog and l.user_prog.is_completed %}bg-emerald-500 text-slate-950 shadow-emerald-500/30{% else %}bg-slate-800 text-slate-400 shadow-black box-border hover:bg-slate-700{% endif %}">
+                {% if l.user_prog and l.user_prog.is_completed %}
+                <i class="fas fa-check text-lg"></i>
+                {% else %}
+                <span class="text-sm font-black">{{ l.order }}</span>
+                {% endif %}
+              </a>
+            </div>
+
+            <!-- Content Card -->
+            <div
+              class="ml-16 md:ml-0 w-full md:w-[calc(50%-3rem)] transition-all duration-300 group-hover/lesson:-translate-y-1">
+              <a href="{% url 'arab:lesson_detail' l.id %}"
+                class="block p-6 rounded-3xl border border-white/5 bg-slate-800/50 hover:bg-slate-800 hover:border-emerald-500/30 transition-all shadow-lg group-hover/lesson:shadow-2xl">
+                <div class="flex items-start justify-between gap-4">
+                  <div>
+                    <h3 class="text-lg font-bold text-white group-hover/lesson:text-emerald-400 transition-colors mb-2">
+                      {{ l.title }}
+                    </h3>
+                    <div class="flex items-center gap-3 text-[10px] font-bold uppercase tracking-wider text-slate-500">
+                      <span class="flex items-center gap-1"><i class="fas fa-clock"></i> {{ l.estimated_minutes }}
+                        MIN</span>
+                      {% if l.videos.all %}
+                      <span class="flex items-center gap-1 text-sky-400"><i class="fas fa-play-circle"></i> VIDEO</span>
+                      {% endif %}
+                    </div>
+                  </div>
+
+                  <!-- Progress Pie/Score can go here if needed -->
+                  {% if l.user_prog and l.user_prog.percent > 0 and not l.user_prog.is_completed %}
+                  <div
+                    class="text-xs font-black text-sky-400 bg-sky-500/10 px-2 py-1 rounded-lg border border-sky-500/20">
+                    {{ l.user_prog.percent }}%
+                  </div>
+                  {% endif %}
+                </div>
+              </a>
+            </div>
+
+            <!-- Spacer for Timeline Alignment (Desktop Only) -->
+            <div class="hidden md:block md:w-[calc(50%-3rem)]"></div>
+
+          </div>
+          {% empty %}
+          <div class="text-center py-10">
+            <div class="inline-block p-4 rounded-full bg-slate-800/50 border border-white/5 text-slate-600 mb-3">
+              <i class="fas fa-inbox text-2xl"></i>
+            </div>
+            <p class="text-slate-500 text-sm font-medium">Hali darslar qo‘shilmagan.</p>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+  </div>
   {% empty %}
-  <div class="rounded-[2.5rem] border border-white/10 bg-slate-900/40 p-12 text-center text-slate-500 font-medium">
-    Bu kursda hozircha bo'limlar yo‘q.
+  <div class="py-20 text-center rounded-[3rem] border border-white/5 bg-slate-900/40 border-dashed">
+    <div class="text-6xl mb-6 opacity-20 filter grayscale">🏗️</div>
+    <h3 class="text-2xl font-black text-white mb-2">Hozircha bo'sh</h3>
+    <p class="text-slate-500 max-w-md mx-auto">Bu kursga hali hech qanday dars yoki bo'lim qo'shilmagan. Tez orada
+      yangiliklar bo'ladi!</p>
   </div>
   {% endfor %}
 </div>
 
-<!-- Bottom Info -->
-<div class="mt-12 group relative rounded-[2.5rem] p-[1px] overflow-hidden transition-all hover:translate-y-[-2px]">
-  <div class="absolute inset-0 bg-gradient-to-r from-emerald-500/20 to-sky-500/20"></div>
-  <div
-    class="relative bg-slate-900/80 backdrop-blur-xl p-8 rounded-[2.4rem] border border-white/5 flex items-start gap-6">
-    <div class="h-12 w-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-2xl">💡
+<!-- FLOATING TIP -->
+<div class="fixed bottom-8 right-8 z-50 hidden md:block animate-bounce-slow">
+  <div class="relative group cursor-pointer">
+    <div
+      class="absolute inset-0 bg-emerald-500 rounded-full blur-xl opacity-20 group-hover:opacity-40 transition-opacity">
     </div>
-    <div class="space-y-2">
-      <div class="text-lg font-black text-white">O'quv maslahati</div>
-      <p class="text-base text-slate-400 leading-relaxed font-medium">
-        Har bir bo‘limni tizimli ravishda: <span class="text-emerald-400">dars</span> → <span
-          class="text-sky-400">mashq</span> → <span class="text-amber-400">takrorlash</span> ketma-ketligida o'rganing.
-        Katta natijalarga har kungi kichik qadamlar bilan erishiladi!
-      </p>
+    <div
+      class="relative h-14 w-14 rounded-full bg-slate-900 border border-emerald-500/50 flex items-center justify-center text-emerald-400 shadow-2xl hover:scale-110 transition-transform">
+      <i class="fas fa-lightbulb text-xl"></i>
+    </div>
+    <!-- Tooltip -->
+    <div
+      class="absolute bottom-full right-0 mb-4 w-64 p-4 rounded-2xl bg-slate-800 border border-white/10 shadow-2xl opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all pointer-events-none">
+      <h4 class="text-white font-bold text-sm mb-1">Maslahat</h4>
+      <p class="text-slate-400 text-xs leading-relaxed">Darslarni ketma-ket bajarish tavsiya etiladi. Har bir darsdan
+        so'ng mashqlarni bajaring.</p>
     </div>
   </div>
 </div>
 
+<style>
+  .animate-bounce-slow {
+    animation: bounce 3s infinite;
+  }
+
+  @keyframes bounce {
+
+    0%,
+    100% {
+      transform: translateY(-5%);
+    }
+
+    50% {
+      transform: translateY(5%);
+    }
+  }
+</style>
 {% endblock %}

@@ -1,191 +1,238 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Dashboard | AlifPro{% endblock %}
+{% block title %}AlifPro - Dashboard{% endblock %}
 
 {% block content %}
-<div class="max-w-6xl mx-auto py-6 space-y-6">
+<div class="grid lg:grid-cols-3 gap-8" x-data="homeDashboard">
 
-    <!-- Welcome Header -->
-    <div class="flex items-center justify-between">
-        <div>
-            {% if user.username %}
-            <h1 class="text-2xl font-bold text-white">Salom, {{ user.username }}!</h1>
-            {% else %}
-            <h1 class="text-2xl font-bold text-white">Salom, O'quvchi!</h1>
-            {% endif %}
-            <p class="text-slate-400 text-sm">Bugun nimani o'rganamiz?</p>
-        </div>
+  <!-- LEFT COLUMN (Content) -->
+  <div class="lg:col-span-2 space-y-8">
 
-        {% if game %}
-        <div class="flex items-center gap-4">
-            <!-- Streak -->
-            <div class="flex items-center gap-2 px-3 py-2 bg-orange-500/10 rounded-lg border border-orange-500/20">
-                <span class="text-xl">🔥</span>
-                {% if game.current_streak %}
-                <span class="font-bold text-orange-400">{{ game.current_streak }} kun</span>
-                {% else %}
-                <span class="font-bold text-orange-400">0 kun</span>
-                {% endif %}
-            </div>
-            <!-- XP -->
-            <div class="flex items-center gap-2 px-3 py-2 bg-emerald-500/10 rounded-lg border border-emerald-500/20">
-                <span class="text-xl">⭐</span>
-                {% if game.xp_total %}
-                <span class="font-bold text-emerald-400">{{ game.xp_total }} XP</span>
-                {% else %}
-                <span class="font-bold text-emerald-400">0 XP</span>
-                {% endif %}
-            </div>
-        </div>
-        {% endif %}
+    <!-- Greeting Header -->
+    <div class="animate-fade-in-up">
+      <h1 class="text-3xl font-black text-white">Salom, <span x-text="user.username || '{{ user.username }}'"></span>!
+      </h1>
+      <p class="text-slate-400 font-medium">Bugun nimani o'rganamiz?</p>
     </div>
 
-    <!-- Main Grid -->
-    <div class="grid lg:grid-cols-3 gap-6">
-
-        <!-- Left Column (2/3) -->
-        <div class="lg:col-span-2 space-y-6">
-
-            <!-- Continue Learning -->
-            {% if user.profile.current_course %}
-            <div class="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl p-6">
-                <h2 class="text-xl font-bold text-white mb-2">Davom eting</h2>
-                <p class="text-indigo-200 mb-4">{{ user.profile.current_course.title }}</p>
-                <a href="{% url 'arab:course_detail' pk=user.profile.current_course.id %}"
-                    class="inline-block px-5 py-2 bg-white text-indigo-600 font-bold rounded-lg hover:bg-indigo-100 transition">
-                    O'qishni boshlash →
-                </a>
-            </div>
-            {% endif %}
-
-            <!-- Quick Actions -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <a href="/alphabet/"
-                    class="p-5 rounded-[2rem] bg-slate-900/50 border border-white/5 hover:bg-slate-800 hover:border-emerald-500/30 transition-all text-center group shadow-lg">
-                    <div class="text-3xl mb-2 group-hover:scale-110 transition-transform">🔤</div>
-                    <div class="text-xs font-black text-white uppercase tracking-widest">Alifbo</div>
-                </a>
-                <a href="/dictionary/"
-                    class="p-5 rounded-[2rem] bg-slate-900/50 border border-white/5 hover:bg-slate-800 hover:border-sky-500/30 transition-all text-center group shadow-lg">
-                    <div class="text-3xl mb-2 group-hover:scale-110 transition-transform">📚</div>
-                    <div class="text-xs font-black text-white uppercase tracking-widest">Lug'at</div>
-                </a>
-                <a href="/practice/"
-                    class="p-5 rounded-[2rem] bg-slate-900/50 border border-white/5 hover:bg-slate-800 hover:border-amber-500/30 transition-all text-center group shadow-lg">
-                    <div class="text-3xl mb-2 group-hover:scale-110 transition-transform">🎯</div>
-                    <div class="text-xs font-black text-white uppercase tracking-widest">Mashq</div>
-                </a>
-                <a href="/leagues/"
-                    class="p-5 rounded-[2rem] bg-slate-900/50 border border-white/5 hover:bg-slate-800 hover:border-purple-500/30 transition-all text-center group shadow-lg">
-                    <div class="text-3xl mb-2 group-hover:scale-110 transition-transform">🏆</div>
-                    <div class="text-xs font-black text-white uppercase tracking-widest">Liga</div>
-                </a>
-            </div>
-
-            <!-- Available Courses -->
-            <div class="bg-slate-900/50 rounded-2xl border border-white/5 p-5">
-                <h3 class="text-lg font-bold text-white mb-4">Mavjud Kurslar</h3>
-                <div class="space-y-3">
-                    {% for course in courses %}
-                    <a href="{% url 'arab:course_detail' pk=course.id %}"
-                        class="flex items-center gap-4 p-3 rounded-xl bg-slate-800/50 hover:bg-slate-800 transition">
-                        <div class="w-10 h-10 rounded-lg bg-slate-700 flex items-center justify-center text-xl">
-                            {% if course.level == 'A0' %}🌱{% elif course.level == 'A1' %}🌿{% else %}🌳{% endif %}
-                        </div>
-                        <div class="flex-1">
-                            <div class="font-medium text-white">{{ course.title }}</div>
-                            <div class="text-xs text-slate-500">{{ course.level }} daraja</div>
-                        </div>
-                        <i class="fas fa-chevron-right text-slate-500"></i>
-                    </a>
-                    {% empty %}
-                    <p class="text-slate-500 text-sm">Kurslar topilmadi</p>
-                    {% endfor %}
-                </div>
-            </div>
-
-        </div>
-
-        <!-- Right Sidebar (1/3) -->
-        <div class="space-y-6">
-
-            <!-- User Stats Card -->
-            <div class="bg-slate-900/50 rounded-2xl border border-white/5 p-5">
-                <h3 class="font-bold text-white mb-4">Sizning statistikangiz</h3>
-                <div class="space-y-3">
-                    <div class="flex justify-between items-center">
-                        <span class="text-slate-400">Level</span>
-                        {% if game.level %}
-                        <span class="font-bold text-white">{{ game.level }}</span>
-                        {% else %}
-                        <span class="font-bold text-white">1</span>
-                        {% endif %}
-                    </div>
-                    <div class="flex justify-between items-center">
-                        <span class="text-slate-400">Liga</span>
-                        <span class="font-bold text-yellow-400">{{ game.get_current_league_display }}</span>
-                    </div>
-                    <div class="flex justify-between items-center">
-                        <span class="text-slate-400">Yuraklar</span>
-                        {% if game.hearts %}
-                        <span class="font-bold text-red-400">❤️ {{ game.hearts }}</span>
-                        {% else %}
-                        <span class="font-bold text-red-400">❤️ 5</span>
-                        {% endif %}
-                    </div>
-                    <div class="flex justify-between items-center">
-                        <span class="text-slate-400">Liga XP</span>
-                        {% if game.league_xp %}
-                        <span class="font-bold text-emerald-400">{{ game.league_xp }}</span>
-                        {% else %}
-                        <span class="font-bold text-emerald-400">0</span>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-
-            <!-- Daily Quests -->
-            {% if daily_quests %}
-            <div class="bg-slate-900/50 rounded-2xl border border-white/5 p-5">
-                <div class="flex items-center justify-between mb-4">
-                    <h3 class="font-bold text-white flex items-center gap-2">
-                        <span class="text-yellow-500">📜</span> Kunlik missiyalar
-                    </h3>
-                </div>
-                <div class="space-y-3">
-                    {% for uq in daily_quests %}
-                    <div class="p-3 rounded-xl bg-slate-800/50 border border-white/5">
-                        <div class="flex justify-between items-center mb-2">
-                            <span class="text-sm text-white">{{ uq.mission.title }}</span>
-                            <span class="text-xs text-emerald-400">+{{ uq.mission.xp_reward }} XP</span>
-                        </div>
-                        <div class="h-1.5 bg-slate-900 rounded-full">
-                            {% if uq.progress_percent %}
-                            <div class="h-full bg-emerald-500 rounded-full" style="width: {{ uq.progress_percent }}%">
-                            </div>
-                            {% else %}
-                            <div class="h-full bg-emerald-500 rounded-full" style="width: 0%">
-                            </div>
-                            {% endif %}
-                        </div>
-                        <div class="text-xs text-slate-500 mt-1">{{ uq.current_progress }}/{{ uq.mission.required_count }}</div>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-            {% endif %}
-
-            <!-- Shop Link -->
-            <a href="/shop/"
-                class="block bg-gradient-to-r from-sky-600 to-cyan-600 rounded-2xl p-5 hover:scale-[1.02] transition">
-                <h3 class="font-bold text-white mb-1">🛒 Do'kon</h3>
-                <p class="text-sky-200 text-sm">Streak Freeze va boshqa itemlar</p>
-            </a>
-
-        </div>
-
+    <!-- CONTINUE BANNER -->
+    <div
+      class="relative overflow-hidden rounded-[2rem] bg-gradient-to-r from-purple-600 to-indigo-600 p-8 shadow-2xl shadow-purple-900/20 group">
+      <div class="relative z-10">
+        <h2 class="text-2xl font-black text-white mb-2"
+          x-text="user.next_lesson ? user.next_lesson.title : 'Davom eting'">Davom eting</h2>
+        <p class="text-white/80 font-medium mb-6"
+          x-text="user.next_lesson ? user.next_lesson.subtitle : 'Arab tili asoslari'"></p>
+        <a :href="user.next_lesson ? user.next_lesson.url : '/courses/'"
+          class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white text-purple-700 font-bold hover:bg-purple-50 transition active:scale-95 shadow-lg">
+          <span x-text="user.next_lesson ? user.next_lesson.btn_text : 'O\'qishni boshlash'"></span> <i
+            class="fas fa-arrow-right ml-1 transition-transform group-hover:translate-x-1"></i>
+        </a>
+      </div>
+      <!-- Decorative blobs -->
+      <div
+        class="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 rounded-full bg-white/10 blur-3xl group-hover:bg-white/15 transition duration-1000">
+      </div>
+      <div class="absolute bottom-0 left-0 -ml-16 -mb-16 w-48 h-48 rounded-full bg-black/10 blur-2xl"></div>
     </div>
+
+    <!-- QUICK ACTIONS GRID -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+      <!-- Alifbo -->
+      <a href="/alphabet/"
+        class="group flex flex-col items-center justify-center p-6 rounded-[2rem] bg-slate-900/40 backdrop-blur-xl border border-white/10 hover:border-blue-500/50 hover:bg-blue-500/5 transition-all">
+        <div
+          class="h-12 w-12 mb-3 rounded-2xl bg-blue-500/10 flex items-center justify-center text-2xl group-hover:scale-110 transition">
+          🔤
+        </div>
+        <span
+          class="font-black text-xs uppercase tracking-widest text-slate-300 group-hover:text-blue-400">Alifbo</span>
+      </a>
+
+      <!-- Lug'at -->
+      <a href="/dictionary/"
+        class="group flex flex-col items-center justify-center p-6 rounded-[2rem] bg-slate-900/40 backdrop-blur-xl border border-white/10 hover:border-emerald-500/50 hover:bg-emerald-500/5 transition-all">
+        <div
+          class="h-12 w-12 mb-3 rounded-2xl bg-emerald-500/10 flex items-center justify-center text-2xl group-hover:scale-110 transition">
+          📚
+        </div>
+        <span
+          class="font-black text-xs uppercase tracking-widest text-slate-300 group-hover:text-emerald-400">Lug'at</span>
+      </a>
+
+      <!-- Mashq -->
+      <a href="/practice/"
+        class="group flex flex-col items-center justify-center p-6 rounded-[2rem] bg-slate-900/40 backdrop-blur-xl border border-white/10 hover:border-pink-500/50 hover:bg-pink-500/5 transition-all">
+        <div
+          class="h-12 w-12 mb-3 rounded-2xl bg-pink-500/10 flex items-center justify-center text-2xl group-hover:scale-110 transition">
+          🎯
+        </div>
+        <span class="font-black text-xs uppercase tracking-widest text-slate-300 group-hover:text-pink-400">Mashq</span>
+      </a>
+
+      <!-- Liga -->
+      <a href="/leagues/"
+        class="group flex flex-col items-center justify-center p-6 rounded-[2rem] bg-slate-900/40 backdrop-blur-xl border border-white/10 hover:border-yellow-500/50 hover:bg-yellow-500/5 transition-all">
+        <div
+          class="h-12 w-12 mb-3 rounded-2xl bg-yellow-500/10 flex items-center justify-center text-xl group-hover:scale-110 transition">
+          🏆
+        </div>
+        <span
+          class="font-black text-xs uppercase tracking-widest text-slate-300 group-hover:text-yellow-400">Liga</span>
+      </a>
+    </div>
+
+    <!-- COURSES LIST -->
+    <div>
+      <h3 class="text-lg font-bold text-white mb-4">Mavjud Kurslar</h3>
+      <div class="space-y-4">
+        <!-- Dynamic Course Cards -->
+        <template x-for="course in user.courses" :key="course.id">
+          <a :href="course.url"
+            class="block group relative overflow-hidden rounded-[2rem] bg-slate-900/40 backdrop-blur-xl border border-white/10 hover:border-emerald-500/30 transition-all p-5">
+            <div class="flex items-center gap-5">
+              <div
+                class="h-16 w-16 rounded-2xl bg-gradient-to-br from-emerald-500/20 to-teal-500/20 flex items-center justify-center text-3xl"
+                x-text="course.icon || '🌱'"></div>
+              <div class="flex-1">
+                <h4 class="text-lg font-bold text-white group-hover:text-emerald-400 transition" x-text="course.title">
+                </h4>
+                <p class="text-sm text-slate-400 mt-1" x-text="course.level + ' daraja • Kurs'"></p>
+              </div>
+              <div
+                class="h-10 w-10 rounded-full border border-white/10 flex items-center justify-center text-slate-400 group-hover:bg-emerald-500/10 group-hover:text-emerald-400 transition">
+                <i class="fas fa-chevron-right"></i>
+              </div>
+            </div>
+          </a>
+        </template>
+
+        <!-- Empty State -->
+        <template x-if="!user.courses || user.courses.length === 0">
+          <div class="text-center p-8 border border-white/5 rounded-[2rem] bg-slate-900/20">
+            <div class="text-4xl mb-2">🎓</div>
+            <div class="text-base font-bold text-white">Kurslar yuklanmoqda...</div>
+          </div>
+        </template>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- RIGHT COLUMN (Sidebar) -->
+  <div class="space-y-6">
+
+    <!-- Top Stats Row (Mobile only usually, but sidebar here) -->
+    <div class="flex gap-3">
+      <div
+        class="flex-1 rounded-2xl bg-slate-900/40 backdrop-blur-xl border border-orange-500/20 p-3 flex items-center justify-center gap-2">
+        <i class="fas fa-fire text-orange-500"></i>
+        <span class="font-black text-orange-100" x-text="(user.streak || 0) + ' kun'"></span>
+      </div>
+      <div
+        class="flex-1 rounded-2xl bg-slate-900/40 backdrop-blur-xl border border-emerald-500/20 p-3 flex items-center justify-center gap-2">
+        <i class="fas fa-star text-emerald-400"></i>
+        <span class="font-black text-emerald-100" x-text="(user.xp || 0) + ' XP'"></span>
+      </div>
+    </div>
+
+    <!-- Stats Card -->
+    <div class="p-6 rounded-[2rem] bg-slate-900/40 backdrop-blur-xl border border-white/10">
+      <h3 class="text-lg font-bold text-white mb-6">Sizning statistikangiz</h3>
+      <div class="space-y-5">
+        <div class="flex items-center justify-between">
+          <span class="text-slate-400 text-sm font-medium">Level</span>
+          <span class="font-bold text-white" x-text="user.level || '0'"></span>
+        </div>
+        <div class="flex items-center justify-between">
+          <span class="text-slate-400 text-sm font-medium">Liga</span>
+          <span class="font-bold text-amber-400 uppercase text-sm" x-text="user.league || 'Bronze'"></span>
+        </div>
+        <div class="flex items-center justify-between">
+          <span class="text-slate-400 text-sm font-medium">Yuraklar</span>
+          <div class="flex items-center gap-1 text-red-500 font-bold">
+            <i class="fas fa-heart"></i>
+            <span x-text="user.hearts || 5"></span>
+          </div>
+        </div>
+        <div class="flex items-center justify-between">
+          <span class="text-slate-400 text-sm font-medium">Liga XP</span>
+          <span class="font-bold text-emerald-400" x-text="user.xp || 0"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Daily Missions -->
+    <div class="p-6 rounded-[2rem] bg-slate-900/40 backdrop-blur-xl border border-white/10">
+      <div class="flex items-center gap-2 mb-6">
+        <i class="fas fa-scroll text-amber-400"></i>
+        <h3 class="text-lg font-bold text-white">Kunlik missiyalar</h3>
+      </div>
+
+      <div class="space-y-5">
+        <!-- Dynamic Quests -->
+        <template x-for="q in user.quests" :key="q.title">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-sm font-bold text-slate-200" x-text="q.title"></span>
+              <span
+                class="text-[10px] font-black uppercase tracking-wider text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded"
+                x-text="'+' + q.xp_reward + ' XP'"></span>
+            </div>
+            <div class="relative h-1.5 rounded-full bg-white/5 overflow-hidden">
+              <div class="h-full bg-emerald-500 rounded-full transition-all duration-500"
+                :style="`width: ${q.percent}%`"></div>
+            </div>
+            <div class="mt-1 flex justify-end">
+              <span class="text-[10px] text-slate-500 font-bold" x-text="q.current + '/' + q.target"></span>
+            </div>
+          </div>
+        </template>
+
+        <!-- Empty State -->
+        <template x-if="!user.quests || user.quests.length === 0">
+          <div class="py-4 text-center text-sm text-slate-500">
+            Hozircha missiyalar yo'q.
+          </div>
+        </template>
+      </div>
+    </div>
+
+  </div>
 
 </div>
+
+<script>
+  document.addEventListener('alpine:init', () => {
+    Alpine.data('homeDashboard', () => ({
+      user: {
+        username: '{{ user.username }}', // Initial SSR value
+        level: '{{ user.profile.level|default:"A0" }}',
+        xp: 0,
+        streak: 0,
+        hearts: 5,
+        league: 'Bronze',
+        quests: [],
+        next_lesson: null,
+        courses: []
+      },
+
+      init() {
+        this.fetchData();
+      },
+
+      async fetchData() {
+        try {
+          const res = await fetch('/api/home/');
+          if (!res.ok) throw new Error('API Error');
+          const data = await res.json();
+          this.user = data;
+        } catch (err) {
+          console.error('Home Dashboard Error:', err);
+        }
+      }
+    }))
+  })
+</script>
 {% endblock %}

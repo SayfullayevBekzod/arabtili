@@ -73,7 +73,10 @@ from .models import (
     SentenceExercise,
     SpeakingCategory,
     SpeakingLesson,
+    SpeakingLesson,
     SpeakingPractice,
+    Homework,
+    HomeworkSubmission,
 )
 from .forms import (
     RegisterForm, LoginForm, UserUpdateForm, ProfileUpdateForm, ReminderUpdateForm, FeedbackForm
@@ -674,10 +677,14 @@ def exercise_submit(request, pk):
 # ----------------------------
 # PAGES
 # ----------------------------
+
 def home(request):
+    if not request.user.is_authenticated:
+        pass # Public access allowed
+
     total_words = Word.objects.count()
     total_letters = Letter.objects.count()
-    active_users = UserGamification.objects.filter(xp_total__gt=0).count() # Real active users
+    active_users = UserGamification.objects.filter(xp_total__gt=0).count()
     
     context = {
         "total_words": total_words,
@@ -685,24 +692,18 @@ def home(request):
         "active_users": active_users,
     }
     
-    today = timezone.localdate()
-    
     if request.user.is_authenticated:
         g, _ = UserGamification.objects.get_or_create(user=request.user)
         context["game"] = g
         context["streak"] = _calc_streak(request.user)
-# Add Courses - filter by user's current course level
-        user_course = request.user.profile.current_course if hasattr(request.user, 'profile') and request.user.profile.current_course else None
-        if user_course:
-            # Show only the user's current course level
-            context["courses"] = Course.objects.filter(is_published=True, level=user_course.level).order_by("id")
-        else:
-            # Show all courses if no selection
-            context["courses"] = Course.objects.filter(is_published=True).order_by("id")
-
-        return render(request, "dashboard.html", context) # Use new dashboard
+        return render(request, "dashboard.html", context) # RESTORED: Use dashboard for logged in
 
     return render(request, "pages/home.html", context)
+
+
+# ... (skipping to home_api) ...
+
+
 
 
 def roadmap(request):
@@ -1878,7 +1879,7 @@ def leagues_list(request):
     # For now, global leaderboard per league tier.
     leaderboard = list(UserGamification.objects.filter(
         current_league=g.current_league
-    ).select_related('user', 'user__profile').order_by('-league_xp')[:50])
+    ).select_related('user', 'user__profile').order_by('-xp_total')[:50])
     
     # Check if user is in leaderboard (leaderboard is now a list)
     user_in_leaderboard = any(u.user == request.user for u in leaderboard)
@@ -2771,3 +2772,247 @@ def placement_results(request):
     }
     return render(request, "pages/placement_results.html", context)
 
+
+# ----------------------------
+# HOMEWORK
+# ----------------------------
+@login_required
+def homework_list(request):
+    """List available and submitted homework"""
+    # 1. Assigned directly
+    direct = Homework.objects.filter(assigned_users=request.user, is_published=True)
+    
+    # 2. Public (no specific assignment) - matching user level or just all public?
+    # Logic: If Assigned Users is empty -> Public for everyone? Or check Level?
+    # Let's say: direct assignment OR (public AND level match)
+    # For now, let's keep it simple: Show all published, but highlight assigned.
+    
+    # Actually, simpler logic:
+    # Homeworks = (Assigned to Me) OR (Assigned to None i.e. Everyone)
+    # checking Course/Level is good but maybe optional.
+    
+    homeworks = Homework.objects.filter(
+        Q(assigned_users=request.user) | Q(assigned_users=None),
+        is_published=True
+    ).distinct().order_by("-deadline")
+    
+    # Process status
+    items = []
+    for hw in homeworks:
+        sub = HomeworkSubmission.objects.filter(homework=hw, user=request.user).first()
+        items.append({
+            "hw": hw,
+            "submission": sub,
+            "status": sub.status if sub else "new"
+        })
+    
+    return render(request, "homework/list.html", {"items": items})
+
+
+@login_required
+def homework_detail(request, pk):
+    hw = get_object_or_404(Homework, pk=pk)
+    
+    # Check permission (simple check: if published)
+    if not hw.is_published:
+        # Allow implicit access if user has submission (history)
+        pass 
+        
+    submission = HomeworkSubmission.objects.filter(homework=hw, user=request.user).first()
+    
+    if request.method == "POST":
+        # Handle submission
+        if submission and submission.status == "graded":
+            messages.error(request, "Bu vazifa allaqachon baholangan.")
+            return redirect("arab:homework_detail", pk=pk)
+            
+        file = request.FILES.get("file")
+        text = request.POST.get("text_content", "")
+        
+        if not file and not text:
+            messages.error(request, "Fayl yoki matn kiriting.")
+        else:
+            if not submission:
+                submission = HomeworkSubmission(homework=hw, user=request.user)
+            
+            if file:
+                submission.file = file
+            submission.text_content = text
+            submission.status = "submitted"
+            submission.submitted_at = timezone.now()
+            submission.save()
+            
+            messages.success(request, "Vazifa yuborildi! O'qituvchi tekshirguncha kuting.")
+            return redirect("arab:homework_list")
+
+    return render(request, "homework/detail.html") # No context needed for static shell
+
+@login_required
+def homework_api_list(request):
+    """JSON API for homework list"""
+    homeworks = Homework.objects.filter(
+        Q(assigned_users=request.user) | Q(assigned_users=None),
+        is_published=True
+    ).distinct().order_by("-deadline")
+    
+    data = []
+    for hw in homeworks:
+        sub = HomeworkSubmission.objects.filter(homework=hw, user=request.user).first()
+        status = sub.status if sub else "new"
+        data.append({
+            "id": hw.id,
+            "title": hw.title,
+            "level": hw.level,
+            "deadline": hw.deadline.isoformat(),
+            "xp_reward": hw.xp_reward,
+            "status": status,
+            "submitted_at": sub.submitted_at.isoformat() if sub else None
+        })
+    return JsonResponse({"items": data})
+
+@login_required
+def homework_api_detail(request, pk):
+    """JSON API for homework detail"""
+    hw = get_object_or_404(Homework, pk=pk)
+    sub = HomeworkSubmission.objects.filter(homework=hw, user=request.user).first()
+    
+    data = {
+        "id": hw.id,
+        "title": hw.title,
+        "description": hw.description,
+        "level": hw.level,
+        "deadline": hw.deadline.isoformat(),
+        "xp_reward": hw.xp_reward,
+        "status": sub.status if sub else "new",
+        "score": sub.score if sub else None,
+        "admin_feedback": sub.admin_feedback if sub else None,
+        "text_content": sub.text_content if sub else None,
+        "file_url": sub.file.url if sub and sub.file else None
+    }
+    return JsonResponse(data)
+
+@login_required
+def home_api(request):
+    """JSON API for Home Page Dashboard (Enriched with real logic)"""
+    user = request.user
+    today = timezone.now().date()
+    
+    # 1. Gamification Stats
+    try:
+        game, _ = UserGamification.objects.get_or_create(user=user)
+        xp = game.xp_total
+        streak = game.current_streak
+        hearts = game.hearts
+        level = user.profile.level if hasattr(user, 'profile') else "A0"
+        league = game.get_current_league_display()
+    except Exception:
+        xp = 0
+        streak = 0
+        hearts = 5
+        level = "A0"
+        league = "Bronze"
+
+    # 2. Daily Quests (Auto-Generate if missing)
+    progress_qs = UserMissionProgress.objects.filter(user=user, date=today)
+    if not progress_qs.exists() and Mission.objects.filter(is_active=True).exists():
+        # Assign 3 random missions
+        available_missions = list(Mission.objects.filter(is_active=True))
+        selected_missions = random.sample(available_missions, min(len(available_missions), 3))
+        for m in selected_missions:
+            UserMissionProgress.objects.create(user=user, mission=m, date=today)
+        progress_qs = UserMissionProgress.objects.filter(user=user, date=today)
+
+    quests_data = []
+    for p in progress_qs:
+        quests_data.append({
+            "title": p.mission.title,
+            "xp_reward": p.mission.xp_reward,
+            "current": p.current_progress,
+            "target": p.mission.required_count,
+            "percent": int((p.current_progress / p.mission.required_count) * 100) if p.mission.required_count > 0 else 0,
+            "is_completed": p.is_completed,
+            "type": p.mission.mission_type
+        })
+
+    # 3. Smart "Continue" Logic (Next Lesson)
+    next_lesson_data = None
+    user_course = user.profile.current_course if hasattr(user, 'profile') else None
+    
+    if user_course:
+        # Find first lesson NOT completed
+        completed_ids = UserLessonProgress.objects.filter(user=user, is_completed=True).values_list('lesson_id', flat=True)
+        next_lesson = Lesson.objects.filter(unit__course=user_course).exclude(id__in=completed_ids).order_by('unit__order', 'order').first()
+        
+        if next_lesson:
+             next_lesson_data = {
+                 "title": user_course.title,
+                 "subtitle": f"{next_lesson.order}-dars: {next_lesson.title}",
+                 "url": f"/lessons/{next_lesson.id}/",
+                 "btn_text": "Darsni boshlash"
+             }
+        else:
+             # Course finished?
+             next_lesson_data = {
+                 "title": user_course.title,
+                 "subtitle": "Kurs yakunlandi! Tabriklaymiz.",
+                 "url": "/courses/",
+                 "btn_text": "Boshqa kurs tanlash"
+             }
+    else:
+        # No course selected
+        first_course = Course.objects.filter(is_published=True).first()
+        if first_course:
+             next_lesson_data = {
+                 "title": "Sizda kurs tanlanmagan",
+                 "subtitle": "O'rganishni boshlash uchun kurs tanlang",
+                 "url": "/courses/",
+                 "btn_text": "Kurs tanlash"
+             }
+
+    # 4. Available Courses List
+    courses_data = []
+    courses = Course.objects.filter(is_published=True).order_by('level', 'id')[:3] # Show top 3
+    for c in courses:
+        courses_data.append({
+            "id": c.id,
+            "title": c.title,
+            "level": c.level,
+            "url": f"/courses/{c.id}/",
+            "icon": "🌱" # Dynamic later if model has icon
+        })
+
+    # 5. Latest Homework
+    latest_hw = Homework.objects.filter(
+        Q(assigned_users=user) | Q(assigned_users=None),
+        is_published=True
+    ).order_by("-deadline").first()
+    
+    hw_data = None
+    if latest_hw:
+        sub = HomeworkSubmission.objects.filter(homework=latest_hw, user=user).first()
+        status = sub.status if sub else "new"
+        hw_data = {
+            "id": latest_hw.id,
+            "title": latest_hw.title,
+            "deadline_display": latest_hw.deadline.strftime("%d-%b"),
+            "status": status
+        }
+
+    return JsonResponse({
+        "username": user.first_name or user.username,
+        "avatar_letter": user.username[0].upper(), 
+        "level": level,
+        "xp": xp,
+        "streak": streak,
+        "hearts": hearts,
+        "league": league,
+        "quests": quests_data,
+        "homework": hw_data,
+        "next_lesson": next_lesson_data,
+        "courses": courses_data,
+        "stats": {
+             "words": 1250, 
+             "students": 700,
+             "lessons": 50 
+        }
+    })

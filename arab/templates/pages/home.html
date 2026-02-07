@@ -1,319 +1,351 @@
-{% extends "base.html" %}
-{% load sanitize %}
-{% block title %}AlifPro Academy - Bosh Sahifa{% endblock %}
-{% block content %}
+<!doctype html>
+<html lang="uz">
 
-<!-- HERO SECTION -->
-<section
-  class="relative rounded-[2.5rem] border border-white/10 bg-slate-900/40 backdrop-blur-md mb-12 overflow-hidden">
-  <!-- Decorative Background Glows -->
-  <div
-    class="pointer-events-none absolute -top-40 -left-40 h-[500px] w-[500px] rounded-full bg-emerald-500/10 blur-[120px]">
-  </div>
-  <div
-    class="pointer-events-none absolute -bottom-40 -right-40 h-[500px] w-[500px] rounded-full bg-sky-500/10 blur-[120px]">
-  </div>
+<head>
+  <meta charset="utf-8">
+  <title>AlifPro - Arab Tili Akademiyasi (Bosh Sahifa)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#020617">
 
-  <div class="relative grid lg:grid-cols-2 gap-8 md:gap-12 items-center p-4 sm:p-6 md:p-8 lg:p-16">
+  <link rel="icon" type="image/svg+xml" href="/static/img/logo_alifpro.svg">
 
-    <!-- Hero Left -->
-    <div class="space-y-8">
+  <!-- FONTS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;700;900&family=Inter:wght@400;600;800&display=swap"
+    rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+  <style>
+    /* Ultra-Minimalist Text Loader */
+    .loader-wrapper {
+      position: fixed;
+      inset: 0;
+      background: #020617;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10000;
+      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .loader-content {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .loader-text {
+      font-weight: 800;
+      letter-spacing: 0.6em;
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.4);
+      text-transform: uppercase;
+      background: linear-gradient(90deg, #10b981, #3b82f6);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: text-glow 2s ease-in-out infinite;
+    }
+
+    body {
+      overflow-x: hidden;
+      background-color: #020617;
+      color: white;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .arabic-font {
+      font-family: "Noto Naskh Arabic", serif;
+    }
+
+    .nav-link {
+      position: relative;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .nav-link:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #020617;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      border: 2px solid #020617;
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-20px);
+      }
+    }
+
+    .animate-float {
+      animation: float 6s ease-in-out infinite;
+    }
+  </style>
+</head>
+
+<body class="bg-slate-950 text-white selection:bg-emerald-400/30">
+
+  <!-- HEADER -->
+  <header class="sticky top-3 z-50">
+    <div class="mx-auto w-[min(1150px,92%)]">
       <div
-        class="inline-flex items-center gap-3 px-4 py-2 rounded-2xl bg-white/5 border border-white/10 text-[10px] font-black uppercase tracking-[0.3em] text-emerald-400">
-        <span class="relative flex h-2 w-2">
-          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-          <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-        </span>
-        Arab Tili Akademiyasi
-      </div>
+        class="flex items-center justify-between gap-3 rounded-3xl border border-white/10 bg-slate-950/30 backdrop-blur-xl px-4 sm:px-6 py-3 transition-all duration-500 hover:bg-white/5">
 
-      <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white leading-[1.1] tracking-tight">
-        Arab Tilini <br />
-        <span
-          class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-sky-400 to-emerald-400">Professional</span>
-        <br />
-        Darajada O'rgan
-      </h1>
-
-      <p class="text-slate-400 text-lg md:text-xl max-w-lg leading-relaxed font-medium">
-        Alifbodan mukammal lug'atgacha. Interaktiv va premium tizim bilan til o'rganishni san'atga aylantiring.
-      </p>
-
-      <div class="flex flex-wrap gap-4 pt-4">
-        {% if user.is_authenticated %}
-        <a href="/courses/"
-          class="group relative px-8 py-4 rounded-2xl bg-emerald-500 text-slate-950 font-black uppercase tracking-widest text-sm hover:scale-[1.05] active:scale-[0.95] transition-all shadow-2xl shadow-emerald-500/20">
-          O'qishni davom ettirish
-          <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+        <!-- Brand -->
+        <a href="/" class="flex items-center gap-3 group select-none">
+          <div
+            class="relative h-14 w-14 flex items-center justify-center rounded-full border border-white/10 bg-white p-0 overflow-hidden">
+            <img src="/static/img/logo_alifpro.svg" alt="AlifPro" class="relative z-10 h-full w-full object-cover">
+          </div>
         </a>
-        <a href="/exam/"
-          class="px-8 py-4 rounded-2xl bg-white/5 border border-white/10 text-white font-black uppercase tracking-widest text-sm hover:bg-white/10 transition-all">
-          Sinov savollari
-        </a>
-        {% else %}
-        <a href="/accounts/register/"
-          class="group relative px-8 py-4 rounded-2xl bg-emerald-500 text-slate-950 font-black uppercase tracking-widest text-sm hover:scale-[1.05] active:scale-[0.95] transition-all shadow-2xl shadow-emerald-500/20">
-          Hoziroq boshlash
-          <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
-        </a>
-        <a href="/courses/"
-          class="px-8 py-4 rounded-2xl bg-white/5 border border-white/10 text-white font-black uppercase tracking-widest text-sm hover:bg-white/10 transition-all">
-          Kurslarni ko'rish
-        </a>
-        {% endif %}
-      </div>
 
-      <!-- Stats -->
-      <div class="pt-10 flex gap-12 border-t border-white/5">
-        <div class="group">
-          <div class="text-3xl font-black text-white group-hover:text-emerald-400 transition-colors">
-            {% if total_words %}{{ total_words }}{% else %}528{% endif %}</div>
-          <div class="text-[10px] font-black text-slate-500 uppercase tracking-widest mt-1">Lug'at</div>
-        </div>
-        <div class="group">
-          <div class="text-3xl font-black text-white group-hover:text-sky-400 transition-colors">
-            {% if active_users %}{{ active_users }}{% else %}13{% endif %}</div>
-          <div class="text-[10px] font-black text-slate-500 uppercase tracking-widest mt-1">O'quvchilar</div>
-        </div>
-        <div class="group">
-          <div class="text-3xl font-black text-white group-hover:text-amber-400 transition-colors">
-            {% if total_letters %}{{ total_letters }}{% else %}28{% endif %}</div>
-          <div class="text-[10px] font-black text-slate-500 uppercase tracking-widest mt-1">Darslar</div>
-        </div>
-      </div>
-    </div>
+        <!-- Desktop Nav -->
+        <nav class="hidden lg:flex items-center gap-1 text-sm">
+          <a href="/alphabet/" class="nav-link px-3 py-2 rounded-xl text-slate-400">Alifbo</a>
+          <a href="/courses/" class="nav-link px-3 py-2 rounded-xl text-slate-400">Kurslar</a>
+          <a href="/dictionary/" class="nav-link px-3 py-2 rounded-xl text-slate-400">Lug'at</a>
+          <a href="/exam/" class="nav-link px-3 py-2 rounded-xl text-slate-400">Imtihon</a>
 
-    <!-- Hero Right - Visual Card -->
-    <div class="relative group">
-      <div
-        class="absolute -inset-1 bg-gradient-to-r from-emerald-500 to-sky-500 rounded-[2.5rem] blur opacity-25 group-hover:opacity-40 transition duration-1000">
-      </div>
-      <div class="relative bg-slate-900/80 backdrop-blur-2xl rounded-[2.2rem] border border-white/10 p-8 shadow-2xl">
-        {% if user.is_authenticated %}
-        <div class="space-y-6">
-          <div class="flex items-center justify-between">
-            <div>
-              <h3 class="text-xl font-black text-white">Salom, {{ user.username }}! 👋</h3>
-              <p class="text-xs text-slate-500 font-bold uppercase tracking-widest mt-1">Sizning natijalaringiz</p>
-            </div>
-            <div
-              class="h-14 w-14 rounded-2xl bg-gradient-to-br from-emerald-400/20 to-sky-400/20 border border-white/10 grid place-items-center">
-              <span class="text-xl font-black text-emerald-400">{% if game.level %}{{ game.level }}{% else %}1{% endif %}</span>
-            </div>
+          <div class="h-4 w-px bg-white/10 mx-1"></div>
+
+          <a href="/leagues/" class="nav-link px-3 py-2 rounded-xl text-slate-400"><i
+              class="fas fa-trophy text-yellow-400 mr-1"></i>Ligalar</a>
+          <a href="/shop/" class="nav-link px-3 py-2 rounded-xl text-slate-400">Do'kon</a>
+        </nav>
+
+        <!-- User Profile (SSR) -->
+        <div class="hidden sm:flex items-center gap-2">
+          {% if user.is_authenticated %}
+          <!-- XP Badge -->
+          <div
+            class="flex items-center gap-1.5 px-3 py-1 bg-gradient-to-r from-amber-500/10 to-orange-500/10 border border-amber-500/20 rounded-2xl">
+            <i class="fas fa-bolt text-amber-400 text-xs"></i>
+            <span class="text-xs font-bold text-amber-100">
+              {% if game %}{{ game.xp_total }}{% else %}0{% endif %} XP
+            </span>
           </div>
 
-          <div class="grid grid-cols-2 gap-4">
-            <div class="bg-white/5 rounded-2xl p-5 border border-white/5 hover:border-white/10 transition cursor-pointer" onclick="showFeatureInfo('streak')">
-              <div class="h-10 w-10 rounded-xl bg-orange-500/10 grid place-items-center text-xl mb-3">🔥</div>
-              <div class="text-2xl font-black text-white">{% if game.current_streak %}{{ game.current_streak }}{% else %}0{% endif %}</div>
-              <div class="text-[10px] font-black text-slate-500 uppercase tracking-widest">Kunlik</div>
-            </div>
-            <div class="bg-white/5 rounded-2xl p-5 border border-white/5 hover:border-white/10 transition cursor-pointer" onclick="showFeatureInfo('xp')">
-              <div class="h-10 w-10 rounded-xl bg-blue-500/10 grid place-items-center text-xl mb-3">⭐</div>
-              <div class="text-2xl font-black text-white">{% if game.xp_total %}{{ game.xp_total }}{% else %}0{% endif %}</div>
-              <div class="text-[10px] font-black text-slate-500 uppercase tracking-widest">XP</div>
-            </div>
-            <div class="bg-white/5 rounded-2xl p-5 border border-white/5 hover:border-white/10 transition cursor-pointer" onclick="showFeatureInfo('league')">
-              <div class="h-10 w-10 rounded-xl bg-yellow-500/10 grid place-items-center text-xl mb-3">🏆</div>
-              <div class="text-2xl font-black text-white line-clamp-1 text-sm">{% if game.get_current_league_display %}{{ game.get_current_league_display|safe_text }}{% else %}Bronze{% endif %}</div>
-              <div class="text-[10px] font-black text-slate-500 uppercase tracking-widest">Liga</div>
-            </div>
-            <div class="bg-white/5 rounded-2xl p-5 border border-white/5 hover:border-white/10 transition cursor-pointer" onclick="showFeatureInfo('hearts')">
-              <div class="h-10 w-10 rounded-xl bg-red-500/10 grid place-items-center text-xl mb-3">❤️</div>
-              <div class="text-2xl font-black text-white">{% if game.hearts %}{{ game.hearts }}{% else %}5{% endif %}
-              </div>
-              <div class="text-[10px] font-black text-slate-500 uppercase tracking-widest">Yuraklar</div>
-            </div>
-          </div>
-
+          <!-- User Dropdown -->
           <a href="/progress/"
-            class="flex items-center justify-center gap-2 w-full py-4 rounded-2xl bg-white/5 border border-emerald-500/20 hover:bg-emerald-500/10 transition-all group/btn">
-            <span class="text-sm font-black uppercase tracking-widest text-emerald-400">Batafsil statistika</span>
-            <i
-              class="fas fa-chevron-right text-xs text-emerald-400 group-hover/btn:translate-x-1 transition-transform"></i>
+            class="flex items-center gap-2 pl-1 pr-3 py-1 rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 transition">
+            <div class="h-8 w-8 rounded-xl bg-gradient-to-tr from-emerald-500 to-sky-500 p-0.5">
+              <div class="h-full w-full rounded-[10px] bg-slate-900 grid place-items-center">
+                <span class="text-xs font-bold text-white">{{ user.username|slice:":1" }}</span>
+              </div>
+            </div>
+            <span class="text-xs font-semibold text-slate-300">{{ user.username }}</span>
           </a>
-        </div>
-        {% else %}
-        <div class="text-center py-6 space-y-6">
-          <div class="relative inline-block">
-            <div
-              class="text-7xl mb-4 text-transparent bg-clip-text bg-gradient-to-b from-white to-white/20 select-none animate-float"
-              dir="rtl">ا ب ت</div>
-          </div>
-          <div>
-            <h3 class="text-2xl font-black text-white mb-2">Arab Alifbosi</h3>
-            <p class="text-slate-400 text-sm leading-relaxed max-w-[240px] mx-auto">28 ta harf, harakatlar va tajvid
-              qoidalari - hammasi bitta joyda.</p>
-          </div>
-          <a href="/alphabet/"
-            class="inline-flex px-8 py-3 rounded-2xl bg-white text-slate-950 text-sm font-black uppercase tracking-widest hover:scale-105 transition-transform shadow-xl">
-            Alifboni ko'rish
-          </a>
-        </div>
-        {% endif %}
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- Quick Actions -->
-<section class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
-  <a href="/alphabet/"
-    class="group relative p-6 rounded-[2rem] bg-slate-900/60 border border-white/10 hover:border-emerald-500/50 transition-all overflow-hidden">
-    <div class="absolute inset-0 bg-emerald-500/0 group-hover:bg-emerald-500/5 transition-colors"></div>
-    <div
-      class="h-12 w-12 rounded-2xl bg-emerald-500/10 grid place-items-center text-2xl mb-4 group-hover:scale-110 transition-transform">
-      🔤</div>
-    <h4 class="font-black text-white text-lg tracking-tight">Alifbo</h4>
-    <p class="text-[10px] font-black text-slate-500 uppercase tracking-widest mt-1">Darslar</p>
-  </a>
-
-  <a href="/dictionary/"
-    class="group relative p-6 rounded-[2rem] bg-slate-900/60 border border-white/10 hover:border-sky-500/50 transition-all overflow-hidden">
-    <div class="absolute inset-0 bg-sky-500/0 group-hover:bg-sky-500/5 transition-colors"></div>
-    <div
-      class="h-12 w-12 rounded-2xl bg-sky-500/10 grid place-items-center text-2xl mb-4 group-hover:scale-110 transition-transform">
-      📚</div>
-    <h4 class="font-black text-white text-lg tracking-tight">Lug'at</h4>
-    <p class="text-[10px] font-black text-slate-500 uppercase tracking-widest mt-1">So'zlar</p>
-  </a>
-
-  <a href="/courses/"
-    class="group relative p-6 rounded-[2rem] bg-slate-900/60 border border-white/10 hover:border-amber-500/50 transition-all overflow-hidden">
-    <div class="absolute inset-0 bg-amber-500/0 group-hover:bg-amber-500/5 transition-colors"></div>
-    <div
-      class="h-12 w-12 rounded-2xl bg-amber-500/10 grid place-items-center text-2xl mb-4 group-hover:scale-110 transition-transform">
-      🎓</div>
-    <h4 class="font-black text-white text-lg tracking-tight">Kurslar</h4>
-    <p class="text-[10px] font-black text-slate-500 uppercase tracking-widest mt-1">Bosqichlar</p>
-  </a>
-
-  <a href="/placement/"
-    class="group relative p-6 rounded-[2rem] bg-slate-900/60 border border-white/10 hover:border-fuchsia-500/50 transition-all overflow-hidden">
-    <div class="absolute inset-0 bg-fuchsia-500/0 group-hover:bg-fuchsia-500/5 transition-colors"></div>
-    <div
-      class="h-12 w-12 rounded-2xl bg-fuchsia-500/10 grid place-items-center text-2xl mb-4 group-hover:scale-110 transition-transform">
-      📋</div>
-    <h4 class="font-black text-white text-lg tracking-tight">Sinov</h4>
-    <p class="text-[10px] font-black text-slate-500 uppercase tracking-widest mt-1">Darajangiz</p>
-  </a>
-</section>
-
-{% if user.is_authenticated and daily_quests %}
-<!-- Daily Missions -->
-<section
-  class="relative rounded-[2.5rem] border border-white/10 bg-slate-900/40 backdrop-blur-md p-8 md:p-10 mb-12 overflow-hidden">
-  <div class="flex items-center justify-between mb-8">
-    <div>
-      <h2 class="text-2xl font-black text-white flex items-center gap-3">
-        <span class="text-yellow-500"><i class="fas fa-scroll"></i></span>
-        Kunlik Missiyalar
-      </h2>
-      <p class="text-xs text-slate-500 font-bold uppercase tracking-widest mt-1">Har 24 soatda yangilanadi</p>
-    </div>
-    <div
-      class="px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-[10px] font-black text-slate-400 uppercase tracking-widest">
-      Keyingi: 14:20:01
-    </div>
-  </div>
-
-  <div class="grid md:grid-cols-2 gap-6">
-    {% for mp in daily_quests %}
-    <div
-      class="group flex items-center gap-6 p-6 rounded-3xl bg-slate-800/40 border border-white/5 hover:border-emerald-500/30 transition-all">
-      <div class="relative">
-        <div
-          class="absolute inset-0 bg-emerald-500/20 rounded-2xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity">
-        </div>
-        <div
-          class="relative w-14 h-14 rounded-2xl bg-slate-950 border border-white/10 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
-          {% if mp.mission.mission_type == 'review' %}📚{% elif mp.mission.mission_type == 'lesson' %}🎓{% elif mp.mission.mission_type == 'word' %}🧩{% else %}⏱{% endif %}
-        </div>
-      </div>
-      <div class="flex-1 space-y-3">
-        <div class="flex items-center justify-between">
-          <div class="text-sm font-black text-white tracking-tight">{{ mp.mission.title }}</div>
-          <div class="text-[10px] font-black text-emerald-400 uppercase tracking-widest">+{{ mp.mission.xp_reward }} XP
-          </div>
-        </div>
-        <div class="relative h-2 w-full bg-slate-950 rounded-full overflow-hidden border border-white/5">
-          <div class="h-full bg-gradient-to-r from-emerald-500 to-sky-500 rounded-full transition-all duration-1000"
-            style="width: {{ mp.progress_percent }}%"></div>
-        </div>
-        <div class="flex items-center justify-between text-[10px] font-black uppercase tracking-widest">
-          <span class="text-slate-500">{{ mp.current_progress }} / {{ mp.mission.required_count }}</span>
-          {% if mp.is_completed %}
-          <span class="text-emerald-400">✓ Bajarildi</span>
           {% else %}
-          <span class="text-slate-400">Ishlamoqda...</span>
+          <a href="/accounts/login/" class="nav-link px-3 py-2 rounded-xl text-slate-400">Kirish</a>
           {% endif %}
         </div>
       </div>
     </div>
-    {% endfor %}
-  </div>
-</section>
-{% endif %}
+  </header>
 
-<!-- Feature Info Modal -->
-<div id="featureModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
-  <div class="bg-slate-900 rounded-2xl border border-white/10 p-6 max-w-md w-full">
-    <div class="flex items-center justify-between mb-4">
-      <h3 id="modalTitle" class="text-xl font-bold text-white"></h3>
-      <button onclick="closeFeatureModal()" class="text-slate-400 hover:text-white">
-        <i class="fas fa-times"></i>
-      </button>
-    </div>
-    <div id="modalContent" class="text-slate-300"></div>
-  </div>
-</div>
+  <!-- MAIN CONTENT (HOME) -->
+  <main class="mx-auto w-[min(1150px,92%)] py-4 sm:py-6 lg:py-8 lg:pb-8 pb-24 sm:pb-28">
 
-<script>
-function showFeatureInfo(feature) {
-  const modal = document.getElementById('featureModal');
-  const title = document.getElementById('modalTitle');
-  const content = document.getElementById('modalContent');
-  
-  const features = {
-    streak: {
-      title: '🔥 Kunlik Streak',
-      content: 'Har kuni o‘qib, streakingizni oshiring! Ketma-ket kunlar o‘qib, bonus XP va mukofotlarni qo‘lga kiriting. Streakni saqlash uchun har kuni kamida 10 daqiqa dars qiling.'
-    },
-    xp: {
-      title: '⭐ XP (Tajriba Ballari)',
-      content: 'Darslarni tamomlab, savollarga to‘g‘ri javob berib XP yig‘ing. XP orqali yangi darajalarga ko‘tarilasiz va ligalarda yuqoriroq chiqasiz.'
-    },
-    league: {
-      title: '🏆 Liga Tizimi',
-      content: 'Bronza, Kumush, Oltin va Platina ligalarida boshqa o‘quvchilar bilan bellashing. Har hafta eng yaxshi o‘quvchilar mukofotlanadi.'
-    },
-    hearts: {
-      title: '❤️ Yuraklar (Hayot)',
-      content: 'Mashqlarda xato qilganda yuraklar kamayadi. Yuraklar tugasa, kutish yoki do‘kondan qo‘shimcha yuraklar olish kerak. Har 30 daqiqada 1 ta yurak qo‘shiladi.'
-    }
-  };
-  
-  const info = features[feature];
-  title.textContent = info.title;
-  content.textContent = info.content;
-  
-  modal.classList.remove('hidden');
-  modal.classList.add('flex');
-}
+    <!-- HERO SECTION -->
+    <section
+      class="relative rounded-[2.5rem] border border-white/10 bg-slate-900/40 backdrop-blur-md mb-12 overflow-hidden">
+      <!-- Glows -->
+      <div
+        class="pointer-events-none absolute -top-40 -left-40 h-[500px] w-[500px] rounded-full bg-emerald-500/10 blur-[120px]">
+      </div>
+      <div
+        class="pointer-events-none absolute -bottom-40 -right-40 h-[500px] w-[500px] rounded-full bg-sky-500/10 blur-[120px]">
+      </div>
 
-function closeFeatureModal() {
-  const modal = document.getElementById('featureModal');
-  modal.classList.add('hidden');
-  modal.classList.remove('flex');
-}
+      <div class="relative grid lg:grid-cols-2 gap-8 md:gap-12 items-center p-4 sm:p-6 md:p-8 lg:p-16">
+        <!-- Left: Text -->
+        <div class="space-y-8">
+          <div
+            class="inline-flex items-center gap-3 px-4 py-2 rounded-2xl bg-white/5 border border-white/10 text-[10px] font-black uppercase tracking-[0.3em] text-emerald-400">
+            <span class="relative flex h-2 w-2">
+              <span
+                class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+            </span>
+            Arab Tili Akademiyasi
+          </div>
 
-// Close modal when clicking outside
-document.getElementById('featureModal').addEventListener('click', function(e) {
-  if (e.target === this) {
-    closeFeatureModal();
-  }
-});
-</script>
+          <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white leading-[1.1] tracking-tight">
+            Arab Tilini <br />
+            <span
+              class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-sky-400 to-emerald-400">Professional</span>
+            <br />
+            Darajada O'rgan
+          </h1>
 
-{% endblock %}
+          <p class="text-slate-400 text-lg md:text-xl max-w-lg leading-relaxed font-medium">
+            Alifbodan mukammal lug'atgacha. Interaktiv va premium tizim bilan til o'rganishni san'atga aylantiring.
+          </p>
+
+          <div class="flex flex-wrap gap-4 pt-4">
+            <!-- MAIN ACTION BUTTON -->
+            <a href="/courses/"
+              class="group relative px-8 py-4 rounded-2xl bg-emerald-500 text-slate-950 font-black uppercase tracking-widest text-sm hover:scale-[1.05] active:scale-[0.95] transition-all shadow-2xl shadow-emerald-500/20">
+              O'qishni davom ettirish
+              <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+            </a>
+
+            <a href="/exam/"
+              class="px-8 py-4 rounded-2xl bg-white/5 border border-white/10 text-white font-black uppercase tracking-widest text-sm hover:bg-white/10 transition-all">
+              Sinov savollari
+            </a>
+          </div>
+
+          <!-- Stats Row (SSR) -->
+          <div class="pt-10 flex gap-12 border-t border-white/5">
+            <div class="group">
+              <div class="text-3xl font-black text-white group-hover:text-emerald-400 transition-colors">
+                {{ total_words }}+
+              </div>
+              <div class="text-[10px] font-black text-slate-500 uppercase tracking-widest mt-1">Lug'at</div>
+            </div>
+            <div class="group">
+              <div class="text-3xl font-black text-white group-hover:text-sky-400 transition-colors">
+                {{ active_users }}+
+              </div>
+              <div class="text-[10px] font-black text-slate-500 uppercase tracking-widest mt-1">O'quvchilar</div>
+            </div>
+            <div class="group">
+              <div class="text-3xl font-black text-white group-hover:text-amber-400 transition-colors">
+                50+
+              </div>
+              <div class="text-[10px] font-black text-slate-500 uppercase tracking-widest mt-1">Darslar</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: User Card (SSR) -->
+        {% if user.is_authenticated %}
+        <div class="relative group">
+          <div
+            class="absolute -inset-1 bg-gradient-to-r from-emerald-500 to-sky-500 rounded-[2.5rem] blur opacity-25 group-hover:opacity-40 transition duration-1000">
+          </div>
+          <div
+            class="relative bg-slate-900/80 backdrop-blur-2xl rounded-[2.2rem] border border-white/10 p-8 shadow-2xl">
+            <div class="space-y-6">
+              <div class="flex items-center justify-between">
+                <div>
+                  <h3 class="text-xl font-black text-white">Salom! 👋</h3>
+                  <p class="text-xs text-slate-500 font-bold uppercase tracking-widest mt-1">Sizning natijalaringiz</p>
+                </div>
+                <div
+                  class="h-14 w-14 rounded-2xl bg-gradient-to-br from-emerald-400/20 to-sky-400/20 border border-white/10 grid place-items-center">
+                  <span class="text-xl font-black text-emerald-400">{{ user.profile.level|default:"A0" }}</span>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-2 gap-4">
+                <!-- Streak -->
+                <div class="bg-white/5 rounded-2xl p-5 border border-white/5 hover:border-white/10 transition">
+                  <div class="h-10 w-10 rounded-xl bg-orange-500/10 grid place-items-center text-xl mb-3">🔥</div>
+                  <div class="text-2xl font-black text-white">{{ streak }}</div>
+                  <div class="text-[10px] font-black text-slate-500 uppercase tracking-widest">Kunlik</div>
+                </div>
+                <!-- XP -->
+                <div class="bg-white/5 rounded-2xl p-5 border border-white/5 hover:border-white/10 transition">
+                  <div class="h-10 w-10 rounded-xl bg-blue-500/10 grid place-items-center text-xl mb-3">⭐</div>
+                  <div class="text-2xl font-black text-white">{% if game %}{{ game.xp_total }}{% else %}0{% endif %}
+                  </div>
+                  <div class="text-[10px] font-black text-slate-500 uppercase tracking-widest">XP</div>
+                </div>
+                <!-- League -->
+                <div class="bg-white/5 rounded-2xl p-5 border border-white/5 hover:border-white/10 transition">
+                  <div class="h-10 w-10 rounded-xl bg-yellow-500/10 grid place-items-center text-xl mb-3">🏆</div>
+                  <div class="text-2xl font-black text-white">{% if game %}{{ game.get_current_league_display }}{% else
+                    %}Bronze{% endif %}</div>
+                  <div class="text-[10px] font-black text-slate-500 uppercase tracking-widest">Liga</div>
+                </div>
+                <!-- Hearts -->
+                <div class="bg-white/5 rounded-2xl p-5 border border-white/5 hover:border-white/10 transition">
+                  <div class="h-10 w-10 rounded-xl bg-red-500/10 grid place-items-center text-xl mb-3">❤️</div>
+                  <div class="text-2xl font-black text-white">{% if game %}{{ game.hearts }}{% else %}5{% endif %}</div>
+                  <div class="text-[10px] font-black text-slate-500 uppercase tracking-widest">Yuraklar</div>
+                </div>
+              </div>
+
+              <a href="/progress/"
+                class="flex items-center justify-center gap-2 w-full py-4 rounded-2xl bg-white/5 border border-emerald-500/20 hover:bg-emerald-500/10 transition-all">
+                <span class="text-sm font-black uppercase tracking-widest text-emerald-400">Batafsil statistika</span>
+                <i class="fas fa-chevron-right text-xs text-emerald-400"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+
+      </div>
+    </section>
+
+    <!-- Quick Actions & Homework (CSR Targets) -->
+    <!-- Kept simplified static links -->
+    <section class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+      <!-- Alifbo -->
+      <a href="/alphabet/"
+        class="group relative p-6 rounded-[2rem] bg-slate-900/60 border border-white/10 hover:border-emerald-500/50 transition-all overflow-hidden">
+        <div class="h-12 w-12 rounded-2xl bg-emerald-500/10 grid place-items-center text-2xl mb-4">🔤</div>
+        <h4 class="font-black text-white text-lg tracking-tight">Alifbo</h4>
+        <p class="text-[10px] font-black text-slate-500 uppercase tracking-widest mt-1">Darslar</p>
+      </a>
+
+      <!-- Lug'at -->
+      <a href="/dictionary/"
+        class="group relative p-6 rounded-[2rem] bg-slate-900/60 border border-white/10 hover:border-sky-500/50 transition-all overflow-hidden">
+        <div class="h-12 w-12 rounded-2xl bg-sky-500/10 grid place-items-center text-2xl mb-4">📚</div>
+        <h4 class="font-black text-white text-lg tracking-tight">Lug'at</h4>
+        <p class="text-[10px] font-black text-slate-500 uppercase tracking-widest mt-1">So'zlar</p>
+      </a>
+
+      <!-- Kurslar -->
+      <a href="/courses/"
+        class="group relative p-6 rounded-[2rem] bg-slate-900/60 border border-white/10 hover:border-amber-500/50 transition-all overflow-hidden">
+        <div class="h-12 w-12 rounded-2xl bg-amber-500/10 grid place-items-center text-2xl mb-4">🎓</div>
+        <h4 class="font-black text-white text-lg tracking-tight">Kurslar</h4>
+        <p class="text-[10px] font-black text-slate-500 uppercase tracking-widest mt-1">Bosqichlar</p>
+      </a>
+    </section>
+
+  </main>
+
+  <script>
+    // Loader
+    document.addEventListener('DOMContentLoaded', () => {
+      const loader = document.querySelector('.loader-wrapper');
+      if (loader) {
+        setTimeout(() => {
+          loader.style.opacity = '0';
+          setTimeout(() => loader.remove(), 600);
+        }, 500);
+      }
+    });
+  </script>
+
+</body>
+
+</html>

@@ -257,6 +257,84 @@ class UserQuizAttemptAdmin(admin.ModelAdmin):
 class UserLetterExampleAdmin(admin.ModelAdmin):
     pass
 
+
+# ----------------- Homework -----------------
+from .models import Homework, HomeworkSubmission
+from .services.notifications import send_homework_notification, send_graded_notification
+
+@admin.register(Homework)
+class HomeworkAdmin(admin.ModelAdmin):
+    list_display = ("title", "level", "xp_reward", "deadline", "is_published", "created_at")
+    list_filter = ("level", "is_published", "course")
+    search_fields = ("title", "description")
+    ordering = ("-deadline",)
+    filter_horizontal = ("assigned_users",)
+    actions = ["publish_homework", "unpublish_homework"]
+    
+    def publish_homework(self, request, queryset):
+        queryset.update(is_published=True)
+        # Notify assigned users
+        count = queryset.count()
+        for hw in queryset:
+            for user in hw.assigned_users.all():
+                try:
+                    send_homework_notification(user, hw)
+                except Exception:
+                    pass # Fail silently in admin
+            # Also notify all users if no specific assignment? No, follow logic.
+            if not hw.assigned_users.exists():
+                # If no specific users, assume PUBLIC for that level? 
+                # Implementation plan said "All assigned users". 
+                # Let's keep it strict for now.
+                pass
+        self.message_user(request, f"{count} ta vazifa chop etildi.")
+    publish_homework.short_description = "Tanlanganlarni chop etish (Publish)"
+
+    def unpublish_homework(self, request, queryset):
+        queryset.update(is_published=False)
+    unpublish_homework.short_description = "Tanlanganlarni yashirish (Unpublish)"
+
+
+@admin.register(HomeworkSubmission)
+class HomeworkSubmissionAdmin(admin.ModelAdmin):
+    list_display = ("user", "homework", "status", "score", "submitted_at")
+    list_filter = ("status", "homework__level")
+    search_fields = ("user__username", "homework__title", "text_content")
+    ordering = ("-submitted_at",)
+    readonly_fields = ("submitted_at",)
+    
+    actions = ["approve_submission", "reject_submission"]
+    
+    def approve_submission(self, request, queryset):
+        for sub in queryset:
+            if sub.status != "graded":
+                sub.status = "graded"
+                # Award XP if not already set manually
+                if not sub.score:
+                    sub.score = sub.homework.xp_reward
+                sub.save()
+                
+                # Logic moved to save_model or signal, but here we invoke explicit save
+                # Award XP to user profile
+                # Check directly user gamification
+                try:
+                    game, _ = UserGamification.objects.get_or_create(user=sub.user)
+                    game.xp_total += sub.score
+                    game.save()
+                    
+                    # Notify
+                    send_graded_notification(sub.user, sub)
+                except Exception as e:
+                    print(f"Error awarding xp: {e}")
+        
+        self.message_user(request, "Tanlangan javoblar tasdiqlandi va XP berildi.")
+    approve_submission.short_description = "Tasdiqlash va XP berish"
+
+    def reject_submission(self, request, queryset):
+        queryset.update(status="rejected")
+        self.message_user(request, "Tanlangan javoblar rad etildi.")
+    reject_submission.short_description = "Rad etish"
+
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
     list_display = ("user", "avatar", "created_at")

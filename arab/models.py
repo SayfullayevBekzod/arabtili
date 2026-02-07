@@ -246,6 +246,14 @@ class Word(TimeStamped):
 
     diacritics = models.ManyToManyField(Diacritic, blank=True, related_name="words")
     audio = models.FileField(upload_to="audio/words/", blank=True, null=True)
+    
+    # Matching DB schema
+    audio_pending = models.BooleanField(default=False) 
+    audio_source = models.CharField(max_length=50, default="auto")
+    is_verified = models.BooleanField(default=False)
+    source_link = models.CharField(max_length=200, default="", blank=True)
+    source_name = models.CharField(max_length=100, default="", blank=True)
+    wazn = models.CharField(max_length=50, default="", blank=True)
 
     class Meta:
         ordering = ["arabic"]
@@ -1416,3 +1424,182 @@ class SpeakingPractice(TimeStamped):
     
     def __str__(self):
         return f"{self.user.username} - {self.lesson.title_uz}"
+
+
+# ----------------------------
+# HOMEWORK SYSTEM
+# ----------------------------
+class Homework(TimeStamped):
+    """Admin-assigned homework for users"""
+    LEVEL_CHOICES = [
+        ("A0", "A0 (Introduction)"),
+        ("A1", "A1 (Beginner)"),
+        ("A2", "A2 (Elementary)"),
+        ("B1", "B1 (Intermediate)"),
+    ]
+    
+    title = models.CharField(max_length=200)
+    description = models.TextField(help_text="Instructions for the user")
+    course = models.ForeignKey(Course, on_delete=models.SET_NULL, null=True, blank=True, related_name="homeworks")
+    level = models.CharField(max_length=10, choices=LEVEL_CHOICES, default="A0")
+    
+    xp_reward = models.PositiveIntegerField(default=100)
+    deadline = models.DateTimeField(help_text="Submission deadline")
+    
+    is_published = models.BooleanField(default=False)
+    
+    # Optional assignment to specific users
+    assigned_users = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_name="assigned_homeworks")
+
+    class Meta:
+        ordering = ["-deadline"]
+        verbose_name = "Uyga vazifa"
+        verbose_name_plural = "Uyga vazifalar"
+
+    def __str__(self):
+        return f"{self.title} ({self.level})"
+
+
+class HomeworkSubmission(TimeStamped):
+    """User submission for homework"""
+    STATUS_CHOICES = [
+        ("submitted", "Topshirildi (Tekshirilmoqda)"),
+        ("graded", "Tekshirildi (Baho olingan)"),
+        ("rejected", "Rad etildi (Qayta topshirish kerak)"),
+    ]
+    
+    homework = models.ForeignKey(Homework, on_delete=models.CASCADE, related_name="submissions")
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="homework_submissions")
+    
+    file = models.FileField(upload_to="homework_submissions/", blank=True, null=True)
+    text_content = models.TextField(blank=True, help_text="Optional text submission")
+    
+    submitted_at = models.DateTimeField(default=timezone.now)
+    
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="submitted")
+    admin_feedback = models.TextField(blank=True, help_text="Teacher's feedback")
+    score = models.PositiveIntegerField(null=True, blank=True, help_text="XP awarded")
+
+    class Meta:
+        ordering = ["-submitted_at"]
+        unique_together = ("homework", "user")
+        verbose_name = "Vazifa javobi"
+        verbose_name_plural = "Vazifa javoblari"
+
+    def __str__(self):
+        return f"{self.user.username} - {self.homework.title}"
+
+
+# ----------------------------
+# SIGNALS
+# ----------------------------
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.core.files.base import ContentFile
+import time
+import asyncio
+import requests
+import re
+
+# Male Arabic Voice
+ARABIC_MALE_VOICE = "ar-SA-HamedNeural"
+
+@receiver(post_save, sender=Word)
+def auto_generate_audio(sender, instance, created, **kwargs):
+    """
+    So'z saqlanganda audio yo'q bo'lsa, professional Qori ovozini qidirish,
+    topilmasa edge-tts (ERKAK OVOZI) orqali avtomatik yaratish.
+    """
+    if instance.audio:
+        return  # Audio already exists
+
+    if not instance.arabic:
+        return # No text to speak
+    
+    arabic_clean = instance.arabic.strip().strip('،,.;:!?')
+    
+    # 1. Try to find Professional Audio (Quran.com)
+    try:
+        # Search Quran.com API
+        search_url = f"https://api.quran.com/api/v4/search?q={arabic_clean}&size=1&language=uz"
+        search_resp = requests.get(search_url, timeout=5)
+        if search_resp.status_code == 200:
+            search_data = search_resp.json()
+            results = search_data.get('search', {}).get('results', [])
+            
+            if results:
+                verse_key = results[0].get('verse_key')
+                verse_url = f"https://api.quran.com/api/v4/verses/by_key/{verse_key}?words=true&word_fields=text_uthmani,audio_url"
+                verse_resp = requests.get(verse_url, timeout=5)
+                
+                if verse_resp.status_code == 200:
+                    words_list = verse_resp.json().get('verse', {}).get('words', [])
+                    target_audio_url = None
+                    
+                    # Normalization function
+                    def norm(t):
+                        if not t: return ""
+                        t = re.sub(r'[\u064B-\u0652]', '', t)
+                        t = re.sub(r'[آأإٱءؤئ]', 'ا', t)
+                        t = re.sub(r'[ى]', 'ا', t)
+                        t = re.sub(r'[\u0670\u06E5\u06E6]', '', t)
+                        t = re.sub(r'ـ', '', t)
+                        t = re.sub(r'ا+', 'ا', t)
+                        return t.strip()
+                    
+                    target_norm = norm(arabic_clean)
+                    for w in words_list:
+                        w_text = w.get('text_uthmani') or w.get('text', '')
+                        if w_text == arabic_clean or (norm(w_text) == target_norm and target_norm):
+                            target_audio_url = w.get('audio_url')
+                            break
+                    
+                    if target_audio_url:
+                        full_url = f"https://audio.qurancdn.com/{target_audio_url}"
+                        audio_content = requests.get(full_url, timeout=10).content
+                        
+                        filename = f"qori_{instance.pk}_{int(time.time())}.mp3"
+                        instance.audio.save(filename, ContentFile(audio_content), save=False)
+                        instance.audio_source = "qori_quran_com"
+                        instance.is_verified = True
+                        # Disconnect signal temporarily to avoid recursion during save
+                        post_save.disconnect(auto_generate_audio, sender=Word)
+                        instance.save()
+                        post_save.connect(auto_generate_audio, sender=Word)
+                        print(f"Professional audio saved for: {arabic_clean}")
+                        return
+
+    except Exception as e:
+        print(f"Error fetching professional audio: {e}")
+
+    # 2. Fallback to AI Audio (edge-tts)
+    try:
+        import edge_tts
+
+        print(f"Generating fallback AI audio for: {instance.arabic}...")
+        
+        async def generate():
+            communicate = edge_tts.Communicate(instance.arabic, ARABIC_MALE_VOICE)
+            audio_bytes = b""
+            async for chunk in communicate.stream():
+                if chunk["type"] == "audio":
+                    audio_bytes += chunk["data"]
+            return audio_bytes
+        
+        mp3_bytes = asyncio.run(generate())
+        mp3_content = ContentFile(mp3_bytes)
+        
+        filename = f"male_{int(time.time())}_{instance.pk}.mp3"
+        instance.audio.save(filename, mp3_content, save=False)
+        instance.audio_source = "edge-tts"
+        
+        post_save.disconnect(auto_generate_audio, sender=Word)
+        instance.save()
+        post_save.connect(auto_generate_audio, sender=Word)
+        print(f"Fallback AI audio saved: {filename}")
+
+    except ImportError:
+        print("edge-tts not installed.")
+    except Exception as e:
+        print(f"Error generating fallback audio: {e}")
+

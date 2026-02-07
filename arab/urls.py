@@ -6,6 +6,7 @@ app_name = "arab"
 
 urlpatterns = [
     path("", views.home, name="home"),
+    path("api/home/", views.home_api, name="home_api"),
     path("roadmap/", views.roadmap, name="roadmap"),
     path("placement/", views.placement_test, name="placement"),
 
@@ -121,4 +122,11 @@ urlpatterns = [
     # MODULE 7: Enhanced Placement Test
     path("placement/enhanced/", views.placement_test_enhanced, name="placement_enhanced"),
     path("placement/results/", views.placement_results, name="placement_results"),
+    
+    # HOMEWORK
+    path("homework/", views.homework_list, name="homework_list"),
+    path("homework/<int:pk>/", views.homework_detail, name="homework_detail"),
+    path("homework/submit/<int:pk>/", views.homework_detail, name="homework_submit"),
+    path("homework/api/list/", views.homework_api_list, name="homework_api_list"),
+    path("homework/api/detail/<int:pk>/", views.homework_api_detail, name="homework_api_detail"),
 ]

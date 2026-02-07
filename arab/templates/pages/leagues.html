@@ -51,7 +51,9 @@
                         </div>
                     </div>
                     <div class="text-white text-sm font-black tracking-tight">{{ leaderboard.1.user.username }}</div>
-                    <div class="text-[10px] font-black text-slate-500 uppercase tracking-widest">{{ leaderboard.1.league_xp  }} XP</div>
+                    <div class="text-[10px] font-black text-slate-500 uppercase tracking-widest">
+                        {{ leaderboard.1.xp_total }} XP
+                    </div>
                     <div
                         class="mt-4 bg-slate-800/80 backdrop-blur-sm rounded-t-2xl w-20 h-16 flex flex-col items-center justify-center border-t border-x border-white/5 shadow-2xl">
                         <span class="text-2xl font-black text-slate-400">2</span>
@@ -74,7 +76,9 @@
                         </div>
                     </div>
                     <div class="text-white text-base font-black tracking-tight">{{ leaderboard.0.user.username }}</div>
-                    <div class="text-xs font-black text-yellow-500 uppercase tracking-widest">{{ leaderboard.0.league_xp   }} XP</div>
+                    <div class="text-xs font-black text-yellow-500 uppercase tracking-widest">
+                        {{ leaderboard.0.xp_total }} XP
+                    </div>
                     <div
                         class="mt-4 bg-yellow-400 rounded-t-2xl w-24 h-24 flex flex-col items-center justify-center shadow-[0_-10px_30px_rgba(250,204,21,0.2)] border-t border-x border-yellow-300/50">
                         <span class="text-4xl font-black text-slate-900">1</span>
@@ -95,7 +99,9 @@
                         </div>
                     </div>
                     <div class="text-white text-sm font-black tracking-tight">{{ leaderboard.2.user.username }}</div>
-                    <div class="text-[10px] font-black text-slate-500 uppercase tracking-widest">{{ leaderboard.2.league_xp  }} XP</div>
+                    <div class="text-[10px] font-black text-slate-500 uppercase tracking-widest">
+                        {{ leaderboard.2.xp_total }} XP
+                    </div>
                     <div
                         class="mt-4 bg-orange-900/40 backdrop-blur-sm rounded-t-2xl w-20 h-12 flex flex-col items-center justify-center border-t border-x border-white/5 shadow-2xl">
                         <span class="text-xl font-black text-orange-400">3</span>
@@ -118,19 +124,27 @@
             </div>
             <div
                 class="px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-[10px] font-black text-slate-400 uppercase tracking-widest">
-                Haftalik
+                Umumiy
             </div>
         </div>
 
         <div class="divide-y divide-white/5 px-4 pt-4">
+            {% if leaderboard %}
             {% for u in leaderboard %}
-            <div
-                class="group flex items-center gap-6 p-5 rounded-[2rem] transition-all duration-300 hover:bg-white/5 {% if u.user == user %}bg-indigo-500/10 border border-indigo-500/20 shadow-lg shadow-indigo-500/5{% endif %} mb-1">
+            <div class="group flex items-center gap-6 p-5 rounded-[2rem] 
+                    transition-all duration-300 hover:bg-white/5 
+                    {% if u.user == user %}bg-indigo-500/10 border border-indigo-500/20 shadow-lg shadow-indigo-500/5{% endif %} 
+                    mb-1">
                 <!-- Rank -->
-                <div
-                    class="w-10 text-center font-black text-xl {% if forloop.counter == 1 %}text-yellow-400 drop-shadow-sm{% elif forloop.counter == 2 %}text-slate-400{% elif forloop.counter == 3 %}text-orange-500{% else %}text-slate-600{% endif %}">
-                    {% if forloop.counter == 1 %}🥇{% elif forloop.counter == 2 %}🥈{% elif forloop.counter == 3 %}🥉{%
-                    else %}{{ forloop.counter }}{% endif %}
+                <div class="w-10 text-center font-black text-xl 
+                        {% if forloop.counter == 1 %}text-yellow-400
+                        {% elif forloop.counter == 2 %}text-slate-400
+                        {% elif forloop.counter == 3 %}text-orange-500
+                        {% else %}text-slate-600{% endif %}">
+                    {% if forloop.counter == 1 %}🥇{% endif %}
+                    {% if forloop.counter == 2 %}🥈{% endif %}
+                    {% if forloop.counter == 3 %}🥉{% endif %}
+                    {% if forloop.counter > 3 %}{{ forloop.counter }}{% endif %}
                 </div>
 
                 <!-- Avatar -->
@@ -149,8 +163,8 @@
                 <!-- Name & Info -->
                 <div class="flex-1">
                     <div class="flex items-center gap-2">
-                        <div
-                            class="text-white font-black tracking-tight {% if u.user == user %}text-indigo-400{% endif %}">
+                        <div class="text-white font-black tracking-tight 
+                                {% if u.user == user %}text-indigo-400{% endif %}">
                             {{ u.user.username }}
                         </div>
                         {% if u.user == user %}
@@ -158,21 +172,23 @@
                             class="text-[9px] font-black bg-indigo-500/20 text-indigo-400 px-2 py-0.5 rounded-lg border border-indigo-500/20 uppercase tracking-widest">Siz</span>
                         {% endif %}
                     </div>
-                    <div class="text-[10px] font-black text-slate-500 uppercase tracking-widest mt-0.5">Level {{ u.level   }}</div>
+                    <div class="text-[10px] font-black text-slate-500 uppercase tracking-widest">Level {{ u.level }}
+                    </div>
                 </div>
 
                 <!-- XP -->
                 <div class="text-right">
-                    <div class="font-black text-white text-lg tracking-tight">{{ u.league_xp }}</div>
+                    <div class="font-black text-white text-lg tracking-tight">{{ u.xp_total }}</div>
                     <div class="text-[9px] font-black text-slate-500 uppercase tracking-widest">XP</div>
                 </div>
             </div>
-            {% empty %}
+            {% endfor %}
+            {% else %}
             <div class="py-20 text-center space-y-4">
                 <div class="text-5xl opacity-50">🏃‍♂️</div>
                 <div class="text-slate-500 font-medium">Bu ligada hali hech kim yo'q... Birinchi bo'ling!</div>
             </div>
-            {% endfor %}
+            {% endif %}
         </div>
     </div>
 
@@ -190,7 +206,7 @@
                 <div class="text-[10px] font-bold text-indigo-200 uppercase tracking-widest">Sizning natijangiz</div>
             </div>
             <div class="text-right">
-                <div class="text-white font-black text-lg">{{ user_gamification.league_xp }}</div>
+                <div class="text-white font-black text-lg">{{ user_gamification.xp_total }}</div>
                 <div class="text-[9px] font-bold text-indigo-200 uppercase tracking-widest">XP</div>
             </div>
         </div>
