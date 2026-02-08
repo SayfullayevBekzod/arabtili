@@ -47,24 +47,7 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Application definition
 
-INSTALLED_APPS = [
-    'jazzmin',
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'django.contrib.sites',
-
-    # Allauth
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.google',
-
-    "arab.apps.ArabConfig",
-]
+# INSTALLED_APPS is defined below after CORS settings
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -162,6 +145,7 @@ CORS_ALLOW_ALL_ORIGINS = True  # For development only
 
 # Add corsheaders to installed apps
 INSTALLED_APPS = [
+    'jazzmin',  # Must be first for admin styling
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -173,7 +157,8 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'corsheaders',  # Add this
+    'allauth.socialaccount.providers.google',
+    'corsheaders',
     'widget_tweaks',
     'arab',
 ]
