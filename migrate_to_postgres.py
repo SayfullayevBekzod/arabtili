@@ -63,6 +63,7 @@ def export_to_json():
 
 def import_from_json(filename='database_export.json'):
     """JSON dan ma'lumotlarni import qilish (PostgreSQL uchun)"""
+    from django.db import IntegrityError
     
     print(f"\n📥 {filename} dan import qilish boshlandi...")
     
@@ -75,13 +76,23 @@ def import_from_json(filename='database_export.json'):
     
     print(f"🔍 {len(data)} ta obyekt topildi")
     
-    # Django deserializer ishlatish
-    try:
-        for obj in serializers.deserialize('json', json.dumps(data)):
+    # Import with duplicate handling
+    imported = 0
+    skipped = 0
+    errors = 0
+    
+    for obj in serializers.deserialize('json', json.dumps(data)):
+        try:
             obj.save()
-        print("✅ Import muvaffaqiyatli yakunlandi!")
-    except Exception as e:
-        print(f"❌ Xatolik: {e}")
+            imported += 1
+        except IntegrityError:
+            # Object already exists, skip it
+            skipped += 1
+        except Exception as e:
+            errors += 1
+            print(f"⚠️ Xatolik: {e}")
+    
+    print(f"✅ Import yakunlandi! Imported: {imported}, Skipped: {skipped}, Errors: {errors}")
 
 if __name__ == '__main__':
     import sys
