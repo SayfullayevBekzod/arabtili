@@ -12,9 +12,10 @@
   <meta name="theme-color" content="#020617">
 
   <!-- FAVICONS -->
-  <link rel="icon" type="image/svg+xml" href="{% static 'img/logo_alifpro.svg' %}">
-  <link rel="apple-touch-icon" href="{% static 'img/logo_alifpro.svg' %}">
-  <link rel="manifest" href="{% static 'manifest.json' %}">
+  <link rel="icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}?v=1">
+  <link rel="icon" type="image/svg+xml" href="{% static 'img/logo_alifpro.svg' %}?v=1">
+  <link rel="apple-touch-icon" href="{% static 'img/logo_alifpro.svg' %}?v=1">
+  <link rel="manifest" href="{% static 'manifest.json' %}?v=1">
 
   <script>
     const SW_VERSION = '2.2.0'; // Current version
@@ -402,6 +403,16 @@
                   <div class="text-[10px] text-slate-500">1000 dan ortiq so'zlar</div>
                 </div>
               </a>
+              <a href="/homework/"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-white/10 transition group/item">
+                <span
+                  class="w-8 h-8 rounded-lg bg-indigo-500/10 flex items-center justify-center text-indigo-400 group-hover/item:bg-indigo-500/20"><i
+                    class="fas fa-tasks"></i></span>
+                <div>
+                  <div class="text-white font-medium text-xs">Vazifalar</div>
+                  <div class="text-[10px] text-slate-500">Uyga vazifalar ro'yxati</div>
+                </div>
+              </a>
               <a href="/scenarios/"
                 class="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-white/10 transition group/item">
                 <span
@@ -590,6 +601,12 @@
               <span class="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-400"><i
                   class="fas fa-exchange-alt"></i></span>
               <span class="flex-1">Kursni o'zgartirish</span>
+            </a>
+
+            <a href="/homework/" class="mobile-link flex items-center gap-3">
+              <span class="w-8 h-8 rounded-lg bg-indigo-500/10 flex items-center justify-center text-indigo-400"><i
+                  class="fas fa-tasks"></i></span>
+              <span class="flex-1">Uyga vazifa</span>
             </a>
 
             <a href="/leagues/" class="mobile-link flex items-center gap-3">

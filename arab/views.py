@@ -2798,15 +2798,31 @@ def homework_list(request):
     
     # Process status
     items = []
+    pending_count = 0
     for hw in homeworks:
         sub = HomeworkSubmission.objects.filter(homework=hw, user=request.user).first()
+        status = sub.status if sub else "new"
         items.append({
-            "hw": hw,
-            "submission": sub,
-            "status": sub.status if sub else "new"
+            "id": hw.id,
+            "title": hw.title,
+            "description": hw.description,
+            "level": hw.level,
+            "xp_reward": hw.xp_reward,
+            "deadline": hw.deadline,
+            "status": status,
+            # helper for checking new
+            "is_new": status == 'new',
+            "is_rejected": status == 'rejected',
+            "is_graded": status == 'graded',
+            "is_submitted": status == 'submitted'
         })
+        if status == "submitted":
+            pending_count += 1
     
-    return render(request, "homework/list.html", {"items": items})
+    return render(request, "homework/list.html", {
+        "items": items,
+        "pending_count": pending_count
+    })
 
 
 @login_required
@@ -2845,7 +2861,35 @@ def homework_detail(request, pk):
             messages.success(request, "Vazifa yuborildi! O'qituvchi tekshirguncha kuting.")
             return redirect("arab:homework_list")
 
-    return render(request, "homework/detail.html") # No context needed for static shell
+    context = {
+        "hw": hw,
+        "submission": submission,
+        "status": submission.status if submission else "new"
+    }
+    return render(request, "homework/detail.html", context)
+
+
+@login_required
+def homework_create(request):
+    """Admin view to create new homework"""
+    if not request.user.is_staff:
+        messages.error(request, "Bu sahifaga kirish huquqingiz yo'q.")
+        return redirect("arab:homework_list")
+        
+    if request.method == "POST":
+        from .forms import HomeworkCreateForm
+        form = HomeworkCreateForm(request.POST, request.FILES)
+        if form.is_valid():
+            hw = form.save(commit=False)
+            # Assigned users logic could be added here, for now it's public/all
+            hw.save()
+            messages.success(request, f"Vazifa yaratildi: {hw.title}")
+            return redirect("arab:homework_list")
+    else:
+        from .forms import HomeworkCreateForm
+        form = HomeworkCreateForm()
+        
+    return render(request, "homework/create.html", {"form": form})
 
 @login_required
 def homework_api_list(request):

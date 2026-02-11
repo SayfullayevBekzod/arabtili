@@ -163,6 +163,38 @@
       </div>
     </div>
 
+    <!-- Homework Card -->
+    <template x-if="user.homework">
+      <div
+        class="p-6 rounded-[2rem] bg-slate-900/40 backdrop-blur-xl border border-indigo-500/20 shadow-lg shadow-indigo-500/5 animate-fade-in">
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center gap-2">
+            <i class="fas fa-tasks text-indigo-400"></i>
+            <h3 class="text-lg font-bold text-white">Uyga vazifa</h3>
+          </div>
+          <span class="px-2 py-0.5 rounded text-[10px] font-black uppercase bg-indigo-500/10 text-indigo-400"
+            x-text="user.homework.deadline_display"></span>
+        </div>
+
+        <div class="mb-5">
+          <h4 class="text-sm font-bold text-slate-200 line-clamp-1" x-text="user.homework.title"></h4>
+          <p class="text-[11px] text-slate-500 mt-1">Holat:
+            <span :class="{
+              'text-indigo-400': user.homework.status === 'new',
+              'text-amber-400': user.homework.status === 'submitted',
+              'text-emerald-400': user.homework.status === 'graded',
+              'text-red-400': user.homework.status === 'rejected'
+            }" class="font-bold" x-text="user.homework.status.toUpperCase()"></span>
+          </p>
+        </div>
+
+        <a :href="'/homework/' + user.homework.id + '/'"
+          class="block w-full py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-center text-xs font-bold transition shadow-lg shadow-indigo-500/20 active:scale-95">
+          Bajarish
+        </a>
+      </div>
+    </template>
+
     <!-- Daily Missions -->
     <div class="p-6 rounded-[2rem] bg-slate-900/40 backdrop-blur-xl border border-white/10">
       <div class="flex items-center gap-2 mb-6">

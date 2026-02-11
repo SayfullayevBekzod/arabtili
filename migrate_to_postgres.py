@@ -12,7 +12,9 @@ from django.core import serializers
 from arab.models import (
     Word, VocabularyCategory, Letter, Course, Unit, Lesson,
     TajweedRule, TajweedExample, TajweedTag, UserGamification,
-    UserWordProgress, UserStreak, UserDailyStat
+    UserWordProgress, UserStreak, UserDailyStat, Homework,
+    Pronunciation, LetterExample, LessonSection, Exercise, Question,
+    PlacementQuestion, PlacementOption, WordExample, GrammarRule, Diacritic
 )
 
 def export_to_json():
@@ -25,12 +27,23 @@ def export_to_json():
         ('VocabularyCategory', VocabularyCategory),
         ('Word', Word),
         ('Letter', Letter),
+        ('Pronunciation', Pronunciation), # Added
+        ('LetterExample', LetterExample), # Added
         ('Course', Course),
         ('Unit', Unit),
         ('Lesson', Lesson),
+        ('LessonSection', LessonSection), # Added
+        ('Exercise', Exercise), # Added
+        ('Question', Question), # Added
+        ('PlacementQuestion', PlacementQuestion), # Added
+        ('PlacementOption', PlacementOption), # Added
+        ('WordExample', WordExample), # Added
+        ('Diacritic', Diacritic), # Added
+        ('GrammarRule', GrammarRule), # Added
         ('TajweedRule', TajweedRule),
         ('TajweedTag', TajweedTag),
         ('TajweedExample', TajweedExample),
+        ('Homework', Homework),
     ]
     
     all_data = []

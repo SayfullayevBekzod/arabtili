@@ -1,133 +1,136 @@
-<!doctype html>
-<html lang="uz">
+{% extends 'base.html' %}
 
-<head>
-    <meta charset="utf-8">
-    <title>Uyga Vazifalar | AlifPro</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#020617">
-    <link rel="icon" type="image/svg+xml" href="/static/img/logo_alifpro.svg">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <style>
-        body {
-            overflow-x: hidden;
-            background-color: #020617;
-            color: white;
-            font-family: 'Inter', sans-serif;
-        }
+{% block title %}Uyga Vazifalar | AlifPro{% endblock %}
 
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #020617;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            border: 2px solid #020617;
-        }
-    </style>
-</head>
-
-<body class="bg-slate-950 text-white selection:bg-emerald-400/30">
-
-    <header class="sticky top-0 z-50 border-b border-white/10 bg-slate-950/80 backdrop-blur-xl">
-        <div class="mx-auto w-[min(1150px,92%)] flex items-center justify-between py-4">
-            <a href="/" class="flex items-center gap-2 text-slate-400 hover:text-white transition">
-                <i class="fas fa-arrow-left"></i> Orqaga
-            </a>
-            <div class="font-bold">Uyga Vazifalar</div>
-            <div class="w-16"></div>
+{% block content %}
+<div class="max-w-4xl mx-auto py-8 px-4">
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-10 animate-fade-in-up">
+        <div>
+            <h1 class="text-3xl md:text-4xl font-black text-white mb-2">Uyga Vazifalar</h1>
+            <p class="text-slate-400 font-medium italic">O'qituvchidan kelgan topshiriqlar va vazifalar</p>
         </div>
-    </header>
-
-    <div class="max-w-4xl mx-auto py-8 px-4">
-        <div class="flex items-center justify-between mb-8">
-            <div>
-                <h1 class="text-3xl font-black text-white mb-2">Uyga Vazifalar</h1>
-                <p class="text-slate-400">O'qituvchidan kelgan topshiriqlar</p>
-            </div>
+        <div class="flex items-center gap-4">
+            {% if user.is_staff %}
+            <a href="{% url 'arab:homework_create' %}"
+                class="h-14 w-14 md:h-16 md:w-16 rounded-[1.5rem] bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-500/20 flex items-center justify-center text-3xl shadow-xl shadow-emerald-500/10 transition active:scale-95 group"
+                title="Yangi vazifa yaratish">
+                <i class="fas fa-plus text-emerald-400 group-hover:text-emerald-300"></i>
+            </a>
+            {% endif %}
             <div
-                class="h-12 w-12 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center text-2xl shadow-lg shadow-indigo-500/20">
+                class="h-14 w-14 md:h-16 md:w-16 rounded-[1.5rem] bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-3xl shadow-xl shadow-indigo-500/20">
                 📝
             </div>
         </div>
+    </div>
 
-        <div id="loading" class="text-center py-12">
-            <div class="text-indigo-500 text-xl animate-pulse">Yuklanmoqda...</div>
+    <!-- Stats summary -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+        <div class="p-4 rounded-2xl bg-white/5 border border-white/10 text-center">
+            <div class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-1">Hammasi</div>
+            <div class="text-2xl font-black text-white">{{ items|length }}</div>
         </div>
-
-        <div id="homework-list" class="space-y-4 hidden">
-            <!-- JS will populate this -->
+        <div class="p-4 rounded-2xl bg-amber-500/5 border border-amber-500/10 text-center">
+            <div class="text-xs font-bold text-amber-500/60 uppercase tracking-widest mb-1">Kutilmoqda</div>
+            <div class="text-2xl font-black text-amber-400">
+                {{ pending_count }}
+            </div>
         </div>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            fetch('/homework/api/list/')
-                .then(res => res.json())
-                .then(data => {
-                    const list = document.getElementById('homework-list');
-                    const loading = document.getElementById('loading');
+    <!-- Homework List -->
+    <div class="space-y-6">
+        {% if items %}
+        {% for item in items %}
+        <div
+            class="group relative overflow-hidden rounded-[2rem] bg-slate-900/40 backdrop-blur-xl border border-white/5 hover:border-indigo-500/30 transition-all duration-500 hover:bg-slate-800/60">
+            <!-- Hover Glow Effect -->
+            <div
+                class="absolute inset-0 bg-gradient-to-r from-indigo-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition duration-700">
+            </div>
 
-                    loading.classList.add('hidden');
-                    list.classList.remove('hidden');
+            <div class="relative p-6 md:p-8 flex flex-col md:flex-row md:items-center gap-6">
+                <!-- Icon/Status -->
+                <div class="shrink-0">
+                    <div
+                        class="h-16 w-16 rounded-2xl bg-slate-800/80 border border-white/10 flex items-center justify-center text-3xl shadow-inner">
+                        {% if item.is_graded %}✅
+                        {% elif item.is_submitted %}⏳
+                        {% elif item.is_rejected %}❌
+                        {% else %}🆕
+                        {% endif %}
+                    </div>
+                </div>
 
-                    if (data.items.length === 0) {
-                        list.innerHTML = `<div class="text-center py-8 text-slate-500">Hozircha vazifalar yo'q.</div>`;
-                        return;
-                    }
+                <!-- Info -->
+                <div class="flex-1 min-w-0">
+                    <div class="flex items-center gap-2 mb-2">
+                        <span
+                            class="px-2.5 py-0.5 rounded-lg bg-indigo-500/10 text-indigo-400 text-[10px] font-black uppercase tracking-widest border border-indigo-500/10">
+                            {{ item.level }}
+                        </span>
+                        {% if item.is_new %}
+                        <span
+                            class="flex items-center gap-1.5 px-2 py-0.5 rounded-lg bg-teal-500/10 text-teal-400 text-[10px] font-black uppercase tracking-widest border border-teal-500/10">
+                            <span class="h-1.5 w-1.5 rounded-full bg-teal-500 animate-pulse"></span> Yangi
+                        </span>
+                        {% endif %}
+                    </div>
+                    <h3 class="text-xl md:text-2xl font-black text-white mb-2 group-hover:text-indigo-400 transition">{{
+                        item.title }}</h3>
+                    <div
+                        class="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs font-bold text-slate-500 uppercase tracking-tighter">
+                        <span class="flex items-center gap-2"><i class="fas fa-calendar-alt text-slate-600"></i> Muddat:
+                            <span class="text-slate-300">{{ item.deadline|date:"d F, Y" }}</span></span>
+                        <span class="flex items-center gap-2"><i class="fas fa-trophy text-amber-500"></i> <span
+                                class="text-amber-400">{{ item.xp_reward }} XP</span></span>
+                        <span class="flex items-center gap-2">
+                            <i class="fas fa-info-circle"></i> Holat:
+                            <span
+                                class="{% if item.is_graded %}text-emerald-400{% elif item.is_submitted %}text-amber-400{% elif item.is_rejected %}text-red-400{% else %}text-slate-400{% endif %}">
+                                {{ item.status|upper }}
+                            </span>
+                        </span>
+                    </div>
+                </div>
 
-                    list.innerHTML = data.items.map(item => {
-                        let statusIcon = '🆕';
-                        let statusClass = 'text-white';
-                        if (item.status === 'graded') statusIcon = '✅';
-                        else if (item.status === 'submitted') statusIcon = '⏳';
-                        else if (item.status === 'rejected') statusIcon = '❌';
+                <!-- Action -->
+                <div class="md:text-right">
+                    <a href="{% url 'arab:homework_detail' item.id %}"
+                        class="inline-flex items-center justify-center px-8 py-4 rounded-xl {% if item.is_new or item.is_rejected %}bg-white text-slate-950 hover:bg-indigo-500 hover:text-white{% else %}bg-slate-800 text-slate-300 hover:bg-slate-700{% endif %} font-black uppercase tracking-widest text-xs transition-all shadow-lg active:scale-95">
+                        {% if item.is_new %}Bajarish{% elif item.is_rejected %}Qayta yuborish{% else
+                        %}Ko'rish{% endif %}
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <div class="text-center py-20 rounded-[3rem] bg-slate-900/20 border border-white/5">
+            <div class="text-6xl mb-6">🏝️</div>
+            <h3 class="text-xl font-bold text-white mb-2">Hozircha vazifalar yo'q</h3>
+            <p class="text-slate-500">Darsda o'tilgan rejalar bo'yicha tez orada vazifa keladi.</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
 
-                        return `
-                    <div class="group relative overflow-hidden rounded-2xl bg-slate-900/50 border border-white/5 hover:border-indigo-500/30 transition-all hover:bg-slate-800/80">
-                        <div class="absolute inset-0 bg-gradient-to-r from-indigo-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition duration-500"></div>
-                        <div class="relative p-5 flex items-center gap-4">
-                            <div class="shrink-0">
-                                <div class="h-12 w-12 rounded-xl bg-slate-700/50 border border-white/5 flex items-center justify-center text-xl">${statusIcon}</div>
-                            </div>
-                            <div class="flex-1 min-w-0">
-                                <div class="flex items-center gap-2 mb-1">
-                                    <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-white/5 text-slate-400">
-                                        ${item.level}
-                                    </span>
-                                    ${item.status === 'new' ? '<span class="h-2 w-2 rounded-full bg-indigo-500 animate-pulse"></span>' : ''}
-                                </div>
-                                <h3 class="font-bold text-white text-lg truncate group-hover:text-indigo-400 transition">${item.title}</h3>
-                                <div class="flex items-center gap-4 text-xs font-medium text-slate-500 mt-1">
-                                    <span class="flex items-center gap-1"><i class="fas fa-clock"></i> Deadline: ${new Date(item.deadline).toLocaleDateString()}</span>
-                                    <span class="flex items-center gap-1 text-amber-400/80"><i class="fas fa-star"></i> ${item.xp_reward} XP</span>
-                                </div>
-                            </div>
-                            <div>
-                               <a href="/homework/${item.id}/" class="px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/5 text-sm font-bold text-white transition">
-                                    ${item.status === 'new' ? 'Bajarish' : 'Ko\'rish'}
-                               </a>
-                            </div>
-                        </div>
-                    </div>`;
-                    }).join('');
-                })
-                .catch(err => {
-                    console.error(err);
-                    document.getElementById('loading').innerHTML = '<div class="text-red-500">Xatolik yuz berdi.</div>';
-                });
-        });
-    </script>
+<style>
+    @keyframes fade-in-up {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
 
-</body>
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
 
-</html>
+    .animate-fade-in-up {
+        animation: fade-in-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+</style>
+{% endblock %}

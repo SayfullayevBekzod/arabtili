@@ -127,6 +127,7 @@ urlpatterns = [
     path("homework/", views.homework_list, name="homework_list"),
     path("homework/<int:pk>/", views.homework_detail, name="homework_detail"),
     path("homework/submit/<int:pk>/", views.homework_detail, name="homework_submit"),
+    path("homework/create/", views.homework_create, name="homework_create"),
     path("homework/api/list/", views.homework_api_list, name="homework_api_list"),
     path("homework/api/detail/<int:pk>/", views.homework_api_detail, name="homework_api_detail"),
 ]

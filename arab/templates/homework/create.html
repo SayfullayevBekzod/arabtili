@@ -1,0 +1,165 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Yangi Vazifa Yaratish | AlifPro{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto py-8 px-4 pb-24">
+    <!-- Back Button -->
+    <a href="{% url 'arab:homework_list' %}"
+        class="inline-flex items-center gap-2 text-slate-400 hover:text-white transition mb-8 group">
+        <div
+            class="h-8 w-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-white/10 transition">
+            <i class="fas fa-arrow-left text-xs"></i>
+        </div>
+        <span class="text-sm font-bold uppercase tracking-widest">Orqaga qaytish</span>
+    </a>
+
+    <!-- Main Content Card -->
+    <div
+        class="bg-slate-900/40 backdrop-blur-xl border border-white/10 rounded-[2.5rem] overflow-hidden shadow-2xl animate-fade-in-up">
+
+        <!-- Header Section -->
+        <div class="p-8 md:p-10 border-b border-white/5 bg-gradient-to-r from-indigo-500/10 to-purple-500/10 relative">
+            <div
+                class="absolute top-0 right-0 p-8 opacity-[0.05] text-9xl leading-none select-none pointer-events-none">
+                ✨</div>
+            <h1 class="text-3xl md:text-4xl font-black text-white mb-2 leading-tight">Yangi Vazifa</h1>
+            <p class="text-slate-400 font-medium">Talabalar uchun yangi topshiriq yarating</p>
+        </div>
+
+        <!-- Form Section -->
+        <div class="p-8 md:p-10">
+            <form method="post" enctype="multipart/form-data" class="space-y-6">
+                {% csrf_token %}
+
+                {% if form.non_field_errors %}
+                <div class="p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm font-bold">
+                    {{ form.non_field_errors }}
+                </div>
+                {% endif %}
+
+                <!-- Title -->
+                <div>
+                    <label class="block text-xs font-black uppercase tracking-widest text-slate-500 mb-2 ml-1">Vazifa
+                        nomi</label>
+                    {{ form.title }}
+                    {% if form.title.errors %}
+                    <p class="text-red-400 text-xs mt-1">{{ form.title.errors.0 }}</p>
+                    {% endif %}
+                </div>
+
+                <!-- Description -->
+                <div>
+                    <label
+                        class="block text-xs font-black uppercase tracking-widest text-slate-500 mb-2 ml-1">Tavsif</label>
+                    {{ form.description }}
+                    {% if form.description.errors %}
+                    <p class="text-red-400 text-xs mt-1">{{ form.description.errors.0 }}</p>
+                    {% endif %}
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Level -->
+                    <div>
+                        <label
+                            class="block text-xs font-black uppercase tracking-widest text-slate-500 mb-2 ml-1">Daraja</label>
+                        {{ form.level }}
+                    </div>
+
+                    <!-- XP Reward -->
+                    <div>
+                        <label class="block text-xs font-black uppercase tracking-widest text-slate-500 mb-2 ml-1">XP
+                            Mukofot</label>
+                        {{ form.xp_reward }}
+                    </div>
+                </div>
+
+                <!-- Deadline -->
+                <div>
+                    <label
+                        class="block text-xs font-black uppercase tracking-widest text-slate-500 mb-2 ml-1">Muddat</label>
+                    {{ form.deadline }}
+                    <p class="text-[10px] text-slate-500 mt-1 ml-1">Vazifani topshirishning oxirgi muddati</p>
+                </div>
+
+                <!-- File -->
+                <div x-data="{ fileName: '' }">
+                    <label class="block text-xs font-black uppercase tracking-widest text-slate-500 mb-2 ml-1">Material
+                        (Fayl)</label>
+                    <div class="relative group">
+                        <!-- Custom File Input Wrapper -->
+                        <div class="relative">
+                            {{ form.file }}
+                        </div>
+                    </div>
+                    <p class="text-[10px] text-slate-500 mt-1 ml-1">O'quvchilar uchun qo'shimcha material (ixtiyoriy)
+                    </p>
+                </div>
+
+                <!-- Is Published -->
+                <div class="flex items-center gap-3 p-4 rounded-xl bg-white/5 border border-white/5">
+                    {{ form.is_published }}
+                    <label for="{{ form.is_published.id_for_label }}"
+                        class="text-sm font-bold text-slate-300 cursor-pointer select-none">
+                        Darhol e'lon qilish
+                    </label>
+                </div>
+
+                <div class="pt-4">
+                    <button type="submit"
+                        class="w-full py-4 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-black uppercase tracking-[0.2em] text-xs rounded-xl transition shadow-xl shadow-indigo-600/20 active:scale-95 flex items-center justify-center gap-3">
+                        <i class="fas fa-plus-circle"></i>
+                        Vazifani yaratish
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    @keyframes fade-in-up {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .animate-fade-in-up {
+        animation: fade-in-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    /* Custom Styling for Select Inputs to match text inputs */
+    select {
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+        background-position: right 0.5rem center;
+        background-repeat: no-repeat;
+        background-size: 1.5em 1.5em;
+        padding-right: 2.5rem;
+    }
+
+    /* File Input Styling Fix */
+    input[type="file"]::file-selector-button {
+        background-color: rgba(99, 102, 241, 0.1);
+        color: #818cf8;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 0.75rem;
+        font-weight: 700;
+        margin-right: 1rem;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+
+    input[type="file"]::file-selector-button:hover {
+        background-color: rgba(99, 102, 241, 0.2);
+    }
+</style>
+{% endblock %}

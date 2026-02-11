@@ -47,3 +47,19 @@ class FeedbackForm(forms.ModelForm):
             'type': forms.Select(attrs={'class': 'bg-slate-900 border-white/10 rounded-2xl text-white px-4 py-3 w-full focus:ring-emerald-500 focus:border-emerald-500'}),
             'message': forms.Textarea(attrs={'rows': 5, 'class': 'bg-slate-900 border-white/10 rounded-2xl text-white px-4 py-3 w-full placeholder-slate-500 focus:ring-emerald-500 focus:border-emerald-500', 'placeholder': 'Fikringizni batafsil yozib qoldiring...'}),
         }
+
+from .models import Homework
+
+class HomeworkCreateForm(forms.ModelForm):
+    class Meta:
+        model = Homework
+        fields = ['title', 'description', 'level', 'deadline', 'xp_reward', 'file', 'is_published']
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'bg-slate-900 border-white/10 rounded-xl text-white px-4 py-3 w-full focus:ring-indigo-500 focus:border-indigo-500', 'placeholder': 'Vazifa nomini kiriting'}),
+            'description': forms.Textarea(attrs={'rows': 4, 'class': 'bg-slate-900 border-white/10 rounded-xl text-white px-4 py-3 w-full focus:ring-indigo-500 focus:border-indigo-500', 'placeholder': 'Batafsil tushuntirish...'}),
+            'level': forms.Select(attrs={'class': 'bg-slate-900 border-white/10 rounded-xl text-white px-4 py-3 w-full focus:ring-indigo-500 focus:border-indigo-500'}),
+            'deadline': forms.DateTimeInput(attrs={'type': 'datetime-local', 'class': 'bg-slate-900 border-white/10 rounded-xl text-white px-4 py-3 w-full focus:ring-indigo-500 focus:border-indigo-500'}),
+            'xp_reward': forms.NumberInput(attrs={'class': 'bg-slate-900 border-white/10 rounded-xl text-white px-4 py-3 w-full focus:ring-indigo-500 focus:border-indigo-500'}),
+            'file': forms.FileInput(attrs={'class': 'block w-full text-sm text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-indigo-500/10 file:text-indigo-400 hover:file:bg-indigo-500/20'}),
+            'is_published': forms.CheckboxInput(attrs={'class': 'w-5 h-5 rounded border-white/10 bg-slate-900 text-indigo-500 focus:ring-indigo-500'}),
+        }

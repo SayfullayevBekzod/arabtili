@@ -44,6 +44,12 @@ ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '*'] if DEBUG else os.environ.get('DJ
 #     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:9000",
+    "http://127.0.0.1:9000",
+    "https://*.ngrok.io",
+    "https://*.ngrok-free.app",
+]
 
 # Application definition
 

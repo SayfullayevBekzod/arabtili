@@ -1446,6 +1446,8 @@ class Homework(TimeStamped):
     xp_reward = models.PositiveIntegerField(default=100)
     deadline = models.DateTimeField(help_text="Submission deadline")
     
+    file = models.FileField(upload_to="homework_files/", blank=True, null=True, help_text="Attachment for users")
+    
     is_published = models.BooleanField(default=False)
     
     # Optional assignment to specific users
